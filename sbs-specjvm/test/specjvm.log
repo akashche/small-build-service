@@ -1,0 +1,882 @@
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.openjdk.jmh.util.Utils (file:/home/aarch32/bench/SPECjvm2016/jmh-specjvm2016.jar) to field java.io.PrintStream.charOut
+WARNING: Please consider reporting this to the maintainers of org.openjdk.jmh.util.Utils
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+# JMH 1.17.3 (released 570 days ago, please consider updating!)
+# VM version: JDK 12-internal, VM 12-internal+0-adhoc.aarch32.jdk
+# VM invoker: /home/aarch32/jdk/build/linux-arm-normal-server-release/images/jdk/bin/java
+# VM options: -Xmx1G
+# Warmup: 10 iterations, 3 s each
+# Measurement: 10 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 2 threads, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: org.openjdk.specjvm2008.Compiler.sunflow
+
+# Run progress: 0.00% complete, ETA 00:09:30
+# Fork: 1 of 3
+# Warmup Iteration   1: 2.445 ops/min
+# Warmup Iteration   2: 14.031 ops/min
+# Warmup Iteration   3: 17.181 ops/min
+# Warmup Iteration   4: 17.489 ops/min
+# Warmup Iteration   5: 14.823 ops/min
+# Warmup Iteration   6: 13.862 ops/min
+# Warmup Iteration   7: 15.660 ops/min
+# Warmup Iteration   8: 18.322 ops/min
+# Warmup Iteration   9: 17.753 ops/min
+# Warmup Iteration  10: 17.522 ops/min
+Iteration   1: 17.263 ops/min
+Iteration   2: 16.270 ops/min
+Iteration   3: 16.458 ops/min
+Iteration   4: 17.608 ops/min
+Iteration   5: 16.600 ops/min
+Iteration   6: 18.235 ops/min
+Iteration   7: 16.051 ops/min
+Iteration   8: 15.579 ops/min
+Iteration   9: 16.800 ops/min
+Iteration  10: 17.757 ops/min
+
+# Run progress: 7.02% complete, ETA 01:32:33
+# Fork: 2 of 3
+# Warmup Iteration   1: 4.545 ops/min
+# Warmup Iteration   2: 15.988 ops/min
+# Warmup Iteration   3: 17.041 ops/min
+# Warmup Iteration   4: 17.924 ops/min
+# Warmup Iteration   5: 16.688 ops/min
+# Warmup Iteration   6: 13.325 ops/min
+# Warmup Iteration   7: 15.536 ops/min
+# Warmup Iteration   8: 15.973 ops/min
+# Warmup Iteration   9: 16.654 ops/min
+# Warmup Iteration  10: 16.212 ops/min
+Iteration   1: 15.380 ops/min
+Iteration   2: 16.007 ops/min
+Iteration   3: 17.602 ops/min
+Iteration   4: 17.421 ops/min
+Iteration   5: 17.533 ops/min
+Iteration   6: 17.980 ops/min
+Iteration   7: 16.968 ops/min
+Iteration   8: 16.400 ops/min
+Iteration   9: 18.093 ops/min
+Iteration  10: 18.558 ops/min
+
+# Run progress: 14.04% complete, ETA 01:27:26
+# Fork: 3 of 3
+# Warmup Iteration   1: 2.518 ops/min
+# Warmup Iteration   2: 13.290 ops/min
+# Warmup Iteration   3: 16.497 ops/min
+# Warmup Iteration   4: 16.788 ops/min
+# Warmup Iteration   5: 17.466 ops/min
+# Warmup Iteration   6: 11.090 ops/min
+# Warmup Iteration   7: 15.267 ops/min
+# Warmup Iteration   8: 17.384 ops/min
+# Warmup Iteration   9: 16.822 ops/min
+# Warmup Iteration  10: 17.103 ops/min
+Iteration   1: 17.437 ops/min
+Iteration   2: 16.876 ops/min
+Iteration   3: 17.916 ops/min
+Iteration   4: 15.942 ops/min
+Iteration   5: 17.399 ops/min
+Iteration   6: 17.891 ops/min
+Iteration   7: 15.600 ops/min
+Iteration   8: 15.983 ops/min
+Iteration   9: 16.240 ops/min
+Iteration  10: 18.008 ops/min
+
+
+Result "sunflow":
+  16.995 ±(99.9%) 0.602 ops/min [Average]
+  (min, avg, max) = (15.380, 16.995, 18.558), stdev = 0.901
+  CI (99.9%): [16.393, 17.597] (assumes normal distribution)
+
+
+# JMH 1.17.3 (released 570 days ago, please consider updating!)
+# VM version: JDK 12-internal, VM 12-internal+0-adhoc.aarch32.jdk
+# VM invoker: /home/aarch32/jdk/build/linux-arm-normal-server-release/images/jdk/bin/java
+# VM options: -Xmx1G
+# Warmup: 5 iterations, 1 s each
+# Measurement: 5 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 2 threads, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: org.openjdk.specjvm2008.Compress.test
+
+# Run progress: 21.05% complete, ETA 01:19:40
+# Fork: 1 of 3
+# Warmup Iteration   1: 24.676 ops/min
+# Warmup Iteration   2: 24.791 ops/min
+# Warmup Iteration   3: 24.956 ops/min
+# Warmup Iteration   4: 25.144 ops/min
+# Warmup Iteration   5: 25.027 ops/min
+Iteration   1: 25.003 ops/min
+Iteration   2: 25.206 ops/min
+Iteration   3: 25.083 ops/min
+Iteration   4: 25.122 ops/min
+Iteration   5: 24.829 ops/min
+
+# Run progress: 22.81% complete, ETA 01:19:14
+# Fork: 2 of 3
+# Warmup Iteration   1: 24.094 ops/min
+# Warmup Iteration   2: 24.506 ops/min
+# Warmup Iteration   3: 24.648 ops/min
+# Warmup Iteration   4: 24.940 ops/min
+# Warmup Iteration   5: 24.851 ops/min
+Iteration   1: 24.817 ops/min
+Iteration   2: 24.907 ops/min
+Iteration   3: 24.766 ops/min
+Iteration   4: 24.968 ops/min
+Iteration   5: 24.994 ops/min
+
+# Run progress: 24.56% complete, ETA 01:18:19
+# Fork: 3 of 3
+# Warmup Iteration   1: 24.372 ops/min
+# Warmup Iteration   2: 24.451 ops/min
+# Warmup Iteration   3: 24.979 ops/min
+# Warmup Iteration   4: 25.101 ops/min
+# Warmup Iteration   5: 25.031 ops/min
+Iteration   1: 25.046 ops/min
+Iteration   2: 25.358 ops/min
+Iteration   3: 24.282 ops/min
+Iteration   4: 25.018 ops/min
+Iteration   5: 25.084 ops/min
+
+
+Result "test":
+  24.966 ±(99.9%) 0.260 ops/min [Average]
+  (min, avg, max) = (24.282, 24.966, 25.358), stdev = 0.243
+  CI (99.9%): [24.706, 25.225] (assumes normal distribution)
+
+
+# JMH 1.17.3 (released 570 days ago, please consider updating!)
+# VM version: JDK 12-internal, VM 12-internal+0-adhoc.aarch32.jdk
+# VM invoker: /home/aarch32/jdk/build/linux-arm-normal-server-release/images/jdk/bin/java
+# VM options: -Xmx1G
+# Warmup: 5 iterations, 1 s each
+# Measurement: 5 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 2 threads, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: org.openjdk.specjvm2008.CryptoRsa.test
+
+# Run progress: 26.32% complete, ETA 01:17:39
+# Fork: 1 of 3
+# Warmup Iteration   1: 11.912 ops/min
+# Warmup Iteration   2: 12.587 ops/min
+# Warmup Iteration   3: 12.758 ops/min
+# Warmup Iteration   4: 12.822 ops/min
+# Warmup Iteration   5: 12.807 ops/min
+Iteration   1: 12.832 ops/min
+Iteration   2: 12.862 ops/min
+Iteration   3: 12.840 ops/min
+Iteration   4: 12.874 ops/min
+Iteration   5: 12.866 ops/min
+
+# Run progress: 28.07% complete, ETA 01:20:36
+# Fork: 2 of 3
+# Warmup Iteration   1: 11.273 ops/min
+# Warmup Iteration   2: 11.931 ops/min
+# Warmup Iteration   3: 12.002 ops/min
+# Warmup Iteration   4: 12.124 ops/min
+# Warmup Iteration   5: 12.133 ops/min
+Iteration   1: 12.148 ops/min
+Iteration   2: 12.152 ops/min
+Iteration   3: 12.173 ops/min
+Iteration   4: 12.189 ops/min
+Iteration   5: 12.174 ops/min
+
+# Run progress: 29.82% complete, ETA 01:24:42
+# Fork: 3 of 3
+# Warmup Iteration   1: 10.888 ops/min
+# Warmup Iteration   2: 11.433 ops/min
+# Warmup Iteration   3: 11.528 ops/min
+# Warmup Iteration   4: 11.630 ops/min
+# Warmup Iteration   5: 11.650 ops/min
+Iteration   1: 11.637 ops/min
+Iteration   2: 11.688 ops/min
+Iteration   3: 11.679 ops/min
+Iteration   4: 11.693 ops/min
+Iteration   5: 11.677 ops/min
+
+
+Result "test":
+  12.232 ±(99.9%) 0.536 ops/min [Average]
+  (min, avg, max) = (11.637, 12.232, 12.874), stdev = 0.501
+  CI (99.9%): [11.696, 12.768] (assumes normal distribution)
+
+
+# JMH 1.17.3 (released 570 days ago, please consider updating!)
+# VM version: JDK 12-internal, VM 12-internal+0-adhoc.aarch32.jdk
+# VM invoker: /home/aarch32/jdk/build/linux-arm-normal-server-release/images/jdk/bin/java
+# VM options: -Xmx1G
+# Warmup: 5 iterations, 1 s each
+# Measurement: 5 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 2 threads, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: org.openjdk.specjvm2008.CryptoSignVerify.test
+
+# Run progress: 31.58% complete, ETA 01:26:04
+# Fork: 1 of 3
+# Warmup Iteration   1: 143.302 ops/min
+# Warmup Iteration   2: 187.360 ops/min
+# Warmup Iteration   3: 188.565 ops/min
+# Warmup Iteration   4: 189.685 ops/min
+# Warmup Iteration   5: 189.017 ops/min
+Iteration   1: 189.996 ops/min
+Iteration   2: 189.711 ops/min
+Iteration   3: 187.747 ops/min
+Iteration   4: 190.497 ops/min
+Iteration   5: 189.663 ops/min
+
+# Run progress: 33.33% complete, ETA 01:20:16
+# Fork: 2 of 3
+# Warmup Iteration   1: 142.069 ops/min
+# Warmup Iteration   2: 186.004 ops/min
+# Warmup Iteration   3: 189.534 ops/min
+# Warmup Iteration   4: 189.866 ops/min
+# Warmup Iteration   5: 190.613 ops/min
+Iteration   1: 191.109 ops/min
+Iteration   2: 191.403 ops/min
+Iteration   3: 185.831 ops/min
+Iteration   4: 191.376 ops/min
+Iteration   5: 191.457 ops/min
+
+# Run progress: 35.09% complete, ETA 01:14:58
+# Fork: 3 of 3
+# Warmup Iteration   1: 147.021 ops/min
+# Warmup Iteration   2: 187.517 ops/min
+# Warmup Iteration   3: 188.908 ops/min
+# Warmup Iteration   4: 190.771 ops/min
+# Warmup Iteration   5: 191.179 ops/min
+Iteration   1: 190.981 ops/min
+Iteration   2: 187.638 ops/min
+Iteration   3: 189.759 ops/min
+Iteration   4: 190.704 ops/min
+Iteration   5: 190.433 ops/min
+
+
+Result "test":
+  189.887 ±(99.9%) 1.743 ops/min [Average]
+  (min, avg, max) = (185.831, 189.887, 191.457), stdev = 1.630
+  CI (99.9%): [188.144, 191.630] (assumes normal distribution)
+
+
+# JMH 1.17.3 (released 570 days ago, please consider updating!)
+# VM version: JDK 12-internal, VM 12-internal+0-adhoc.aarch32.jdk
+# VM invoker: /home/aarch32/jdk/build/linux-arm-normal-server-release/images/jdk/bin/java
+# VM options: -Xmx1G
+# Warmup: 5 iterations, 1 s each
+# Measurement: 5 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 2 threads, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: org.openjdk.specjvm2008.MpegAudio.test
+
+# Run progress: 36.84% complete, ETA 01:10:09
+# Fork: 1 of 3
+# Warmup Iteration   1: 5.574 ops/min
+# Warmup Iteration   2: 6.835 ops/min
+# Warmup Iteration   3: 6.851 ops/min
+# Warmup Iteration   4: 6.853 ops/min
+# Warmup Iteration   5: 6.853 ops/min
+Iteration   1: 6.860 ops/min
+Iteration   2: 6.856 ops/min
+Iteration   3: 6.864 ops/min
+Iteration   4: 6.861 ops/min
+Iteration   5: 6.871 ops/min
+
+# Run progress: 38.60% complete, ETA 01:16:07
+# Fork: 2 of 3
+# Warmup Iteration   1: 5.687 ops/min
+# Warmup Iteration   2: 7.094 ops/min
+# Warmup Iteration   3: 7.092 ops/min
+# Warmup Iteration   4: 7.110 ops/min
+# Warmup Iteration   5: 7.105 ops/min
+Iteration   1: 7.113 ops/min
+Iteration   2: 7.109 ops/min
+Iteration   3: 7.111 ops/min
+Iteration   4: 7.127 ops/min
+Iteration   5: 7.106 ops/min
+
+# Run progress: 40.35% complete, ETA 01:21:25
+# Fork: 3 of 3
+# Warmup Iteration   1: 5.655 ops/min
+# Warmup Iteration   2: 7.086 ops/min
+# Warmup Iteration   3: 7.103 ops/min
+# Warmup Iteration   4: 7.107 ops/min
+# Warmup Iteration   5: 7.107 ops/min
+Iteration   1: 7.107 ops/min
+Iteration   2: 7.097 ops/min
+Iteration   3: 7.113 ops/min
+Iteration   4: 7.113 ops/min
+Iteration   5: 7.116 ops/min
+
+
+Result "test":
+  7.028 ±(99.9%) 0.130 ops/min [Average]
+  (min, avg, max) = (6.856, 7.028, 7.127), stdev = 0.122
+  CI (99.9%): [6.898, 7.158] (assumes normal distribution)
+
+
+# JMH 1.17.3 (released 570 days ago, please consider updating!)
+# VM version: JDK 12-internal, VM 12-internal+0-adhoc.aarch32.jdk
+# VM invoker: /home/aarch32/jdk/build/linux-arm-normal-server-release/images/jdk/bin/java
+# VM options: -Xmx1G
+# Warmup: 5 iterations, 1 s each
+# Measurement: 5 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 2 threads, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: org.openjdk.specjvm2008.ScimarkFFT.small
+
+# Run progress: 42.11% complete, ETA 01:27:37
+# Fork: 1 of 3
+# Warmup Iteration   1: 16.470 ops/min
+# Warmup Iteration   2: 17.138 ops/min
+# Warmup Iteration   3: 16.979 ops/min
+# Warmup Iteration   4: 17.192 ops/min
+# Warmup Iteration   5: 17.046 ops/min
+Iteration   1: 17.260 ops/min
+Iteration   2: 17.174 ops/min
+Iteration   3: 17.125 ops/min
+Iteration   4: 17.139 ops/min
+Iteration   5: 17.191 ops/min
+
+# Run progress: 43.86% complete, ETA 01:24:54
+# Fork: 2 of 3
+# Warmup Iteration   1: 16.539 ops/min
+# Warmup Iteration   2: 17.057 ops/min
+# Warmup Iteration   3: 17.104 ops/min
+# Warmup Iteration   4: 17.208 ops/min
+# Warmup Iteration   5: 17.384 ops/min
+Iteration   1: 17.221 ops/min
+Iteration   2: 17.313 ops/min
+Iteration   3: 17.240 ops/min
+Iteration   4: 17.132 ops/min
+Iteration   5: 17.222 ops/min
+
+# Run progress: 45.61% complete, ETA 01:22:48
+# Fork: 3 of 3
+# Warmup Iteration   1: 15.929 ops/min
+# Warmup Iteration   2: 17.092 ops/min
+# Warmup Iteration   3: 17.208 ops/min
+# Warmup Iteration   4: 17.173 ops/min
+# Warmup Iteration   5: 17.145 ops/min
+Iteration   1: 17.166 ops/min
+Iteration   2: 17.317 ops/min
+Iteration   3: 17.197 ops/min
+Iteration   4: 17.211 ops/min
+Iteration   5: 17.188 ops/min
+
+
+Result "small":
+  17.206 ±(99.9%) 0.063 ops/min [Average]
+  (min, avg, max) = (17.125, 17.206, 17.317), stdev = 0.059
+  CI (99.9%): [17.144, 17.269] (assumes normal distribution)
+
+
+# JMH 1.17.3 (released 570 days ago, please consider updating!)
+# VM version: JDK 12-internal, VM 12-internal+0-adhoc.aarch32.jdk
+# VM invoker: /home/aarch32/jdk/build/linux-arm-normal-server-release/images/jdk/bin/java
+# VM options: -Xmx1G
+# Warmup: 5 iterations, 1 s each
+# Measurement: 5 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 2 threads, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: org.openjdk.specjvm2008.ScimarkLU.small
+
+# Run progress: 47.37% complete, ETA 01:20:01
+# Fork: 1 of 3
+# Warmup Iteration   1: 9.581 ops/min
+# Warmup Iteration   2: 9.852 ops/min
+# Warmup Iteration   3: 9.846 ops/min
+# Warmup Iteration   4: 9.869 ops/min
+# Warmup Iteration   5: 9.853 ops/min
+Iteration   1: 9.860 ops/min
+Iteration   2: 9.875 ops/min
+Iteration   3: 9.873 ops/min
+Iteration   4: 9.865 ops/min
+Iteration   5: 9.878 ops/min
+
+# Run progress: 49.12% complete, ETA 01:19:15
+# Fork: 2 of 3
+# Warmup Iteration   1: 9.468 ops/min
+# Warmup Iteration   2: 9.726 ops/min
+# Warmup Iteration   3: 9.747 ops/min
+# Warmup Iteration   4: 9.786 ops/min
+# Warmup Iteration   5: 9.772 ops/min
+Iteration   1: 9.777 ops/min
+Iteration   2: 9.773 ops/min
+Iteration   3: 9.769 ops/min
+Iteration   4: 9.777 ops/min
+Iteration   5: 9.772 ops/min
+
+# Run progress: 50.88% complete, ETA 01:19:23
+# Fork: 3 of 3
+# Warmup Iteration   1: 9.469 ops/min
+# Warmup Iteration   2: 9.750 ops/min
+# Warmup Iteration   3: 9.753 ops/min
+# Warmup Iteration   4: 9.779 ops/min
+# Warmup Iteration   5: 9.783 ops/min
+Iteration   1: 9.744 ops/min
+Iteration   2: 9.785 ops/min
+Iteration   3: 9.788 ops/min
+Iteration   4: 9.788 ops/min
+Iteration   5: 9.784 ops/min
+
+
+Result "small":
+  9.807 ±(99.9%) 0.051 ops/min [Average]
+  (min, avg, max) = (9.744, 9.807, 9.878), stdev = 0.048
+  CI (99.9%): [9.756, 9.858] (assumes normal distribution)
+
+
+# JMH 1.17.3 (released 570 days ago, please consider updating!)
+# VM version: JDK 12-internal, VM 12-internal+0-adhoc.aarch32.jdk
+# VM invoker: /home/aarch32/jdk/build/linux-arm-normal-server-release/images/jdk/bin/java
+# VM options: -Xmx1G
+# Warmup: 5 iterations, 1 s each
+# Measurement: 5 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 2 threads, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: org.openjdk.specjvm2008.ScimarkMonteCarlo.test
+
+# Run progress: 52.63% complete, ETA 01:18:47
+# Fork: 1 of 3
+# Warmup Iteration   1: 87.660 ops/min
+# Warmup Iteration   2: 152.887 ops/min
+# Warmup Iteration   3: 152.999 ops/min
+# Warmup Iteration   4: 153.037 ops/min
+# Warmup Iteration   5: 152.992 ops/min
+Iteration   1: 153.009 ops/min
+Iteration   2: 150.632 ops/min
+Iteration   3: 151.590 ops/min
+Iteration   4: 152.791 ops/min
+Iteration   5: 153.093 ops/min
+
+# Run progress: 54.39% complete, ETA 01:13:53
+# Fork: 2 of 3
+# Warmup Iteration   1: 88.152 ops/min
+# Warmup Iteration   2: 153.015 ops/min
+# Warmup Iteration   3: 153.073 ops/min
+# Warmup Iteration   4: 153.150 ops/min
+# Warmup Iteration   5: 153.107 ops/min
+Iteration   1: 153.088 ops/min
+Iteration   2: 152.299 ops/min
+Iteration   3: 152.892 ops/min
+Iteration   4: 153.109 ops/min
+Iteration   5: 152.862 ops/min
+
+# Run progress: 56.14% complete, ETA 01:09:14
+# Fork: 3 of 3
+# Warmup Iteration   1: 89.095 ops/min
+# Warmup Iteration   2: 151.529 ops/min
+# Warmup Iteration   3: 152.480 ops/min
+# Warmup Iteration   4: 151.209 ops/min
+# Warmup Iteration   5: 153.047 ops/min
+Iteration   1: 152.712 ops/min
+Iteration   2: 149.839 ops/min
+Iteration   3: 151.428 ops/min
+Iteration   4: 152.156 ops/min
+Iteration   5: 150.205 ops/min
+
+
+Result "test":
+  152.114 ±(99.9%) 1.194 ops/min [Average]
+  (min, avg, max) = (149.839, 152.114, 153.109), stdev = 1.117
+  CI (99.9%): [150.919, 153.308] (assumes normal distribution)
+
+
+# JMH 1.17.3 (released 570 days ago, please consider updating!)
+# VM version: JDK 12-internal, VM 12-internal+0-adhoc.aarch32.jdk
+# VM invoker: /home/aarch32/jdk/build/linux-arm-normal-server-release/images/jdk/bin/java
+# VM options: -Xmx1G
+# Warmup: 5 iterations, 1 s each
+# Measurement: 5 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 2 threads, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: org.openjdk.specjvm2008.ScimarkSOR.small
+
+# Run progress: 57.89% complete, ETA 01:04:47
+# Fork: 1 of 3
+# Warmup Iteration   1: 16.121 ops/min
+# Warmup Iteration   2: 16.521 ops/min
+# Warmup Iteration   3: 16.519 ops/min
+# Warmup Iteration   4: 16.532 ops/min
+# Warmup Iteration   5: 16.546 ops/min
+Iteration   1: 16.547 ops/min
+Iteration   2: 16.528 ops/min
+Iteration   3: 16.541 ops/min
+Iteration   4: 16.551 ops/min
+Iteration   5: 16.536 ops/min
+
+# Run progress: 59.65% complete, ETA 01:02:25
+# Fork: 2 of 3
+# Warmup Iteration   1: 16.103 ops/min
+# Warmup Iteration   2: 16.542 ops/min
+# Warmup Iteration   3: 16.538 ops/min
+# Warmup Iteration   4: 16.538 ops/min
+# Warmup Iteration   5: 16.531 ops/min
+Iteration   1: 16.535 ops/min
+Iteration   2: 16.537 ops/min
+Iteration   3: 16.540 ops/min
+Iteration   4: 16.523 ops/min
+Iteration   5: 16.544 ops/min
+
+# Run progress: 61.40% complete, ETA 01:00:04
+# Fork: 3 of 3
+# Warmup Iteration   1: 16.157 ops/min
+# Warmup Iteration   2: 16.580 ops/min
+# Warmup Iteration   3: 16.592 ops/min
+# Warmup Iteration   4: 16.571 ops/min
+# Warmup Iteration   5: 16.548 ops/min
+Iteration   1: 16.571 ops/min
+Iteration   2: 16.570 ops/min
+Iteration   3: 16.572 ops/min
+Iteration   4: 16.548 ops/min
+Iteration   5: 16.580 ops/min
+
+
+Result "small":
+  16.548 ±(99.9%) 0.019 ops/min [Average]
+  (min, avg, max) = (16.523, 16.548, 16.580), stdev = 0.017
+  CI (99.9%): [16.530, 16.567] (assumes normal distribution)
+
+
+# JMH 1.17.3 (released 570 days ago, please consider updating!)
+# VM version: JDK 12-internal, VM 12-internal+0-adhoc.aarch32.jdk
+# VM invoker: /home/aarch32/jdk/build/linux-arm-normal-server-release/images/jdk/bin/java
+# VM options: -Xmx1G
+# Warmup: 10 iterations, 1 s each
+# Measurement: 10 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 2 threads, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: org.openjdk.specjvm2008.Serial.test
+
+# Run progress: 63.16% complete, ETA 00:57:23
+# Fork: 1 of 3
+# Warmup Iteration   1: 15.672 ops/s
+# Warmup Iteration   2: 29.186 ops/s
+# Warmup Iteration   3: 71.933 ops/s
+# Warmup Iteration   4: 126.826 ops/s
+# Warmup Iteration   5: 225.521 ops/s
+# Warmup Iteration   6: 285.211 ops/s
+# Warmup Iteration   7: 293.847 ops/s
+# Warmup Iteration   8: 309.478 ops/s
+# Warmup Iteration   9: 310.869 ops/s
+# Warmup Iteration  10: 314.604 ops/s
+Iteration   1: 314.080 ops/s
+Iteration   2: 311.648 ops/s
+Iteration   3: 315.297 ops/s
+Iteration   4: 316.334 ops/s
+Iteration   5: 309.740 ops/s
+Iteration   6: 320.710 ops/s
+Iteration   7: 321.839 ops/s
+Iteration   8: 317.740 ops/s
+Iteration   9: 318.693 ops/s
+Iteration  10: 322.800 ops/s
+
+# Run progress: 66.67% complete, ETA 00:49:23
+# Fork: 2 of 3
+# Warmup Iteration   1: 18.863 ops/s
+# Warmup Iteration   2: 36.149 ops/s
+# Warmup Iteration   3: 64.866 ops/s
+# Warmup Iteration   4: 118.831 ops/s
+# Warmup Iteration   5: 214.304 ops/s
+# Warmup Iteration   6: 281.065 ops/s
+# Warmup Iteration   7: 305.187 ops/s
+# Warmup Iteration   8: 309.130 ops/s
+# Warmup Iteration   9: 302.791 ops/s
+# Warmup Iteration  10: 312.358 ops/s
+Iteration   1: 314.253 ops/s
+Iteration   2: 302.400 ops/s
+Iteration   3: 310.120 ops/s
+Iteration   4: 312.592 ops/s
+Iteration   5: 309.278 ops/s
+Iteration   6: 317.100 ops/s
+Iteration   7: 318.012 ops/s
+Iteration   8: 317.343 ops/s
+Iteration   9: 318.834 ops/s
+Iteration  10: 316.845 ops/s
+
+# Run progress: 70.18% complete, ETA 00:42:08
+# Fork: 3 of 3
+# Warmup Iteration   1: 18.520 ops/s
+# Warmup Iteration   2: 34.451 ops/s
+# Warmup Iteration   3: 65.098 ops/s
+# Warmup Iteration   4: 115.821 ops/s
+# Warmup Iteration   5: 207.327 ops/s
+# Warmup Iteration   6: 280.975 ops/s
+# Warmup Iteration   7: 305.059 ops/s
+# Warmup Iteration   8: 311.575 ops/s
+# Warmup Iteration   9: 314.896 ops/s
+# Warmup Iteration  10: 315.185 ops/s
+Iteration   1: 317.281 ops/s
+Iteration   2: 311.430 ops/s
+Iteration   3: 317.315 ops/s
+Iteration   4: 318.844 ops/s
+Iteration   5: 309.468 ops/s
+Iteration   6: 319.962 ops/s
+Iteration   7: 321.732 ops/s
+Iteration   8: 319.540 ops/s
+Iteration   9: 320.933 ops/s
+Iteration  10: 322.226 ops/s
+
+
+Result "test":
+  316.146 ±(99.9%) 3.209 ops/s [Average]
+  (min, avg, max) = (302.400, 316.146, 322.800), stdev = 4.803
+  CI (99.9%): [312.937, 319.355] (assumes normal distribution)
+
+
+# JMH 1.17.3 (released 570 days ago, please consider updating!)
+# VM version: JDK 12-internal, VM 12-internal+0-adhoc.aarch32.jdk
+# VM invoker: /home/aarch32/jdk/build/linux-arm-normal-server-release/images/jdk/bin/java
+# VM options: -Xmx1G
+# Warmup: 5 iterations, 1 s each
+# Measurement: 5 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 2 threads, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: org.openjdk.specjvm2008.Sunflow.test
+
+# Run progress: 73.68% complete, ETA 00:35:33
+# Fork: 1 of 3
+# Warmup Iteration   1: 5.594 ops/min
+# Warmup Iteration   2: 9.802 ops/min
+# Warmup Iteration   3: 9.862 ops/min
+# Warmup Iteration   4: 9.909 ops/min
+# Warmup Iteration   5: 9.901 ops/min
+Iteration   1: 9.918 ops/min
+Iteration   2: 9.868 ops/min
+Iteration   3: 9.991 ops/min
+Iteration   4: 9.919 ops/min
+Iteration   5: 9.849 ops/min
+
+# Run progress: 75.44% complete, ETA 00:33:59
+# Fork: 2 of 3
+# Warmup Iteration   1: 5.232 ops/min
+# Warmup Iteration   2: 9.591 ops/min
+# Warmup Iteration   3: 9.790 ops/min
+# Warmup Iteration   4: 9.719 ops/min
+# Warmup Iteration   5: 9.822 ops/min
+Iteration   1: 9.890 ops/min
+Iteration   2: 9.757 ops/min
+Iteration   3: 9.770 ops/min
+Iteration   4: 9.838 ops/min
+Iteration   5: 9.936 ops/min
+
+# Run progress: 77.19% complete, ETA 00:32:13
+# Fork: 3 of 3
+# Warmup Iteration   1: 5.090 ops/min
+# Warmup Iteration   2: 9.712 ops/min
+# Warmup Iteration   3: 9.767 ops/min
+# Warmup Iteration   4: 9.880 ops/min
+# Warmup Iteration   5: 9.959 ops/min
+Iteration   1: 9.818 ops/min
+Iteration   2: 9.876 ops/min
+Iteration   3: 9.916 ops/min
+Iteration   4: 9.890 ops/min
+Iteration   5: 9.875 ops/min
+
+
+Result "test":
+  9.874 ±(99.9%) 0.066 ops/min [Average]
+  (min, avg, max) = (9.757, 9.874, 9.991), stdev = 0.062
+  CI (99.9%): [9.808, 9.940] (assumes normal distribution)
+
+
+# JMH 1.17.3 (released 570 days ago, please consider updating!)
+# VM version: JDK 12-internal, VM 12-internal+0-adhoc.aarch32.jdk
+# VM invoker: /home/aarch32/jdk/build/linux-arm-normal-server-release/images/jdk/bin/java
+# VM options: -Xmx1G
+# Warmup: 10 iterations, 1 s each
+# Measurement: 10 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 2 threads, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: org.openjdk.specjvm2008.XmlTransform.test
+
+# Run progress: 78.95% complete, ETA 00:30:21
+# Fork: 1 of 3
+# Warmup Iteration   1: 9.187 ops/min
+# Warmup Iteration   2: 16.644 ops/min
+# Warmup Iteration   3: 18.198 ops/min
+# Warmup Iteration   4: 18.691 ops/min
+# Warmup Iteration   5: 18.945 ops/min
+# Warmup Iteration   6: 19.356 ops/min
+# Warmup Iteration   7: 19.375 ops/min
+# Warmup Iteration   8: 19.056 ops/min
+# Warmup Iteration   9: 19.288 ops/min
+# Warmup Iteration  10: 19.791 ops/min
+Iteration   1: 19.831 ops/min
+Iteration   2: 19.896 ops/min
+Iteration   3: 14.960 ops/min
+Iteration   4: 17.037 ops/min
+Iteration   5: 18.524 ops/min
+Iteration   6: 18.347 ops/min
+Iteration   7: 18.558 ops/min
+Iteration   8: 18.975 ops/min
+Iteration   9: 19.412 ops/min
+Iteration  10: 17.015 ops/min
+
+# Run progress: 82.46% complete, ETA 00:25:25
+# Fork: 2 of 3
+# Warmup Iteration   1: 8.967 ops/min
+# Warmup Iteration   2: 15.993 ops/min
+# Warmup Iteration   3: 17.428 ops/min
+# Warmup Iteration   4: 18.090 ops/min
+# Warmup Iteration   5: 18.389 ops/min
+# Warmup Iteration   6: 18.705 ops/min
+# Warmup Iteration   7: 18.881 ops/min
+# Warmup Iteration   8: 18.699 ops/min
+# Warmup Iteration   9: 19.048 ops/min
+# Warmup Iteration  10: 19.287 ops/min
+Iteration   1: 19.332 ops/min
+Iteration   2: 19.419 ops/min
+Iteration   3: 19.332 ops/min
+Iteration   4: 19.402 ops/min
+Iteration   5: 19.425 ops/min
+Iteration   6: 19.228 ops/min
+Iteration   7: 12.285 ops/min
+Iteration   8: 18.078 ops/min
+Iteration   9: 18.079 ops/min
+Iteration  10: 17.587 ops/min
+
+# Run progress: 85.96% complete, ETA 00:20:33
+# Fork: 3 of 3
+# Warmup Iteration   1: 8.836 ops/min
+# Warmup Iteration   2: 16.046 ops/min
+# Warmup Iteration   3: 17.666 ops/min
+# Warmup Iteration   4: 17.959 ops/min
+# Warmup Iteration   5: 18.623 ops/min
+# Warmup Iteration   6: 18.608 ops/min
+# Warmup Iteration   7: 18.736 ops/min
+# Warmup Iteration   8: 18.614 ops/min
+# Warmup Iteration   9: 18.734 ops/min
+# Warmup Iteration  10: 19.044 ops/min
+Iteration   1: 18.941 ops/min
+Iteration   2: 19.131 ops/min
+Iteration   3: 19.292 ops/min
+Iteration   4: 19.324 ops/min
+Iteration   5: 14.869 ops/min
+Iteration   6: 17.791 ops/min
+Iteration   7: 18.153 ops/min
+Iteration   8: 17.020 ops/min
+Iteration   9: 17.361 ops/min
+Iteration  10: 18.461 ops/min
+
+
+Result "test":
+  18.169 ±(99.9%) 1.122 ops/min [Average]
+  (min, avg, max) = (12.285, 18.169, 19.896), stdev = 1.680
+  CI (99.9%): [17.047, 19.291] (assumes normal distribution)
+
+
+# JMH 1.17.3 (released 570 days ago, please consider updating!)
+# VM version: JDK 12-internal, VM 12-internal+0-adhoc.aarch32.jdk
+# VM invoker: /home/aarch32/jdk/build/linux-arm-normal-server-release/images/jdk/bin/java
+# VM options: -Xmx1G
+# Warmup: 10 iterations, 1 s each
+# Measurement: 10 iterations, 1 s each
+# Timeout: 10 min per iteration
+# Threads: 2 threads, will synchronize iterations
+# Benchmark mode: Throughput, ops/time
+# Benchmark: org.openjdk.specjvm2008.XmlValidation.test
+
+# Run progress: 89.47% complete, ETA 00:15:35
+# Fork: 1 of 3
+# Warmup Iteration   1: 5.547 ops/min
+# Warmup Iteration   2: 23.240 ops/min
+# Warmup Iteration   3: 27.021 ops/min
+# Warmup Iteration   4: 27.512 ops/min
+# Warmup Iteration   5: 28.783 ops/min
+# Warmup Iteration   6: 27.888 ops/min
+# Warmup Iteration   7: 27.288 ops/min
+# Warmup Iteration   8: 28.919 ops/min
+# Warmup Iteration   9: 28.909 ops/min
+# Warmup Iteration  10: 28.641 ops/min
+Iteration   1: 28.051 ops/min
+Iteration   2: 28.181 ops/min
+Iteration   3: 28.582 ops/min
+Iteration   4: 28.014 ops/min
+Iteration   5: 27.494 ops/min
+Iteration   6: 28.930 ops/min
+Iteration   7: 28.956 ops/min
+Iteration   8: 29.319 ops/min
+Iteration   9: 29.094 ops/min
+Iteration  10: 29.839 ops/min
+
+# Run progress: 92.98% complete, ETA 00:10:18
+# Fork: 2 of 3
+# Warmup Iteration   1: 5.855 ops/min
+# Warmup Iteration   2: 22.726 ops/min
+# Warmup Iteration   3: 26.546 ops/min
+# Warmup Iteration   4: 27.089 ops/min
+# Warmup Iteration   5: 26.248 ops/min
+# Warmup Iteration   6: 27.793 ops/min
+# Warmup Iteration   7: 27.512 ops/min
+# Warmup Iteration   8: 27.220 ops/min
+# Warmup Iteration   9: 27.261 ops/min
+# Warmup Iteration  10: 27.775 ops/min
+Iteration   1: 28.052 ops/min
+Iteration   2: 27.577 ops/min
+Iteration   3: 27.133 ops/min
+Iteration   4: 27.192 ops/min
+Iteration   5: 27.124 ops/min
+Iteration   6: 27.316 ops/min
+Iteration   7: 28.337 ops/min
+Iteration   8: 28.067 ops/min
+Iteration   9: 28.404 ops/min
+Iteration  10: 28.552 ops/min
+
+# Run progress: 96.49% complete, ETA 00:05:07
+# Fork: 3 of 3
+# Warmup Iteration   1: 5.492 ops/min
+# Warmup Iteration   2: 22.944 ops/min
+# Warmup Iteration   3: 27.478 ops/min
+# Warmup Iteration   4: 26.917 ops/min
+# Warmup Iteration   5: 28.218 ops/min
+# Warmup Iteration   6: 28.222 ops/min
+# Warmup Iteration   7: 27.732 ops/min
+# Warmup Iteration   8: 27.838 ops/min
+# Warmup Iteration   9: 28.765 ops/min
+# Warmup Iteration  10: 28.358 ops/min
+Iteration   1: 28.372 ops/min
+Iteration   2: 27.809 ops/min
+Iteration   3: 27.858 ops/min
+Iteration   4: 27.708 ops/min
+Iteration   5: 27.675 ops/min
+Iteration   6: 28.862 ops/min
+Iteration   7: 29.492 ops/min
+Iteration   8: 29.526 ops/min
+Iteration   9: 29.523 ops/min
+Iteration  10: 29.516 ops/min
+
+
+Result "test":
+  28.352 ±(99.9%) 0.537 ops/min [Average]
+  (min, avg, max) = (27.124, 28.352, 29.839), stdev = 0.804
+  CI (99.9%): [27.815, 28.889] (assumes normal distribution)
+
+
+# Run complete. Total time: 02:25:03
+
+Benchmark                Mode  Cnt    Score   Error    Units
+Compiler.sunflow        thrpt   30   16.995 ± 0.602  ops/min
+Compress.test           thrpt   15   24.966 ± 0.260  ops/min
+CryptoRsa.test          thrpt   15   12.232 ± 0.536  ops/min
+CryptoSignVerify.test   thrpt   15  189.887 ± 1.743  ops/min
+MpegAudio.test          thrpt   15    7.028 ± 0.130  ops/min
+ScimarkFFT.small        thrpt   15   17.206 ± 0.063  ops/min
+ScimarkLU.small         thrpt   15    9.807 ± 0.051  ops/min
+ScimarkMonteCarlo.test  thrpt   15  152.114 ± 1.194  ops/min
+ScimarkSOR.small        thrpt   15   16.548 ± 0.019  ops/min
+Serial.test             thrpt   30  316.146 ± 3.209    ops/s
+Sunflow.test            thrpt   15    9.874 ± 0.066  ops/min
+XmlTransform.test       thrpt   30   18.169 ± 1.122  ops/min
+XmlValidation.test      thrpt   30   28.352 ± 0.537  ops/min

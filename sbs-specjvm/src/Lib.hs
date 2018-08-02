@@ -17,3 +17,4 @@ import SBS.Common.JCStress (MyObjOut(..))
 hello :: Empty -> IO MyObjOut
 hello _ =
     return (MyObjOut "foo" 43)
+

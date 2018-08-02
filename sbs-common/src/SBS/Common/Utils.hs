@@ -34,4 +34,3 @@ withFileText path fun =
         let te = TextLazyEncoding.decodeUtf8 bs
         res <- fun te
         return res )
-

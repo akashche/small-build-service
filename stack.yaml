@@ -37,6 +37,7 @@ packages:
 - sbs-common
 - sbs-jcstress
 - sbs-main
+- sbs-specjvm
 
 # Dependency packages to be pulled from upstream that are not in the resolver
 # using the same syntax as the packages field.

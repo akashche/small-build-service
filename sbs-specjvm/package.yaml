@@ -1,0 +1,46 @@
+name:                sbs-specjvm
+version:             0.1.0.0
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at <https://github.com/githubuser/small-build-service#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+- aeson
+- bytestring
+- text
+- unordered-containers
+- vector
+- wilton-ffi
+- sbs-common
+
+library:
+  source-dirs: src
+
+executables:
+  sbs-specjvm-wilton:
+    main:                Wilton.hs
+    ghc-options:
+    - -dynamic
+    - -shared
+    - -fPIC
+    - -lHSrts_thr-ghc8.0.2
+    dependencies:
+    - sbs-specjvm
+
+tests:
+  sbs-specjvm-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - sbs-specjvm

@@ -1,0 +1,694 @@
+Java Concurrency Stress Tests
+---------------------------------------------------------------------------------
+Rev: 64f2cf32fa0a, built by alex with 11-internal at 2018-06-25T17:48:53Z
+
+Probing what VM modes are available:
+ (failures are non-fatal, but may miss some interesting cases)
+
+----- [OK] [-Xint]
+----- [OK] [-XX:TieredStopAtLevel=1]
+----- [OK] []
+----- [OK] [-XX:+UnlockDiagnosticVMOptions, -XX:+StressLCM, -XX:+StressGCM]
+----- [OK] [-XX:-TieredCompilation]
+----- [OK] [-XX:-TieredCompilation, -XX:+UnlockDiagnosticVMOptions, -XX:+StressLCM, -XX:+StressGCM]
+
+Initializing and probing the target VM:
+ (all failures are non-fatal, but may affect testing accuracy)
+
+----- [OK] Unlocking diagnostic VM options
+Burning up to figure out the exact CPU count....... done!
+
+----- [OK] Trimming down the default VM heap size to 1/4-th of max RAM
+----- [OK] Trimming down the number of compiler threads
+----- [OK] Trimming down the number of parallel GC threads
+----- [OK] Trimming down the number of concurrent GC threads
+----- [OK] Trimming down the number of G1 concurrent refinement GC threads
+----- [OK] Testing @Contended works on all results and infra objects
+----- [OK] Unlocking Whitebox API for online de-optimization
+----- [OK] Testing allocation profiling
+----- [OK] Trying Thread.onSpinWait
+
+  Hardware threads in use/available: 4/4, using Thread.onSpinWait()
+  Test preset mode: "quick"
+  Writing the test results to "jcstress-results-2018-07-08-13-22-28.bin.gz"
+  Parsing results to "results/"
+  Running each test matching ".*" for 1 forks, 5 iterations, 200 ms each
+  Each JVM would execute at most 20 tests in the row.
+  Solo stride size will be autobalanced within [10, 10000] elements, but taking no more than 100 Mb.
+
+
+
+      [OK] o.o.j.t.locks.mutex.ReentrantLockMutexTests.S_F.LI_TL
+(ETA:   00:33:41) (Rate: 3.27E+06 samples/sec) (Tests: 1 of 825) (Forks:  1 of 4950) (Iterations:  1 of 29700; 1 passed, 0 failed, 0 soft errs, 0 hard errs)
+
+      [OK] o.o.j.t.interrupt.TimeUnitSleepTest
+(ETA:   00:00:50) (Rate: 2.64E+05 samples/sec) (Tests: 825 of 825) (Forks: 4949 of 4950) (Iterations: 29540 of 29700; 29540 passed, 0 failed, 0 soft errs, 0 hard errs)
+
+      [OK] o.o.j.t.interrupt.UnsafeBusyLoopTest
+    (fork: #1, iteration #0, JVM args: [-Xmx1G])
+  Observed state   Occurrences              Expectation  Interpretation
+           STALE             1   ACCEPTABLE_INTERESTING  Thread had failed to respond.
+      TERMINATED            22               ACCEPTABLE  The thread had sucessfully terminated.
+
+    Messages:
+        Have stale threads, forcing VM to exit for proper cleanup.
+
+(ETA:   00:00:50) (Rate: 2.63E+05 samples/sec) (Tests: 825 of 825) (Forks: 4950 of 4950) (Iterations: 29541 of 29700; 29541 passed, 0 failed, 0 soft errs, 0 hard errs)
+
+RUN COMPLETE.
+
+RUN RESULTS:
+------------------------------------------------------------------------------------------------------------------------
+
+*** INTERESTING tests
+  Some interesting behaviors observed. This is for the plain curiosity.
+
+  75 matching test results.
+      [OK] o.o.j.t.atomicity.buffers.ByteBufferAtomicityTests.LongTest
+    (JVM args: [-Xmx1G, -XX:+UnlockDiagnosticVMOptions, -XX:+StressLCM, -XX:+StressGCM])
+  Observed state   Occurrences              Expectation  Interpretation
+              -1        80,473               ACCEPTABLE  Seeing the complete update.
+     -4294967296           295   ACCEPTABLE_INTERESTING  All other cases are unexpected, but legal.
+               0         1,129               ACCEPTABLE  Seeing the default value, this is valid under race.
+      4294967295            70   ACCEPTABLE_INTERESTING  All other cases are unexpected, but legal.
+
+      [OK] o.o.j.t.atomicity.buffers.ByteBufferAtomicityTests.LongTest
+    (JVM args: [-Xmx1G, -XX:-TieredCompilation, -XX:+UnlockDiagnosticVMOptions, -XX:+StressLCM, -XX:+StressGCM])
+  Observed state   Occurrences              Expectation  Interpretation
+              -1       395,832               ACCEPTABLE  Seeing the complete update.
+     -4294967296           500   ACCEPTABLE_INTERESTING  All other cases are unexpected, but legal.
+               0         1,800               ACCEPTABLE  Seeing the default value, this is valid under race.
+      4294967295             9   ACCEPTABLE_INTERESTING  All other cases are unexpected, but legal.
+
+      [OK] o.o.j.t.atomicity.buffers.ByteBufferAtomicityTests.LongTest
+    (JVM args: [-Xmx1G, -XX:-TieredCompilation])
+  Observed state   Occurrences              Expectation  Interpretation
+              -1       784,679               ACCEPTABLE  Seeing the complete update.
+     -4294967296         1,163   ACCEPTABLE_INTERESTING  All other cases are unexpected, but legal.
+               0        21,604               ACCEPTABLE  Seeing the default value, this is valid under race.
+      4294967295            45   ACCEPTABLE_INTERESTING  All other cases are unexpected, but legal.
+
+      [OK] o.o.j.t.atomicity.buffers.ByteBufferAtomicityTests.LongTest
+    (JVM args: [-Xmx1G, -XX:TieredStopAtLevel=1])
+  Observed state   Occurrences              Expectation  Interpretation
+              -1       638,277               ACCEPTABLE  Seeing the complete update.
+     -4294967296           842   ACCEPTABLE_INTERESTING  All other cases are unexpected, but legal.
+               0        51,199               ACCEPTABLE  Seeing the default value, this is valid under race.
+      4294967295            33   ACCEPTABLE_INTERESTING  All other cases are unexpected, but legal.
+
+      [OK] o.o.j.t.atomicity.buffers.ByteBufferAtomicityTests.LongTest
+    (JVM args: [-Xmx1G, -Xint])
+  Observed state   Occurrences              Expectation  Interpretation
+              -1        90,208               ACCEPTABLE  Seeing the complete update.
+               0            51               ACCEPTABLE  Seeing the default value, this is valid under race.
+      4294967295             4   ACCEPTABLE_INTERESTING  All other cases are unexpected, but legal.
+
+      [OK] o.o.j.t.atomicity.buffers.ByteBufferAtomicityTests.LongTest
+    (JVM args: [-Xmx1G])
+  Observed state   Occurrences              Expectation  Interpretation
+              -1       362,197               ACCEPTABLE  Seeing the complete update.
+     -4294967296           315   ACCEPTABLE_INTERESTING  All other cases are unexpected, but legal.
+               0         4,557               ACCEPTABLE  Seeing the default value, this is valid under race.
+      4294967295            12   ACCEPTABLE_INTERESTING  All other cases are unexpected, but legal.
+
+      [OK] o.o.j.t.atomicity.buffers.ByteBufferViewsAtomicityTests.LongViewTest
+    (JVM args: [-Xmx1G, -XX:+UnlockDiagnosticVMOptions, -XX:+StressLCM, -XX:+StressGCM])
+  Observed state   Occurrences              Expectation  Interpretation
+              -1       656,902               ACCEPTABLE  Seeing the complete update.
+     -4294967296            37   ACCEPTABLE_INTERESTING  All other cases are unexpected, but legal.
+               0        28,604               ACCEPTABLE  Seeing the default value, this is valid under race.
+      4294967295           158   ACCEPTABLE_INTERESTING  All other cases are unexpected, but legal.
+
+      [OK] o.o.j.t.atomicity.buffers.ByteBufferViewsAtomicityTests.LongViewTest
+    (JVM args: [-Xmx1G, -XX:-TieredCompilation, -XX:+UnlockDiagnosticVMOptions, -XX:+StressLCM, -XX:+StressGCM])
+  Observed state   Occurrences              Expectation  Interpretation
+              -1       593,685               ACCEPTABLE  Seeing the complete update.
+     -4294967296            52   ACCEPTABLE_INTERESTING  All other cases are unexpected, but legal.
+               0         7,402               ACCEPTABLE  Seeing the default value, this is valid under race.
+      4294967295             2   ACCEPTABLE_INTERESTING  All other cases are unexpected, but legal.
+
+      [OK] o.o.j.t.atomicity.buffers.ByteBufferViewsAtomicityTests.LongViewTest
+    (JVM args: [-Xmx1G, -XX:-TieredCompilation])
+  Observed state   Occurrences              Expectation  Interpretation
+              -1       577,279               ACCEPTABLE  Seeing the complete update.
+     -4294967296            52   ACCEPTABLE_INTERESTING  All other cases are unexpected, but legal.
+               0           473               ACCEPTABLE  Seeing the default value, this is valid under race.
+      4294967295            17   ACCEPTABLE_INTERESTING  All other cases are unexpected, but legal.
+
+      [OK] o.o.j.t.atomicity.buffers.ByteBufferViewsAtomicityTests.LongViewTest
+    (JVM args: [-Xmx1G, -XX:TieredStopAtLevel=1])
+  Observed state   Occurrences              Expectation  Interpretation
+              -1        19,445               ACCEPTABLE  Seeing the complete update.
+               0         1,577               ACCEPTABLE  Seeing the default value, this is valid under race.
+      4294967295           221   ACCEPTABLE_INTERESTING  All other cases are unexpected, but legal.
+
+      [OK] o.o.j.t.atomicity.buffers.ByteBufferViewsAtomicityTests.LongViewTest
+    (JVM args: [-Xmx1G, -Xint])
+  Observed state   Occurrences              Expectation  Interpretation
+              -1        28,769               ACCEPTABLE  Seeing the complete update.
+               0            49               ACCEPTABLE  Seeing the default value, this is valid under race.
+      4294967295             5   ACCEPTABLE_INTERESTING  All other cases are unexpected, but legal.
+
+      [OK] o.o.j.t.atomicity.buffers.ByteBufferViewsAtomicityTests.LongViewTest
+    (JVM args: [-Xmx1G])
+  Observed state   Occurrences              Expectation  Interpretation
+              -1       410,323               ACCEPTABLE  Seeing the complete update.
+     -4294967296            18   ACCEPTABLE_INTERESTING  All other cases are unexpected, but legal.
+               0         1,404               ACCEPTABLE  Seeing the default value, this is valid under race.
+      4294967295             6   ACCEPTABLE_INTERESTING  All other cases are unexpected, but legal.
+
+      [OK] o.o.j.t.atomicity.buffers.DirectByteBufferViewsAtomicityTests.LongViewTest
+    (JVM args: [-Xmx1G, -XX:+UnlockDiagnosticVMOptions, -XX:+StressLCM, -XX:+StressGCM])
+  Observed state   Occurrences              Expectation  Interpretation
+              -1       516,630               ACCEPTABLE  Seeing the complete update.
+     -4294967296            22   ACCEPTABLE_INTERESTING  All other cases are unexpected, but legal.
+               0         6,660               ACCEPTABLE  Seeing the default value, this is valid under race.
+      4294967295             9   ACCEPTABLE_INTERESTING  All other cases are unexpected, but legal.
+
+      [OK] o.o.j.t.atomicity.buffers.DirectByteBufferViewsAtomicityTests.LongViewTest
+    (JVM args: [-Xmx1G, -XX:-TieredCompilation, -XX:+UnlockDiagnosticVMOptions, -XX:+StressLCM, -XX:+StressGCM])
+  Observed state   Occurrences              Expectation  Interpretation
+              -1       215,159               ACCEPTABLE  Seeing the complete update.
+     -4294967296            15   ACCEPTABLE_INTERESTING  All other cases are unexpected, but legal.
+               0         1,022               ACCEPTABLE  Seeing the default value, this is valid under race.
+      4294967295            19   ACCEPTABLE_INTERESTING  All other cases are unexpected, but legal.
+
+      [OK] o.o.j.t.atomicity.buffers.DirectByteBufferViewsAtomicityTests.LongViewTest
+    (JVM args: [-Xmx1G, -XX:-TieredCompilation])
+  Observed state   Occurrences              Expectation  Interpretation
+              -1       255,584               ACCEPTABLE  Seeing the complete update.
+     -4294967296             3   ACCEPTABLE_INTERESTING  All other cases are unexpected, but legal.
+               0           134               ACCEPTABLE  Seeing the default value, this is valid under race.
+      4294967295             2   ACCEPTABLE_INTERESTING  All other cases are unexpected, but legal.
+
+      [OK] o.o.j.t.atomicity.buffers.DirectByteBufferViewsAtomicityTests.LongViewTest
+    (JVM args: [-Xmx1G, -XX:TieredStopAtLevel=1])
+  Observed state   Occurrences              Expectation  Interpretation
+              -1       583,337               ACCEPTABLE  Seeing the complete update.
+     -4294967296            18   ACCEPTABLE_INTERESTING  All other cases are unexpected, but legal.
+               0        14,571               ACCEPTABLE  Seeing the default value, this is valid under race.
+      4294967295             5   ACCEPTABLE_INTERESTING  All other cases are unexpected, but legal.
+
+      [OK] o.o.j.t.atomicity.buffers.DirectByteBufferViewsAtomicityTests.LongViewTest
+    (JVM args: [-Xmx1G, -Xint])
+  Observed state   Occurrences              Expectation  Interpretation
+              -1        45,876               ACCEPTABLE  Seeing the complete update.
+               0           289               ACCEPTABLE  Seeing the default value, this is valid under race.
+      4294967295            22   ACCEPTABLE_INTERESTING  All other cases are unexpected, but legal.
+
+      [OK] o.o.j.t.atomicity.buffers.DirectByteBufferViewsAtomicityTests.LongViewTest
+    (JVM args: [-Xmx1G])
+  Observed state   Occurrences              Expectation  Interpretation
+              -1       734,484               ACCEPTABLE  Seeing the complete update.
+     -4294967296            25   ACCEPTABLE_INTERESTING  All other cases are unexpected, but legal.
+               0           370               ACCEPTABLE  Seeing the default value, this is valid under race.
+      4294967295            22   ACCEPTABLE_INTERESTING  All other cases are unexpected, but legal.
+
+      [OK] o.o.j.t.executors.ThreadPoolExecutorKeepAliveTest
+    (JVM args: [-Xmx1G, -XX:+UnlockDiagnosticVMOptions, -XX:+StressLCM, -XX:+StressGCM])
+  Observed state   Occurrences              Expectation  Interpretation
+            0, 0         4,565               ACCEPTABLE  keepAliveTime had changed, and allowCoreThreadTimeOut fai...
+            1, 0            22   ACCEPTABLE_INTERESTING  The update under race can break the (keepAliveTime == 0 &...
+            1, 1        41,130               ACCEPTABLE  allowCoreThreadTimeOut had changed, and keepAliveTime fai...
+
+      [OK] o.o.j.t.executors.ThreadPoolExecutorKeepAliveTest
+    (JVM args: [-Xmx1G, -XX:-TieredCompilation, -XX:+UnlockDiagnosticVMOptions, -XX:+StressLCM, -XX:+StressGCM])
+  Observed state   Occurrences              Expectation  Interpretation
+            0, 0           159               ACCEPTABLE  keepAliveTime had changed, and allowCoreThreadTimeOut fai...
+            1, 0           125   ACCEPTABLE_INTERESTING  The update under race can break the (keepAliveTime == 0 &...
+            1, 1       103,509               ACCEPTABLE  allowCoreThreadTimeOut had changed, and keepAliveTime fai...
+
+      [OK] o.o.j.t.executors.ThreadPoolExecutorKeepAliveTest
+    (JVM args: [-Xmx1G, -XX:-TieredCompilation])
+  Observed state   Occurrences              Expectation  Interpretation
+            0, 0         4,031               ACCEPTABLE  keepAliveTime had changed, and allowCoreThreadTimeOut fai...
+            1, 0            11   ACCEPTABLE_INTERESTING  The update under race can break the (keepAliveTime == 0 &...
+            1, 1       106,221               ACCEPTABLE  allowCoreThreadTimeOut had changed, and keepAliveTime fai...
+
+      [OK] o.o.j.t.executors.ThreadPoolExecutorKeepAliveTest
+    (JVM args: [-Xmx1G, -XX:TieredStopAtLevel=1])
+  Observed state   Occurrences              Expectation  Interpretation
+            0, 0           533               ACCEPTABLE  keepAliveTime had changed, and allowCoreThreadTimeOut fai...
+            1, 0            85   ACCEPTABLE_INTERESTING  The update under race can break the (keepAliveTime == 0 &...
+            1, 1        98,995               ACCEPTABLE  allowCoreThreadTimeOut had changed, and keepAliveTime fai...
+
+      [OK] o.o.j.t.executors.ThreadPoolExecutorKeepAliveTest
+    (JVM args: [-Xmx1G, -Xint])
+  Observed state   Occurrences              Expectation  Interpretation
+            0, 0            68               ACCEPTABLE  keepAliveTime had changed, and allowCoreThreadTimeOut fai...
+            1, 0             5   ACCEPTABLE_INTERESTING  The update under race can break the (keepAliveTime == 0 &...
+            1, 1        23,536               ACCEPTABLE  allowCoreThreadTimeOut had changed, and keepAliveTime fai...
+
+      [OK] o.o.j.t.executors.ThreadPoolExecutorKeepAliveTest
+    (JVM args: [-Xmx1G])
+  Observed state   Occurrences              Expectation  Interpretation
+            0, 0           294               ACCEPTABLE  keepAliveTime had changed, and allowCoreThreadTimeOut fai...
+            1, 0            42   ACCEPTABLE_INTERESTING  The update under race can break the (keepAliveTime == 0 &...
+            1, 1        13,789               ACCEPTABLE  allowCoreThreadTimeOut had changed, and keepAliveTime fai...
+
+      [OK] o.o.j.t.executors.ThreadPoolExecutorSizesTest
+    (JVM args: [-Xmx1G, -XX:+UnlockDiagnosticVMOptions, -XX:+StressLCM, -XX:+StressGCM])
+  Observed state   Occurrences              Expectation  Interpretation
+            1, 2         3,869               ACCEPTABLE  maxPoolSize had changed, and corePoolSize failed to change.
+            3, 2             1   ACCEPTABLE_INTERESTING  The update under race can break the (core &#8804; maxPool...
+            3, 4        17,143               ACCEPTABLE  corePoolSize had changed, and maxPoolSize failed to change.
+
+      [OK] o.o.j.t.executors.ThreadPoolExecutorSizesTest
+    (JVM args: [-Xmx1G, -XX:-TieredCompilation, -XX:+UnlockDiagnosticVMOptions, -XX:+StressLCM, -XX:+StressGCM])
+  Observed state   Occurrences              Expectation  Interpretation
+            1, 2         6,022               ACCEPTABLE  maxPoolSize had changed, and corePoolSize failed to change.
+            3, 2            70   ACCEPTABLE_INTERESTING  The update under race can break the (core &#8804; maxPool...
+            3, 4        98,621               ACCEPTABLE  corePoolSize had changed, and maxPoolSize failed to change.
+
+      [OK] o.o.j.t.executors.ThreadPoolExecutorSizesTest
+    (JVM args: [-Xmx1G, -XX:-TieredCompilation])
+  Observed state   Occurrences              Expectation  Interpretation
+            1, 2        11,067               ACCEPTABLE  maxPoolSize had changed, and corePoolSize failed to change.
+            3, 2         1,014   ACCEPTABLE_INTERESTING  The update under race can break the (core &#8804; maxPool...
+            3, 4        99,952               ACCEPTABLE  corePoolSize had changed, and maxPoolSize failed to change.
+
+      [OK] o.o.j.t.executors.ThreadPoolExecutorSizesTest
+    (JVM args: [-Xmx1G, -XX:TieredStopAtLevel=1])
+  Observed state   Occurrences              Expectation  Interpretation
+            1, 2        10,113               ACCEPTABLE  maxPoolSize had changed, and corePoolSize failed to change.
+            3, 2           589   ACCEPTABLE_INTERESTING  The update under race can break the (core &#8804; maxPool...
+            3, 4       106,331               ACCEPTABLE  corePoolSize had changed, and maxPoolSize failed to change.
+
+      [OK] o.o.j.t.executors.ThreadPoolExecutorSizesTest
+    (JVM args: [-Xmx1G])
+  Observed state   Occurrences              Expectation  Interpretation
+            1, 2         8,940               ACCEPTABLE  maxPoolSize had changed, and corePoolSize failed to change.
+            3, 2         1,920   ACCEPTABLE_INTERESTING  The update under race can break the (core &#8804; maxPool...
+            3, 4       115,253               ACCEPTABLE  corePoolSize had changed, and maxPoolSize failed to change.
+
+      [OK] o.o.j.t.fences.UnfencedAcquireReleaseTest
+    (JVM args: [-Xmx1G, -XX:+UnlockDiagnosticVMOptions, -XX:+StressLCM, -XX:+StressGCM])
+  Observed state   Occurrences              Expectation  Interpretation
+            0, 0       294,548               ACCEPTABLE  Before observing releasing write to, any value is OK for $x.
+            0, 1             0               ACCEPTABLE  Before observing releasing write to, any value is OK for $x.
+            0, 2             0               ACCEPTABLE  Before observing releasing write to, any value is OK for $x.
+            0, 3            39               ACCEPTABLE  Before observing releasing write to, any value is OK for $x.
+            1, 0             1   ACCEPTABLE_INTERESTING  Without fence or volatile can read the default or old val...
+            1, 1             0   ACCEPTABLE_INTERESTING  Without fence or volatile can read the default or old val...
+            1, 2             0               ACCEPTABLE  Can see a released value of $x if $y is observed.
+            1, 3       635,043               ACCEPTABLE  Can see a released value of $x if $y is observed.
+
+      [OK] o.o.j.t.fences.UnfencedAcquireReleaseTest
+    (JVM args: [-Xmx1G, -XX:-TieredCompilation])
+  Observed state   Occurrences              Expectation  Interpretation
+            0, 0       103,502               ACCEPTABLE  Before observing releasing write to, any value is OK for $x.
+            0, 1             0               ACCEPTABLE  Before observing releasing write to, any value is OK for $x.
+            0, 2             0               ACCEPTABLE  Before observing releasing write to, any value is OK for $x.
+            0, 3             6               ACCEPTABLE  Before observing releasing write to, any value is OK for $x.
+            1, 0             5   ACCEPTABLE_INTERESTING  Without fence or volatile can read the default or old val...
+            1, 1             0   ACCEPTABLE_INTERESTING  Without fence or volatile can read the default or old val...
+            1, 2             0               ACCEPTABLE  Can see a released value of $x if $y is observed.
+            1, 3     1,579,228               ACCEPTABLE  Can see a released value of $x if $y is observed.
+
+      [OK] o.o.j.t.fences.UnfencedAcquireReleaseTest
+    (JVM args: [-Xmx1G, -XX:TieredStopAtLevel=1])
+  Observed state   Occurrences              Expectation  Interpretation
+            0, 0        27,456               ACCEPTABLE  Before observing releasing write to, any value is OK for $x.
+            0, 1             0               ACCEPTABLE  Before observing releasing write to, any value is OK for $x.
+            0, 2             0               ACCEPTABLE  Before observing releasing write to, any value is OK for $x.
+            0, 3            78               ACCEPTABLE  Before observing releasing write to, any value is OK for $x.
+            1, 0             4   ACCEPTABLE_INTERESTING  Without fence or volatile can read the default or old val...
+            1, 1             0   ACCEPTABLE_INTERESTING  Without fence or volatile can read the default or old val...
+            1, 2             0               ACCEPTABLE  Can see a released value of $x if $y is observed.
+            1, 3     2,853,393               ACCEPTABLE  Can see a released value of $x if $y is observed.
+
+      [OK] o.o.j.t.fences.UnfencedDekkerTest
+    (JVM args: [-Xmx1G, -XX:+UnlockDiagnosticVMOptions, -XX:+StressLCM, -XX:+StressGCM])
+  Observed state   Occurrences              Expectation  Interpretation
+            0, 0         3,502   ACCEPTABLE_INTERESTING  Acceptable with no sequential consistency enforced
+            0, 1     1,197,374               ACCEPTABLE  Acceptable under sequential consistency
+            1, 0       346,967               ACCEPTABLE  Acceptable under sequential consistency
+            1, 1         2,038               ACCEPTABLE  Acceptable under sequential consistency
+
+      [OK] o.o.j.t.fences.UnfencedDekkerTest
+    (JVM args: [-Xmx1G, -XX:-TieredCompilation, -XX:+UnlockDiagnosticVMOptions, -XX:+StressLCM, -XX:+StressGCM])
+  Observed state   Occurrences              Expectation  Interpretation
+            0, 0        29,377   ACCEPTABLE_INTERESTING  Acceptable with no sequential consistency enforced
+            0, 1     1,190,801               ACCEPTABLE  Acceptable under sequential consistency
+            1, 0     1,278,361               ACCEPTABLE  Acceptable under sequential consistency
+            1, 1           142               ACCEPTABLE  Acceptable under sequential consistency
+
+      [OK] o.o.j.t.fences.UnfencedDekkerTest
+    (JVM args: [-Xmx1G, -XX:-TieredCompilation])
+  Observed state   Occurrences              Expectation  Interpretation
+            0, 0        25,573   ACCEPTABLE_INTERESTING  Acceptable with no sequential consistency enforced
+            0, 1     1,243,741               ACCEPTABLE  Acceptable under sequential consistency
+            1, 0     1,025,228               ACCEPTABLE  Acceptable under sequential consistency
+            1, 1            39               ACCEPTABLE  Acceptable under sequential consistency
+
+      [OK] o.o.j.t.fences.UnfencedDekkerTest
+    (JVM args: [-Xmx1G, -XX:TieredStopAtLevel=1])
+  Observed state   Occurrences              Expectation  Interpretation
+            0, 0         1,488   ACCEPTABLE_INTERESTING  Acceptable with no sequential consistency enforced
+            0, 1       343,978               ACCEPTABLE  Acceptable under sequential consistency
+            1, 0        35,855               ACCEPTABLE  Acceptable under sequential consistency
+            1, 1             0               ACCEPTABLE  Acceptable under sequential consistency
+
+      [OK] o.o.j.t.fences.UnfencedDekkerTest
+    (JVM args: [-Xmx1G])
+  Observed state   Occurrences              Expectation  Interpretation
+            0, 0        22,743   ACCEPTABLE_INTERESTING  Acceptable with no sequential consistency enforced
+            0, 1       926,694               ACCEPTABLE  Acceptable under sequential consistency
+            1, 0       666,959               ACCEPTABLE  Acceptable under sequential consistency
+            1, 1             5               ACCEPTABLE  Acceptable under sequential consistency
+
+      [OK] o.o.j.t.fences.UnfencedReadTwiceTest
+    (JVM args: [-Xmx1G, -XX:+UnlockDiagnosticVMOptions, -XX:+StressLCM, -XX:+StressGCM])
+  Observed state   Occurrences              Expectation  Interpretation
+         0, 0, 0        30,820               ACCEPTABLE  Consistent ordered reads.
+         0, 0, 1             0               ACCEPTABLE  Consistent ordered reads.
+         0, 1, 0             2   ACCEPTABLE_INTERESTING  Lost or reordered read of x.
+         0, 1, 1             0               ACCEPTABLE  Consistent ordered reads.
+         1, 0, 0             0   ACCEPTABLE_INTERESTING  Lost or reordered read of x.
+         1, 0, 1            75               ACCEPTABLE  Consistent ordered reads.
+         1, 1, 0             0   ACCEPTABLE_INTERESTING  Lost or reordered read of x.
+         1, 1, 1     2,027,444               ACCEPTABLE  Consistent ordered reads.
+
+      [OK] o.o.j.t.fences.UnfencedReadTwiceTest
+    (JVM args: [-Xmx1G, -XX:-TieredCompilation])
+  Observed state   Occurrences              Expectation  Interpretation
+         0, 0, 0           178               ACCEPTABLE  Consistent ordered reads.
+         0, 0, 1            12               ACCEPTABLE  Consistent ordered reads.
+         0, 1, 0             4   ACCEPTABLE_INTERESTING  Lost or reordered read of x.
+         0, 1, 1            15               ACCEPTABLE  Consistent ordered reads.
+         1, 0, 0             0   ACCEPTABLE_INTERESTING  Lost or reordered read of x.
+         1, 0, 1             0               ACCEPTABLE  Consistent ordered reads.
+         1, 1, 0             0   ACCEPTABLE_INTERESTING  Lost or reordered read of x.
+         1, 1, 1       224,636               ACCEPTABLE  Consistent ordered reads.
+
+      [OK] o.o.j.t.fences.UnfencedReadTwiceTest
+    (JVM args: [-Xmx1G, -XX:TieredStopAtLevel=1])
+  Observed state   Occurrences              Expectation  Interpretation
+         0, 0, 0        56,675               ACCEPTABLE  Consistent ordered reads.
+         0, 0, 1             0               ACCEPTABLE  Consistent ordered reads.
+         0, 1, 0             6   ACCEPTABLE_INTERESTING  Lost or reordered read of x.
+         0, 1, 1             0               ACCEPTABLE  Consistent ordered reads.
+         1, 0, 0             0   ACCEPTABLE_INTERESTING  Lost or reordered read of x.
+         1, 0, 1            20               ACCEPTABLE  Consistent ordered reads.
+         1, 1, 0             0   ACCEPTABLE_INTERESTING  Lost or reordered read of x.
+         1, 1, 1     2,325,500               ACCEPTABLE  Consistent ordered reads.
+
+      [OK] o.o.j.t.fences.UnfencedReadTwiceTest
+    (JVM args: [-Xmx1G])
+  Observed state   Occurrences              Expectation  Interpretation
+         0, 0, 0        37,949               ACCEPTABLE  Consistent ordered reads.
+         0, 0, 1             0               ACCEPTABLE  Consistent ordered reads.
+         0, 1, 0             3   ACCEPTABLE_INTERESTING  Lost or reordered read of x.
+         0, 1, 1             0               ACCEPTABLE  Consistent ordered reads.
+         1, 0, 0             0   ACCEPTABLE_INTERESTING  Lost or reordered read of x.
+         1, 0, 1           524               ACCEPTABLE  Consistent ordered reads.
+         1, 1, 0             0   ACCEPTABLE_INTERESTING  Lost or reordered read of x.
+         1, 1, 1     2,302,625               ACCEPTABLE  Consistent ordered reads.
+
+      [OK] o.o.j.t.interrupt.PlainBusyLoopTest
+    (JVM args: [-Xmx1G, -XX:+UnlockDiagnosticVMOptions, -XX:+StressLCM, -XX:+StressGCM])
+  Observed state   Occurrences              Expectation  Interpretation
+           STALE             1   ACCEPTABLE_INTERESTING  Thread had failed to respond.
+      TERMINATED             3               ACCEPTABLE  The thread had sucessfully terminated.
+
+    Messages:
+        Have stale threads, forcing VM to exit for proper cleanup.
+
+      [OK] o.o.j.t.interrupt.PlainBusyLoopTest
+    (JVM args: [-Xmx1G, -XX:-TieredCompilation, -XX:+UnlockDiagnosticVMOptions, -XX:+StressLCM, -XX:+StressGCM])
+  Observed state   Occurrences              Expectation  Interpretation
+           STALE             1   ACCEPTABLE_INTERESTING  Thread had failed to respond.
+      TERMINATED             4               ACCEPTABLE  The thread had sucessfully terminated.
+
+    Messages:
+        Have stale threads, forcing VM to exit for proper cleanup.
+
+      [OK] o.o.j.t.interrupt.PlainBusyLoopTest
+    (JVM args: [-Xmx1G, -XX:-TieredCompilation])
+  Observed state   Occurrences              Expectation  Interpretation
+           STALE             1   ACCEPTABLE_INTERESTING  Thread had failed to respond.
+      TERMINATED             3               ACCEPTABLE  The thread had sucessfully terminated.
+
+    Messages:
+        Have stale threads, forcing VM to exit for proper cleanup.
+
+      [OK] o.o.j.t.interrupt.PlainBusyLoopTest
+    (JVM args: [-Xmx1G, -XX:TieredStopAtLevel=1])
+  Observed state   Occurrences              Expectation  Interpretation
+           STALE             1   ACCEPTABLE_INTERESTING  Thread had failed to respond.
+      TERMINATED             0               ACCEPTABLE  The thread had sucessfully terminated.
+
+    Messages:
+        Have stale threads, forcing VM to exit for proper cleanup.
+
+      [OK] o.o.j.t.interrupt.PlainBusyLoopTest
+    (JVM args: [-Xmx1G])
+  Observed state   Occurrences              Expectation  Interpretation
+           STALE             1   ACCEPTABLE_INTERESTING  Thread had failed to respond.
+      TERMINATED             2               ACCEPTABLE  The thread had sucessfully terminated.
+
+    Messages:
+        Have stale threads, forcing VM to exit for proper cleanup.
+
+      [OK] o.o.j.t.interrupt.UnsafeBusyLoopTest
+    (JVM args: [-Xmx1G, -XX:+UnlockDiagnosticVMOptions, -XX:+StressLCM, -XX:+StressGCM])
+  Observed state   Occurrences              Expectation  Interpretation
+           STALE             1   ACCEPTABLE_INTERESTING  Thread had failed to respond.
+      TERMINATED            18               ACCEPTABLE  The thread had sucessfully terminated.
+
+    Messages:
+        Have stale threads, forcing VM to exit for proper cleanup.
+
+      [OK] o.o.j.t.interrupt.UnsafeBusyLoopTest
+    (JVM args: [-Xmx1G, -XX:-TieredCompilation, -XX:+UnlockDiagnosticVMOptions, -XX:+StressLCM, -XX:+StressGCM])
+  Observed state   Occurrences              Expectation  Interpretation
+           STALE             1   ACCEPTABLE_INTERESTING  Thread had failed to respond.
+      TERMINATED            18               ACCEPTABLE  The thread had sucessfully terminated.
+
+    Messages:
+        Have stale threads, forcing VM to exit for proper cleanup.
+
+      [OK] o.o.j.t.interrupt.UnsafeBusyLoopTest
+    (JVM args: [-Xmx1G, -XX:-TieredCompilation])
+  Observed state   Occurrences              Expectation  Interpretation
+           STALE             1   ACCEPTABLE_INTERESTING  Thread had failed to respond.
+      TERMINATED            17               ACCEPTABLE  The thread had sucessfully terminated.
+
+    Messages:
+        Have stale threads, forcing VM to exit for proper cleanup.
+
+      [OK] o.o.j.t.interrupt.UnsafeBusyLoopTest
+    (JVM args: [-Xmx1G, -XX:TieredStopAtLevel=1])
+  Observed state   Occurrences              Expectation  Interpretation
+           STALE             1   ACCEPTABLE_INTERESTING  Thread had failed to respond.
+      TERMINATED            26               ACCEPTABLE  The thread had sucessfully terminated.
+
+    Messages:
+        Have stale threads, forcing VM to exit for proper cleanup.
+
+      [OK] o.o.j.t.interrupt.UnsafeBusyLoopTest
+    (JVM args: [-Xmx1G])
+  Observed state   Occurrences              Expectation  Interpretation
+           STALE             1   ACCEPTABLE_INTERESTING  Thread had failed to respond.
+      TERMINATED            22               ACCEPTABLE  The thread had sucessfully terminated.
+
+    Messages:
+        Have stale threads, forcing VM to exit for proper cleanup.
+
+      [OK] o.o.j.t.locks.barriers.SyncBarrier0Test
+    (JVM args: [-Xmx1G, -XX:-TieredCompilation, -XX:+UnlockDiagnosticVMOptions, -XX:+StressLCM, -XX:+StressGCM])
+  Observed state   Occurrences              Expectation  Interpretation
+            0, 0        79,546               ACCEPTABLE  The write to $b is not visible yet; we can observe whatev...
+            0, 2            37               ACCEPTABLE  The write to $b is not visible yet; we can observe whatev...
+            1, 0             1   ACCEPTABLE_INTERESTING  The write to $b is observed, but write to $a is not. This...
+            1, 2     1,277,497               ACCEPTABLE  The write to $b is observed, expected to see $a == 1.
+
+      [OK] o.o.j.t.locks.barriers.SyncBarrier0Test
+    (JVM args: [-Xmx1G, -XX:-TieredCompilation])
+  Observed state   Occurrences              Expectation  Interpretation
+            0, 0        36,809               ACCEPTABLE  The write to $b is not visible yet; we can observe whatev...
+            0, 2             5               ACCEPTABLE  The write to $b is not visible yet; we can observe whatev...
+            1, 0             3   ACCEPTABLE_INTERESTING  The write to $b is observed, but write to $a is not. This...
+            1, 2       606,434               ACCEPTABLE  The write to $b is observed, expected to see $a == 1.
+
+      [OK] o.o.j.t.locks.barriers.SyncBarrier0Test
+    (JVM args: [-Xmx1G])
+  Observed state   Occurrences              Expectation  Interpretation
+            0, 0       152,683               ACCEPTABLE  The write to $b is not visible yet; we can observe whatev...
+            0, 2            69               ACCEPTABLE  The write to $b is not visible yet; we can observe whatev...
+            1, 0             2   ACCEPTABLE_INTERESTING  The write to $b is observed, but write to $a is not. This...
+            1, 2     2,303,747               ACCEPTABLE  The write to $b is observed, expected to see $a == 1.
+
+      [OK] o.o.j.t.locks.barriers.SyncBarrier2Test
+    (JVM args: [-Xmx1G, -XX:+UnlockDiagnosticVMOptions, -XX:+StressLCM, -XX:+StressGCM])
+  Observed state   Occurrences              Expectation  Interpretation
+            0, 0        63,224               ACCEPTABLE  The write to $b is not visible yet; we can observe whatev...
+            0, 2           200               ACCEPTABLE  The write to $b is not visible yet; we can observe whatev...
+            1, 0             3   ACCEPTABLE_INTERESTING  The write to $b is observed, but write to $a is not. This...
+            1, 2     2,671,364               ACCEPTABLE  The write to $b is observed, expected to see $a == 1.
+
+      [OK] o.o.j.t.locks.barriers.SyncBarrier2Test
+    (JVM args: [-Xmx1G, -XX:-TieredCompilation, -XX:+UnlockDiagnosticVMOptions, -XX:+StressLCM, -XX:+StressGCM])
+  Observed state   Occurrences              Expectation  Interpretation
+            0, 0        51,903               ACCEPTABLE  The write to $b is not visible yet; we can observe whatev...
+            0, 2           110               ACCEPTABLE  The write to $b is not visible yet; we can observe whatev...
+            1, 0             4   ACCEPTABLE_INTERESTING  The write to $b is observed, but write to $a is not. This...
+            1, 2     2,296,314               ACCEPTABLE  The write to $b is observed, expected to see $a == 1.
+
+      [OK] o.o.j.t.locks.barriers.SyncBarrier2Test
+    (JVM args: [-Xmx1G, -XX:-TieredCompilation])
+  Observed state   Occurrences              Expectation  Interpretation
+            0, 0       198,836               ACCEPTABLE  The write to $b is not visible yet; we can observe whatev...
+            0, 2           156               ACCEPTABLE  The write to $b is not visible yet; we can observe whatev...
+            1, 0             1   ACCEPTABLE_INTERESTING  The write to $b is observed, but write to $a is not. This...
+            1, 2     1,678,748               ACCEPTABLE  The write to $b is observed, expected to see $a == 1.
+
+      [OK] o.o.j.t.locks.barriers.SyncBarrier2Test
+    (JVM args: [-Xmx1G])
+  Observed state   Occurrences              Expectation  Interpretation
+            0, 0         4,913               ACCEPTABLE  The write to $b is not visible yet; we can observe whatev...
+            0, 2            68               ACCEPTABLE  The write to $b is not visible yet; we can observe whatev...
+            1, 0             1   ACCEPTABLE_INTERESTING  The write to $b is observed, but write to $a is not. This...
+            1, 2       982,309               ACCEPTABLE  The write to $b is observed, expected to see $a == 1.
+
+      [OK] o.o.j.t.strings.StringBuilderTest
+    (JVM args: [-Xmx1G, -XX:+UnlockDiagnosticVMOptions, -XX:+StressLCM, -XX:+StressGCM])
+  Observed state   Occurrences              Expectation  Interpretation
+             bbb        10,930   ACCEPTABLE_INTERESTING  Other values are expected, threads are messing with each ...
+            bbbb        68,757               ACCEPTABLE  All appends are visible.
+
+      [OK] o.o.j.t.strings.StringBuilderTest
+    (JVM args: [-Xmx1G, -XX:-TieredCompilation, -XX:+UnlockDiagnosticVMOptions, -XX:+StressLCM, -XX:+StressGCM])
+  Observed state   Occurrences              Expectation  Interpretation
+             bbb        70,960   ACCEPTABLE_INTERESTING  Other values are expected, threads are messing with each ...
+            bbbb       415,881               ACCEPTABLE  All appends are visible.
+
+      [OK] o.o.j.t.strings.StringBuilderTest
+    (JVM args: [-Xmx1G, -XX:-TieredCompilation])
+  Observed state   Occurrences              Expectation  Interpretation
+             bbb         2,650   ACCEPTABLE_INTERESTING  Other values are expected, threads are messing with each ...
+            bbbb       347,031               ACCEPTABLE  All appends are visible.
+
+      [OK] o.o.j.t.strings.StringBuilderTest
+    (JVM args: [-Xmx1G, -XX:TieredStopAtLevel=1])
+  Observed state   Occurrences              Expectation  Interpretation
+              bb         4,930   ACCEPTABLE_INTERESTING  Other values are expected, threads are messing with each ...
+            bbbb       235,563               ACCEPTABLE  All appends are visible.
+
+      [OK] o.o.j.t.strings.StringBuilderTest
+    (JVM args: [-Xmx1G, -Xint])
+  Observed state   Occurrences              Expectation  Interpretation
+             b b         3,800   ACCEPTABLE_INTERESTING  Other values are expected, threads are messing with each ...
+              bb         1,630   ACCEPTABLE_INTERESTING  Other values are expected, threads are messing with each ...
+            bbbb        97,893               ACCEPTABLE  All appends are visible.
+
+      [OK] o.o.j.t.strings.StringBuilderTest
+    (JVM args: [-Xmx1G])
+  Observed state   Occurrences              Expectation  Interpretation
+             b b        38,500   ACCEPTABLE_INTERESTING  Other values are expected, threads are messing with each ...
+            bbbb       512,851               ACCEPTABLE  All appends are visible.
+
+      [OK] o.o.j.t.threadlocal.ThreadLocalSharing
+    (JVM args: [-Xmx1G, -XX:-TieredCompilation, -XX:+UnlockDiagnosticVMOptions, -XX:+StressLCM, -XX:+StressGCM])
+  Observed state   Occurrences              Expectation  Interpretation
+            0, 0         6,606               ACCEPTABLE  All normal and racy results
+            0, 1           559               ACCEPTABLE  All normal and racy results
+            1, 0             9   ACCEPTABLE_INTERESTING  No memory effects
+            1, 1       276,621               ACCEPTABLE  All normal and racy results
+
+      [OK] o.o.j.t.threadlocal.ThreadLocalSharing
+    (JVM args: [-Xmx1G, -XX:-TieredCompilation])
+  Observed state   Occurrences              Expectation  Interpretation
+            0, 0        19,325               ACCEPTABLE  All normal and racy results
+            0, 1           675               ACCEPTABLE  All normal and racy results
+            1, 0             2   ACCEPTABLE_INTERESTING  No memory effects
+            1, 1       105,609               ACCEPTABLE  All normal and racy results
+
+      [OK] o.o.j.t.threadlocal.ThreadLocalSharing
+    (JVM args: [-Xmx1G, -XX:TieredStopAtLevel=1])
+  Observed state   Occurrences              Expectation  Interpretation
+            0, 0        17,386               ACCEPTABLE  All normal and racy results
+            0, 1           823               ACCEPTABLE  All normal and racy results
+            1, 0            13   ACCEPTABLE_INTERESTING  No memory effects
+            1, 1       143,561               ACCEPTABLE  All normal and racy results
+
+      [OK] o.o.j.t.threadlocal.ThreadLocalSharing
+    (JVM args: [-Xmx1G])
+  Observed state   Occurrences              Expectation  Interpretation
+            0, 0        10,237               ACCEPTABLE  All normal and racy results
+            0, 1         1,137               ACCEPTABLE  All normal and racy results
+            1, 0             6   ACCEPTABLE_INTERESTING  No memory effects
+            1, 1       223,463               ACCEPTABLE  All normal and racy results
+
+      [OK] o.o.j.t.volatiles.ReadAfterReadTest
+    (JVM args: [-Xmx1G, -XX:+UnlockDiagnosticVMOptions, -XX:+StressLCM, -XX:+StressGCM])
+  Observed state   Occurrences              Expectation  Interpretation
+            0, 0       253,996               ACCEPTABLE  Doing both reads early.
+            0, 1           364               ACCEPTABLE  Doing first read early, not surprising.
+            1, 0             5   ACCEPTABLE_INTERESTING  First read seen racy value early, and the second one did ...
+            1, 1     1,123,746               ACCEPTABLE  Doing both reads late.
+
+      [OK] o.o.j.t.volatiles.VolatileIncrementAtomicityTest
+    (JVM args: [-Xmx1G, -XX:+UnlockDiagnosticVMOptions, -XX:+StressLCM, -XX:+StressGCM])
+  Observed state   Occurrences              Expectation  Interpretation
+            1, 1           494   ACCEPTABLE_INTERESTING  Each thread sees the same value, regardless of the update...
+            1, 2       349,019               ACCEPTABLE  Each thread sees its own increment, as if the increment i...
+            2, 1         5,058               ACCEPTABLE  Each thread sees its own increment, as if the increment i...
+
+      [OK] o.o.j.t.volatiles.VolatileIncrementAtomicityTest
+    (JVM args: [-Xmx1G, -XX:-TieredCompilation, -XX:+UnlockDiagnosticVMOptions, -XX:+StressLCM, -XX:+StressGCM])
+  Observed state   Occurrences              Expectation  Interpretation
+            1, 1           598   ACCEPTABLE_INTERESTING  Each thread sees the same value, regardless of the update...
+            1, 2       434,384               ACCEPTABLE  Each thread sees its own increment, as if the increment i...
+            2, 1        11,789               ACCEPTABLE  Each thread sees its own increment, as if the increment i...
+
+      [OK] o.o.j.t.volatiles.VolatileIncrementAtomicityTest
+    (JVM args: [-Xmx1G, -XX:-TieredCompilation])
+  Observed state   Occurrences              Expectation  Interpretation
+            1, 1        33,388   ACCEPTABLE_INTERESTING  Each thread sees the same value, regardless of the update...
+            1, 2       761,755               ACCEPTABLE  Each thread sees its own increment, as if the increment i...
+            2, 1       400,508               ACCEPTABLE  Each thread sees its own increment, as if the increment i...
+
+      [OK] o.o.j.t.volatiles.VolatileIncrementAtomicityTest
+    (JVM args: [-Xmx1G, -XX:TieredStopAtLevel=1])
+  Observed state   Occurrences              Expectation  Interpretation
+            1, 1         2,640   ACCEPTABLE_INTERESTING  Each thread sees the same value, regardless of the update...
+            1, 2       596,689               ACCEPTABLE  Each thread sees its own increment, as if the increment i...
+            2, 1        69,042               ACCEPTABLE  Each thread sees its own increment, as if the increment i...
+
+      [OK] o.o.j.t.volatiles.VolatileIncrementAtomicityTest
+    (JVM args: [-Xmx1G, -Xint])
+  Observed state   Occurrences              Expectation  Interpretation
+            1, 1             5   ACCEPTABLE_INTERESTING  Each thread sees the same value, regardless of the update...
+            1, 2       285,594               ACCEPTABLE  Each thread sees its own increment, as if the increment i...
+            2, 1         2,220               ACCEPTABLE  Each thread sees its own increment, as if the increment i...
+
+      [OK] o.o.j.t.volatiles.VolatileIncrementAtomicityTest
+    (JVM args: [-Xmx1G])
+  Observed state   Occurrences              Expectation  Interpretation
+            1, 1           736   ACCEPTABLE_INTERESTING  Each thread sees the same value, regardless of the update...
+            1, 2       437,573               ACCEPTABLE  Each thread sees its own increment, as if the increment i...
+            2, 1       337,342               ACCEPTABLE  Each thread sees its own increment, as if the increment i...
+
+
+*** FAILED tests
+  Strong asserts were violated. Correct implementations should have no assert failures here.
+
+  0 matching test results.
+
+*** ERROR tests
+  Tests break for some reason, other than failing the assert. Correct implementations should have none.
+
+  0 matching test results.
+
+*** All remaining tests
+  Tests that do not fall into any of the previous categories.
+
+  4875 matching test results.  Use -v to print them.
+
+------------------------------------------------------------------------------------------------------------------------
+
+HTML report was generated. Look at results/index.html for the complete run results.
+
+Will throw any pending exceptions at this point.
+Done.
