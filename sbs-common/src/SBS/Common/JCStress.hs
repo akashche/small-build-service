@@ -4,8 +4,7 @@
 {-# LANGUAGE DuplicateRecordFields #-}
 
 module SBS.Common.JCStress
-    ( MyObjOut
-    , createMyObjOut
+    ( MyObjOut(..)
     ) where
 
 import Prelude
@@ -14,6 +13,7 @@ import Prelude
 import Data.Aeson (FromJSON, ToJSON)
 import Data.Data (Data, Typeable)
 import Data.Text (Text)
+import Data.Vector (Vector)
 import GHC.Generics (Generic)
 
 data MyObjOut = MyObjOut
@@ -22,9 +22,3 @@ data MyObjOut = MyObjOut
     } deriving (Data, Generic, Show, Typeable)
 instance ToJSON MyObjOut
 instance FromJSON MyObjOut
-createMyObjOut :: Text -> Int -> MyObjOut
-createMyObjOut baz_ baa_ = MyObjOut
-    { baz = baz_
-    , baa = baa_
-    }
-

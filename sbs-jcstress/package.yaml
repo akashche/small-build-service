@@ -23,6 +23,17 @@ dependencies:
 library:
   source-dirs: src
 
+executables:
+  sbs-jcstress-wilton:
+    main:                Wilton.hs
+    ghc-options:
+    - -dynamic
+    - -shared
+    - -fPIC
+    - -lHSrts_thr-ghc8.0.2
+    dependencies:
+    - sbs-jcstress
+
 tests:
   sbs-jcstress-test:
     main:                Spec.hs
@@ -33,12 +44,3 @@ tests:
     - -with-rtsopts=-N
     dependencies:
     - sbs-jcstress
-
-ghc-options:
-- -dynamic
-- -shared
-- -fPIC
-# "extra-libraries:" doesn't work here for some reason
-- -lHSrts_thr-ghc8.0.2
-# creates a.out without this
-- -o ../wilton/bin/libsbs_jcstress.so

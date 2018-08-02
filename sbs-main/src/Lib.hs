@@ -3,7 +3,8 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 
 module Lib
-    ( ) where
+    ( start
+    ) where
 
 import Prelude
     ( Either(Left, Right), IO, Maybe(Just, Nothing), Show
@@ -22,8 +23,7 @@ import Data.Text.Encoding (decodeUtf8, encodeUtf8)
 import Data.Text.IO (putStrLn)
 import Data.Vector (Vector)
 import qualified Data.Vector as Vector (fromList)
-import Foreign.C.String (CString)
-import Foreign.Wilton.FFI (createWiltonError, registerWiltonCall, invokeWiltonCall)
+import Foreign.Wilton.FFI (invokeWiltonCall)
 import GHC.Generics (Generic)
 
 import SBS.Common.Data (DyLoadArgs(..), Empty(..))
@@ -47,13 +47,3 @@ start arguments = do
             putStrLn (pack (show obj))
             return ()
     return Empty
-
--- this function is called on module load
-
-foreign export ccall wilton_module_init :: IO CString
-wilton_module_init :: IO CString
-wilton_module_init = do
-    { errMain <- registerWiltonCall "sbs_start" start
-    ; if isJust errMain then createWiltonError errMain
-      else createWiltonError Nothing
-    }
