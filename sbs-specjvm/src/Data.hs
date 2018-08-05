@@ -1,8 +1,10 @@
 
+{-# LANGUAGE DuplicateRecordFields #-}
+
 module Data
     ( BenchMode(..)
     , BenchUnit(..)
-    , BenchResults(..)
+    , BenchResult(..)
     , SpecJVMResults(..)
     ) where
 
@@ -13,10 +15,11 @@ import Data.Text (Text)
 import Data.Vector (Vector)
 
 data BenchMode =
-      Throughput
+      All
     | AverageTime
     | SampleTime
     | SingleShotTime
+    | Throughput
     deriving (Show)
 
 data BenchUnit =
@@ -25,16 +28,16 @@ data BenchUnit =
     | OpsMs
     deriving (Show)
 
-data BenchResults = BenchResults
+data BenchResult = BenchResult
     { name :: Text
     , mode :: BenchMode
     , count :: Int
-    , score :: Float
-    , error :: Float
+    , score :: Int
+    , error :: Int
     , units :: BenchUnit
     } deriving (Show)
 
 data SpecJVMResults = SpecJVMResults
     { totalTimeSeconds :: Int
-    , benchmarks :: Vector BenchResults
+    , benchmarks :: Vector BenchResult
     } deriving (Show)

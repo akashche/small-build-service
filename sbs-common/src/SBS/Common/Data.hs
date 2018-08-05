@@ -10,8 +10,8 @@ module SBS.Common.Data
 
 import Prelude
     ( Int, Show
+    , return
     )
-import Control.Applicative (pure)
 import Data.Aeson (FromJSON, ToJSON, object, parseJSON, toJSON)
 import Data.Data (Data, Typeable)
 import Data.Text (Text)
@@ -22,7 +22,7 @@ data Empty = Empty
 instance ToJSON Empty where
     toJSON _ = object []
 instance FromJSON Empty where
-    parseJSON _ = pure Empty
+    parseJSON _ = return Empty
 
 data DyLoadArgs = DyLoadArgs
     { name :: Text
