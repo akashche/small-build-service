@@ -43,7 +43,8 @@ packages:
 # using the same syntax as the packages field.
 # (e.g., acme-missiles-0.3)
 extra-deps:
-- /home/alex/projects/haskell/wilton-ffi/
+- github: wilton-iot/wilton-ffi
+  commit: master
 
 # Override default flag values for local packages and extra-deps
 # flags: {}
