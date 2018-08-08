@@ -1,18 +1,17 @@
 
+{-# LANGUAGE DeriveDataTypeable #-}
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE Strict #-}
 
 module Wilton ( ) where
 
-import Prelude
-    ( IO, Maybe(Nothing)
-    , return
-    )
-import Data.Maybe (isJust)
-import Foreign.C.String (CString)
-import Foreign.Wilton.FFI (createWiltonError, registerWiltonCall)
-import GHC.Generics (Generic)
+import Prelude ()
 
-import Lib (hello)
+import SBS.Common.Prelude
+import Lib
 
 foreign export ccall wilton_module_init :: IO CString
 wilton_module_init :: IO CString

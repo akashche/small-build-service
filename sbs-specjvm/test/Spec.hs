@@ -1,19 +1,17 @@
 
+{-# LANGUAGE DeriveDataTypeable #-}
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE Strict #-}
 
-import Prelude
-    ( Either(Left, Right), IO
-    , (==)
-    , error, return, show
-    )
-import Control.Monad (when, unless)
-import Data.Text (pack)
-import Data.Text.IO (putStrLn)
-import Data.Text.Lazy (fromChunks)
+import Prelude ()
 
-import SBS.Common.Utils (withFileText)
+import SBS.Common.Prelude
+import SBS.Common.Utils
 
-import Parser (parseSpecJVMOutput)
+import Parser
 
 main :: IO ()
 main = do

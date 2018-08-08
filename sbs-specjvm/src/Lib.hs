@@ -1,18 +1,20 @@
 
+{-# LANGUAGE DeriveDataTypeable #-}
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE Strict #-}
 
 module Lib
     ( hello
     ) where
 
-import Prelude
-    ( IO
-    , return
-    )
-import Foreign.Wilton.FFI (invokeWiltonCall)
+import Prelude ()
 
-import SBS.Common.Data (Empty(..))
-import SBS.Common.JCStress (MyObjOut(..))
+import SBS.Common.Prelude
+import SBS.Common.Data
+import SBS.Common.JCStress
 
 hello :: Empty -> IO MyObjOut
 hello _ =

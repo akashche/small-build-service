@@ -2,25 +2,24 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE Strict #-}
 
 module SBS.Common.Data
     ( DyLoadArgs(..)
     , Empty(..)
     ) where
 
-import Prelude
-    ( Int, Show
-    , return
-    )
-import Data.Aeson (FromJSON, ToJSON, object, parseJSON, toJSON)
-import Data.Data (Data, Typeable)
-import Data.Text (Text)
-import GHC.Generics (Generic)
+import Prelude ()
+import qualified Data.Aeson as Aeson
+
+import SBS.Common.Prelude
 
 data Empty = Empty
     deriving (Data, Generic, Show, Typeable)
 instance ToJSON Empty where
-    toJSON _ = object []
+    toJSON _ = Aeson.object []
 instance FromJSON Empty where
     parseJSON _ = return Empty
 

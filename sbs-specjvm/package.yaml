@@ -15,12 +15,11 @@ dependencies:
 - base >= 4.7 && < 5
 - aeson
 - bytestring
+- parsec
 - text
 - unordered-containers
 - vector
 - wilton-ffi
-# module-specific
-- parsec
 # project
 - sbs-common
 

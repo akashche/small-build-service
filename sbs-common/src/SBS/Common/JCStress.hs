@@ -2,19 +2,17 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE Strict #-}
 
 module SBS.Common.JCStress
     ( MyObjOut(..)
     ) where
 
-import Prelude
-    ( Int, Show
-    )
-import Data.Aeson (FromJSON, ToJSON)
-import Data.Data (Data, Typeable)
-import Data.Text (Text)
-import Data.Vector (Vector)
-import GHC.Generics (Generic)
+import Prelude ()
+
+import SBS.Common.Prelude
 
 data MyObjOut = MyObjOut
     { baz :: Text

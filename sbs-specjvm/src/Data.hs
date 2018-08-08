@@ -1,5 +1,10 @@
 
+{-# LANGUAGE DeriveDataTypeable #-}
+{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE Strict #-}
 
 module Data
     ( BenchMode(..)
@@ -8,11 +13,9 @@ module Data
     , SpecJVMResults(..)
     ) where
 
-import Prelude
-    ( Float, Int, Show
-    )
-import Data.Text (Text)
-import Data.Vector (Vector)
+import Prelude ()
+
+import SBS.Common.Prelude
 
 data BenchMode =
       All

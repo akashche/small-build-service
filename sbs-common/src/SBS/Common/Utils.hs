@@ -1,25 +1,26 @@
 
+{-# LANGUAGE DeriveDataTypeable #-}
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE Strict #-}
+
 module SBS.Common.Utils
     ( bytesToString
     , encodeJsonToText
     , withFileText
     ) where
 
-import Prelude
-    ( IO, String
-    , (.)
-    , return
-    )
-import Data.Aeson (ToJSON)
-import qualified Data.Aeson as Aeson (encode)
-import Data.ByteString (ByteString)
-import qualified Data.ByteString as ByteString (concat)
-import qualified Data.ByteString.Lazy as ByteStringLazy (hGetContents, toChunks)
-import Data.Text (Text, unpack)
-import Data.Text.Encoding (decodeUtf8)
-import qualified Data.Text.Lazy as TextLazy (Text, unpack)
-import qualified Data.Text.Lazy.Encoding as TextLazyEncoding (decodeUtf8)
-import System.IO (IOMode(ReadMode), withBinaryFile)
+import Prelude ()
+import qualified Data.Aeson as Aeson
+import qualified Data.ByteString as ByteString
+import qualified Data.ByteString.Lazy as ByteStringLazy
+import qualified Data.Text.Lazy as TextLazy
+import qualified Data.Text.Lazy.Encoding as TextLazyEncoding
+import qualified System.IO as SystemIO
+
+import SBS.Common.Prelude
 
 bytesToString :: ByteString -> String
 bytesToString = unpack . decodeUtf8
@@ -29,7 +30,7 @@ encodeJsonToText = decodeUtf8 . ByteString.concat . ByteStringLazy.toChunks . Ae
 
 withFileText :: Text -> (TextLazy.Text -> IO a) -> IO a
 withFileText path fun =
-    withBinaryFile (unpack path) ReadMode (\ha -> do
+    SystemIO.withBinaryFile (unpack path) SystemIO.ReadMode (\ha -> do
         bs <- ByteStringLazy.hGetContents ha
         let te = TextLazyEncoding.decodeUtf8 bs
         res <- fun te

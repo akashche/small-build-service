@@ -1,18 +1,16 @@
 
+{-# LANGUAGE DeriveDataTypeable #-}
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE Strict #-}
 
-import Prelude
-    ( IO, Either(Left)
-    , (.), (==)
-    , error, return, show
-    )
-import Control.Monad (unless)
-import Data.Text (Text, pack, unpack)
-import Data.Text.Encoding (decodeUtf8)
-import Data.Text.IO (putStrLn)
+import Prelude ()
 
-import SBS.Common.Data (Empty(..))
-import SBS.Common.Utils (bytesToString, encodeJsonToText)
+import SBS.Common.Prelude
+import SBS.Common.Data
+import SBS.Common.Utils
 
 main :: IO ()
 main = do

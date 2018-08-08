@@ -1,23 +1,21 @@
 
+{-# LANGUAGE DeriveDataTypeable #-}
+{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE Strict #-}
 
 module Lib
     ( start
     ) where
 
-import Prelude
-    ( Either(Left, Right), IO, Maybe(Just, Nothing), Show
-    , error, return, show
-    )
-import Data.Text (Text, pack)
-import Data.Text.IO (putStrLn)
-import Data.Vector (Vector)
-import Foreign.Wilton.FFI (invokeWiltonCall)
+import Prelude ()
 
-import SBS.Common.Data (DyLoadArgs(..), Empty(..))
-import SBS.Common.JCStress (MyObjOut)
-import SBS.Common.Utils (bytesToString)
+import SBS.Common.Prelude
+import SBS.Common.Data
+import SBS.Common.JCStress
+import SBS.Common.Utils
 
 start :: Vector Text -> IO Empty
 start arguments = do
@@ -26,12 +24,12 @@ start arguments = do
     jcstressErr <- invokeWiltonCall "dyload_shared_library" (DyLoadArgs "sbs_jcstress")
     case jcstressErr of
         Left err -> error (bytesToString err)
-        Right (obj :: Maybe Empty) -> return ()
+        Right (_ :: Maybe Empty) -> return ()
     -- load specjvm module
     specjvmErr <- invokeWiltonCall "dyload_shared_library" (DyLoadArgs "sbs_specjvm")
     case specjvmErr of
         Left err -> error (bytesToString err)
-        Right (obj :: Maybe Empty) -> return ()
+        Right (_ :: Maybe Empty) -> return ()
     -- call specjvm module
     callEither <- invokeWiltonCall "sbs_specjvm_hello" Empty
     case callEither of
