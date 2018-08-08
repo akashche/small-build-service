@@ -42,21 +42,6 @@ benchUnit = do
     whitespace
     return res
 
-floatAsInt :: Parser Int
-floatAsInt = do
-    headString <- many1 digit
-    let head = read headString :: Int
-    tail <- option
-        0
-        (do
-            skipOne (char '.')
-            tailString <- many1 digit
-            let tail = read tailString :: Int
-            return tail)
-    let res = head * 1000 + tail
-    whitespace
-    return res
-
 benchResult :: Parser BenchResult
 benchResult = do
     bname <- many1 (choice [alphaNum, (char '.')])
@@ -67,7 +52,6 @@ benchResult = do
     whitespace
     scor <- floatAsInt
     skipOne (char '±')
-    whitespace
     err <- floatAsInt
     whitespace
     bunits <- benchUnit
@@ -78,7 +62,6 @@ benchResult = do
 totalTimeSecs :: Parser Int
 totalTimeSecs = do
     skipOne (string "Total time:")
-    whitespace
     hoursString <- many1 digit
     let hours = read hoursString :: Int
     skipOne (char ':')
@@ -93,7 +76,6 @@ totalTimeSecs = do
 specJVMResults :: Parser SpecJVMResults
 specJVMResults = do
     skipOne (manyTill anyChar (try (string "# Run complete.")))
-    whitespace
     time <- totalTimeSecs
     skipOne (manyTill anyChar newline)
     benchRes <- many1 benchResult
