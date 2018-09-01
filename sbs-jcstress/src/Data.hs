@@ -8,6 +8,7 @@
 
 module Data
     ( JCStressResults(..)
+    , JCStressResultsDiff(..)
     ) where
 
 import Prelude ()
@@ -19,4 +20,11 @@ data JCStressResults = JCStressResults
     , interested :: Vector Text
     , failed :: Vector Text
     , errored :: Vector Text
+    } deriving (Show)
+
+data JCStressResultsDiff = JCStressResultsDiff
+    { passedCountDiff :: Int
+    , interestedDiff :: Int
+    , failedDiff :: Int
+    , erroredDiff :: Int
     } deriving (Show)

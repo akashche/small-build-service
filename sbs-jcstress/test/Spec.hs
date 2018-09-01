@@ -11,16 +11,25 @@ import Prelude ()
 import SBS.Common.Prelude
 import SBS.Common.Utils
 
+import Data
+import Lib
 import Parser
+
+parseLog :: Text -> IO JCStressResults
+parseLog path = withFileText path fun
+     where
+         fun tx =
+             case parseJCStressOutput tx path of
+                 Left err -> errorText err
+                 Right res -> (return res)
 
 main :: IO ()
 main = do
-    withFileText "test/jcstress_abridged.log" (\tx -> do
-        let resEither = parseJCStressOutput tx "test.log"
-        case resEither of
-            Left err -> putStrLn err
-            Right res -> putStrLn (pack (show res))
-        return () )
+    baseline <- parseLog "test/jcstress_abridged.log"
+    putStrLn (showText baseline)
+    res <- parseLog "test/jcstress_abridged_alt.log"
+    let diff = diffResults baseline res
+    putStrLn (showText diff)
 
     putStrLn "Tests Passed."
     return ()

@@ -25,11 +25,13 @@ hello _ =
     return (MyObjOut "foo" 43)
 
 diffBench :: BenchResult -> BenchResult -> BenchDiff
-diffBench baseline res = BenchDiff (name (baseline :: BenchResult)) diff
+diffBench baseline res =
+    BenchDiff (name (baseline :: BenchResult)) diff
     where diff = div ((score res) * 100) (score baseline)
 
 diffResults :: SpecJVMResults -> SpecJVMResults -> SpecJVMResultsDiff
-diffResults baseline res = SpecJVMResultsDiff relTime benches
+diffResults baseline res =
+    SpecJVMResultsDiff relTime benches
     where
         relTime = div ((totalTimeSeconds res) * 100) (totalTimeSeconds baseline)
         benches = Vector.zipWith diffBench bsBase bsRes
