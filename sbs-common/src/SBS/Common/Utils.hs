@@ -9,6 +9,8 @@
 module SBS.Common.Utils
     ( bytesToString
     , encodeJsonToText
+    , errorText
+    , showText
     , withFileText
     ) where
 
@@ -35,3 +37,9 @@ withFileText path fun =
         let te = TextLazyEncoding.decodeUtf8 bs
         res <- fun te
         return res )
+
+errorText :: Text -> a
+errorText = error . unpack
+
+showText :: Show a => a -> Text
+showText = pack . show

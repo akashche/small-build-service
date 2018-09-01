@@ -61,7 +61,7 @@ benchResult = do
 
 totalTimeSecs :: Parser Int
 totalTimeSecs = do
-    skipOne (string "Total time:")
+    skipOne (string "# Run complete. Total time:")
     hoursString <- many1 digit
     let hours = read hoursString :: Int
     skipOne (char ':')
@@ -75,7 +75,7 @@ totalTimeSecs = do
 
 specJVMResults :: Parser SpecJVMResults
 specJVMResults = do
-    skipOne (manyTill anyChar (try (string "# Run complete.")))
+    skipManyTill "# Run complete."
     time <- totalTimeSecs
     skipOne (manyTill anyChar newline)
     benchRes <- many1 benchResult

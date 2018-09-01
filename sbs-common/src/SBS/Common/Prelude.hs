@@ -9,7 +9,7 @@
 module SBS.Common.Prelude
     ( Int, IO, Maybe(Just, Nothing), Either(Left, Right), Show, String
     , (+), (-), (*), (/), (>), (<), (==), (/=), (.), (>>), (>>=)
-    , error, map, read, return, show
+    , div, error, map, read, return, show
     -- Control.Monad
     , unless, when
     -- Data.Aeson
@@ -48,7 +48,7 @@ module SBS.Common.Prelude
 import Prelude
     ( Int, IO, Maybe(Just, Nothing), Either(Left, Right), Show, String
     , (+), (-), (*), (/), (>), (<), (==), (/=), (.), (>>), (>>=)
-    , error, map, read, return, show
+    , div, error, map, read, return, show
     )
 import Control.Monad (unless, when)
 import Data.Aeson (FromJSON, ToJSON, parseJSON, toJSON)

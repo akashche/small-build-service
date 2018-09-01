@@ -11,6 +11,8 @@ module Data
     , BenchUnit(..)
     , BenchResult(..)
     , SpecJVMResults(..)
+    , BenchDiff(..)
+    , SpecJVMResultsDiff(..)
     ) where
 
 import Prelude ()
@@ -43,4 +45,14 @@ data BenchResult = BenchResult
 data SpecJVMResults = SpecJVMResults
     { totalTimeSeconds :: Int
     , benchmarks :: Vector BenchResult
+    } deriving (Show)
+
+data BenchDiff = BenchDiff
+    { name :: Text
+    , relativeScore :: Int
+    } deriving (Show)
+
+data SpecJVMResultsDiff = SpecJVMResultsDiff
+    { relativeTotalTime :: Int
+    , benchmarks :: Vector BenchDiff
     } deriving (Show)
