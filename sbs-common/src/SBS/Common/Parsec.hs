@@ -38,6 +38,7 @@ import qualified Data.List as List
 import qualified Data.Text.Lazy as TextLazy
 
 import SBS.Common.Prelude
+import SBS.Common.Utils
 
 -- general helpers
 
@@ -56,8 +57,8 @@ errToText err =
     TextLazy.toStrict (toLazyText
         (   fromText "ParseError:"
         <>  fromText " file: [" <> fromString (sourceName pos) <> fromText "],"
-        <>  fromText " line: [" <> fromString (show (sourceLine pos)) <> fromText "],"
-        <>  fromText " column: [" <> fromString (show (sourceColumn pos)) <> fromText "],"
+        <>  fromText " line: [" <> fromText (showText (sourceLine pos)) <> fromText "],"
+        <>  fromText " column: [" <> fromText (showText (sourceColumn pos)) <> fromText "],"
         <>  fromText " messages: [" <> msg <> "]"
         ))
     where

@@ -1,0 +1,18 @@
+{
+    "dbFilePath": "sbs.db",
+    "jdkImageDir": "todo",
+    "specjvmConfig": {
+        "xmxMemoryLimitMB": 1024,
+        "threadsCount": 2,
+        "excludedBenchmarks": [
+            "Compiler.compiler",
+            "CryptoAes.test",
+            "Derby.test",
+            "ScimarkFFT.large",
+            "ScimarkLU.large",
+            "ScimarkSOR.large",
+            "ScimarkSparse.large",
+            "ScimarkSparse.small"
+        ]
+    }
+}

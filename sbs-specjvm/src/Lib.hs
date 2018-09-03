@@ -8,21 +8,22 @@
 
 module Lib
     ( diffResults
-    , hello
+    , run
     ) where
 
 import Prelude ()
 import qualified Data.Vector as Vector
 
 import SBS.Common.Prelude
-import SBS.Common.Data
-import SBS.Common.JCStress
+import SBS.Common.SpecJVM
+import SBS.Common.Utils
 
 import Data
 
-hello :: Empty -> IO MyObjOut
-hello _ =
-    return (MyObjOut "foo" 43)
+run :: SpecJVMInput -> IO ()
+run input = do
+    putStrLn (showText input)
+    return ()
 
 diffBench :: BenchResult -> BenchResult -> BenchDiff
 diffBench baseline res =

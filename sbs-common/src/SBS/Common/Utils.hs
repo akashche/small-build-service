@@ -7,11 +7,17 @@
 {-# LANGUAGE Strict #-}
 
 module SBS.Common.Utils
-    ( bytesToString
-    , encodeJsonToText
-    , errorText
+    (
+    -- prelude text
+      errorText
     , showText
+    -- file IO
+    , withFileBytes
     , withFileText
+    -- json
+    , decodeJsonFile
+    , decodeJsonText
+    , encodeJsonText
     ) where
 
 import Prelude ()
@@ -20,26 +26,53 @@ import qualified Data.ByteString as ByteString
 import qualified Data.ByteString.Lazy as ByteStringLazy
 import qualified Data.Text.Lazy as TextLazy
 import qualified Data.Text.Lazy.Encoding as TextLazyEncoding
+import qualified Prelude as Prelude
 import qualified System.IO as SystemIO
 
 import SBS.Common.Prelude
 
-bytesToString :: ByteString -> String
-bytesToString = unpack . decodeUtf8
+-- prelude text
 
-encodeJsonToText :: ToJSON a => a -> Text
-encodeJsonToText = decodeUtf8 . ByteString.concat . ByteStringLazy.toChunks . Aeson.encode
+errorText :: Text -> a
+errorText = Prelude.error . unpack
+
+showText :: Show a => a -> Text
+showText = pack . Prelude.show
+
+-- file IO
+
+withFileBytes :: Text -> (ByteStringLazy.ByteString -> IO a) -> IO a
+withFileBytes path fun =
+    SystemIO.withBinaryFile (unpack path) SystemIO.ReadMode (\ha -> do
+        bs <- ByteStringLazy.hGetContents ha
+        res <- fun bs
+        return res )
 
 withFileText :: Text -> (TextLazy.Text -> IO a) -> IO a
 withFileText path fun =
-    SystemIO.withBinaryFile (unpack path) SystemIO.ReadMode (\ha -> do
-        bs <- ByteStringLazy.hGetContents ha
+    withFileBytes path (\bs -> do
         let te = TextLazyEncoding.decodeUtf8 bs
         res <- fun te
         return res )
 
-errorText :: Text -> a
-errorText = error . unpack
+-- json
 
-showText :: Show a => a -> Text
-showText = pack . show
+encodeJsonText :: ToJSON a => a -> Text
+encodeJsonText = decodeUtf8 . ByteString.concat . ByteStringLazy.toChunks . Aeson.encode
+
+decodeJsonText :: forall a . (FromJSON a) => Text -> a
+decodeJsonText tx =
+    case Aeson.eitherDecode bs :: Either String a of
+        Left err -> errorText (pack err)
+        Right res -> res
+    where
+        bs = ByteStringLazy.fromChunks [encodeUtf8 tx]
+
+decodeJsonFile :: forall a . (FromJSON a) => Text -> IO a
+decodeJsonFile path =
+    withFileBytes path fun
+    where
+        fun bs =
+            case Aeson.eitherDecode bs :: Either String a of
+                Left err -> errorText (pack err)
+                Right res -> return res

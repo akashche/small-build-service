@@ -9,6 +9,7 @@
 module SBS.Common.Data
     ( DyLoadArgs(..)
     , Empty(..)
+    , DBConfig(..)
     ) where
 
 import Prelude ()
@@ -28,3 +29,9 @@ data DyLoadArgs = DyLoadArgs
     } deriving (Typeable, Data, Generic, Show)
 instance ToJSON DyLoadArgs
 
+data DBConfig = DBConfig
+    { connectionHandle :: Int64
+    , runId :: Int64
+    } deriving (Typeable, Data, Generic, Show)
+instance FromJSON DBConfig
+instance ToJSON DBConfig

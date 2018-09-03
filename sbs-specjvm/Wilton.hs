@@ -16,8 +16,8 @@ import Lib
 foreign export ccall wilton_module_init :: IO CString
 wilton_module_init :: IO CString
 wilton_module_init = do
-    { errHello <- registerWiltonCall "sbs_specjvm_hello" hello
-    ; if isJust errHello then createWiltonError errHello
+    { errRun <- registerWiltonCall "sbs_specjvm_run" run
+    ; if isJust errRun then createWiltonError errRun
 
       else createWiltonError Nothing
     }

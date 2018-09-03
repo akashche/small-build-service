@@ -16,12 +16,13 @@ import Lib
 import Parser
 
 parseLog :: Text -> IO SpecJVMResults
-parseLog path = withFileText path fun
-     where
-         fun tx =
-             case parseSpecJVMOutput tx path of
-                 Left err -> errorText err
-                 Right res -> (return res)
+parseLog path =
+    withFileText path fun
+    where
+        fun tx =
+            case parseSpecJVMOutput tx path of
+                Left err -> errorText err
+                Right res -> return res
 
 main :: IO ()
 main = do

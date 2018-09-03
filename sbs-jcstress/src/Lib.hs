@@ -15,12 +15,11 @@ import Prelude ()
 import qualified Data.Vector as Vector
 
 import SBS.Common.Prelude
-import SBS.Common.Data
 import SBS.Common.JCStress
 
 import Data
 
-hello :: Empty -> IO MyObjOut
+hello :: () -> IO MyObjOut
 hello _ =
     return (MyObjOut "foo" 43)
 
