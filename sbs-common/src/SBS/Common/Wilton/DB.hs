@@ -7,7 +7,8 @@
 {-# LANGUAGE Strict #-}
 
 module SBS.Common.Wilton.DB
-    ( dbOpen
+    ( DBConnection(..)
+    , dbOpen
     , dbExecute
     , dbQueryList
     , dbQueryObject
@@ -23,59 +24,59 @@ import SBS.Common.Prelude
 import SBS.Common.Utils
 import SBS.Common.Wilton.Call
 
-data DBConnHandle = DBConnHandle
+data DBConnection = DBConnection
     { connectionHandle :: Int64
+    , channelHandle :: Int64
     } deriving (Typeable, Data, Generic, Show)
-instance FromJSON DBConnHandle
-instance ToJSON DBConnHandle
+instance FromJSON DBConnection
+instance ToJSON DBConnection
 
-data DBTranHandle = DBTranHandle
-    { transactionHandle :: Int64
-    } deriving (Typeable, Data, Generic, Show)
-instance FromJSON DBTranHandle
-instance ToJSON DBTranHandle
-_DBTranHandle :: DBTranHandle -> IO ()
-_DBTranHandle x = do
-    let _ = transactionHandle x
-    return ()
-
-data DBQueryArgs a = DBQueryArgs
-    { connectionHandle :: Int64
-    , sql :: Text
-    , params :: a
-    } deriving (Typeable, Data, Generic, Show)
-instance ToJSON a => ToJSON (DBQueryArgs a)
-_DBQueryArgs :: DBQueryArgs a -> IO ()
-_DBQueryArgs x = do
-    let _ = sql x
-    let _ = params x
-    return ()
-
-dbOpen :: Text -> IO Int64
+dbOpen :: Text -> IO DBConnection
 dbOpen url = do
-    hsObjText <- wiltoncallText "db_connection_open" url
-    let haObj = decodeJsonText hsObjText :: DBConnHandle
-    return (connectionHandle (haObj :: DBConnHandle))
+    connJson <- wiltoncallText "db_connection_open" url
+    let connHandle = jsonGet (decodeJsonText connJson :: Object) "connectionHandle" :: Int64
+    chanObj <- wiltoncall "channel_create" (object
+        [ "name" .= url
+        , "size" .= (1 :: Int)
+        ]) :: IO Object
+    let chanHandle = jsonGet chanObj "channelHandle" :: Int64
+    return (DBConnection connHandle chanHandle)
 
-dbExecute :: forall a . (ToJSON a) => Int64 -> Text -> a -> IO ()
-dbExecute handle sqlQuery pars = do
-    let args = DBQueryArgs handle sqlQuery pars
-    wiltoncall "db_connection_execute" args :: IO ()
+dbClose :: DBConnection -> IO ()
+dbClose db = do
+    wiltoncall "db_connection_close" (object
+        [ "connectionHandle" .= connectionHandle (db :: DBConnection)
+        ]) :: IO ()
+    wiltoncall "channel_close" (object
+        [ "channelHandle" .= channelHandle (db :: DBConnection)
+        ]) :: IO ()
+    return ()
+
+dbExecute :: forall a . (ToJSON a) => DBConnection -> Text -> a -> IO ()
+dbExecute db sqlQuery pars = do
+    wiltoncall "db_connection_execute" (object
+        [ "connectionHandle" .= connectionHandle (db :: DBConnection)
+        , "sql" .= sqlQuery
+        , "params" .= pars
+        ]) :: IO ()
     return ()
 
 dbQueryList ::
     forall a b . (ToJSON a, Data b, FromJSON b) =>
-    Int64 -> Text -> a -> IO (Vector b)
-dbQueryList handle sqlQuery pars = do
-    let args = DBQueryArgs handle sqlQuery pars
-    res <- wiltoncall "db_connection_query" args :: IO (Vector b)
+    DBConnection -> Text -> a -> IO (Vector b)
+dbQueryList db sqlQuery pars = do
+    res <- wiltoncall "db_connection_query" (object
+        [ "connectionHandle" .= connectionHandle (db :: DBConnection)
+        , "sql" .= sqlQuery
+        , "params" .= pars
+        ]) :: IO (Vector b)
     return res
 
 dbQueryObject ::
     forall a b . (ToJSON a, Data b, FromJSON b) =>
-    Int64 -> Text -> a -> IO b
-dbQueryObject handle sqlQuery pars = do
-    vec <- dbQueryList handle sqlQuery pars
+    DBConnection -> Text -> a -> IO b
+dbQueryObject db sqlQuery pars = do
+    vec <- dbQueryList db sqlQuery pars
     let len = Vector.length vec
     when (1 /= len) (errorText (
                "Invalid number of records returned, expected 1 record,"
@@ -83,10 +84,11 @@ dbQueryObject handle sqlQuery pars = do
             <> " number of records: [" <> (showText len) <>  "]"))
     return (Vector.head vec)
 
-dbWithTransaction :: forall a . Int64 -> IO a -> IO a
-dbWithTransaction handle cb = do
-    let ha = DBConnHandle handle
-    th <- wiltoncall "db_transaction_start" ha :: IO DBTranHandle
+dbWithTransaction :: forall a . DBConnection -> IO a -> IO a
+dbWithTransaction db cb = do
+    th <- wiltoncall "db_transaction_start" (object
+        [ "connectionHandle" .= connectionHandle (db :: DBConnection)
+        ]) :: IO Object
     resEither <- catch
         ( do
             res <- cb
@@ -99,20 +101,23 @@ dbWithTransaction handle cb = do
             throw e
         Right res -> return res
 
-dbWithSyncTransaction :: forall a . MVar Text -> Int64 -> IO a -> IO a
-dbWithSyncTransaction mutex handle cb = do
-    mval <- takeMVar mutex
+-- required for sqlite with multi-threading
+dbWithSyncTransaction :: forall a . DBConnection -> IO a -> IO a
+dbWithSyncTransaction db cb = do
+    _ <- wiltoncall "channel_send" (object
+        [ "channelHandle" .= channelHandle (db :: DBConnection)
+        , "message" .= ("sbs" :: Text)
+        , "timeoutMillis" .= (0 :: Int)
+        ]) :: IO Object
     resEither <- catch
         ( do
-            res <- dbWithTransaction handle cb
+            res <- dbWithTransaction db cb
             return (Right res))
         (\(e :: SomeException) -> return (Left e))
-    putMVar mutex mval
+    _ <- wiltoncallText "channel_receive" (encodeJsonText (object
+        [ "channelHandle" .= channelHandle (db :: DBConnection)
+        , "timeoutMillis" .= (0 :: Int)
+        ]))
     case resEither of
         Left e -> throw e
         Right res -> return res
-
-dbClose :: Int64 -> IO ()
-dbClose handle = do
-    wiltoncall "db_connection_close" handle :: IO ()
-    return ()

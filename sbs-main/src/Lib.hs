@@ -49,22 +49,25 @@ start arguments = do
     -- load config
     cf <- decodeJsonFile (Vector.head arguments) :: IO Config
     -- load modules
-    _ <- loadModules (fromList ["wilton_db", "sbs_specjvm"])
+    _ <- loadModules (fromList [
+        "wilton_db",
+        "wilton_channel",
+        "sbs_specjvm"])
     -- openDB connection
     let dbPath = dbFilePath cf
     db <- dbOpen ("sqlite://" <> dbPath)
-    mutex <- newMVar "sbs" :: IO (MVar Text)
     -- create run in DB
-    dbWithSyncTransaction mutex db ( do
+    dbWithSyncTransaction db ( do
         dbExecute db "create table if not exists t1 (foo varchar, bar int)" Empty
         dbExecute db "insert into t1 values(:foo, :bar)" (FooBar "foo" 42)
         return () )
-    vec <- dbWithSyncTransaction mutex db ( do
+    vec <- dbWithSyncTransaction db ( do
         vec <- dbQueryList db "select * from t1" Empty :: IO (Vector FooBar)
         return vec )
     putStrLn (showText vec)
     -- make specjvm args
-    let sjvmi = SpecJVMInput (jdkImageDir (cf :: Config)) (DBConfig db 42) (specjvmConfig cf)
+    let dbHandle = connectionHandle (db :: DBConnection)
+    let sjvmi = SpecJVMInput (jdkImageDir (cf :: Config)) (DBConfig dbHandle 42) (specjvmConfig cf)
     -- run specjvm
     wiltoncall "sbs_specjvm_run" sjvmi :: IO ()
 

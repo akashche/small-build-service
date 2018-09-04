@@ -24,7 +24,7 @@ wiltoncall ::
 wiltoncall callName args = do
     err <- invokeWiltonCall (encodeUtf8 callName) args
     case err of
-        Left msg -> errorText (decodeUtf8 msg)
+        Left msg -> errorText (callName <> ": " <> (decodeUtf8 msg))
         Right (resMaybe :: Maybe result) ->
             case resMaybe of
                 Nothing -> return (undefined :: result)

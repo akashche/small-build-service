@@ -18,10 +18,12 @@ module SBS.Common.Utils
     , decodeJsonFile
     , decodeJsonText
     , encodeJsonText
+    , jsonGet
     ) where
 
 import Prelude ()
 import qualified Data.Aeson as Aeson
+import qualified Data.Aeson.Types as AesonTypes
 import qualified Data.ByteString as ByteString
 import qualified Data.ByteString.Lazy as ByteStringLazy
 import qualified Data.Text.Lazy as TextLazy
@@ -76,3 +78,12 @@ decodeJsonFile path =
             case Aeson.eitherDecode bs :: Either String a of
                 Left err -> errorText (pack err)
                 Right res -> return res
+
+jsonGet :: forall a . (FromJSON a) => Object -> Text -> a
+jsonGet obj fieldName =
+    case AesonTypes.parseEither (.: fieldName) obj :: Either String a of
+        Left err -> errorText ("Error accessing field,"
+             <> " name: [" <> fieldName <> "],"
+             <> " object: [" <> (encodeJsonText obj) <> "]"
+             <> " message: [" <> (pack err) <> "]")
+        Right a -> a
