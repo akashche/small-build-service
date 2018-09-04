@@ -1,13 +1,13 @@
 
-{-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE Strict #-}
 
-module SBS.Common.Wilton.DB
-    ( DBConnection(..)
+module SBS.Common.Wilton
+    ( wiltoncall
+    , DBConnection(..)
     , dbOpen
     , dbExecute
     , dbQueryList
@@ -21,20 +21,33 @@ import Prelude ()
 import qualified Data.Vector as Vector
 
 import SBS.Common.Prelude
+import SBS.Common.Data
 import SBS.Common.Utils
-import SBS.Common.Wilton.Call
+
+-- wilton access with stack unwinding
+
+wiltoncall ::
+    forall arguments result . (ToJSON arguments, FromJSON result, Typeable result) =>
+    Text -> arguments -> IO result
+wiltoncall callName args = do
+    err <- invokeWiltonCall (encodeUtf8 callName) args
+    case err of
+        Left msg -> errorText (callName <> ": " <> (decodeUtf8 msg))
+        Right (res :: result) -> return res
+
+-- DB access
 
 data DBConnection = DBConnection
     { connectionHandle :: Int64
     , channelHandle :: Int64
-    } deriving (Typeable, Data, Generic, Show)
+    } deriving (Generic, Show, Typeable)
 instance FromJSON DBConnection
 instance ToJSON DBConnection
 
 dbOpen :: Text -> IO DBConnection
 dbOpen url = do
-    connJson <- wiltoncallText "db_connection_open" url
-    let connHandle = jsonGet (decodeJsonText connJson :: Object) "connectionHandle" :: Int64
+    connObj <- wiltoncall "db_connection_open" url :: IO Object
+    let connHandle = jsonGet connObj "connectionHandle" :: Int64
     chanObj <- wiltoncall "channel_create" (object
         [ "name" .= url
         , "size" .= (1 :: Int)
@@ -62,7 +75,7 @@ dbExecute db sqlQuery pars = do
     return ()
 
 dbQueryList ::
-    forall a b . (ToJSON a, Data b, FromJSON b) =>
+    forall a b . (ToJSON a, FromJSON b, Typeable b) =>
     DBConnection -> Text -> a -> IO (Vector b)
 dbQueryList db sqlQuery pars = do
     res <- wiltoncall "db_connection_query" (object
@@ -73,7 +86,7 @@ dbQueryList db sqlQuery pars = do
     return res
 
 dbQueryObject ::
-    forall a b . (ToJSON a, Data b, FromJSON b) =>
+    forall a b . (ToJSON a, FromJSON b, Typeable b) =>
     DBConnection -> Text -> a -> IO b
 dbQueryObject db sqlQuery pars = do
     vec <- dbQueryList db sqlQuery pars
@@ -106,7 +119,7 @@ dbWithSyncTransaction :: forall a . DBConnection -> IO a -> IO a
 dbWithSyncTransaction db cb = do
     _ <- wiltoncall "channel_send" (object
         [ "channelHandle" .= channelHandle (db :: DBConnection)
-        , "message" .= ("sbs" :: Text)
+        , "message" .= ("[]" :: Text)
         , "timeoutMillis" .= (0 :: Int)
         ]) :: IO Object
     resEither <- catch
@@ -114,10 +127,11 @@ dbWithSyncTransaction db cb = do
             res <- dbWithTransaction db cb
             return (Right res))
         (\(e :: SomeException) -> return (Left e))
-    _ <- wiltoncallText "channel_receive" (encodeJsonText (object
+    _ <- wiltoncall "channel_receive" (object
         [ "channelHandle" .= channelHandle (db :: DBConnection)
         , "timeoutMillis" .= (0 :: Int)
-        ]))
+        ]) :: IO Empty
     case resEither of
         Left e -> throw e
         Right res -> return res
+

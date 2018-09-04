@@ -1,5 +1,4 @@
 
-{-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
@@ -17,6 +16,6 @@ import SBS.Common.Prelude
 data MyObjOut = MyObjOut
     { baz :: Text
     , baa :: Int
-    } deriving (Data, Generic, Show, Typeable)
+    } deriving (Generic, Show, Typeable)
 instance ToJSON MyObjOut
 instance FromJSON MyObjOut

@@ -1,5 +1,4 @@
 
-{-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
@@ -17,8 +16,7 @@ import SBS.Common.Prelude
 import SBS.Common.Data
 import SBS.Common.SpecJVM
 import SBS.Common.Utils
-import SBS.Common.Wilton.DB
-import SBS.Common.Wilton.Call
+import SBS.Common.Wilton
 
 import Data
 
@@ -32,7 +30,7 @@ loadModules vec = do
 data FooBar = FooBar
     { foo :: Text
     , bar :: Int
-    } deriving (Typeable, Data, Generic, Show)
+    } deriving (Generic, Show, Typeable)
 instance ToJSON FooBar
 instance FromJSON FooBar
 _FooBar :: FooBar -> IO ()

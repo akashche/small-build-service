@@ -1,5 +1,4 @@
 
-{-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
@@ -18,7 +17,7 @@ import qualified Data.Aeson as Aeson
 import SBS.Common.Prelude
 
 data Empty = Empty
-    deriving (Data, Generic, Show, Typeable)
+    deriving (Generic, Show, Typeable)
 instance ToJSON Empty where
     toJSON _ = Aeson.object []
 instance FromJSON Empty where
@@ -26,12 +25,12 @@ instance FromJSON Empty where
 
 data DyLoadArgs = DyLoadArgs
     { name :: Text
-    } deriving (Typeable, Data, Generic, Show)
+    } deriving (Generic, Show, Typeable)
 instance ToJSON DyLoadArgs
 
 data DBConfig = DBConfig
     { connectionHandle :: Int64
     , runId :: Int64
-    } deriving (Typeable, Data, Generic, Show)
+    } deriving (Generic, Show, Typeable)
 instance FromJSON DBConfig
 instance ToJSON DBConfig

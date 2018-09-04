@@ -1,5 +1,4 @@
 
-{-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
@@ -20,7 +19,7 @@ data SpecJVMConfig = SpecJVMConfig
     { xmxMemoryLimitMB :: Int
     , threadsCount :: Int
     , excludedBenchmarks :: Vector Text
-    } deriving (Typeable, Data, Generic, Show)
+    } deriving (Generic, Show, Typeable)
 instance FromJSON SpecJVMConfig
 instance ToJSON SpecJVMConfig
 
@@ -28,6 +27,6 @@ data SpecJVMInput = SpecJVMInput
     { jdkImageDir :: Text
     , dbConfig :: DBConfig
     , config :: SpecJVMConfig
-    } deriving (Typeable, Data, Generic, Show)
+    } deriving (Generic, Show, Typeable)
 instance FromJSON SpecJVMInput
 instance ToJSON SpecJVMInput

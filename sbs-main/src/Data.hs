@@ -1,5 +1,4 @@
 
-{-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
@@ -19,7 +18,7 @@ data Config = Config
     { dbFilePath :: Text
     , jdkImageDir :: Text
     , specjvmConfig :: SpecJVMConfig
-    } deriving (Typeable, Data, Generic, Show)
+    } deriving (Generic, Show, Typeable)
 instance FromJSON Config
 instance ToJSON Config
 

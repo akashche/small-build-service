@@ -1,5 +1,4 @@
 
-{-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DuplicateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
@@ -24,8 +23,6 @@ module SBS.Common.Prelude
     , object, parseJSON, toJSON
     -- Data.ByteString
     , ByteString
-    -- Data.Data
-    , Data, Typeable
     -- Data.HashMap.Strict
     , HashMap
     -- Data.Int
@@ -43,6 +40,8 @@ module SBS.Common.Prelude
     , appendFile, putStrLn, readFile, writeFile
     -- Data.Text.Lazy.Builder
     , Builder, fromText, fromString, toLazyText
+    -- Data.Typeable
+    , Typeable
     -- Data.Vector
     , Vector
     , fromList
@@ -64,7 +63,6 @@ import Control.Exception (SomeException, catch, throw)
 import Control.Monad (unless, when)
 import Data.Aeson (FromJSON, Object, ToJSON, (.=), (.:), (.:?), (.!=), object, parseJSON, toJSON)
 import Data.ByteString (ByteString)
-import Data.Data (Data, Typeable)
 import Data.HashMap.Strict (HashMap)
 import Data.Int (Int64)
 import Data.Maybe (isJust)
@@ -73,6 +71,7 @@ import Data.Text (Text, pack, unpack)
 import Data.Text.Encoding (decodeUtf8, encodeUtf8)
 import Data.Text.IO (appendFile, putStrLn, readFile, writeFile)
 import Data.Text.Lazy.Builder (Builder, fromText, fromString, toLazyText)
+import Data.Typeable (Typeable)
 import Data.Vector (Vector, fromList)
 import Foreign.C.String (CString)
 import Foreign.Wilton.FFI (createWiltonError, invokeWiltonCall, invokeWiltonCallByteString, registerWiltonCall)
