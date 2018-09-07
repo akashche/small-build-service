@@ -6,9 +6,9 @@
 {-# LANGUAGE Strict #-}
 
 module SBS.Common.Prelude
-    ( Int, IO, Maybe(Just, Nothing), Either(Left, Right), Show, String
-    , (+), (-), (*), (/), (>), (<), (==), (/=), (.), (>>), (>>=)
-    , div, map, read, return, undefined
+    ( Bool, Int, IO, Maybe(Just, Nothing), Either(Left, Right), Show, String
+    , (+), (-), (*), (/), (>), (<), (==), (/=), (.), (>>), (>>=), (&&), (||)
+    , div, flip, not, read, return, undefined
     -- Control.Concurrent.MVar
     , MVar
     , newMVar, putMVar, takeMVar
@@ -44,7 +44,10 @@ module SBS.Common.Prelude
     , Typeable
     -- Data.Vector
     , Vector
-    , fromList
+    , (!)
+    , filter, fromList, ifilter, imap, imapM_, map, mapM_, toList
+    -- Debug,Trace
+    , trace
     -- Foreign.C.String
     , CString
     -- Foreign.Wilton.FFI
@@ -54,9 +57,9 @@ module SBS.Common.Prelude
     ) where
 
 import Prelude
-    ( Int, IO, Maybe(Just, Nothing), Either(Left, Right), Show, String
-    , (+), (-), (*), (/), (>), (<), (==), (/=), (.), (>>), (>>=)
-    , div, map, read, return, undefined
+    ( Bool, Int, IO, Maybe(Just, Nothing), Either(Left, Right), Show, String
+    , (+), (-), (*), (/), (>), (<), (==), (/=), (.), (>>), (>>=), (&&), (&&), (||)
+    , div, flip, not, read, return, undefined
     )
 import Control.Concurrent.MVar (MVar, newMVar, putMVar, takeMVar)
 import Control.Exception (SomeException, catch, throw)
@@ -72,7 +75,8 @@ import Data.Text.Encoding (decodeUtf8, encodeUtf8)
 import Data.Text.IO (appendFile, putStrLn, readFile, writeFile)
 import Data.Text.Lazy.Builder (Builder, fromText, fromString, toLazyText)
 import Data.Typeable (Typeable)
-import Data.Vector (Vector, fromList)
+import Data.Vector (Vector, (!), filter, fromList, ifilter, imap, imapM_, map, mapM_, toList)
+import Debug.Trace (trace)
 import Foreign.C.String (CString)
 import Foreign.Wilton.FFI (createWiltonError, invokeWiltonCall, invokeWiltonCallByteString, registerWiltonCall)
 import GHC.Generics (Generic)

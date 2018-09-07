@@ -18,6 +18,8 @@ module SBS.Common.Utils
     , decodeJsonText
     , encodeJsonText
     , jsonGet
+    -- debug
+    , debug
     ) where
 
 import Prelude ()
@@ -86,3 +88,8 @@ jsonGet obj fieldName =
              <> " object: [" <> (encodeJsonText obj) <> "]"
              <> " message: [" <> (pack err) <> "]")
         Right a -> a
+
+-- trace
+
+debug :: a -> Text -> a
+debug val msg = trace (unpack msg) val

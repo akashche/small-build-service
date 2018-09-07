@@ -1,7 +1,11 @@
 {
     "dbFilePath": "sbs.db",
+    "createDb": {
+        "enabled": true,
+        "ddlPath": "./resources/schema.sql"
+    },
     "jdkImageDir": "todo",
-    "specjvmConfig": {
+    "specjvm": {
         "xmxMemoryLimitMB": 1024,
         "threadsCount": 2,
         "excludedBenchmarks": [

@@ -7,19 +7,27 @@
 
 module SBS.Common.Wilton
     ( wiltoncall
+    -- db
     , DBConnection(..)
     , dbOpen
     , dbExecute
+    , dbExecuteFile
     , dbQueryList
     , dbQueryObject
     , dbWithTransaction
     , dbWithSyncTransaction
     , dbClose
+    -- fs
+    , fsExists
+    , fsUnlink
     ) where
 
 import Prelude ()
+import qualified Data.Char as Char
+import qualified Data.Text as Text
 import qualified Data.Vector as Vector
 
+import SBS.Common.Parsec
 import SBS.Common.Prelude
 import SBS.Common.Data
 import SBS.Common.Utils
@@ -74,6 +82,32 @@ dbExecute db sqlQuery pars = do
         ]) :: IO ()
     return ()
 
+dbExecuteFile :: DBConnection -> Text -> IO ()
+dbExecuteFile db path = do
+    queries <- withFileText path load
+    mapM_ exec queries
+    return ()
+    where
+        liner tx = fromList (Text.splitOn "\n" tx)
+        nonBlank tx = Text.length (Text.strip tx) > 0
+        nonComment tx = not (Text.isPrefixOf "--" (Text.dropWhile Char.isSpace tx))
+        validLine tx = (nonBlank tx) && (nonComment tx)
+        filterLines lines = filter validLine lines
+        validBucket buck = Vector.length buck > 0
+        concatBucket buck = Text.intercalate "\n" (toList buck)
+        parser = do
+            li <- sepBy1 (many1 (noneOf [';'])) (char ';') :: Parser [String]
+            let vec = fromList li
+            let buckets = map (filterLines . liner . pack) vec
+            let filtered = filter validBucket buckets
+            let queries = map concatBucket filtered
+            return queries
+        exec qr = dbExecute db qr Empty
+        load contents =
+            case parse parser (unpack path) contents of
+                Left err -> errorText (errToText err)
+                Right res -> return res
+
 dbQueryList ::
     forall a b . (ToJSON a, FromJSON b, Typeable b) =>
     DBConnection -> Text -> a -> IO (Vector b)
@@ -95,7 +129,7 @@ dbQueryObject db sqlQuery pars = do
                "Invalid number of records returned, expected 1 record,"
             <> " query: [" <> sqlQuery <> "], params: [" <> encodeJsonText(pars) <> "],"
             <> " number of records: [" <> (showText len) <>  "]"))
-    return (Vector.head vec)
+    return (vec ! 0)
 
 dbWithTransaction :: forall a . DBConnection -> IO a -> IO a
 dbWithTransaction db cb = do
@@ -135,3 +169,17 @@ dbWithSyncTransaction db cb = do
         Left e -> throw e
         Right res -> return res
 
+-- FS access
+fsExists :: Text -> IO Bool
+fsExists path = do
+    resObj <- wiltoncall "fs_exists" (object
+        [ "path" .= path
+        ]) :: IO Object
+    let exists = jsonGet resObj "exists" :: Bool
+    return exists
+
+fsUnlink :: Text -> IO ()
+fsUnlink path =
+    wiltoncall "fs_unlink" (object
+        [ "path" .= path
+        ]) :: IO ()

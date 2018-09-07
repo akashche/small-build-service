@@ -7,6 +7,7 @@
 
 module Data
     ( Config(..)
+    , CreateDbConfig(..)
     ) where
 
 import Prelude ()
@@ -14,10 +15,18 @@ import Prelude ()
 import SBS.Common.Prelude
 import SBS.Common.SpecJVM
 
+data CreateDbConfig = CreateDbConfig
+    { enabled :: Bool
+    , ddlPath :: Text
+    } deriving (Generic, Show, Typeable)
+instance FromJSON CreateDbConfig
+instance ToJSON CreateDbConfig
+
 data Config = Config
     { dbFilePath :: Text
+    , createDb :: CreateDbConfig
     , jdkImageDir :: Text
-    , specjvmConfig :: SpecJVMConfig
+    , specjvm :: SpecJVMConfig
     } deriving (Generic, Show, Typeable)
 instance FromJSON Config
 instance ToJSON Config

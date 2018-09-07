@@ -13,48 +13,56 @@ import Prelude ()
 import qualified Data.Vector as Vector
 
 import SBS.Common.Prelude
-import SBS.Common.Data
-import SBS.Common.SpecJVM
 import SBS.Common.Utils
 import SBS.Common.Wilton
 
 import Data
 
-loadModules :: Vector Text -> IO ()
-loadModules vec = do
-    Vector.mapM_ fun vec
+loadModules :: IO ()
+loadModules = do
+    mapM_ load ((fromList
+        [ "wilton_db"
+        , "wilton_fs"
+        , "wilton_channel"
+        , "sbs_specjvm"
+        ]) :: Vector Text)
     where
-        fun nm = wiltoncall "dyload_shared_library" (DyLoadArgs nm) :: IO ()
+        load mod = wiltoncall "dyload_shared_library" (args mod) :: IO ()
+        args name = object ["name" .= name]
 
--- todo: removeme
-data FooBar = FooBar
-    { foo :: Text
-    , bar :: Int
-    } deriving (Generic, Show, Typeable)
-instance ToJSON FooBar
-instance FromJSON FooBar
-_FooBar :: FooBar -> IO ()
-_FooBar x = do
-    let _ = foo x
-    let _ = bar x
-    return ()
+openDb :: Config -> IO DBConnection
+openDb cf =
+    if enabled dbc
+    then do
+        drop
+        db <- open
+        create db
+        return db
+    else do
+        db <- open
+        return db
+    where
+        dbc = createDb cf
+        dbPath = (dbFilePath cf)
+        open = dbOpen ("sqlite://" <> dbPath)
+        drop = do
+            exists <- fsExists dbPath
+            when (exists) (fsUnlink dbPath)
+        create db = dbExecuteFile db (ddlPath dbc)
 
 start :: Vector Text -> IO ()
 start arguments = do
     -- check arguments
     when (1 /= Vector.length arguments)
         (errorText "Path to config must be specified as a first and only argument")
+    -- load modules
+    loadModules
     -- load config
     cf <- decodeJsonFile (Vector.head arguments) :: IO Config
-    -- load modules
-    _ <- loadModules (fromList [
-        "wilton_db",
-        "wilton_channel",
-        "sbs_specjvm"])
     -- openDB connection
-    let dbPath = dbFilePath cf
-    db <- dbOpen ("sqlite://" <> dbPath)
-    -- create run in DB
+    _ <- openDb cf
+    -- create task in DB
+    {--
     dbWithSyncTransaction db ( do
         dbExecute db "create table if not exists t1 (foo varchar, bar int)" Empty
         dbExecute db "insert into t1 values(:foo, :bar)" (FooBar "foo" 42)
@@ -68,6 +76,7 @@ start arguments = do
     let sjvmi = SpecJVMInput (jdkImageDir (cf :: Config)) (DBConfig dbHandle 42) (specjvmConfig cf)
     -- run specjvm
     wiltoncall "sbs_specjvm_run" sjvmi :: IO ()
+    --}
 
     putStrLn "Run finished"
     return ()

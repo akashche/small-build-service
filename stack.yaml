@@ -8,8 +8,9 @@ packages:
 - sbs-specjvm
 
 extra-deps:
-- github: wilton-iot/wilton-ffi
-  commit: master
+#- github: wilton-iot/wilton-ffi
+#  commit: master
+- wilton-ffi-0.3.0.1
 
 ghc-options:
   "$locals": -Wall -Werror

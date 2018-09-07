@@ -6,8 +6,7 @@
 {-# LANGUAGE Strict #-}
 
 module SBS.Common.Data
-    ( DyLoadArgs(..)
-    , Empty(..)
+    ( Empty(..)
     , DBConfig(..)
     ) where
 
@@ -22,11 +21,6 @@ instance ToJSON Empty where
     toJSON _ = Aeson.object []
 instance FromJSON Empty where
     parseJSON _ = return Empty
-
-data DyLoadArgs = DyLoadArgs
-    { name :: Text
-    } deriving (Generic, Show, Typeable)
-instance ToJSON DyLoadArgs
 
 data DBConfig = DBConfig
     { connectionHandle :: Int64

@@ -8,7 +8,7 @@
 module SBS.Common.Parsec
     ( ParseError
     , (<|>), (<?>)
-    , char, choice, lookAhead, many, many1, manyTill, oneOf, option, parse, skipMany, try
+    , char, choice, eof, lookAhead, many, many1, manyTill, noneOf, oneOf, option, parse, sepBy, sepBy1, skipMany, try
     -- Text.Parsec.Char
     , alphaNum, anyChar, digit, newline, string
     -- Text.Parsec.Error
@@ -27,7 +27,7 @@ import Prelude ()
 import Text.Parsec
     ( ParseError
     , (<|>), (<?>)
-    , char, choice, lookAhead, many, many1, manyTill, oneOf, option, parse, skipMany, try)
+    , char, choice, eof, lookAhead, many, many1, manyTill, noneOf, oneOf, option, parse, sepBy, sepBy1, skipMany, try)
 import Text.Parsec.Char (alphaNum, anyChar, digit, newline, string)
 import Text.Parsec.Error (Message(..), errorMessages, errorPos, messageString)
 import Text.Parsec.Pos (sourceColumn, sourceLine, sourceName)
@@ -63,7 +63,7 @@ errToText err =
     where
         pos = errorPos err
         msgList = errorMessages err
-        builderList = map errMsgToBuilder msgList
+        builderList = List.map errMsgToBuilder msgList
         commaList = List.intersperse (fromText ", ") builderList
         msg = List.foldl' (<>) (fromText "") commaList
 
