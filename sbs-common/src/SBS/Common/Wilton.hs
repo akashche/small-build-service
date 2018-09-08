@@ -85,22 +85,22 @@ dbExecute db sqlQuery pars = do
 dbExecuteFile :: DBConnection -> Text -> IO ()
 dbExecuteFile db path = do
     queries <- withFileText path load
-    mapM_ exec queries
+    Vector.mapM_ exec queries
     return ()
     where
         liner tx = fromList (Text.splitOn "\n" tx)
         nonBlank tx = Text.length (Text.strip tx) > 0
         nonComment tx = not (Text.isPrefixOf "--" (Text.dropWhile Char.isSpace tx))
         validLine tx = (nonBlank tx) && (nonComment tx)
-        filterLines lines = filter validLine lines
+        filterLines lines = Vector.filter validLine lines
         validBucket buck = Vector.length buck > 0
         concatBucket buck = Text.intercalate "\n" (toList buck)
         parser = do
             li <- sepBy1 (many1 (noneOf [';'])) (char ';') :: Parser [String]
             let vec = fromList li
-            let buckets = map (filterLines . liner . pack) vec
-            let filtered = filter validBucket buckets
-            let queries = map concatBucket filtered
+            let buckets = Vector.map (filterLines . liner . pack) vec
+            let filtered = Vector.filter validBucket buckets
+            let queries = Vector.map concatBucket filtered
             return queries
         exec qr = dbExecute db qr Empty
         load contents =

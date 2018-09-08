@@ -10,22 +10,25 @@ module Lib
     ) where
 
 import Prelude ()
+import qualified Prelude
 import qualified Data.Vector as Vector
 
 import SBS.Common.Prelude
+import SBS.Common.Data
 import SBS.Common.Utils
 import SBS.Common.Wilton
 
 import Data
+import Queries
 
 loadModules :: IO ()
 loadModules = do
-    mapM_ load ((fromList
+    Prelude.mapM_ load ((
         [ "wilton_db"
         , "wilton_fs"
         , "wilton_channel"
         , "sbs_specjvm"
-        ]) :: Vector Text)
+        ]) :: [Text])
     where
         load mod = wiltoncall "dyload_shared_library" (args mod) :: IO ()
         args name = object ["name" .= name]
@@ -50,6 +53,16 @@ openDb cf =
             when (exists) (fsUnlink dbPath)
         create db = dbExecuteFile db (ddlPath dbc)
 
+createTask :: DBConnection -> (HashMap Text Text) -> IO Int64
+createTask db qrs = do
+    obj <- dbWithSyncTransaction db work
+    return (id obj)
+    where
+        work = do
+            dbExecute db (get qrs "tasksUpdateId") Empty
+            res <- dbQueryObject db (get qrs "tasksSelectId") Empty :: IO IncrementedSeq
+            return res
+
 start :: Vector Text -> IO ()
 start arguments = do
     -- check arguments
@@ -58,9 +71,12 @@ start arguments = do
     -- load modules
     loadModules
     -- load config
-    cf <- decodeJsonFile (Vector.head arguments) :: IO Config
+    cf <- decodeJsonFile (arguments ! 0) :: IO Config
     -- openDB connection
-    _ <- openDb cf
+    db <- openDb cf
+    queries <- loadQueries (queriesPath cf)
+    taskId <- createTask db queries
+    putStrLn (showText taskId)
     -- create task in DB
     {--
     dbWithSyncTransaction db ( do

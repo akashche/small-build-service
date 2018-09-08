@@ -20,6 +20,8 @@ module SBS.Common.Utils
     , jsonGet
     -- debug
     , debug
+    -- map
+    , get
     ) where
 
 import Prelude ()
@@ -39,8 +41,17 @@ import SBS.Common.Prelude
 errorText :: Text -> a
 errorText = Prelude.error . unpack
 
-showText :: Show a => a -> Text
-showText = pack . Prelude.show
+showText :: (Show a, Typeable a) => a -> Text
+showText val =
+    case cast val :: Maybe Text of
+         Just tx -> tx
+         Nothing ->
+             case cast val :: Maybe String of
+                Just st -> pack st
+                Nothing ->
+                    case cast val :: Maybe ByteString of
+                        Just bs -> decodeUtf8 bs
+                        Nothing -> pack (Prelude.show val)
 
 -- file IO
 
@@ -93,3 +104,12 @@ jsonGet obj fieldName =
 
 debug :: a -> Text -> a
 debug val msg = trace (unpack msg) val
+
+-- map
+
+-- get :: (Eq k, Hashable k) => HashMap k v -> k -> v
+get :: HashMap Text v -> Text -> v
+get map key =
+    case lookup key map of
+        Just res -> res
+        Nothing -> errorText ("Map entry not found for key: [" <> key <>"]")

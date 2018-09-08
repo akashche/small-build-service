@@ -25,6 +25,7 @@ module SBS.Common.Prelude
     , ByteString
     -- Data.HashMap.Strict
     , HashMap
+    , lookup
     -- Data.Int
     , Int64
     -- Data.Maybe
@@ -42,10 +43,11 @@ module SBS.Common.Prelude
     , Builder, fromText, fromString, toLazyText
     -- Data.Typeable
     , Typeable
+    , cast
     -- Data.Vector
     , Vector
     , (!)
-    , filter, fromList, ifilter, imap, imapM_, map, mapM_, toList
+    , fromList, toList
     -- Debug,Trace
     , trace
     -- Foreign.C.String
@@ -66,7 +68,7 @@ import Control.Exception (SomeException, catch, throw)
 import Control.Monad (unless, when)
 import Data.Aeson (FromJSON, Object, ToJSON, (.=), (.:), (.:?), (.!=), object, parseJSON, toJSON)
 import Data.ByteString (ByteString)
-import Data.HashMap.Strict (HashMap)
+import Data.HashMap.Strict (HashMap, lookup)
 import Data.Int (Int64)
 import Data.Maybe (isJust)
 import Data.Monoid ((<>))
@@ -74,8 +76,8 @@ import Data.Text (Text, pack, unpack)
 import Data.Text.Encoding (decodeUtf8, encodeUtf8)
 import Data.Text.IO (appendFile, putStrLn, readFile, writeFile)
 import Data.Text.Lazy.Builder (Builder, fromText, fromString, toLazyText)
-import Data.Typeable (Typeable)
-import Data.Vector (Vector, (!), filter, fromList, ifilter, imap, imapM_, map, mapM_, toList)
+import Data.Typeable (Typeable, cast)
+import Data.Vector (Vector, (!), fromList, toList)
 import Debug.Trace (trace)
 import Foreign.C.String (CString)
 import Foreign.Wilton.FFI (createWiltonError, invokeWiltonCall, invokeWiltonCallByteString, registerWiltonCall)

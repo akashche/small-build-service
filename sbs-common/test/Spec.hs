@@ -17,7 +17,9 @@ main = do
     unless ("{}" == encodeJsonText Empty) (errorText "empty fail")
 
     -- Utils
-    --unless (['f', 'o', 'o'] == bytesToString "foo") (error "bytesToString fail")
+    unless ("foo" == showText ("foo" :: Text)) (errorText "showText fail")
+    unless ("foo" == showText ("foo" :: String)) (errorText "showText fail")
+    unless ("foo" == showText ("foo" :: ByteString)) (errorText "showText fail")
 
     putStrLn "Tests Passed."
     return ()

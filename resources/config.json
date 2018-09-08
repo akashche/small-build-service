@@ -1,7 +1,8 @@
 {
     "dbFilePath": "sbs.db",
+    "queriesPath": "resources/queries.sql",
     "createDb": {
-        "enabled": true,
+        "enabled": false,
         "ddlPath": "./resources/schema.sql"
     },
     "jdkImageDir": "todo",

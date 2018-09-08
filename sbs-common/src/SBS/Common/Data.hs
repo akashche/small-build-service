@@ -8,6 +8,7 @@
 module SBS.Common.Data
     ( Empty(..)
     , DBConfig(..)
+    , IncrementedSeq(..)
     ) where
 
 import Prelude ()
@@ -28,3 +29,8 @@ data DBConfig = DBConfig
     } deriving (Generic, Show, Typeable)
 instance FromJSON DBConfig
 instance ToJSON DBConfig
+
+data IncrementedSeq = IncrementedSeq
+    { id :: Int64
+    } deriving (Generic, Show, Typeable)
+instance FromJSON IncrementedSeq
