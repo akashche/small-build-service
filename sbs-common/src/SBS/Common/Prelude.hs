@@ -8,7 +8,7 @@
 module SBS.Common.Prelude
     ( Bool, Int, IO, Maybe(Just, Nothing), Either(Left, Right), Show, String
     , (+), (-), (*), (/), (>), (<), (==), (/=), (.), (>>), (>>=), (&&), (||)
-    , div, flip, not, read, return, undefined
+    , div, flip, id, not, otherwise, read, return, undefined
     -- Control.Concurrent.MVar
     , MVar
     , newMVar, putMVar, takeMVar
@@ -29,7 +29,7 @@ module SBS.Common.Prelude
     -- Data.Int
     , Int64
     -- Data.Maybe
-    , isJust
+    , fromJust, isJust
     -- Data.Monoid
     , (<>)
     -- Data.Text
@@ -61,7 +61,7 @@ module SBS.Common.Prelude
 import Prelude
     ( Bool, Int, IO, Maybe(Just, Nothing), Either(Left, Right), Show, String
     , (+), (-), (*), (/), (>), (<), (==), (/=), (.), (>>), (>>=), (&&), (&&), (||)
-    , div, flip, not, read, return, undefined
+    , div, flip, id, not, otherwise, read, return, undefined
     )
 import Control.Concurrent.MVar (MVar, newMVar, putMVar, takeMVar)
 import Control.Exception (SomeException, catch, throw)
@@ -70,7 +70,7 @@ import Data.Aeson (FromJSON, Object, ToJSON, (.=), (.:), (.:?), (.!=), object, p
 import Data.ByteString (ByteString)
 import Data.HashMap.Strict (HashMap, lookup)
 import Data.Int (Int64)
-import Data.Maybe (isJust)
+import Data.Maybe (fromJust, isJust)
 import Data.Monoid ((<>))
 import Data.Text (Text, pack, unpack)
 import Data.Text.Encoding (decodeUtf8, encodeUtf8)

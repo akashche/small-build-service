@@ -42,16 +42,15 @@ errorText :: Text -> a
 errorText = Prelude.error . unpack
 
 showText :: (Show a, Typeable a) => a -> Text
-showText val =
-    case cast val :: Maybe Text of
-         Just tx -> tx
-         Nothing ->
-             case cast val :: Maybe String of
-                Just st -> pack st
-                Nothing ->
-                    case cast val :: Maybe ByteString of
-                        Just bs -> decodeUtf8 bs
-                        Nothing -> pack (Prelude.show val)
+showText val
+    | isJust castedText = fromJust castedText
+    | isJust castedString = pack (fromJust castedString)
+    | isJust castedBytes = decodeUtf8 (fromJust castedBytes)
+    | otherwise = pack (Prelude.show val)
+    where
+        castedText = cast val :: Maybe Text
+        castedString = cast val :: Maybe String
+        castedBytes = cast val :: Maybe ByteString
 
 -- file IO
 

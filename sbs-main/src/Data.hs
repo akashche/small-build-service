@@ -18,7 +18,7 @@ import SBS.Common.SpecJVM
 data CreateDbConfig = CreateDbConfig
     { enabled :: Bool
     , ddlPath :: Text
-    } deriving (Generic, Show, Typeable)
+    } deriving (Generic, Show)
 instance FromJSON CreateDbConfig
 instance ToJSON CreateDbConfig
 
@@ -28,7 +28,7 @@ data Config = Config
     , createDb :: CreateDbConfig
     , jdkImageDir :: Text
     , specjvm :: SpecJVMConfig
-    } deriving (Generic, Show, Typeable)
+    } deriving (Generic, Show)
 instance FromJSON Config
 instance ToJSON Config
 

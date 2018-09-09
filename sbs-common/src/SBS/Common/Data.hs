@@ -17,7 +17,7 @@ import qualified Data.Aeson as Aeson
 import SBS.Common.Prelude
 
 data Empty = Empty
-    deriving (Generic, Show, Typeable)
+    deriving (Generic, Show)
 instance ToJSON Empty where
     toJSON _ = Aeson.object []
 instance FromJSON Empty where
@@ -26,11 +26,11 @@ instance FromJSON Empty where
 data DBConfig = DBConfig
     { connectionHandle :: Int64
     , runId :: Int64
-    } deriving (Generic, Show, Typeable)
+    } deriving (Generic, Show)
 instance FromJSON DBConfig
 instance ToJSON DBConfig
 
 data IncrementedSeq = IncrementedSeq
     { id :: Int64
-    } deriving (Generic, Show, Typeable)
+    } deriving (Generic, Show)
 instance FromJSON IncrementedSeq

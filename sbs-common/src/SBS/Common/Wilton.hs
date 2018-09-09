@@ -35,20 +35,22 @@ import SBS.Common.Utils
 -- wilton access with stack unwinding
 
 wiltoncall ::
-    forall arguments result . (ToJSON arguments, FromJSON result, Typeable result) =>
-    Text -> arguments -> IO result
-wiltoncall callName args = do
-    err <- invokeWiltonCall (encodeUtf8 callName) args
+    forall a b . (ToJSON a, FromJSON b) =>
+    Text -> a -> IO b
+wiltoncall callName callData = do
+    err <- invokeWiltonCall (encodeUtf8 callName) callData :: IO (Either ByteString b)
     case err of
-        Left msg -> errorText (callName <> ": " <> (decodeUtf8 msg))
-        Right (res :: result) -> return res
+        Left msg -> errorText ("WiltonCall error,"
+            <> " name: [" <> callName <> "],"
+            <> " message: [" <> (decodeUtf8 msg) <> "]")
+        Right res -> return res
 
 -- DB access
 
 data DBConnection = DBConnection
     { connectionHandle :: Int64
     , channelHandle :: Int64
-    } deriving (Generic, Show, Typeable)
+    } deriving (Generic, Show)
 instance FromJSON DBConnection
 instance ToJSON DBConnection
 

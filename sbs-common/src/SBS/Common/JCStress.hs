@@ -16,6 +16,6 @@ import SBS.Common.Prelude
 data MyObjOut = MyObjOut
     { baz :: Text
     , baa :: Int
-    } deriving (Generic, Show, Typeable)
+    } deriving (Generic, Show)
 instance ToJSON MyObjOut
 instance FromJSON MyObjOut

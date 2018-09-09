@@ -19,7 +19,7 @@ data SpecJVMConfig = SpecJVMConfig
     { xmxMemoryLimitMB :: Int
     , threadsCount :: Int
     , excludedBenchmarks :: Vector Text
-    } deriving (Generic, Show, Typeable)
+    } deriving (Generic, Show)
 instance FromJSON SpecJVMConfig
 instance ToJSON SpecJVMConfig
 
@@ -27,6 +27,6 @@ data SpecJVMInput = SpecJVMInput
     { jdkImageDir :: Text
     , dbConfig :: DBConfig
     , config :: SpecJVMConfig
-    } deriving (Generic, Show, Typeable)
+    } deriving (Generic, Show)
 instance FromJSON SpecJVMInput
 instance ToJSON SpecJVMInput
