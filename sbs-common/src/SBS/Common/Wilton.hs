@@ -8,7 +8,6 @@
 module SBS.Common.Wilton
     ( wiltoncall
     -- db
-    , DBConnection(..)
     , dbOpen
     , dbExecute
     , dbExecuteFile
@@ -46,13 +45,6 @@ wiltoncall callName callData = do
         Right res -> return res
 
 -- DB access
-
-data DBConnection = DBConnection
-    { connectionHandle :: Int64
-    , channelHandle :: Int64
-    } deriving (Generic, Show)
-instance FromJSON DBConnection
-instance ToJSON DBConnection
 
 dbOpen :: Text -> IO DBConnection
 dbOpen url = do

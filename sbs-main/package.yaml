@@ -15,6 +15,7 @@ dependencies:
 - aeson
 - bytestring
 - text
+- time
 - unordered-containers
 - vector
 - wilton-ffi

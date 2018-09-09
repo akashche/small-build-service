@@ -6,7 +6,7 @@
 {-# LANGUAGE Strict #-}
 
 module SBS.Common.Prelude
-    ( Bool, Int, IO, Maybe(Just, Nothing), Either(Left, Right), Show, String
+    ( Bool(True, False), Int, IO, Maybe(Just, Nothing), Either(Left, Right), Show, String
     , (+), (-), (*), (/), (>), (<), (==), (/=), (.), (>>), (>>=), (&&), (||)
     , div, flip, id, not, otherwise, read, return, undefined
     -- Control.Concurrent.MVar
@@ -41,6 +41,9 @@ module SBS.Common.Prelude
     , appendFile, putStrLn, readFile, writeFile
     -- Data.Text.Lazy.Builder
     , Builder, fromText, fromString, toLazyText
+    -- Data.Time.Clock
+    , UTCTime
+    , getCurrentTime
     -- Data.Typeable
     , Typeable
     , cast
@@ -59,7 +62,7 @@ module SBS.Common.Prelude
     ) where
 
 import Prelude
-    ( Bool, Int, IO, Maybe(Just, Nothing), Either(Left, Right), Show, String
+    ( Bool(True, False), Int, IO, Maybe(Just, Nothing), Either(Left, Right), Show, String
     , (+), (-), (*), (/), (>), (<), (==), (/=), (.), (>>), (>>=), (&&), (&&), (||)
     , div, flip, id, not, otherwise, read, return, undefined
     )
@@ -76,6 +79,7 @@ import Data.Text (Text, pack, unpack)
 import Data.Text.Encoding (decodeUtf8, encodeUtf8)
 import Data.Text.IO (appendFile, putStrLn, readFile, writeFile)
 import Data.Text.Lazy.Builder (Builder, fromText, fromString, toLazyText)
+import Data.Time.Clock (UTCTime, getCurrentTime)
 import Data.Typeable (Typeable, cast)
 import Data.Vector (Vector, (!), fromList, toList)
 import Debug.Trace (trace)

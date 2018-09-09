@@ -16,6 +16,7 @@ dependencies:
 - bytestring
 - parsec
 - text
+- time
 - unordered-containers
 - vector
 - wilton-ffi

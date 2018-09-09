@@ -6,7 +6,8 @@
 {-# LANGUAGE Strict #-}
 
 module Queries
-    ( loadQueries
+    ( Queries
+    , loadQueries
     ) where
 
 import Prelude ()
@@ -16,6 +17,8 @@ import qualified Data.Text as Text
 import SBS.Common.Prelude
 import SBS.Common.Parsec
 import SBS.Common.Utils
+
+type Queries = HashMap Text Text
 
 singleQuery :: Parser (Text, Text)
 singleQuery = do

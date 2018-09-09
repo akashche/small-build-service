@@ -31,5 +31,3 @@ data Config = Config
     } deriving (Generic, Show)
 instance FromJSON Config
 instance ToJSON Config
-
-

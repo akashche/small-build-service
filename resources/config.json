@@ -1,6 +1,6 @@
 {
     "dbFilePath": "sbs.db",
-    "queriesPath": "resources/queries.sql",
+    "queriesPath": "./resources/queries-main.sql",
     "createDb": {
         "enabled": true,
         "ddlPath": "./resources/schema.sql"

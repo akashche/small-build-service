@@ -22,6 +22,9 @@ module SBS.Common.Utils
     , debug
     -- map
     , get
+    -- datetime
+    , formatISO8601
+    , parseISO8601
     ) where
 
 import Prelude ()
@@ -31,6 +34,7 @@ import qualified Data.ByteString as ByteString
 import qualified Data.ByteString.Lazy as ByteStringLazy
 import qualified Data.Text.Lazy as TextLazy
 import qualified Data.Text.Lazy.Encoding as TextLazyEncoding
+import qualified Data.Time.Format as TimeFormat
 import qualified Prelude as Prelude
 import qualified System.IO as SystemIO
 
@@ -111,4 +115,20 @@ get :: HashMap Text v -> Text -> v
 get map key =
     case lookup key map of
         Just res -> res
-        Nothing -> errorText ("Map entry not found for key: [" <> key <>"]")
+        Nothing -> errorText ("Map entry not found, key: [" <> key <> "]")
+
+-- datetime
+formatISO8601 :: UTCTime -> Text
+formatISO8601 tm = pack (TimeFormat.formatTime locale iso tm)
+    where
+        locale = TimeFormat.defaultTimeLocale
+        iso = "%Y-%m-%d %H:%M:%S"
+
+parseISO8601 :: Text -> UTCTime
+parseISO8601 tx =
+    case TimeFormat.parseTimeM False locale iso (unpack tx) :: Maybe UTCTime of
+        Just tm -> tm
+        Nothing -> errorText ("Error parsing ISO8601 format, date: [" <> tx <> "]")
+    where
+        locale = TimeFormat.defaultTimeLocale
+        iso = "%Y-%m-%d %H:%M:%S"

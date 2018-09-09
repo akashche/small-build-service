@@ -15,6 +15,7 @@ import qualified Data.Vector as Vector
 
 import SBS.Common.Prelude
 import SBS.Common.Data
+import SBS.Common.SpecJVM
 import SBS.Common.Utils
 import SBS.Common.Wilton
 
@@ -53,15 +54,46 @@ openDb cf =
             when (exists) (fsUnlink dbPath)
         create db = dbExecuteFile db (ddlPath dbc)
 
-createTask :: DBConnection -> (HashMap Text Text) -> IO Int64
+createTask :: DBConnection -> Queries -> IO Int64
 createTask db qrs = do
-    obj <- dbWithSyncTransaction db work
-    return (id obj)
+    idx <- dbWithSyncTransaction db work
+    return idx
     where
         work = do
             dbExecute db (get qrs "tasksUpdateId") Empty
-            res <- dbQueryObject db (get qrs "tasksSelectId") Empty :: IO IncrementedSeq
-            return res
+            (IncrementedSeq idx) <- dbQueryObject db (get qrs "tasksSelectId") Empty
+            curdate <- getCurrentTime
+            dbExecute db (get qrs "tasksInsert") (object
+                [ "id" .= idx
+                , "startDate" .= formatISO8601 curdate
+                , "state" .= ("running" :: Text)
+                , "repository" .= ("" :: Text)
+                , "revision" .= ("" :: Text)
+                , "comment" .= ("created from command line invocation" :: Text)
+                ])
+            return idx
+
+finalizeTask :: DBConnection -> Queries -> Int64 -> IO ()
+finalizeTask db qrs tid = do
+    dbWithSyncTransaction db work
+    return ()
+    where
+        work = do
+            curdate <- getCurrentTime
+            dbExecute db (get qrs "tasksUpdateFinish") (object
+                [ "id" .= tid
+                , "state" .= ("finished" :: Text)
+                , "finishDate" .= formatISO8601 curdate
+                ])
+
+runSpecJVM :: Config -> DBConnection -> Int64 -> IO ()
+runSpecJVM cf db tid =
+    wiltoncall "sbs_specjvm_run" (SpecJVMInput
+        { taskId = tid
+        , dbConnection = db
+        , jdkImageDir = (jdkImageDir (cf :: Config))
+        , specjvmConfig = (specjvm cf)
+        }) :: IO ()
 
 start :: Vector Text -> IO ()
 start arguments = do
@@ -75,24 +107,12 @@ start arguments = do
     -- openDB connection
     db <- openDb cf
     queries <- loadQueries (queriesPath cf)
-    taskId <- createTask db queries
-    putStrLn (showText taskId)
-    -- create task in DB
-    {--
-    dbWithSyncTransaction db ( do
-        dbExecute db "create table if not exists t1 (foo varchar, bar int)" Empty
-        dbExecute db "insert into t1 values(:foo, :bar)" (FooBar "foo" 42)
-        return () )
-    vec <- dbWithSyncTransaction db ( do
-        vec <- dbQueryList db "select * from t1" Empty :: IO (Vector FooBar)
-        return vec )
-    putStrLn (showText vec)
-    -- make specjvm args
-    let dbHandle = connectionHandle (db :: DBConnection)
-    let sjvmi = SpecJVMInput (jdkImageDir (cf :: Config)) (DBConfig dbHandle 42) (specjvmConfig cf)
+    -- create task
+    tid <- createTask db queries
     -- run specjvm
-    wiltoncall "sbs_specjvm_run" sjvmi :: IO ()
-    --}
+    runSpecJVM cf db tid
+    -- finalize
+    finalizeTask db queries tid
 
     putStrLn "Run finished"
     return ()

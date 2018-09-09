@@ -24,9 +24,9 @@ hello _ =
 
 diffResults :: JCStressResults -> JCStressResults -> JCStressResultsDiff
 diffResults baseline res =
-    JCStressResultsDiff pd id fd ed
+    JCStressResultsDiff pd xd fd ed
     where
         pd = (passedCount res) - (passedCount baseline)
-        id = (Vector.length (interested res)) - (Vector.length (interested baseline))
+        xd = (Vector.length (interested res)) - (Vector.length (interested baseline))
         fd = (Vector.length (failed res)) - (Vector.length (failed baseline))
         ed = (Vector.length (errored res)) - (Vector.length (errored baseline))

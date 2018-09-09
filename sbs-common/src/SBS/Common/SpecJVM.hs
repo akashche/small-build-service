@@ -24,9 +24,10 @@ instance FromJSON SpecJVMConfig
 instance ToJSON SpecJVMConfig
 
 data SpecJVMInput = SpecJVMInput
-    { jdkImageDir :: Text
-    , dbConfig :: DBConfig
-    , config :: SpecJVMConfig
+    { taskId :: Int64
+    , dbConnection :: DBConnection
+    , jdkImageDir :: Text
+    , specjvmConfig :: SpecJVMConfig
     } deriving (Generic, Show)
 instance FromJSON SpecJVMInput
 instance ToJSON SpecJVMInput
