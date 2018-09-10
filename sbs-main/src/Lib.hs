@@ -15,6 +15,7 @@ import qualified Data.Vector as Vector
 
 import SBS.Common.Prelude
 import SBS.Common.Data
+import SBS.Common.JCStress
 import SBS.Common.Queries
 import SBS.Common.SpecJVM
 import SBS.Common.Utils
@@ -28,6 +29,7 @@ loadModules = do
         [ "wilton_db"
         , "wilton_channel"
         , "wilton_process"
+        , "sbs_jcstress"
         , "sbs_specjvm"
         ]) :: [Text])
     where
@@ -87,6 +89,17 @@ finalizeTask db qrs tid = do
                 , "finishDate" .= formatISO8601 curdate
                 ])
 
+runJCStress :: Config -> DBConnection -> Int64 -> IO ()
+runJCStress cf db tid = do
+    qrs <- loadQueries ((queriesDir cf) <> "queries-jcstress.sql")
+    wiltoncall "sbs_jcstress_run" (JCStressInput
+        { taskId = tid
+        , dbConnection = db
+        , jdkImageDir = (jdkImageDir (cf :: Config))
+        , queries = qrs
+        , jcstressConfig = (jcstress cf)
+        }) :: IO ()
+
 runSpecJVM :: Config -> DBConnection -> Int64 -> IO ()
 runSpecJVM cf db tid = do
     qrs <- loadQueries ((queriesDir cf) <> "queries-specjvm.sql")
@@ -112,6 +125,8 @@ start arguments = do
     qrs <- loadQueries ((queriesDir cf) <> "queries-main.sql")
     -- create task
     tid <- createTask db qrs
+    -- run jcstress
+    runJCStress cf db tid
     -- run specjvm
     runSpecJVM cf db tid
     -- finalize

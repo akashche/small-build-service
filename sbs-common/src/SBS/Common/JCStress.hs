@@ -6,16 +6,33 @@
 {-# LANGUAGE Strict #-}
 
 module SBS.Common.JCStress
-    ( MyObjOut(..)
+    ( JCStressConfig(..)
+    , JCStressInput(..)
     ) where
 
 import Prelude ()
 
 import SBS.Common.Prelude
+import SBS.Common.Data
+import SBS.Common.Queries
 
-data MyObjOut = MyObjOut
-    { baz :: Text
-    , baa :: Int
+data JCStressConfig = JCStressConfig
+    { enabled :: Bool
+    , mockOutput :: Text
+    , baselineOutput :: Text
+    , jcstressJarPath :: Text
+    , xmxMemoryLimitMB :: Int
+    , mode :: Text
     } deriving (Generic, Show)
-instance ToJSON MyObjOut
-instance FromJSON MyObjOut
+instance ToJSON JCStressConfig
+instance FromJSON JCStressConfig
+
+data JCStressInput = JCStressInput
+    { taskId :: Int64
+    , dbConnection :: DBConnection
+    , jdkImageDir :: Text
+    , queries :: Queries
+    , jcstressConfig :: JCStressConfig
+    } deriving (Generic, Show)
+instance ToJSON JCStressInput
+instance FromJSON JCStressInput

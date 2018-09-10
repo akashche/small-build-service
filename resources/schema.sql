@@ -60,7 +60,14 @@ create table jcstress_runs
     , start_date date time not null
     , finish_date date time
     , state text not null
-    --, TODO
+    , passed int
+    , passedDiff int
+    , interesting int
+    , interestingDiff int
+    , failed int
+    , failedDiff int
+    , error int
+    , errorDiff int
     , task_id text not null
     , foreign key (task_id) references tasks (id)
     );

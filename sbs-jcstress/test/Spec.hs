@@ -18,10 +18,7 @@ parseLog :: Text -> IO JCStressResults
 parseLog path =
     withFileText path fun
     where
-        fun tx =
-            case parseJCStressOutput tx path of
-                Left err -> errorText err
-                Right res -> return res
+        fun tx = return (parseJCStressOutput tx path)
 
 main :: IO ()
 main = do

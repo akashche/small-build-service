@@ -16,14 +16,14 @@ import SBS.Common.Prelude
 
 data JCStressResults = JCStressResults
     { passedCount :: Int
-    , interested :: Vector Text
+    , interesting :: Vector Text
     , failed :: Vector Text
-    , errored :: Vector Text
+    , error :: Vector Text
     } deriving (Show)
 
 data JCStressResultsDiff = JCStressResultsDiff
-    { passedCountDiff :: Int
-    , interestedDiff :: Int
+    { passedDiff :: Int
+    , interestingDiff :: Int
     , failedDiff :: Int
-    , erroredDiff :: Int
+    , errorDiff :: Int
     } deriving (Show)

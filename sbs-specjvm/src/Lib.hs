@@ -49,11 +49,15 @@ spawnProcessAndWait cf jdk = do
     then do
         code <- wiltoncall "process_spawn" (object
             [ "executable" .= exec
-            , "args" .= args
+            , "args" .= fromList
+                [  ("-Xmx" <> (showText (xmxMemoryLimitMB cf)) <> "M")
+                , "-jar", specjvmJarPath cf
+                , "-t", (showText (threadsCount cf))
+                , "-e", exreg (excludedBenchmarks cf)
+                ]
             , "outputFile" .= log
             , "awaitExit" .= True
             ]) :: IO Int
-        putStrLn (showText args)
         when (0 /= code) (throwSpawnFail code)
     else
         copyFile (unpack (mockOutput cf)) logStr
@@ -62,12 +66,6 @@ spawnProcessAndWait cf jdk = do
         log = "specjvm.log" :: Text
         logStr = (unpack log)
         exec = jdk <> "/bin/java"
-        args = fromList
-            [  ("-Xmx" <> (showText (xmxMemoryLimitMB cf)) <> "M")
-            , "-jar", specjvmJarPath cf
-            , "-t", (showText (threadsCount cf))
-            , "-e", exreg (excludedBenchmarks cf)
-            ]
         sepNonEmpty st = if Text.length st > 0 then st <> "|" else st
         folder ac el = (sepNonEmpty ac) <> (Text.replace "." "\\." el)
         exreg vec = Vector.foldl' folder "" vec
@@ -127,14 +125,14 @@ run input = do
     let cf = specjvmConfig input
     let db = dbConnection input
     let qrs = queries input
-    sid <- dbWithSyncTransaction db (
+    rid <- dbWithSyncTransaction db (
         createDbEntry db qrs (taskId input))
     log <- spawnProcessAndWait cf (jdkImageDir input)
     res <- parseOutput log
     bl <- parseOutput (baselineOutput cf)
     let diff = diffResults bl res
     dbWithSyncTransaction db ( do
-        saveResults db qrs sid res
-        saveDiff db qrs sid diff
-        finalizeDbEntry db qrs sid (totalTimeSeconds res) (relativeTotalTime diff) )
+        saveResults db qrs rid res
+        saveDiff db qrs rid diff
+        finalizeDbEntry db qrs rid (totalTimeSeconds res) (relativeTotalTime diff) )
     return ()

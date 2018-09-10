@@ -6,6 +6,14 @@
         "ddlPath": "./resources/schema.sql"
     },
     "jdkImageDir": "/home/alex/java/jdk-12/",
+    "jcstress": {
+        "enabled": false,
+        "mockOutput": "./sbs-jcstress/test/jcstress_abridged_alt.log",
+        "baselineOutput": "./sbs-jcstress/test/jcstress_abridged.log",
+        "jcstressJarPath": "/home/alex/projects/redhat/arm/ci/jcstress.jar",
+        "xmxMemoryLimitMB": 1024,
+        "mode": "quick"
+    },
     "specjvm": {
         "enabled": false,
         "mockOutput": "./sbs-specjvm/test/specjvm_alt.log",

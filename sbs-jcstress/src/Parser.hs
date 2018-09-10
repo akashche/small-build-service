@@ -14,6 +14,8 @@ import qualified Data.Text.Lazy as TextLazy
 
 import SBS.Common.Prelude
 import SBS.Common.Parsec
+import SBS.Common.Utils
+
 import Data
 
 oneTest :: Text -> Parser Text
@@ -52,8 +54,8 @@ jcstressResults = do
     count <- passedTestsCount
     return (JCStressResults count tint tfail terr)
 
-parseJCStressOutput :: TextLazy.Text -> Text -> Either Text JCStressResults
+parseJCStressOutput :: TextLazy.Text -> Text -> JCStressResults
 parseJCStressOutput contents path =
     case parse jcstressResults (unpack path) contents of
-        Left err -> Left (errToText err)
-        Right res -> Right res
+        Left err -> errorText (errToText err)
+        Right res -> res

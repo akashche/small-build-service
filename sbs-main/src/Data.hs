@@ -13,6 +13,7 @@ module Data
 import Prelude ()
 
 import SBS.Common.Prelude
+import SBS.Common.JCStress
 import SBS.Common.SpecJVM
 
 data CreateDbConfig = CreateDbConfig
@@ -27,6 +28,7 @@ data Config = Config
     , queriesDir :: Text
     , createDb :: CreateDbConfig
     , jdkImageDir :: Text
+    , jcstress :: JCStressConfig
     , specjvm :: SpecJVMConfig
     } deriving (Generic, Show)
 instance FromJSON Config
