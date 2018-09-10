@@ -1,24 +1,24 @@
 {
     "dbFilePath": "sbs.db",
-    "queriesDir": "./resources/",
+    "queriesDir": "../resources/",
     "createDb": {
         "enabled": true,
-        "ddlPath": "./resources/schema.sql"
+        "ddlPath": "../resources/schema.sql"
     },
-    "jdkImageDir": "/home/alex/java/jdk-12/",
+    "jdkImageDir": "./jdk-12/",
     "jcstress": {
         "enabled": false,
-        "mockOutput": "./sbs-jcstress/test/jcstress_abridged_alt.log",
-        "baselineOutput": "./sbs-jcstress/test/jcstress_abridged.log",
-        "jcstressJarPath": "/home/alex/projects/redhat/arm/ci/jcstress.jar",
+        "mockOutput": "../sbs-jcstress/test/jcstress_abridged_alt.log",
+        "baselineOutput": "../sbs-jcstress/test/jcstress_abridged.log",
+        "jcstressJarPath": "./jcstress.jar",
         "xmxMemoryLimitMB": 1024,
         "mode": "quick"
     },
     "specjvm": {
         "enabled": false,
-        "mockOutput": "./sbs-specjvm/test/specjvm_alt.log",
-        "baselineOutput": "./sbs-specjvm/test/specjvm.log",
-        "specjvmJarPath": "/home/alex/projects/redhat/arm/ci/SPECjvm2016/jmh-specjvm2016.jar",
+        "mockOutput": "../sbs-specjvm/test/specjvm_alt.log",
+        "baselineOutput": "../sbs-specjvm/test/specjvm.log",
+        "specjvmJarPath": "./SPECjvm2016/jmh-specjvm2016.jar",
         "xmxMemoryLimitMB": 1024,
         "threadsCount": 2,
         "excludedBenchmarks": [
