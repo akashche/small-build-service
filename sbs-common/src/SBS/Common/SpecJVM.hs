@@ -14,9 +14,11 @@ import Prelude ()
 
 import SBS.Common.Prelude
 import SBS.Common.Data
+import SBS.Common.Queries
 
 data SpecJVMConfig = SpecJVMConfig
-    { xmxMemoryLimitMB :: Int
+    { specjvmJarPath :: Text
+    , xmxMemoryLimitMB :: Int
     , threadsCount :: Int
     , excludedBenchmarks :: Vector Text
     } deriving (Generic, Show)
@@ -27,6 +29,7 @@ data SpecJVMInput = SpecJVMInput
     { taskId :: Int64
     , dbConnection :: DBConnection
     , jdkImageDir :: Text
+    , queries :: Queries
     , specjvmConfig :: SpecJVMConfig
     } deriving (Generic, Show)
 instance FromJSON SpecJVMInput

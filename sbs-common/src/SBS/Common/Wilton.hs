@@ -78,8 +78,8 @@ dbExecute db sqlQuery pars = do
 
 dbExecuteFile :: DBConnection -> Text -> IO ()
 dbExecuteFile db path = do
-    queries <- withFileText path load
-    Vector.mapM_ exec queries
+    qrs <- withFileText path load
+    Vector.mapM_ exec qrs
     return ()
     where
         liner tx = fromList (Text.splitOn "\n" tx)

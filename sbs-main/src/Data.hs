@@ -24,7 +24,7 @@ instance ToJSON CreateDbConfig
 
 data Config = Config
     { dbFilePath :: Text
-    , queriesPath :: Text
+    , queriesDir :: Text
     , createDb :: CreateDbConfig
     , jdkImageDir :: Text
     , specjvm :: SpecJVMConfig

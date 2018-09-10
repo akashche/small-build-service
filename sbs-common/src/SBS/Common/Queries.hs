@@ -5,7 +5,7 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE Strict #-}
 
-module Queries
+module SBS.Common.Queries
     ( Queries
     , loadQueries
     ) where
@@ -35,13 +35,13 @@ singleQuery = do
         convert st = Text.dropWhileEnd isEol (pack st)
         isEol ch = '\n' == ch
 
-queries :: Parser (HashMap Text Text)
+queries :: Parser Queries
 queries = do
     skipManyTill "/**"
     li <- many1 singleQuery
     return (HashMap.fromList li)
 
-loadQueries :: Text -> IO (HashMap Text Text)
+loadQueries :: Text -> IO Queries
 loadQueries path =
     withFileText path fun
     where

@@ -15,19 +15,20 @@ import qualified Data.Vector as Vector
 
 import SBS.Common.Prelude
 import SBS.Common.Data
+import SBS.Common.Queries
 import SBS.Common.SpecJVM
 import SBS.Common.Utils
 import SBS.Common.Wilton
 
 import Data
-import Queries
 
 loadModules :: IO ()
 loadModules = do
     Prelude.mapM_ load ((
         [ "wilton_db"
-        , "wilton_fs"
         , "wilton_channel"
+        , "wilton_fs"
+        , "wilton_process"
         , "sbs_specjvm"
         ]) :: [Text])
     where
@@ -87,11 +88,13 @@ finalizeTask db qrs tid = do
                 ])
 
 runSpecJVM :: Config -> DBConnection -> Int64 -> IO ()
-runSpecJVM cf db tid =
+runSpecJVM cf db tid = do
+    qrs <- loadQueries ((queriesDir cf) <> "queries-specjvm.sql")
     wiltoncall "sbs_specjvm_run" (SpecJVMInput
         { taskId = tid
         , dbConnection = db
         , jdkImageDir = (jdkImageDir (cf :: Config))
+        , queries = qrs
         , specjvmConfig = (specjvm cf)
         }) :: IO ()
 
@@ -106,13 +109,13 @@ start arguments = do
     cf <- decodeJsonFile (arguments ! 0) :: IO Config
     -- openDB connection
     db <- openDb cf
-    queries <- loadQueries (queriesPath cf)
+    qrs <- loadQueries ((queriesDir cf) <> "queries-main.sql")
     -- create task
-    tid <- createTask db queries
+    tid <- createTask db qrs
     -- run specjvm
     runSpecJVM cf db tid
     -- finalize
-    finalizeTask db queries tid
+    finalizeTask db qrs tid
 
     putStrLn "Run finished"
     return ()

@@ -18,10 +18,7 @@ parseLog :: Text -> IO SpecJVMResults
 parseLog path =
     withFileText path fun
     where
-        fun tx =
-            case parseSpecJVMOutput tx path of
-                Left err -> errorText err
-                Right res -> return res
+        fun tx = return (parseSpecJVMOutput tx path)
 
 main :: IO ()
 main = do

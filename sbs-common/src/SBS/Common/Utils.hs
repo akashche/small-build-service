@@ -60,17 +60,20 @@ showText val
 
 withFileBytes :: Text -> (ByteStringLazy.ByteString -> IO a) -> IO a
 withFileBytes path fun =
-    SystemIO.withBinaryFile (unpack path) SystemIO.ReadMode (\ha -> do
-        bs <- ByteStringLazy.hGetContents ha
-        res <- fun bs
-        return res )
+    SystemIO.withBinaryFile (unpack path) SystemIO.ReadMode cb
+    where
+        cb ha = do
+            bs <- ByteStringLazy.hGetContents ha
+            res <- fun bs
+            return res
 
 withFileText :: Text -> (TextLazy.Text -> IO a) -> IO a
 withFileText path fun =
-    withFileBytes path (\bs -> do
-        let te = TextLazyEncoding.decodeUtf8 bs
-        res <- fun te
-        return res )
+    withFileBytes path cb
+    where
+        cb bs = do
+            res <- fun (TextLazyEncoding.decodeUtf8 bs)
+            return res
 
 -- json
 

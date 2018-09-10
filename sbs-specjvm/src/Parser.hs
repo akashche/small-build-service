@@ -14,6 +14,7 @@ import qualified Data.Text.Lazy as TextLazy
 
 import SBS.Common.Prelude
 import SBS.Common.Parsec
+import SBS.Common.Utils
 import Data
 
 benchMode :: Parser BenchMode
@@ -81,8 +82,8 @@ specJVMResults = do
     let res = SpecJVMResults time (fromList benchRes)
     return res
 
-parseSpecJVMOutput :: TextLazy.Text -> Text -> Either Text SpecJVMResults
+parseSpecJVMOutput :: TextLazy.Text -> Text -> SpecJVMResults
 parseSpecJVMOutput contents path =
     case parse specJVMResults (unpack path) contents of
-        Left err -> Left (errToText err)
-        Right res -> Right res
+        Left err -> errorText (errToText err)
+        Right res -> res

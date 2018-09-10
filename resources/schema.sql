@@ -77,7 +77,7 @@ create table specjvm_runs
     , start_date date time not null
     , finish_date date time
     , state text not null
-    , total_time_seconds int not null
+    , total_time_seconds int
     , task_id text not null
     , foreign key (task_id) references tasks (id)
     );

@@ -1,12 +1,13 @@
 {
     "dbFilePath": "sbs.db",
-    "queriesPath": "./resources/queries-main.sql",
+    "queriesDir": "./resources/",
     "createDb": {
         "enabled": true,
         "ddlPath": "./resources/schema.sql"
     },
     "jdkImageDir": "todo",
     "specjvm": {
+        "specjvmJarPath": "/home/alex/projects/redhat/arm/ci/SPECjvm2016/jmh-specjvm2016.jar",
         "xmxMemoryLimitMB": 1024,
         "threadsCount": 2,
         "excludedBenchmarks": [
