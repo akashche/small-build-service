@@ -17,7 +17,10 @@ import SBS.Common.Data
 import SBS.Common.Queries
 
 data SpecJVMConfig = SpecJVMConfig
-    { specjvmJarPath :: Text
+    { enabled :: Bool
+    , mockOutput :: Text
+    , baselineOutput :: Text
+    , specjvmJarPath :: Text
     , xmxMemoryLimitMB :: Int
     , threadsCount :: Int
     , excludedBenchmarks :: Vector Text

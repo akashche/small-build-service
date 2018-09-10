@@ -21,75 +21,120 @@ import SBS.Common.Utils
 import SBS.Common.Wilton
 
 import Data
+import Diff
 import Parser
 
-parseLog :: Text -> IO SpecJVMResults
-parseLog path =
+parseOutput :: Text -> IO SpecJVMResults
+parseOutput path =
     withFileText path fun
     where
         fun tx = return (parseSpecJVMOutput tx path)
 
 createDbEntry :: DBConnection -> Queries -> Int64 -> IO Int64
 createDbEntry db qrs tid = do
-    idx <- dbWithSyncTransaction db work
+    dbExecute db (get qrs "updateRunsId") Empty
+    (IncrementedSeq idx) <- dbQueryObject db (get qrs "selectRunsId") Empty
+    curdate <- getCurrentTime
+    dbExecute db (get qrs "insertRun") (object
+        [ "id" .= idx
+        , "startDate" .= formatISO8601 curdate
+        , "state" .= ("running" :: Text)
+        , "taskId" .= tid
+        ])
     return idx
-    where
-        work = do
-            dbExecute db (get qrs "updateId") Empty
-            (IncrementedSeq idx) <- dbQueryObject db (get qrs "selectId") Empty
-            curdate <- getCurrentTime
-            dbExecute db (get qrs "insert") (object
-                [ "id" .= idx
-                , "startDate" .= formatISO8601 curdate
-                , "state" .= ("running" :: Text)
-                , "taskId" .= tid
-                ])
-            return idx
 
 spawnProcessAndWait :: SpecJVMConfig -> Text -> IO Text
 spawnProcessAndWait cf jdk = do
-    _ <- wiltoncall "process_spawn" (object
-        [ "executable" .= exec
-        , "args" .= args
-        , "outputFile" .= ("specjvm.log" :: Text)
-        , "awaitExit" .= True
-        ]) :: IO Int
-    return "specjvm.log"
+    if (enabled cf)
+    then do
+        code <- wiltoncall "process_spawn" (object
+            [ "executable" .= exec
+            , "args" .= args
+            , "outputFile" .= log
+            , "awaitExit" .= True
+            ]) :: IO Int
+        putStrLn (showText args)
+        when (0 /= code) (throwSpawnFail code)
+    else
+        copyFile (unpack (mockOutput cf)) logStr
+    return log
     where
+        log = "specjvm.log" :: Text
+        logStr = (unpack log)
         exec = jdk <> "/bin/java"
         args = fromList
-            [  ("-Xmx" <> (showText (xmxMemoryLimitMB cf)) <> "MB")
-            , "-jar"
-            , specjvmJarPath cf
-            , "-t"
-            , (showText (threadsCount cf))
-            , "-e"
-            , exreg (excludedBenchmarks cf)
+            [  ("-Xmx" <> (showText (xmxMemoryLimitMB cf)) <> "M")
+            , "-jar", specjvmJarPath cf
+            , "-t", (showText (threadsCount cf))
+            , "-e", exreg (excludedBenchmarks cf)
             ]
         sepNonEmpty st = if Text.length st > 0 then st <> "|" else st
         folder ac el = (sepNonEmpty ac) <> (Text.replace "." "\\." el)
         exreg vec = Vector.foldl' folder "" vec
+        throwSpawnFail code = do
+            outex <- doesFileExist logStr
+            out <- if outex then readFile logStr else return ""
+            errorText ("Error running SPECjvm,"
+                <> " code: [" <> (showText code) <>"]"
+                <> " output: [" <> (Text.strip out) <> "]")
 
-finalizeDbEntry :: DBConnection -> Queries -> Int64 -> Int -> IO ()
-finalizeDbEntry db qrs sid totalTime = do
-    dbWithSyncTransaction db work
+finalizeDbEntry :: DBConnection -> Queries -> Int64 -> Int -> Int -> IO ()
+finalizeDbEntry db qrs rid totalTime relativeTime = do
+    curdate <- getCurrentTime
+    dbExecute db (get qrs "updateRunFinish") (object
+        [ "id" .= rid
+        , "state" .= ("finished" :: Text)
+        , "finishDate" .= formatISO8601 curdate
+        , "totalTimeSeconds" .= totalTime
+        , "relativeTotalTime" .= relativeTime
+        ])
     return ()
+
+saveResults :: DBConnection -> Queries -> Int64 -> SpecJVMResults -> IO ()
+saveResults db qrs rid res =
+    Vector.mapM_ fun (benchmarks (res :: SpecJVMResults))
     where
-        work = do
-            curdate <- getCurrentTime
-            dbExecute db (get qrs "updateFinish") (object
-                [ "id" .= sid
-                , "state" .= ("finished" :: Text)
-                , "finishDate" .= formatISO8601 curdate
-                , "totalTimeSeconds" .= totalTime
+        fun bench = do
+            dbExecute db (get qrs "updateResultsId") Empty
+            (IncrementedSeq idx) <- dbQueryObject db (get qrs "selectResultsId") Empty
+            dbExecute db (get qrs "insertResult") (object
+                [ "id" .= idx
+                , "name" .= (name (bench :: BenchResult))
+                , "mode" .= showText (mode bench)
+                , "counts" .= (count bench)
+                , "score" .= (score bench)
+                , "error" .= (error bench)
+                , "units" .= showText (units bench)
+                , "runId" .= rid
+                ])
+
+saveDiff :: DBConnection -> Queries -> Int64 -> SpecJVMResultsDiff -> IO ()
+saveDiff db qrs rid diff =
+    Vector.mapM_ fun (benchmarks (diff :: SpecJVMResultsDiff))
+    where
+        fun bench = do
+            dbExecute db (get qrs "updateDiffsId") Empty
+            (IncrementedSeq idx) <- dbQueryObject db (get qrs "selectDiffsId") Empty
+            dbExecute db (get qrs "insertDiff") (object
+                [ "id" .= idx
+                , "name" .= (name (bench :: BenchDiff))
+                , "relativeScore" .= (relativeScore bench)
+                , "runId" .= rid
                 ])
 
 run :: SpecJVMInput -> IO ()
 run input = do
+    let cf = specjvmConfig input
     let db = dbConnection input
     let qrs = queries input
-    sid <- createDbEntry db qrs (taskId input)
-    log <- spawnProcessAndWait (specjvmConfig input) (jdkImageDir input)
-    res <- parseLog log
-    finalizeDbEntry db qrs sid (totalTimeSeconds res)
+    sid <- dbWithSyncTransaction db (
+        createDbEntry db qrs (taskId input))
+    log <- spawnProcessAndWait cf (jdkImageDir input)
+    res <- parseOutput log
+    bl <- parseOutput (baselineOutput cf)
+    let diff = diffResults bl res
+    dbWithSyncTransaction db ( do
+        saveResults db qrs sid res
+        saveDiff db qrs sid diff
+        finalizeDbEntry db qrs sid (totalTimeSeconds res) (relativeTotalTime diff) )
     return ()

@@ -16,9 +16,6 @@ module SBS.Common.Wilton
     , dbWithTransaction
     , dbWithSyncTransaction
     , dbClose
-    -- fs
-    , fsExists
-    , fsUnlink
     ) where
 
 import Prelude ()
@@ -162,18 +159,3 @@ dbWithSyncTransaction db cb = do
     case resEither of
         Left e -> throw e
         Right res -> return res
-
--- FS access
-fsExists :: Text -> IO Bool
-fsExists path = do
-    resObj <- wiltoncall "fs_exists" (object
-        [ "path" .= path
-        ]) :: IO Object
-    let exists = jsonGet resObj "exists" :: Bool
-    return exists
-
-fsUnlink :: Text -> IO ()
-fsUnlink path =
-    wiltoncall "fs_unlink" (object
-        [ "path" .= path
-        ]) :: IO ()

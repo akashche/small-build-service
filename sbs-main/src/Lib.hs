@@ -27,7 +27,6 @@ loadModules = do
     Prelude.mapM_ load ((
         [ "wilton_db"
         , "wilton_channel"
-        , "wilton_fs"
         , "wilton_process"
         , "sbs_specjvm"
         ]) :: [Text])
@@ -37,7 +36,7 @@ loadModules = do
 
 openDb :: Config -> IO DBConnection
 openDb cf =
-    if enabled dbc
+    if enabled (dbc :: CreateDbConfig)
     then do
         drop
         db <- open
@@ -49,10 +48,11 @@ openDb cf =
     where
         dbc = createDb cf
         dbPath = (dbFilePath cf)
+        dbPathStr = unpack dbPath
         open = dbOpen ("sqlite://" <> dbPath)
         drop = do
-            exists <- fsExists dbPath
-            when (exists) (fsUnlink dbPath)
+            exists <- doesFileExist dbPathStr
+            when (exists) (removeFile dbPathStr)
         create db = dbExecuteFile db (ddlPath dbc)
 
 createTask :: DBConnection -> Queries -> IO Int64

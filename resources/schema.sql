@@ -78,15 +78,16 @@ create table specjvm_runs
     , finish_date date time
     , state text not null
     , total_time_seconds int
+    , relative_total_time int
     , task_id text not null
     , foreign key (task_id) references tasks (id)
     );
 create index specjvm_runs__start_date_idx on specjvm_runs (start_date);
 
 -- benchmark results
-create table specjvm_benchmark_results_seq (value bigint);
-insert into specjvm_benchmark_results_seq (value) values (0);
-create table specjvm_benchmark_results
+create table specjvm_results_seq (value bigint);
+insert into specjvm_results_seq (value) values (0);
+create table specjvm_results
     ( id bigint primary key
     , name text not null
     , mode text not null
@@ -94,6 +95,17 @@ create table specjvm_benchmark_results
     , score int not null
     , error int not null
     , units text not null
+    , run_id text not null
+    , foreign key (run_id) references specjvm_runs (id)
+    );
+
+-- benchmark diffs
+create table specjvm_diffs_seq (value bigint);
+insert into specjvm_diffs_seq (value) values (0);
+create table specjvm_diffs
+    ( id bigint primary key
+    , name text not null
+    , relative_score int not null
     , run_id text not null
     , foreign key (run_id) references specjvm_runs (id)
     );

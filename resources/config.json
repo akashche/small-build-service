@@ -5,8 +5,11 @@
         "enabled": true,
         "ddlPath": "./resources/schema.sql"
     },
-    "jdkImageDir": "todo",
+    "jdkImageDir": "/home/alex/java/jdk-12/",
     "specjvm": {
+        "enabled": false,
+        "mockOutput": "./sbs-specjvm/test/specjvm_alt.log",
+        "baselineOutput": "./sbs-specjvm/test/specjvm.log",
         "specjvmJarPath": "/home/alex/projects/redhat/arm/ci/SPECjvm2016/jmh-specjvm2016.jar",
         "xmxMemoryLimitMB": 1024,
         "threadsCount": 2,

@@ -59,6 +59,8 @@ module SBS.Common.Prelude
     , createWiltonError, invokeWiltonCall, invokeWiltonCallByteString, registerWiltonCall
     -- GHC.Generics
     , Generic
+    -- System.Directory
+    , copyFile, doesFileExist, removeFile
     ) where
 
 import Prelude
@@ -86,4 +88,5 @@ import Debug.Trace (trace)
 import Foreign.C.String (CString)
 import Foreign.Wilton.FFI (createWiltonError, invokeWiltonCall, invokeWiltonCallByteString, registerWiltonCall)
 import GHC.Generics (Generic)
+import System.Directory (copyFile, doesFileExist, removeFile)
 
