@@ -2,23 +2,23 @@
     "dbFilePath": "/home/server/sbs/work/sbs.db",
     "queriesDir": "/home/server/sbs/resources/",
     "createDb": {
-        "enabled": true,
+        "enabled": false,
         "ddlPath": "/home/server/sbs/resources/schema.sql"
     },
-    "jdkImageDir": "/home/server/sbs/work/jdk-10.0.2-ojdkbuild-linux-armhf",
+    "jdkImageDir": "/home/server/jdk/build/linux-arm-normal-server-release/images/jdk/",
     "jcstress": {
         "enabled": true,
-        "mockOutput": "/home/server/sbs/sbs-jcstress/test/jcstress_abridged_alt.log",
-        "baselineOutput": "/home/server/sbs/sbs-jcstress/test/jcstress_abridged.log",
-        "jcstressJarPath": "/home/server/sbs/work/jcstress.jar",
+        "mockOutput": "DISABLED",
+        "baselineOutput": "/home/server/sbs/work/baseline/jcstress.log",
+        "jcstressJarPath": "/home/server/apps/jcstress/jcstress.jar",
         "xmxMemoryLimitMB": 1024,
         "mode": "quick"
     },
     "specjvm": {
         "enabled": true,
-        "mockOutput": "/home/server/sbs/sbs-specjvm/test/specjvm_alt.log",
-        "baselineOutput": "/home/server/sbs/sbs-specjvm/test/specjvm.log",
-        "specjvmJarPath": "/home/server/sbs/work/SPECjvm2016/jmh-specjvm2016.jar",
+        "mockOutput": "DISABLED",
+        "baselineOutput": "/home/server/sbs/work/baseline/specjvm.log",
+        "specjvmJarPath": "/home/server/apps/specjvm/jmh-specjvm2016.jar",
         "xmxMemoryLimitMB": 1024,
         "threadsCount": 2,
         "excludedBenchmarks": [
