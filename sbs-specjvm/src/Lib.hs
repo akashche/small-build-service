@@ -61,23 +61,26 @@ spawnProcessAndWait :: SpecJVMConfig -> Text -> IO Text
 spawnProcessAndWait cf jdk = do
     if (enabled cf)
     then do
-        code <- wiltoncall "process_spawn" (object
-            [ "executable" .= exec
-            , "args" .= fromList
+        createDirectory (unpack wd)
+        code <- spawnProcess SpawnedProcessArgs
+            { workDir = wd
+            , executable = exec
+            , execArgs = fromList
                 [  ("-Xmx" <> (showText (xmxMemoryLimitMB cf)) <> "M")
                 , "-jar", specjvmJarPath cf
                 , "-t", (showText (threadsCount cf))
                 , "-e", exreg (excludedBenchmarks cf)
                 ]
-            , "outputFile" .= log
-            , "awaitExit" .= True
-            ]) :: IO Int
+            , outputFile = log
+            , awaitExit = True
+            }
         when (0 /= code) (throwSpawnFail code)
     else
         copyFile (unpack (mockOutput cf)) logStr
     return log
     where
-        log = "specjvm.log" :: Text
+        wd = workDir (cf :: SpecJVMConfig)
+        log = wd <> "specjvm.log"
         logStr = (unpack log)
         exec = jdk <> "/bin/java"
         sepNonEmpty st = if Text.length st > 0 then st <> "|" else st
@@ -88,7 +91,7 @@ spawnProcessAndWait cf jdk = do
             out <- if outex then readFile logStr else return ""
             errorText ("Error running SPECjvm,"
                 <> " code: [" <> (showText code) <>"]"
-                <> " output: [" <> (Text.strip out) <> "]")
+                <> " output: [" <> (Text.take 1024 (Text.strip out)) <> "]")
 
 finalizeDbEntry :: DBConnection -> Queries -> Int64 -> Int -> Int -> IO ()
 finalizeDbEntry db qrs rid totalTime relativeTime = do
@@ -134,15 +137,23 @@ saveDiff db qrs rid diff =
                 , "runId" .= rid
                 ])
 
+copyNcNote :: SpecJVMConfig -> Text -> IO ()
+copyNcNote cf appd = copyFile (unpack from) (unpack to)
+    where
+        from = prependIfRelative appd (ncNotePath cf)
+        wd = workDir (cf :: SpecJVMConfig)
+        to = wd <> "nc_note.txt"
+
 run :: SpecJVMInput -> IO ()
-run input = do
-    let cf = specjvmConfig input
-    let db = dbConnection input
-    let qrs = queries input
+run (SpecJVMInput ctx jdkDir cf) = do
+    let tid = taskId ctx
+    let db = dbConnection ctx
+    qrs <- loadQueries ((queriesDir ctx) <> "queries-specjvm.sql")
     rid <- dbWithSyncTransaction db (
-        createDbEntry db qrs (taskId input))
-    log <- spawnProcessAndWait cf (jdkImageDir input)
+        createDbEntry db qrs tid)
+    log <- spawnProcessAndWait cf jdkDir
     res <- parseOutput log
+    copyNcNote cf (appDir ctx)
     bl <- parseOutput (baselineOutput cf)
     let diff = diffResults bl res
     dbWithSyncTransaction db ( do

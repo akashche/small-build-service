@@ -65,7 +65,7 @@ module SBS.Common.Prelude
     , Vector
     , (!)
     , fromList, toList
-    -- Debug,Trace
+    -- Debug.Trace
     , trace
     -- Foreign.C.String
     , CString
@@ -74,7 +74,7 @@ module SBS.Common.Prelude
     -- GHC.Generics
     , Generic
     -- System.Directory
-    , copyFile, doesFileExist, removeFile
+    , createDirectory, copyFile, doesFileExist, getCurrentDirectory, removeFile, setCurrentDirectory
     ) where
 
 import Prelude
@@ -102,5 +102,5 @@ import Debug.Trace (trace)
 import Foreign.C.String (CString)
 import Foreign.Wilton.FFI (createWiltonError, invokeWiltonCall, invokeWiltonCallByteString, registerWiltonCall)
 import GHC.Generics (Generic)
-import System.Directory (copyFile, doesFileExist, removeFile)
+import System.Directory (createDirectory, copyFile, doesFileExist, getCurrentDirectory, removeFile, setCurrentDirectory)
 

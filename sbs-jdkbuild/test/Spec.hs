@@ -19,32 +19,37 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE Strict #-}
 
-module SBS.Common.JCStress
-    ( JCStressConfig(..)
-    , JCStressInput(..)
-    ) where
-
 import Prelude ()
 
 import SBS.Common.Prelude
-import SBS.Common.Data
+import SBS.Common.Utils
 
-data JCStressConfig = JCStressConfig
-    { enabled :: Bool
-    , workDir :: Text
-    , mockOutput :: Text
-    , baselineOutput :: Text
-    , jcstressJarPath :: Text
-    , xmxMemoryLimitMB :: Int
-    , mode :: Text
-    } deriving (Generic, Show)
-instance ToJSON JCStressConfig
-instance FromJSON JCStressConfig
+import Data
+import Parser
 
-data JCStressInput = JCStressInput
-    { taskCtx :: TaskContext
-    , jdkImageDir :: Text
-    , jcstressConfig :: JCStressConfig
-    } deriving (Generic, Show)
-instance ToJSON JCStressInput
-instance FromJSON JCStressInput
+parseConf :: Text -> IO ConfigureDetails
+parseConf path =
+    withFileText path fun
+    where
+        fun tx = return (parseConfigureOutput tx path)
+
+parseMake :: Text -> IO MakeDetails
+parseMake path =
+    withFileText path fun
+    where
+        fun tx = return (parseMakeOutput tx path)
+
+main :: IO ()
+main = do
+    -- conf.log
+    cd <- parseConf "test/conf.log"
+--     unless ("foo" == showText ("foo" :: Text)) (errorText "showText fail")
+    putStrLn (showText cd)
+
+    -- make.log
+    md <- parseMake "test/make.log"
+    putStrLn (showText md)
+
+    putStrLn "Tests Passed."
+    return ()
+

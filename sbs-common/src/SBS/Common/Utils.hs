@@ -39,6 +39,8 @@ module SBS.Common.Utils
     -- datetime
     , formatISO8601
     , parseISO8601
+    -- paths
+    , prependIfRelative
     ) where
 
 import Prelude ()
@@ -46,6 +48,8 @@ import qualified Data.Aeson as Aeson
 import qualified Data.Aeson.Types as AesonTypes
 import qualified Data.ByteString as ByteString
 import qualified Data.ByteString.Lazy as ByteStringLazy
+import qualified Data.Char as Char
+import qualified Data.Text as Text
 import qualified Data.Text.Lazy as TextLazy
 import qualified Data.Text.Lazy.Encoding as TextLazyEncoding
 import qualified Data.Time.Format as TimeFormat
@@ -97,7 +101,8 @@ encodeJsonText = decodeUtf8 . ByteString.concat . ByteStringLazy.toChunks . Aeso
 decodeJsonText :: forall a . (FromJSON a) => Text -> a
 decodeJsonText tx =
     case Aeson.eitherDecode bs :: Either String a of
-        Left err -> errorText (pack err)
+        Left err -> errorText ("Error decoding JSON,"
+            <> " message: [" <> pack err <> "]")
         Right res -> res
     where
         bs = ByteStringLazy.fromChunks [encodeUtf8 tx]
@@ -108,7 +113,9 @@ decodeJsonFile path =
     where
         fun bs =
             case Aeson.eitherDecode bs :: Either String a of
-                Left err -> errorText (pack err)
+                Left err -> errorText ("Error decoding JSON,"
+                    <> " path: [" <> path <> "]"
+                    <> " message: [" <> pack err <> "]")
                 Right res -> return res
 
 jsonGet :: forall a . (FromJSON a) => Object -> Text -> a
@@ -149,3 +156,12 @@ parseISO8601 tx =
     where
         locale = TimeFormat.defaultTimeLocale
         iso = "%Y-%m-%d %H:%M:%S"
+
+-- paths
+prependIfRelative :: Text -> Text -> Text
+prependIfRelative prefix path =
+    if isabs path then path else prefix <> path
+    where
+        isabs pa = ((Text.length pa) > 0 && '/' == Text.index pa 0)
+            || (Text.length pa) > 1 && (Char.isAlphaNum (Text.index pa 0)) && ':' == (Text.index pa 1)
+

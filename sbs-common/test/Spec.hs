@@ -40,5 +40,11 @@ main = do
     -- datetime
     unless ("2018-09-09 19:15:11" == formatISO8601 (parseISO8601 "2018-09-09 19:15:11")) (errorText "ISO8601 fail")
 
+    -- paths
+    unless("foobar" == prependIfRelative "foo" "bar") (errorText "prepend fail")
+    unless("/bar" == prependIfRelative "foo" "/bar") (errorText "prepend fail")
+    unless("c:\\bar" == prependIfRelative "foo" "c:\\bar") (errorText "prepend fail")
+    unless("c:/bar" == prependIfRelative "foo" "c:/bar") (errorText "prepend fail")
+
     putStrLn "Tests Passed."
     return ()

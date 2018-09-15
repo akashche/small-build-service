@@ -19,6 +19,7 @@
         "mockOutput": "DISABLED",
         "baselineOutput": "/home/server/sbs/work/baseline/specjvm.log",
         "specjvmJarPath": "/home/server/apps/specjvm/jmh-specjvm2016.jar",
+        "ncNotePath": "/home/server/sbs/resources/nc_note.txt",
         "xmxMemoryLimitMB": 1024,
         "threadsCount": 2,
         "excludedBenchmarks": [

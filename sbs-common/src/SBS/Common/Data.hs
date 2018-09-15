@@ -23,6 +23,7 @@ module SBS.Common.Data
     ( Empty(..)
     , IncrementedSeq(..)
     , DBConnection(..)
+    , TaskContext(..)
     ) where
 
 import Prelude ()
@@ -48,4 +49,14 @@ data DBConnection = DBConnection
     } deriving (Generic, Show)
 instance FromJSON DBConnection
 instance ToJSON DBConnection
+
+data TaskContext = TaskContext
+    { taskId :: Int64
+    , dbConnection :: DBConnection
+    , appDir :: Text
+    , queriesDir :: Text
+    } deriving (Generic, Show)
+instance FromJSON TaskContext
+instance ToJSON TaskContext
+
 

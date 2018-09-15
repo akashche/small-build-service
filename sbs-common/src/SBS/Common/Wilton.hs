@@ -30,6 +30,9 @@ module SBS.Common.Wilton
     , dbWithTransaction
     , dbWithSyncTransaction
     , dbClose
+    -- process
+    , SpawnedProcessArgs(..)
+    , spawnProcess
     ) where
 
 import Prelude ()
@@ -114,7 +117,7 @@ dbExecuteFile db path = do
                 Right res -> return res
 
 dbQueryList ::
-    forall a b . (ToJSON a, FromJSON b, Typeable b) =>
+    forall a b . (ToJSON a, FromJSON b) =>
     DBConnection -> Text -> a -> IO (Vector b)
 dbQueryList db sqlQuery pars = do
     res <- wiltoncall "db_connection_query" (object
@@ -125,7 +128,7 @@ dbQueryList db sqlQuery pars = do
     return res
 
 dbQueryObject ::
-    forall a b . (ToJSON a, FromJSON b, Typeable b) =>
+    forall a b . (ToJSON a, FromJSON b) =>
     DBConnection -> Text -> a -> IO b
 dbQueryObject db sqlQuery pars = do
     vec <- dbQueryList db sqlQuery pars
@@ -173,3 +176,26 @@ dbWithSyncTransaction db cb = do
     case resEither of
         Left e -> throw e
         Right res -> return res
+
+data SpawnedProcessArgs = SpawnedProcessArgs
+    { workDir :: Text
+    , executable :: Text
+    , execArgs :: Vector Text
+    , outputFile :: Text
+    , awaitExit :: Bool
+    } deriving (Show)
+
+-- process
+spawnProcess :: SpawnedProcessArgs -> IO Int
+spawnProcess (SpawnedProcessArgs wd exec args outFile await) = do
+    cwd <- getCurrentDirectory
+    setCurrentDirectory (unpack wd)
+    code <- wiltoncall "process_spawn" (object
+        [ "executable" .= exec
+        , "args" .= args
+        , "outputFile" .= outFile
+        , "awaitExit" .= await
+        ]) :: IO Int
+    -- restored on process fail, but not on spawn fail
+    setCurrentDirectory cwd
+    return code

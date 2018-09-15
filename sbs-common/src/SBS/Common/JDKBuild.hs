@@ -19,47 +19,38 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE Strict #-}
 
-module Data
-    ( DBConfig(..)
-    , LoggingConfig(..)
-    , SBSConfig(..)
-    , Config(..)
+module SBS.Common.JDKBuild
+    ( JDKBuildConfig(..)
+    , JDKBuildInput(..)
+    , JDKBuildOutput(..)
     ) where
 
 import Prelude ()
 
 import SBS.Common.Prelude
-import SBS.Common.JCStress
-import SBS.Common.JDKBuild
-import SBS.Common.SpecJVM
+import SBS.Common.Data
 
-data DBConfig = DBConfig
-    { dbFilePath :: Text
-    , queriesDir :: Text
-    , reCreateDb :: Bool
-    } deriving (Generic, Show)
-instance FromJSON DBConfig
-instance ToJSON DBConfig
-
-data LoggingConfig = LoggingConfig
+data JDKBuildConfig = JDKBuildConfig
     { enabled :: Bool
+    , mockOutputDir :: Text
+    , sourcesDir :: Text
+    , additionalConfigureArguments :: Vector Text
+    , logLevel :: Text
+    , target :: Text
     } deriving (Generic, Show)
-instance FromJSON LoggingConfig
-instance ToJSON LoggingConfig
+instance ToJSON JDKBuildConfig
+instance FromJSON JDKBuildConfig
 
-data SBSConfig = SBSConfig
-    { appDir :: Text
-    , database :: DBConfig
-    , logging :: LoggingConfig
+data JDKBuildInput = JDKBuildInput
+    { taskCtx :: TaskContext
+    , jdkbuildConfig :: JDKBuildConfig
     } deriving (Generic, Show)
-instance FromJSON SBSConfig
-instance ToJSON SBSConfig
+instance ToJSON JDKBuildInput
+instance FromJSON JDKBuildInput
 
-data Config = Config
-    { sbs :: SBSConfig
-    , jdkbuild :: JDKBuildConfig
-    , jcstress :: JCStressConfig
-    , specjvm :: SpecJVMConfig
+data JDKBuildOutput = JDKBuildOutput
+    { revision :: Text
+    , jdkImageDir :: Text
     } deriving (Generic, Show)
-instance FromJSON Config
-instance ToJSON Config
+instance ToJSON JDKBuildOutput
+instance FromJSON JDKBuildOutput

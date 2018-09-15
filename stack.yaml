@@ -18,11 +18,13 @@ resolver: lts-9.21
 packages:
 - sbs-common
 - sbs-jcstress
+- sbs-jdkbuild
 - sbs-main
 - sbs-specjvm
 
 extra-deps:
-- wilton-ffi-0.3.0.2
+#- wilton-ffi-0.3.0.2
+- /home/alex/projects/haskell/wilton-ffi/
 
 ghc-options:
   "$locals": -O2 -Wall -Werror

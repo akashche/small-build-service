@@ -19,32 +19,19 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE Strict #-}
 
-module SBS.Common.JCStress
-    ( JCStressConfig(..)
-    , JCStressInput(..)
-    ) where
+module Wilton ( ) where
 
 import Prelude ()
 
 import SBS.Common.Prelude
-import SBS.Common.Data
+import Lib
 
-data JCStressConfig = JCStressConfig
-    { enabled :: Bool
-    , workDir :: Text
-    , mockOutput :: Text
-    , baselineOutput :: Text
-    , jcstressJarPath :: Text
-    , xmxMemoryLimitMB :: Int
-    , mode :: Text
-    } deriving (Generic, Show)
-instance ToJSON JCStressConfig
-instance FromJSON JCStressConfig
+foreign export ccall wilton_module_init :: IO CString
+wilton_module_init :: IO CString
+wilton_module_init = do
+    { errRun <- registerWiltonCall "sbs_jdkbuild_run" run
+    ; if isJust errRun then createWiltonError errRun
 
-data JCStressInput = JCStressInput
-    { taskCtx :: TaskContext
-    , jdkImageDir :: Text
-    , jcstressConfig :: JCStressConfig
-    } deriving (Generic, Show)
-instance ToJSON JCStressInput
-instance FromJSON JCStressInput
+      else createWiltonError Nothing
+    }
+

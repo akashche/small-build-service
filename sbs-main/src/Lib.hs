@@ -30,6 +30,7 @@ import qualified Data.Vector as Vector
 import SBS.Common.Prelude
 import SBS.Common.Data
 import SBS.Common.JCStress
+import SBS.Common.JDKBuild
 import SBS.Common.Queries
 import SBS.Common.SpecJVM
 import SBS.Common.Utils
@@ -44,6 +45,7 @@ loadModules = do
         , "wilton_channel"
         , "wilton_process"
         , "sbs_jcstress"
+        , "sbs_jdkbuild"
         , "sbs_specjvm"
         ]) :: [Text])
     where
@@ -52,7 +54,7 @@ loadModules = do
 
 openDb :: Config -> IO DBConnection
 openDb cf =
-    if enabled (dbc :: CreateDbConfig)
+    if reCreateDb dbc
     then do
         drop
         db <- open
@@ -62,14 +64,18 @@ openDb cf =
         db <- open
         return db
     where
-        dbc = createDb cf
-        dbPath = (dbFilePath cf)
+        sbsc = sbs cf
+        appd = appDir (sbsc :: SBSConfig)
+        dbc = database sbsc
+        dbPath = prependIfRelative appd (dbFilePath dbc)
+        qdir = queriesDir (dbc :: DBConfig)
+        ddlPath = (prependIfRelative appd qdir) <> "schema.sql"
         dbPathStr = unpack dbPath
         open = dbOpen ("sqlite://" <> dbPath)
         drop = do
             exists <- doesFileExist dbPathStr
             when (exists) (removeFile dbPathStr)
-        create db = dbExecuteFile db (ddlPath dbc)
+        create db = dbExecuteFile db ddlPath
 
 createTask :: DBConnection -> Queries -> IO Int64
 createTask db qrs = do
@@ -103,25 +109,27 @@ finalizeTask db qrs tid = do
                 , "finishDate" .= formatISO8601 curdate
                 ])
 
-runJCStress :: Config -> DBConnection -> Int64 -> IO ()
-runJCStress cf db tid = do
-    qrs <- loadQueries ((queriesDir cf) <> "queries-jcstress.sql")
+runJDKBuild :: Config -> TaskContext -> IO JDKBuildOutput
+runJDKBuild cf task = do
+    res <- wiltoncall "sbs_jdkbuild_run" (JDKBuildInput
+        { taskCtx = task
+        , jdkbuildConfig = (jdkbuild cf)
+        })
+    return res
+
+runJCStress :: Config -> TaskContext -> JDKBuildOutput -> IO ()
+runJCStress cf ctx jdk = do
     wiltoncall "sbs_jcstress_run" (JCStressInput
-        { taskId = tid
-        , dbConnection = db
-        , jdkImageDir = (jdkImageDir (cf :: Config))
-        , queries = qrs
+        { taskCtx = ctx
+        , jdkImageDir = (jdkImageDir (jdk :: JDKBuildOutput))
         , jcstressConfig = (jcstress cf)
         }) :: IO ()
 
-runSpecJVM :: Config -> DBConnection -> Int64 -> IO ()
-runSpecJVM cf db tid = do
-    qrs <- loadQueries ((queriesDir cf) <> "queries-specjvm.sql")
+runSpecJVM :: Config -> TaskContext -> JDKBuildOutput -> IO ()
+runSpecJVM cf ctx jdk = do
     wiltoncall "sbs_specjvm_run" (SpecJVMInput
-        { taskId = tid
-        , dbConnection = db
-        , jdkImageDir = (jdkImageDir (cf :: Config))
-        , queries = qrs
+        { taskCtx = ctx
+        , jdkImageDir = (jdkImageDir (jdk :: JDKBuildOutput))
         , specjvmConfig = (specjvm cf)
         }) :: IO ()
 
@@ -136,13 +144,18 @@ start arguments = do
     cf <- decodeJsonFile (arguments ! 0) :: IO Config
     -- openDB connection
     db <- openDb cf
-    qrs <- loadQueries ((queriesDir cf) <> "queries-main.sql")
+    let sbsc = sbs cf
+    let qdir = queriesDir ((database sbsc) :: DBConfig)
+    qrs <- loadQueries (qdir <> "queries-main.sql")
     -- create task
     tid <- createTask db qrs
+    let ctx = TaskContext tid db (appDir (sbsc :: SBSConfig)) qdir
+    -- run jdkbuild
+    jdk <- runJDKBuild cf ctx
     -- run jcstress
-    runJCStress cf db tid
+    runJCStress cf ctx jdk
     -- run specjvm
-    runSpecJVM cf db tid
+    runSpecJVM cf ctx jdk
     -- finalize
     finalizeTask db qrs tid
 

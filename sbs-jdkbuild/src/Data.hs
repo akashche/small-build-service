@@ -19,32 +19,19 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE Strict #-}
 
-module SBS.Common.JCStress
-    ( JCStressConfig(..)
-    , JCStressInput(..)
+module Data
+    ( ConfigureDetails(..)
+    , MakeDetails(..)
     ) where
 
 import Prelude ()
 
 import SBS.Common.Prelude
-import SBS.Common.Data
 
-data JCStressConfig = JCStressConfig
-    { enabled :: Bool
-    , workDir :: Text
-    , mockOutput :: Text
-    , baselineOutput :: Text
-    , jcstressJarPath :: Text
-    , xmxMemoryLimitMB :: Int
-    , mode :: Text
-    } deriving (Generic, Show)
-instance ToJSON JCStressConfig
-instance FromJSON JCStressConfig
+data ConfigureDetails = ConfigureDetails
+    { confDirectory :: Text
+    } deriving (Show)
 
-data JCStressInput = JCStressInput
-    { taskCtx :: TaskContext
-    , jdkImageDir :: Text
-    , jcstressConfig :: JCStressConfig
-    } deriving (Generic, Show)
-instance ToJSON JCStressInput
-instance FromJSON JCStressInput
+data MakeDetails = MakeDetails
+    { buildTimeSeconds :: Int
+    } deriving (Show)

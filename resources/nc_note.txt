@@ -1,0 +1,5 @@
+In accordance with [1], the SPEC test harness is modified without approval of SPEC.
+The numbers in this section shall be treated as non-compliant (nc) and are for experimental
+purposes only.
+
+[1] http://www.spec.org/fairuse.html#Academic

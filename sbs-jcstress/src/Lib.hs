@@ -61,22 +61,25 @@ spawnProcessAndWait :: JCStressConfig -> Text -> IO Text
 spawnProcessAndWait cf jdk = do
     if (enabled cf)
     then do
-        code <- wiltoncall "process_spawn" (object
-            [ "executable" .= exec
-            , "args" .= fromList
+        createDirectory (unpack wd)
+        code <- spawnProcess SpawnedProcessArgs
+            { workDir = wd
+            , executable = exec
+            , execArgs = fromList
                 [  ("-Xmx" <> (showText (xmxMemoryLimitMB cf)) <> "M")
                 , "-jar", jcstressJarPath cf
                 , "-m", mode cf
                 ]
-            , "outputFile" .= log
-            , "awaitExit" .= True
-            ]) :: IO Int
+            , outputFile = log
+            , awaitExit = True
+            }
         when (0 /= code) (throwSpawnFail code)
     else
         copyFile (unpack (mockOutput cf)) logStr
     return log
     where
-        log = "jcstress.log" :: Text
+        wd = workDir (cf :: JCStressConfig)
+        log = wd <> "jcstress.log"
         logStr = (unpack log)
         exec = jdk <> "/bin/java"
         throwSpawnFail code = do
@@ -84,7 +87,7 @@ spawnProcessAndWait cf jdk = do
             out <- if outex then readFile logStr else return ""
             errorText ("Error running JCStress,"
                 <> " code: [" <> (showText code) <>"]"
-                <> " output: [" <> (Text.strip out) <> "]")
+                <> " output: [" <> (Text.take 1024 (Text.strip out)) <> "]")
 
 finalizeDbEntry :: DBConnection -> Queries -> Int64 -> JCStressResults -> JCStressResultsDiff -> IO ()
 finalizeDbEntry db qrs rid res diff = do
@@ -105,13 +108,13 @@ finalizeDbEntry db qrs rid res diff = do
     return ()
 
 run :: JCStressInput -> IO ()
-run input = do
-    let cf = jcstressConfig input
-    let db = dbConnection input
-    let qrs = queries input
+run (JCStressInput ctx jdkDir cf) = do
+    let tid = taskId ctx
+    let db = dbConnection ctx
+    qrs <- loadQueries ((queriesDir ctx) <> "queries-jcstress.sql")
     rid <- dbWithSyncTransaction db (
-        createDbEntry db qrs (taskId input))
-    log <- spawnProcessAndWait cf (jdkImageDir input)
+        createDbEntry db qrs tid)
+    log <- spawnProcessAndWait cf jdkDir
     res <- parseOutput log
     bl <- parseOutput (baselineOutput cf)
     let diff = diffResults bl res

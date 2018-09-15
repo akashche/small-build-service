@@ -1,24 +1,48 @@
 {
-    "dbFilePath": "sbs.db",
-    "queriesDir": "../resources/",
-    "createDb": {
-        "enabled": true,
-        "ddlPath": "../resources/schema.sql"
+    "sbs" : {
+        "appDir": "/home/alex/projects/haskell/small-build-service/",
+
+        "database": {
+            "dbFilePath": "work/sbs.db",
+            "queriesDir": "resources/",
+            "reCreateDb": true
+        },
+
+        "logging": {
+            "enabled": false
+        }
     },
-    "jdkImageDir": "./jdk-12/",
+
+    "jdkbuild": {
+        "enabled": false,
+        "mockOutputDir": "sbs-jdkbuild/test/",
+        "sourcesDir": "work/jdk",
+        "bootJdkDir": "work/bootjdk",
+        "jtregDir": "work/jtreg",
+        "logLevel": "info",
+        "additionalConfigureArguments": [
+            "--disable-warnings-as-errors"
+        ],
+        "target": "images"
+    },
+
     "jcstress": {
         "enabled": false,
-        "mockOutput": "../sbs-jcstress/test/jcstress_abridged_alt.log",
-        "baselineOutput": "../sbs-jcstress/test/jcstress_abridged.log",
-        "jcstressJarPath": "./jcstress.jar",
+        "workDir": "work/jcstress/",
+        "mockOutput": "sbs-jcstress/test/jcstress_abridged_alt.log",
+        "baselineOutput": "sbs-jcstress/test/jcstress_abridged.log",
+        "jcstressJarPath": "work/jcstress.jar",
         "xmxMemoryLimitMB": 1024,
         "mode": "quick"
     },
+
     "specjvm": {
         "enabled": false,
-        "mockOutput": "../sbs-specjvm/test/specjvm_alt.log",
-        "baselineOutput": "../sbs-specjvm/test/specjvm.log",
-        "specjvmJarPath": "./SPECjvm2016/jmh-specjvm2016.jar",
+        "workDir": "work/specjvm/",
+        "mockOutput": "sbs-specjvm/test/specjvm_alt.log",
+        "baselineOutput": "sbs-specjvm/test/specjvm.log",
+        "specjvmJarPath": "work/SPECjvm2016/jmh-specjvm2016.jar",
+        "ncNotePath": "resources/nc_note.txt",
         "xmxMemoryLimitMB": 1024,
         "threadsCount": 2,
         "excludedBenchmarks": [

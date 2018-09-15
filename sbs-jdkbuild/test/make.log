@@ -1,0 +1,2637 @@
+Generating main target list
+Running make as 'make LOG=info images'
+Building target 'images' in configuration 'linux-arm-normal-server-release'
+Compiling 8 files for BUILD_TOOLS_LANGTOOLS
+Compiling 19 properties into resource bundles for jdk.compiler
+Parsing 2 properties into enum-like class for jdk.compiler
+Compiling 13 properties into resource bundles for jdk.javadoc
+Generating module-info.java for java.compiler.interim
+Generating module-info.java for jdk.compiler.interim
+Generating module-info.java for jdk.javadoc.interim
+Compiling 117 files for BUILD_java.compiler.interim
+Compiling 395 files for BUILD_jdk.compiler.interim
+Compiling 303 files for BUILD_jdk.javadoc.interim
+Copying buildtools/interim_cldrconverter_classes/build/tools/cldrconverter/TimeZoneNames.java
+Compiling 162 files for BUILD_TOOLS_JDK
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Copying buildtools/jdk_tools_classes/build/tools/generatenimbus/resources/StateImpl.template
+Copying buildtools/jdk_tools_classes/build/tools/generatenimbus/resources/Defaults.template
+Copying buildtools/jdk_tools_classes/build/tools/generatenimbus/resources/PainterImpl.template
+Compiling 2 files for COMPILE_DEPEND
+Creating sun/util/locale/provider/BaseLocaleDataMetaInfo.java from 6 found resources
+Generating CharacterDataLatin1.java
+Generating CharacterData00.java
+Generating CharacterData01.java
+Generating CharacterData02.java
+Generating CharacterData0E.java
+Generating CharacterDataUndefined.java
+Generating CharacterDataPrivateUse.java
+Processing VersionProps.java
+Processing JceSecurity.java
+Generating java.base charset mapping
+Generating buffer classes
+Generating exceptions java.nio .
+Generating exceptions java.nio charset
+Generating exceptions java.nio channels
+Compiling 11 properties into resource bundles for java.base
+Compiling 6 properties into resource bundles for java.base
+Compiling 2986 files for java.base
+Compiling 2 files for BUILD_BREAKITERATOR_BASE
+Compiling 2 files for BUILD_BREAKITERATOR_LD
+Generating BreakIteratorData
+Generating BreakIteratorData_th
+Generating blacklisted certs
+Generating public suffix list
+Generating java.security
+Copying jdk/conf/security/policy/README.txt
+Copying jdk/conf/security/policy/limited/default_US_export.policy
+Copying jdk/conf/security/policy/limited/default_local.policy
+Copying jdk/conf/security/policy/limited/exempt_local.policy
+Copying jdk/conf/security/policy/unlimited/default_US_export.policy
+Copying jdk/conf/security/policy/unlimited/default_local.policy
+Copying jdk/conf/security/java.security
+Creating symlink jdk/lib/tzdb.dat
+Creating symlink jdk/lib/security/blacklisted.certs
+Creating symlink jdk/lib/security/public_suffix_list.dat
+Building JVM variant 'server' with features 'cds cmsgc compiler1 compiler2 epsilongc g1gc jfr jni-check jvmti management nmt parallelgc serialgc services vm-structs'
+Creating hotspot/variant-server/tools/adlc/adlc from 13 file(s)
+Compiling adlparse.cpp (for adlc)
+Compiling archDesc.cpp (for adlc)
+Compiling arena.cpp (for adlc)
+Compiling dfa.cpp (for adlc)
+Compiling dict2.cpp (for adlc)
+Compiling filebuff.cpp (for adlc)
+Compiling forms.cpp (for adlc)
+Compiling formsopt.cpp (for adlc)
+Compiling formssel.cpp (for adlc)
+Compiling main.cpp (for adlc)
+Compiling opcodes.cpp (for adlc)
+Compiling output_c.cpp (for adlc)
+Compiling output_h.cpp (for adlc)
+Linking adlc
+Preprocessing adlc files arm_32.ad arm.ad
+Generating adlc files
+Postprocessing adlc file ad_arm.cpp
+Postprocessing adlc file ad_arm.hpp
+Postprocessing adlc file ad_arm_clone.cpp
+Postprocessing adlc file ad_arm_expand.cpp
+Postprocessing adlc file ad_arm_format.cpp
+Postprocessing adlc file ad_arm_gen.cpp
+Postprocessing adlc file ad_arm_misc.cpp
+Postprocessing adlc file ad_arm_peephole.cpp
+Postprocessing adlc file ad_arm_pipeline.cpp
+Postprocessing adlc file adGlobals_arm.hpp
+Postprocessing adlc file dfa_arm.cpp
+Compiling 2 files for BUILD_JVMTI_TOOLS
+Generating jvmtiEnter.cpp
+Generating jvmtiEnterTrace.cpp
+Generating jvmtiEnv.hpp
+Generating jvmti.h
+Generating jvmti.html
+Generating bytecodeInterpreterWithChecks.cpp
+Copying support/modules_include/java.base/jvmti.h
+Compiling 1 files for BUILD_JFR_TOOLS
+Generating jfrEventClasses.hpp
+Processing Xusage.txt
+Processing hotspot
+Copying support/modules_include/java.base/jvmticmlr.h
+Copying support/modules_include/java.base/jni.h
+Copying support/modules_include/java.base/linux/jni_md.h
+Adding -server KNOWN to jvm.cfg
+Adding -client IGNORE to jvm.cfg
+Copying support/modules_libs/java.base/security/cacerts
+Copying support/modules_conf/java.base/net.properties
+Copying support/modules_legal/common/LICENSE
+Copying support/modules_legal/common/ASSEMBLY_EXCEPTION
+Copying support/modules_legal/common/ADDITIONAL_LICENSE_INFO
+Copying support/modules_legal/java.base/aes.md
+Copying support/modules_legal/java.base/unicode.md
+Copying support/modules_legal/java.base/c-libutl.md
+Copying support/modules_legal/java.base/icu.md
+Copying support/modules_legal/java.base/public_suffix.md
+Copying support/modules_legal/java.base/asm.md
+Copying support/modules_legal/java.base/cldr.md
+Processing classfile_constants.h
+Copying jdk/include/jvmticmlr.h
+Copying jdk/include/jni.h
+Copying jdk/include/linux/jni_md.h
+Copying jdk/include/classfile_constants.h
+Copying jdk/conf/security/java.policy
+Copying jdk/conf/net.properties
+Creating symlink jdk/lib/jvm.cfg
+Creating symlink jdk/lib/security/default.policy
+Creating symlink jdk/lib/security/cacerts
+Creating support/modules_libs/java.base/server/libjvm.so from 831 file(s)
+Generating precompiled header
+Generating precompiled header
+Compiling abstractCompiler.cpp (for libjvm.so)
+Compiling abstractInterpreter.cpp (for libjvm.so)
+Compiling abstractInterpreter_arm.cpp (for libjvm.so)
+Compiling access.cpp (for libjvm.so)
+Compiling accessBackend.cpp (for libjvm.so)
+Compiling accessBarrierSupport.cpp (for libjvm.so)
+Compiling accessFlags.cpp (for libjvm.so)
+Compiling ad_arm.cpp (for libjvm.so)
+Compiling ad_arm_clone.cpp (for libjvm.so)
+Compiling ad_arm_expand.cpp (for libjvm.so)
+Compiling ad_arm_format.cpp (for libjvm.so)
+Compiling ad_arm_gen.cpp (for libjvm.so)
+Compiling ad_arm_misc.cpp (for libjvm.so)
+Compiling ad_arm_peephole.cpp (for libjvm.so)
+Compiling ad_arm_pipeline.cpp (for libjvm.so)
+Compiling adaptiveFreeList.cpp (for libjvm.so)
+Compiling adaptiveSizePolicy.cpp (for libjvm.so)
+Compiling addnode.cpp (for libjvm.so)
+Compiling adjoiningGenerations.cpp (for libjvm.so)
+Compiling adjoiningVirtualSpaces.cpp (for libjvm.so)
+Compiling ageTable.cpp (for libjvm.so)
+Compiling ageTableTracer.cpp (for libjvm.so)
+Compiling allocTracer.cpp (for libjvm.so)
+Compiling allocation.cpp (for libjvm.so)
+Compiling allocationStats.cpp (for libjvm.so)
+Compiling altHashing.cpp (for libjvm.so)
+Compiling annotations.cpp (for libjvm.so)
+Compiling arena.cpp (for libjvm.so)
+Compiling arguments.cpp (for libjvm.so)
+Compiling arguments_ext.cpp (for libjvm.so)
+Compiling arrayKlass.cpp (for libjvm.so)
+Compiling arraycopynode.cpp (for libjvm.so)
+Compiling asPSOldGen.cpp (for libjvm.so)
+Compiling asPSYoungGen.cpp (for libjvm.so)
+Compiling assembler.cpp (for libjvm.so)
+Compiling assembler_arm.cpp (for libjvm.so)
+Compiling assembler_arm_32.cpp (for libjvm.so)
+Compiling attachListener.cpp (for libjvm.so)
+Compiling attachListener_linux.cpp (for libjvm.so)
+Compiling barrierSet.cpp (for libjvm.so)
+Compiling barrierSetAssembler_arm.cpp (for libjvm.so)
+Compiling barrierSetC1.cpp (for libjvm.so)
+Compiling barrierSetC2.cpp (for libjvm.so)
+Compiling basicLock.cpp (for libjvm.so)
+Compiling bcEscapeAnalyzer.cpp (for libjvm.so)
+Compiling bfsClosure.cpp (for libjvm.so)
+Compiling biasedLocking.cpp (for libjvm.so)
+Compiling bitMap.cpp (for libjvm.so)
+Compiling bitset.cpp (for libjvm.so)
+Compiling block.cpp (for libjvm.so)
+Compiling blockFreelist.cpp (for libjvm.so)
+Compiling blockOffsetTable.cpp (for libjvm.so)
+Compiling buildOopMap.cpp (for libjvm.so)
+Compiling bytecode.cpp (for libjvm.so)
+Compiling bytecodeAssembler.cpp (for libjvm.so)
+Compiling bytecodeHistogram.cpp (for libjvm.so)
+Compiling bytecodeInfo.cpp (for libjvm.so)
+Compiling bytecodeInterpreter.cpp (for libjvm.so)
+Compiling bytecodeInterpreterWithChecks.cpp (for libjvm.so)
+Compiling bytecodeStream.cpp (for libjvm.so)
+Compiling bytecodeTracer.cpp (for libjvm.so)
+Compiling bytecodes.cpp (for libjvm.so)
+Compiling c1_CFGPrinter.cpp (for libjvm.so)
+Compiling c1_Canonicalizer.cpp (for libjvm.so)
+Compiling c1_CodeStubs_arm.cpp (for libjvm.so)
+Compiling c1_Compilation.cpp (for libjvm.so)
+Compiling c1_Compiler.cpp (for libjvm.so)
+Compiling c1_Defs.cpp (for libjvm.so)
+Compiling c1_FpuStackSim_arm.cpp (for libjvm.so)
+Compiling c1_FrameMap.cpp (for libjvm.so)
+Compiling c1_FrameMap_arm.cpp (for libjvm.so)
+Compiling c1_GraphBuilder.cpp (for libjvm.so)
+Compiling c1_IR.cpp (for libjvm.so)
+Compiling c1_Instruction.cpp (for libjvm.so)
+Compiling c1_InstructionPrinter.cpp (for libjvm.so)
+Compiling c1_LIR.cpp (for libjvm.so)
+Compiling c1_LIRAssembler.cpp (for libjvm.so)
+Compiling c1_LIRAssembler_arm.cpp (for libjvm.so)
+Compiling c1_LIRGenerator.cpp (for libjvm.so)
+Compiling c1_LIRGenerator_arm.cpp (for libjvm.so)
+Compiling c1_LIR_arm.cpp (for libjvm.so)
+Compiling c1_LinearScan.cpp (for libjvm.so)
+Compiling c1_LinearScan_arm.cpp (for libjvm.so)
+Compiling c1_MacroAssembler_arm.cpp (for libjvm.so)
+Compiling c1_Optimizer.cpp (for libjvm.so)
+Compiling c1_RangeCheckElimination.cpp (for libjvm.so)
+Compiling c1_Runtime1.cpp (for libjvm.so)
+Compiling c1_Runtime1_arm.cpp (for libjvm.so)
+Compiling c1_ValueMap.cpp (for libjvm.so)
+Compiling c1_ValueSet.cpp (for libjvm.so)
+Compiling c1_ValueStack.cpp (for libjvm.so)
+Compiling c1_ValueType.cpp (for libjvm.so)
+Compiling c1_globals.cpp (for libjvm.so)
+Compiling c2_globals.cpp (for libjvm.so)
+Compiling c2compiler.cpp (for libjvm.so)
+Compiling cSpaceCounters.cpp (for libjvm.so)
+Compiling callGenerator.cpp (for libjvm.so)
+Compiling callnode.cpp (for libjvm.so)
+Compiling cardGeneration.cpp (for libjvm.so)
+Compiling cardTable.cpp (for libjvm.so)
+Compiling cardTableBarrierSet.cpp (for libjvm.so)
+Compiling cardTableBarrierSetAssembler_arm.cpp (for libjvm.so)
+Compiling cardTableBarrierSetC1.cpp (for libjvm.so)
+Compiling cardTableBarrierSetC2.cpp (for libjvm.so)
+Compiling cardTableRS.cpp (for libjvm.so)
+Compiling castnode.cpp (for libjvm.so)
+Compiling cdsoffsets.cpp (for libjvm.so)
+Compiling cfgnode.cpp (for libjvm.so)
+Compiling chaitin.cpp (for libjvm.so)
+Compiling chunkManager.cpp (for libjvm.so)
+Compiling ciArray.cpp (for libjvm.so)
+Compiling ciArrayKlass.cpp (for libjvm.so)
+Compiling ciBaseObject.cpp (for libjvm.so)
+Compiling ciCallSite.cpp (for libjvm.so)
+Compiling ciConstant.cpp (for libjvm.so)
+Compiling ciConstantPoolCache.cpp (for libjvm.so)
+Compiling ciEnv.cpp (for libjvm.so)
+Compiling ciExceptionHandler.cpp (for libjvm.so)
+Compiling ciField.cpp (for libjvm.so)
+Compiling ciFlags.cpp (for libjvm.so)
+Compiling ciInstance.cpp (for libjvm.so)
+Compiling ciInstanceKlass.cpp (for libjvm.so)
+Compiling ciKlass.cpp (for libjvm.so)
+Compiling ciMemberName.cpp (for libjvm.so)
+Compiling ciMetadata.cpp (for libjvm.so)
+Compiling ciMethod.cpp (for libjvm.so)
+Compiling ciMethodBlocks.cpp (for libjvm.so)
+Compiling ciMethodData.cpp (for libjvm.so)
+Compiling ciMethodHandle.cpp (for libjvm.so)
+Compiling ciMethodType.cpp (for libjvm.so)
+Compiling ciNullObject.cpp (for libjvm.so)
+Compiling ciObjArray.cpp (for libjvm.so)
+Compiling ciObjArrayKlass.cpp (for libjvm.so)
+Compiling ciObject.cpp (for libjvm.so)
+Compiling ciObjectFactory.cpp (for libjvm.so)
+Compiling ciReplay.cpp (for libjvm.so)
+Compiling ciSignature.cpp (for libjvm.so)
+Compiling ciStreams.cpp (for libjvm.so)
+Compiling ciSymbol.cpp (for libjvm.so)
+Compiling ciType.cpp (for libjvm.so)
+Compiling ciTypeArray.cpp (for libjvm.so)
+Compiling ciTypeArrayKlass.cpp (for libjvm.so)
+Compiling ciTypeFlow.cpp (for libjvm.so)
+Compiling ciUtilities.cpp (for libjvm.so)
+Compiling classFileError.cpp (for libjvm.so)
+Compiling classFileParser.cpp (for libjvm.so)
+Compiling classFileStream.cpp (for libjvm.so)
+Compiling classListParser.cpp (for libjvm.so)
+Compiling classLoader.cpp (for libjvm.so)
+Compiling classLoaderData.cpp (for libjvm.so)
+Compiling classLoaderExt.cpp (for libjvm.so)
+Compiling classLoaderHierarchyDCmd.cpp (for libjvm.so)
+Compiling classLoaderStats.cpp (for libjvm.so)
+Compiling classLoadingService.cpp (for libjvm.so)
+Compiling classes.cpp (for libjvm.so)
+Compiling cmsArguments.cpp (for libjvm.so)
+Compiling cmsCardTable.cpp (for libjvm.so)
+Compiling cmsCollectorPolicy.cpp (for libjvm.so)
+Compiling cmsGCStats.cpp (for libjvm.so)
+Compiling cmsHeap.cpp (for libjvm.so)
+Compiling cmsLockVerifier.cpp (for libjvm.so)
+Compiling coalesce.cpp (for libjvm.so)
+Compiling codeBlob.cpp (for libjvm.so)
+Compiling codeBuffer.cpp (for libjvm.so)
+Compiling codeCache.cpp (for libjvm.so)
+Compiling codeHeapState.cpp (for libjvm.so)
+Compiling collectedHeap.cpp (for libjvm.so)
+Compiling collectionSetChooser.cpp (for libjvm.so)
+Compiling collectorCounters.cpp (for libjvm.so)
+Compiling collectorPolicy.cpp (for libjvm.so)
+Compiling compactHashtable.cpp (for libjvm.so)
+Compiling compactibleFreeListSpace.cpp (for libjvm.so)
+Compiling compilationPolicy.cpp (for libjvm.so)
+Compiling compile.cpp (for libjvm.so)
+Compiling compileBroker.cpp (for libjvm.so)
+Compiling compileLog.cpp (for libjvm.so)
+Compiling compileTask.cpp (for libjvm.so)
+Compiling compiledIC.cpp (for libjvm.so)
+Compiling compiledICHolder.cpp (for libjvm.so)
+Compiling compiledIC_arm.cpp (for libjvm.so)
+Compiling compiledMethod.cpp (for libjvm.so)
+Compiling compilerDefinitions.cpp (for libjvm.so)
+Compiling compilerDirectives.cpp (for libjvm.so)
+Compiling compilerOracle.cpp (for libjvm.so)
+Compiling compressedStream.cpp (for libjvm.so)
+Compiling concurrentGCPhaseManager.cpp (for libjvm.so)
+Compiling concurrentGCThread.cpp (for libjvm.so)
+Compiling concurrentMarkSweepGeneration.cpp (for libjvm.so)
+Compiling concurrentMarkSweepThread.cpp (for libjvm.so)
+Compiling connode.cpp (for libjvm.so)
+Compiling constMethod.cpp (for libjvm.so)
+Compiling constantPool.cpp (for libjvm.so)
+Compiling constantTag.cpp (for libjvm.so)
+Compiling convertnode.cpp (for libjvm.so)
+Compiling copy.cpp (for libjvm.so)
+Compiling countbitsnode.cpp (for libjvm.so)
+Compiling cpCache.cpp (for libjvm.so)
+Compiling cppInterpreter.cpp (for libjvm.so)
+Compiling cppInterpreterGenerator.cpp (for libjvm.so)
+Compiling debug.cpp (for libjvm.so)
+Compiling debugInfo.cpp (for libjvm.so)
+Compiling debugInfoRec.cpp (for libjvm.so)
+Compiling decoder.cpp (for libjvm.so)
+Compiling decoder_elf.cpp (for libjvm.so)
+Compiling decoder_linux.cpp (for libjvm.so)
+Compiling defNewGeneration.cpp (for libjvm.so)
+Compiling defaultMethods.cpp (for libjvm.so)
+Compiling deoptimization.cpp (for libjvm.so)
+Compiling depChecker_arm.cpp (for libjvm.so)
+Compiling dependencies.cpp (for libjvm.so)
+Compiling dependencyContext.cpp (for libjvm.so)
+Compiling dfa_arm.cpp (for libjvm.so)
+Compiling dfsClosure.cpp (for libjvm.so)
+Compiling diagnosticArgument.cpp (for libjvm.so)
+Compiling diagnosticCommand.cpp (for libjvm.so)
+Compiling diagnosticFramework.cpp (for libjvm.so)
+Compiling dict.cpp (for libjvm.so)
+Compiling dictionary.cpp (for libjvm.so)
+Compiling directivesParser.cpp (for libjvm.so)
+Compiling dirtyCardQueue.cpp (for libjvm.so)
+Compiling disassembler.cpp (for libjvm.so)
+Compiling divnode.cpp (for libjvm.so)
+Compiling doCall.cpp (for libjvm.so)
+Compiling domgraph.cpp (for libjvm.so)
+Compiling dtraceAttacher.cpp (for libjvm.so)
+Compiling edge.cpp (for libjvm.so)
+Compiling edgeQueue.cpp (for libjvm.so)
+Compiling edgeStore.cpp (for libjvm.so)
+Compiling edgeUtils.cpp (for libjvm.so)
+Compiling elfFile.cpp (for libjvm.so)
+Compiling elfFuncDescTable.cpp (for libjvm.so)
+Compiling elfStringTable.cpp (for libjvm.so)
+Compiling elfSymbolTable.cpp (for libjvm.so)
+Compiling emitEventOperation.cpp (for libjvm.so)
+Compiling epsilonArguments.cpp (for libjvm.so)
+Compiling epsilonBarrierSet.cpp (for libjvm.so)
+Compiling epsilonHeap.cpp (for libjvm.so)
+Compiling epsilonMemoryPool.cpp (for libjvm.so)
+Compiling epsilonMonitoringSupport.cpp (for libjvm.so)
+Compiling escape.cpp (for libjvm.so)
+Compiling events.cpp (for libjvm.so)
+Compiling evmCompat.cpp (for libjvm.so)
+Compiling exceptionHandlerTable.cpp (for libjvm.so)
+Compiling exceptions.cpp (for libjvm.so)
+Compiling fieldDescriptor.cpp (for libjvm.so)
+Compiling fieldType.cpp (for libjvm.so)
+Compiling filemap.cpp (for libjvm.so)
+Compiling formatBuffer.cpp (for libjvm.so)
+Compiling forte.cpp (for libjvm.so)
+Compiling frame.cpp (for libjvm.so)
+Compiling frame_arm.cpp (for libjvm.so)
+Compiling freeChunk.cpp (for libjvm.so)
+Compiling g1AllocRegion.cpp (for libjvm.so)
+Compiling g1Allocator.cpp (for libjvm.so)
+Compiling g1Analytics.cpp (for libjvm.so)
+Compiling g1Arguments.cpp (for libjvm.so)
+Compiling g1BarrierSet.cpp (for libjvm.so)
+Compiling g1BarrierSetAssembler_arm.cpp (for libjvm.so)
+Compiling g1BarrierSetC1.cpp (for libjvm.so)
+Compiling g1BarrierSetC2.cpp (for libjvm.so)
+Compiling g1BarrierSetRuntime.cpp (for libjvm.so)
+Compiling g1BiasedArray.cpp (for libjvm.so)
+Compiling g1BlockOffsetTable.cpp (for libjvm.so)
+Compiling g1CardCounts.cpp (for libjvm.so)
+Compiling g1CardTable.cpp (for libjvm.so)
+Compiling g1CodeBlobClosure.cpp (for libjvm.so)
+Compiling g1CodeCacheRemSet.cpp (for libjvm.so)
+Compiling g1CollectedHeap.cpp (for libjvm.so)
+Compiling g1CollectionSet.cpp (for libjvm.so)
+Compiling g1CollectorPolicy.cpp (for libjvm.so)
+Compiling g1ConcurrentMark.cpp (for libjvm.so)
+Compiling g1ConcurrentMarkBitMap.cpp (for libjvm.so)
+Compiling g1ConcurrentMarkObjArrayProcessor.cpp (for libjvm.so)
+Compiling g1ConcurrentMarkThread.cpp (for libjvm.so)
+Compiling g1ConcurrentRefine.cpp (for libjvm.so)
+Compiling g1ConcurrentRefineThread.cpp (for libjvm.so)
+Compiling g1EvacFailure.cpp (for libjvm.so)
+Compiling g1EvacStats.cpp (for libjvm.so)
+Compiling g1FromCardCache.cpp (for libjvm.so)
+Compiling g1FullCollector.cpp (for libjvm.so)
+Compiling g1FullGCAdjustTask.cpp (for libjvm.so)
+Compiling g1FullGCCompactTask.cpp (for libjvm.so)
+Compiling g1FullGCCompactionPoint.cpp (for libjvm.so)
+Compiling g1FullGCMarkTask.cpp (for libjvm.so)
+Compiling g1FullGCMarker.cpp (for libjvm.so)
+Compiling g1FullGCOopClosures.cpp (for libjvm.so)
+Compiling g1FullGCPrepareTask.cpp (for libjvm.so)
+Compiling g1FullGCReferenceProcessorExecutor.cpp (for libjvm.so)
+Compiling g1FullGCScope.cpp (for libjvm.so)
+Compiling g1FullGCTask.cpp (for libjvm.so)
+Compiling g1GCPhaseTimes.cpp (for libjvm.so)
+Compiling g1HeapRegionEventSender.cpp (for libjvm.so)
+Compiling g1HeapSizingPolicy.cpp (for libjvm.so)
+Compiling g1HeapSizingPolicy_ext.cpp (for libjvm.so)
+Compiling g1HeapTransition.cpp (for libjvm.so)
+Compiling g1HeapVerifier.cpp (for libjvm.so)
+Compiling g1HotCardCache.cpp (for libjvm.so)
+Compiling g1IHOPControl.cpp (for libjvm.so)
+Compiling g1MMUTracker.cpp (for libjvm.so)
+Compiling g1MemoryPool.cpp (for libjvm.so)
+Compiling g1MonitoringSupport.cpp (for libjvm.so)
+Compiling g1OopClosures.cpp (for libjvm.so)
+Compiling g1PageBasedVirtualSpace.cpp (for libjvm.so)
+Compiling g1ParScanThreadState.cpp (for libjvm.so)
+Compiling g1Policy.cpp (for libjvm.so)
+Compiling g1RegionMarkStatsCache.cpp (for libjvm.so)
+Compiling g1RegionToSpaceMapper.cpp (for libjvm.so)
+Compiling g1RemSet.cpp (for libjvm.so)
+Compiling g1RemSetSummary.cpp (for libjvm.so)
+Compiling g1RemSetTrackingPolicy.cpp (for libjvm.so)
+Compiling g1RootClosures.cpp (for libjvm.so)
+Compiling g1RootProcessor.cpp (for libjvm.so)
+Compiling g1SATBMarkQueueSet.cpp (for libjvm.so)
+Compiling g1StringDedup.cpp (for libjvm.so)
+Compiling g1StringDedupQueue.cpp (for libjvm.so)
+Compiling g1StringDedupStat.cpp (for libjvm.so)
+Compiling g1SurvivorRegions.cpp (for libjvm.so)
+Compiling g1YoungGenSizer.cpp (for libjvm.so)
+Compiling g1YoungRemSetSamplingThread.cpp (for libjvm.so)
+Compiling gSpaceCounters.cpp (for libjvm.so)
+Compiling gcAdaptivePolicyCounters.cpp (for libjvm.so)
+Compiling gcArguments.cpp (for libjvm.so)
+Compiling gcCause.cpp (for libjvm.so)
+Compiling gcConfig.cpp (for libjvm.so)
+Compiling gcConfiguration.cpp (for libjvm.so)
+Compiling gcId.cpp (for libjvm.so)
+Compiling gcLocker.cpp (for libjvm.so)
+Compiling gcNotifier.cpp (for libjvm.so)
+Compiling gcPolicyCounters.cpp (for libjvm.so)
+Compiling gcStats.cpp (for libjvm.so)
+Compiling gcTaskManager.cpp (for libjvm.so)
+Compiling gcTaskThread.cpp (for libjvm.so)
+Compiling gcTimer.cpp (for libjvm.so)
+Compiling gcTrace.cpp (for libjvm.so)
+Compiling gcTraceSend.cpp (for libjvm.so)
+Compiling gcTraceTime.cpp (for libjvm.so)
+Compiling gcUtil.cpp (for libjvm.so)
+Compiling gcm.cpp (for libjvm.so)
+Compiling genCollectedHeap.cpp (for libjvm.so)
+Compiling genMarkSweep.cpp (for libjvm.so)
+Compiling genMemoryPools.cpp (for libjvm.so)
+Compiling generateOopMap.cpp (for libjvm.so)
+Compiling generateOptoStub.cpp (for libjvm.so)
+Compiling generation.cpp (for libjvm.so)
+Compiling generationCounters.cpp (for libjvm.so)
+Compiling generationSizer.cpp (for libjvm.so)
+Compiling generationSpec.cpp (for libjvm.so)
+Compiling globalCounter.cpp (for libjvm.so)
+Compiling globalDefinitions.cpp (for libjvm.so)
+Compiling globals.cpp (for libjvm.so)
+Compiling granularTimer.cpp (for libjvm.so)
+Compiling graphKit.cpp (for libjvm.so)
+Compiling growableArray.cpp (for libjvm.so)
+Compiling guardedMemory.cpp (for libjvm.so)
+Compiling hSpaceCounters.cpp (for libjvm.so)
+Compiling handles.cpp (for libjvm.so)
+Compiling handshake.cpp (for libjvm.so)
+Compiling hashtable.cpp (for libjvm.so)
+Compiling heap.cpp (for libjvm.so)
+Compiling heapDumper.cpp (for libjvm.so)
+Compiling heapInspection.cpp (for libjvm.so)
+Compiling heapRegion.cpp (for libjvm.so)
+Compiling heapRegionManager.cpp (for libjvm.so)
+Compiling heapRegionRemSet.cpp (for libjvm.so)
+Compiling heapRegionSet.cpp (for libjvm.so)
+Compiling heapRegionTracer.cpp (for libjvm.so)
+Compiling heapRegionType.cpp (for libjvm.so)
+Compiling heapShared.cpp (for libjvm.so)
+Compiling histogram.cpp (for libjvm.so)
+Compiling icBuffer.cpp (for libjvm.so)
+Compiling icBuffer_arm.cpp (for libjvm.so)
+Compiling icache.cpp (for libjvm.so)
+Compiling icache_arm.cpp (for libjvm.so)
+Compiling idealGraphPrinter.cpp (for libjvm.so)
+Compiling idealKit.cpp (for libjvm.so)
+Compiling ifg.cpp (for libjvm.so)
+Compiling ifnode.cpp (for libjvm.so)
+Compiling immutableSpace.cpp (for libjvm.so)
+Compiling indexSet.cpp (for libjvm.so)
+Compiling init.cpp (for libjvm.so)
+Compiling instanceKlass.cpp (for libjvm.so)
+Compiling instanceMirrorKlass.cpp (for libjvm.so)
+Compiling instanceOop.cpp (for libjvm.so)
+Compiling instanceRefKlass.cpp (for libjvm.so)
+Compiling intHisto.cpp (for libjvm.so)
+Compiling interfaceSupport.cpp (for libjvm.so)
+Compiling internalVMTests.cpp (for libjvm.so)
+Compiling interp_masm_arm.cpp (for libjvm.so)
+Compiling interpreter.cpp (for libjvm.so)
+Compiling interpreterRT_arm.cpp (for libjvm.so)
+Compiling interpreterRuntime.cpp (for libjvm.so)
+Compiling intrinsicnode.cpp (for libjvm.so)
+Compiling invocationCounter.cpp (for libjvm.so)
+Compiling iterator.cpp (for libjvm.so)
+Compiling java.cpp (for libjvm.so)
+Compiling javaAssertions.cpp (for libjvm.so)
+Compiling javaCalls.cpp (for libjvm.so)
+Compiling javaClasses.cpp (for libjvm.so)
+Compiling jfr.cpp (for libjvm.so)
+Compiling jfrAllocation.cpp (for libjvm.so)
+Compiling jfrAllocationTracer.cpp (for libjvm.so)
+Compiling jfrBuffer.cpp (for libjvm.so)
+Compiling jfrCallTrace.cpp (for libjvm.so)
+Compiling jfrCheckpointBlob.cpp (for libjvm.so)
+Compiling jfrCheckpointManager.cpp (for libjvm.so)
+Compiling jfrCheckpointWriter.cpp (for libjvm.so)
+Compiling jfrChunkSizeNotifier.cpp (for libjvm.so)
+Compiling jfrChunkState.cpp (for libjvm.so)
+Compiling jfrChunkWriter.cpp (for libjvm.so)
+Compiling jfrDcmds.cpp (for libjvm.so)
+Compiling jfrEmergencyDump.cpp (for libjvm.so)
+Compiling jfrEvent.cpp (for libjvm.so)
+Compiling jfrEventClass.cpp (for libjvm.so)
+Compiling jfrEventClassTransformer.cpp (for libjvm.so)
+Compiling jfrEventSetting.cpp (for libjvm.so)
+Compiling jfrFlush.cpp (for libjvm.so)
+Compiling jfrGetAllEventClasses.cpp (for libjvm.so)
+Compiling jfrJavaCall.cpp (for libjvm.so)
+Compiling jfrJavaEventWriter.cpp (for libjvm.so)
+Compiling jfrJavaLog.cpp (for libjvm.so)
+Compiling jfrJavaSupport.cpp (for libjvm.so)
+Compiling jfrJniMethod.cpp (for libjvm.so)
+Compiling jfrJniMethodRegistration.cpp (for libjvm.so)
+Compiling jfrJvmtiAgent.cpp (for libjvm.so)
+Compiling jfrMemorySizer.cpp (for libjvm.so)
+Compiling jfrMetadataEvent.cpp (for libjvm.so)
+Compiling jfrModuleEvent.cpp (for libjvm.so)
+Compiling jfrNetworkUtilization.cpp (for libjvm.so)
+Compiling jfrOSInterface.cpp (for libjvm.so)
+Compiling jfrOptionSet.cpp (for libjvm.so)
+Compiling jfrPeriodic.cpp (for libjvm.so)
+Compiling jfrPostBox.cpp (for libjvm.so)
+Compiling jfrRecorder.cpp (for libjvm.so)
+Compiling jfrRecorderService.cpp (for libjvm.so)
+Compiling jfrRecorderThread.cpp (for libjvm.so)
+Compiling jfrRecorderThreadLoop.cpp (for libjvm.so)
+Compiling jfrRepository.cpp (for libjvm.so)
+Compiling jfrStackTraceMark.cpp (for libjvm.so)
+Compiling jfrStackTraceRepository.cpp (for libjvm.so)
+Compiling jfrStorage.cpp (for libjvm.so)
+Compiling jfrStorageControl.cpp (for libjvm.so)
+Compiling jfrStringPool.cpp (for libjvm.so)
+Compiling jfrStringPoolBuffer.cpp (for libjvm.so)
+Compiling jfrStringPoolWriter.cpp (for libjvm.so)
+Compiling jfrThreadCPULoadEvent.cpp (for libjvm.so)
+Compiling jfrThreadDumpEvent.cpp (for libjvm.so)
+Compiling jfrThreadGroup.cpp (for libjvm.so)
+Compiling jfrThreadLocal.cpp (for libjvm.so)
+Compiling jfrThreadSampler.cpp (for libjvm.so)
+Compiling jfrThreadState.cpp (for libjvm.so)
+Compiling jfrTime.cpp (for libjvm.so)
+Compiling jfrTimeConverter.cpp (for libjvm.so)
+Compiling jfrTraceId.cpp (for libjvm.so)
+Compiling jfrTraceIdEpoch.cpp (for libjvm.so)
+Compiling jfrType.cpp (for libjvm.so)
+Compiling jfrTypeManager.cpp (for libjvm.so)
+Compiling jfrTypeSet.cpp (for libjvm.so)
+Compiling jfrTypeSetUtils.cpp (for libjvm.so)
+Compiling jfrUpcalls.cpp (for libjvm.so)
+Compiling jfrVirtualMemory.cpp (for libjvm.so)
+Compiling jni.cpp (for libjvm.so)
+Compiling jniCheck.cpp (for libjvm.so)
+Compiling jniFastGetField.cpp (for libjvm.so)
+Compiling jniFastGetField_arm.cpp (for libjvm.so)
+Compiling jniHandles.cpp (for libjvm.so)
+Compiling jniPeriodicChecker.cpp (for libjvm.so)
+Compiling json.cpp (for libjvm.so)
+Compiling jvm.cpp (for libjvm.so)
+Compiling jvmFlag.cpp (for libjvm.so)
+Compiling jvmFlagConstraintList.cpp (for libjvm.so)
+Compiling jvmFlagConstraintsCMS.cpp (for libjvm.so)
+Compiling jvmFlagConstraintsCompiler.cpp (for libjvm.so)
+Compiling jvmFlagConstraintsG1.cpp (for libjvm.so)
+Compiling jvmFlagConstraintsGC.cpp (for libjvm.so)
+Compiling jvmFlagConstraintsParallel.cpp (for libjvm.so)
+Compiling jvmFlagConstraintsRuntime.cpp (for libjvm.so)
+Compiling jvmFlagRangeList.cpp (for libjvm.so)
+Compiling jvmFlagWriteableList.cpp (for libjvm.so)
+Compiling jvm_posix.cpp (for libjvm.so)
+Compiling jvmtiClassFileReconstituter.cpp (for libjvm.so)
+Compiling jvmtiCodeBlobEvents.cpp (for libjvm.so)
+Compiling jvmtiEnter.cpp (for libjvm.so)
+Compiling jvmtiEnterTrace.cpp (for libjvm.so)
+Compiling jvmtiEnv.cpp (for libjvm.so)
+Compiling jvmtiEnvBase.cpp (for libjvm.so)
+Compiling jvmtiEnvThreadState.cpp (for libjvm.so)
+Compiling jvmtiEventController.cpp (for libjvm.so)
+Compiling jvmtiExport.cpp (for libjvm.so)
+Compiling jvmtiExtensions.cpp (for libjvm.so)
+Compiling jvmtiGetLoadedClasses.cpp (for libjvm.so)
+Compiling jvmtiImpl.cpp (for libjvm.so)
+Compiling jvmtiManageCapabilities.cpp (for libjvm.so)
+Compiling jvmtiRawMonitor.cpp (for libjvm.so)
+Compiling jvmtiRedefineClasses.cpp (for libjvm.so)
+Compiling jvmtiTagMap.cpp (for libjvm.so)
+Compiling jvmtiThreadState.cpp (for libjvm.so)
+Compiling jvmtiTrace.cpp (for libjvm.so)
+Compiling jvmtiUtil.cpp (for libjvm.so)
+Compiling klass.cpp (for libjvm.so)
+Compiling klassFactory.cpp (for libjvm.so)
+Compiling klassVtable.cpp (for libjvm.so)
+Compiling lcm.cpp (for libjvm.so)
+Compiling leakProfiler.cpp (for libjvm.so)
+Compiling library_call.cpp (for libjvm.so)
+Compiling linkResolver.cpp (for libjvm.so)
+Compiling linux_arm_32.s (for libjvm.so)
+Compiling live.cpp (for libjvm.so)
+Compiling loaderConstraints.cpp (for libjvm.so)
+Compiling location.cpp (for libjvm.so)
+Compiling locknode.cpp (for libjvm.so)
+Compiling logConfiguration.cpp (for libjvm.so)
+Compiling logDecorations.cpp (for libjvm.so)
+Compiling logDecorators.cpp (for libjvm.so)
+Compiling logDiagnosticCommand.cpp (for libjvm.so)
+Compiling logFileOutput.cpp (for libjvm.so)
+Compiling logFileStreamOutput.cpp (for libjvm.so)
+Compiling logLevel.cpp (for libjvm.so)
+Compiling logMessageBuffer.cpp (for libjvm.so)
+Compiling logOutput.cpp (for libjvm.so)
+Compiling logOutputList.cpp (for libjvm.so)
+Compiling logSelection.cpp (for libjvm.so)
+Compiling logSelectionList.cpp (for libjvm.so)
+Compiling logStream.cpp (for libjvm.so)
+Compiling logTag.cpp (for libjvm.so)
+Compiling logTagSet.cpp (for libjvm.so)
+Compiling logTagSetDescriptions.cpp (for libjvm.so)
+Compiling loopPredicate.cpp (for libjvm.so)
+Compiling loopTransform.cpp (for libjvm.so)
+Compiling loopUnswitch.cpp (for libjvm.so)
+Compiling loopnode.cpp (for libjvm.so)
+Compiling loopopts.cpp (for libjvm.so)
+Compiling lowMemoryDetector.cpp (for libjvm.so)
+Compiling machnode.cpp (for libjvm.so)
+Compiling macro.cpp (for libjvm.so)
+Compiling macroArrayCopy.cpp (for libjvm.so)
+Compiling macroAssembler_arm.cpp (for libjvm.so)
+Compiling macroAssembler_linux_arm_32.cpp (for libjvm.so)
+Compiling mallocSiteTable.cpp (for libjvm.so)
+Compiling mallocTracker.cpp (for libjvm.so)
+Compiling management.cpp (for libjvm.so)
+Compiling markBitMap.cpp (for libjvm.so)
+Compiling markOop.cpp (for libjvm.so)
+Compiling markSweep.cpp (for libjvm.so)
+Compiling matcher.cpp (for libjvm.so)
+Compiling mathexactnode.cpp (for libjvm.so)
+Compiling memAllocator.cpp (for libjvm.so)
+Compiling memBaseline.cpp (for libjvm.so)
+Compiling memRegion.cpp (for libjvm.so)
+Compiling memReporter.cpp (for libjvm.so)
+Compiling memTracker.cpp (for libjvm.so)
+Compiling memnode.cpp (for libjvm.so)
+Compiling memoryManager.cpp (for libjvm.so)
+Compiling memoryPool.cpp (for libjvm.so)
+Compiling memoryService.cpp (for libjvm.so)
+Compiling memprofiler.cpp (for libjvm.so)
+Compiling metaDebug.cpp (for libjvm.so)
+Compiling metachunk.cpp (for libjvm.so)
+Compiling metadata.cpp (for libjvm.so)
+Compiling metadataOnStackMark.cpp (for libjvm.so)
+Compiling metaspace.cpp (for libjvm.so)
+Compiling metaspaceClosure.cpp (for libjvm.so)
+Compiling metaspaceCommon.cpp (for libjvm.so)
+Compiling metaspaceCounters.cpp (for libjvm.so)
+Compiling metaspaceDCmd.cpp (for libjvm.so)
+Compiling metaspaceShared.cpp (for libjvm.so)
+Compiling metaspaceStatistics.cpp (for libjvm.so)
+Compiling metaspaceTracer.cpp (for libjvm.so)
+Compiling method.cpp (for libjvm.so)
+Compiling methodComparator.cpp (for libjvm.so)
+Compiling methodCounters.cpp (for libjvm.so)
+Compiling methodData.cpp (for libjvm.so)
+Compiling methodHandles.cpp (for libjvm.so)
+Compiling methodHandles_arm.cpp (for libjvm.so)
+Compiling methodLiveness.cpp (for libjvm.so)
+Compiling methodMatcher.cpp (for libjvm.so)
+Compiling modRefBarrierSetAssembler_arm.cpp (for libjvm.so)
+Compiling modRefBarrierSetC1.cpp (for libjvm.so)
+Compiling modRefBarrierSetC2.cpp (for libjvm.so)
+Compiling moduleEntry.cpp (for libjvm.so)
+Compiling modules.cpp (for libjvm.so)
+Compiling monitorChunk.cpp (for libjvm.so)
+Compiling movenode.cpp (for libjvm.so)
+Compiling mulnode.cpp (for libjvm.so)
+Compiling multnode.cpp (for libjvm.so)
+Compiling mutableNUMASpace.cpp (for libjvm.so)
+Compiling mutableSpace.cpp (for libjvm.so)
+Compiling mutex.cpp (for libjvm.so)
+Compiling mutexLocker.cpp (for libjvm.so)
+Compiling narrowptrnode.cpp (for libjvm.so)
+Compiling nativeCallStack.cpp (for libjvm.so)
+Compiling nativeInst_arm_32.cpp (for libjvm.so)
+Compiling nativeLookup.cpp (for libjvm.so)
+Compiling nmethod.cpp (for libjvm.so)
+Compiling nmtCommon.cpp (for libjvm.so)
+Compiling nmtDCmd.cpp (for libjvm.so)
+Compiling node.cpp (for libjvm.so)
+Compiling numberSeq.cpp (for libjvm.so)
+Compiling objArrayKlass.cpp (for libjvm.so)
+Compiling objArrayOop.cpp (for libjvm.so)
+Compiling objectCountEventSender.cpp (for libjvm.so)
+Compiling objectMonitor.cpp (for libjvm.so)
+Compiling objectSampleCheckpoint.cpp (for libjvm.so)
+Compiling objectSampleDescription.cpp (for libjvm.so)
+Compiling objectSampleWriter.cpp (for libjvm.so)
+Compiling objectSampler.cpp (for libjvm.so)
+Compiling objectStartArray.cpp (for libjvm.so)
+Compiling occupancyMap.cpp (for libjvm.so)
+Compiling oop.cpp (for libjvm.so)
+Compiling oopFactory.cpp (for libjvm.so)
+Compiling oopMap.cpp (for libjvm.so)
+Compiling oopMapCache.cpp (for libjvm.so)
+Compiling oopRecorder.cpp (for libjvm.so)
+Compiling oopStorage.cpp (for libjvm.so)
+Compiling oopsHierarchy.cpp (for libjvm.so)
+Compiling opaquenode.cpp (for libjvm.so)
+Compiling opcodes.cpp (for libjvm.so)
+Compiling operator_new.cpp (for libjvm.so)
+Compiling orderAccess.cpp (for libjvm.so)
+Compiling os.cpp (for libjvm.so)
+Compiling osContainer_linux.cpp (for libjvm.so)
+Compiling osThread.cpp (for libjvm.so)
+Compiling osThread_linux.cpp (for libjvm.so)
+Compiling os_linux.cpp (for libjvm.so)
+Compiling os_linux_arm.cpp (for libjvm.so)
+Compiling os_perf_linux.cpp (for libjvm.so)
+Compiling os_posix.cpp (for libjvm.so)
+Compiling ostream.cpp (for libjvm.so)
+Compiling output.cpp (for libjvm.so)
+Compiling packageEntry.cpp (for libjvm.so)
+Compiling parMarkBitMap.cpp (for libjvm.so)
+Compiling parNewGeneration.cpp (for libjvm.so)
+Compiling parallelArguments.cpp (for libjvm.so)
+Compiling parallelCleaning.cpp (for libjvm.so)
+Compiling parallelScavengeHeap.cpp (for libjvm.so)
+Compiling park.cpp (for libjvm.so)
+Compiling parse1.cpp (for libjvm.so)
+Compiling parse2.cpp (for libjvm.so)
+Compiling parse3.cpp (for libjvm.so)
+Compiling parseHelper.cpp (for libjvm.so)
+Compiling parserTests.cpp (for libjvm.so)
+Compiling pcDesc.cpp (for libjvm.so)
+Compiling pcTasks.cpp (for libjvm.so)
+Compiling perf.cpp (for libjvm.so)
+Compiling perfData.cpp (for libjvm.so)
+Compiling perfMemory.cpp (for libjvm.so)
+Compiling perfMemory_linux.cpp (for libjvm.so)
+Compiling phase.cpp (for libjvm.so)
+Compiling phaseX.cpp (for libjvm.so)
+Compiling plab.cpp (for libjvm.so)
+Compiling placeholders.cpp (for libjvm.so)
+Compiling postaloc.cpp (for libjvm.so)
+Compiling preserveException.cpp (for libjvm.so)
+Compiling preservedMarks.cpp (for libjvm.so)
+Compiling printCLDMetaspaceInfoClosure.cpp (for libjvm.so)
+Compiling printMetaspaceInfoKlassClosure.cpp (for libjvm.so)
+Compiling privilegedStack.cpp (for libjvm.so)
+Compiling promotionInfo.cpp (for libjvm.so)
+Compiling protectionDomainCache.cpp (for libjvm.so)
+Compiling psAdaptiveSizePolicy.cpp (for libjvm.so)
+Compiling psCardTable.cpp (for libjvm.so)
+Compiling psCompactionManager.cpp (for libjvm.so)
+Compiling psGCAdaptivePolicyCounters.cpp (for libjvm.so)
+Compiling psGenerationCounters.cpp (for libjvm.so)
+Compiling psMarkSweep.cpp (for libjvm.so)
+Compiling psMarkSweepDecorator.cpp (for libjvm.so)
+Compiling psMemoryPool.cpp (for libjvm.so)
+Compiling psOldGen.cpp (for libjvm.so)
+Compiling psParallelCompact.cpp (for libjvm.so)
+Compiling psPromotionLAB.cpp (for libjvm.so)
+Compiling psPromotionManager.cpp (for libjvm.so)
+Compiling psScavenge.cpp (for libjvm.so)
+Compiling psTasks.cpp (for libjvm.so)
+Compiling psVirtualspace.cpp (for libjvm.so)
+Compiling psYoungGen.cpp (for libjvm.so)
+Compiling ptrQueue.cpp (for libjvm.so)
+Compiling referencePolicy.cpp (for libjvm.so)
+Compiling referenceProcessor.cpp (for libjvm.so)
+Compiling referenceProcessorPhaseTimes.cpp (for libjvm.so)
+Compiling reflection.cpp (for libjvm.so)
+Compiling reflectionAccessorImplKlassHelper.cpp (for libjvm.so)
+Compiling reflectionUtils.cpp (for libjvm.so)
+Compiling reg_split.cpp (for libjvm.so)
+Compiling regalloc.cpp (for libjvm.so)
+Compiling register.cpp (for libjvm.so)
+Compiling register_arm.cpp (for libjvm.so)
+Compiling register_definitions_arm.cpp (for libjvm.so)
+Compiling regmask.cpp (for libjvm.so)
+Compiling relocInfo.cpp (for libjvm.so)
+Compiling relocInfo_arm.cpp (for libjvm.so)
+Compiling relocInfo_ext.cpp (for libjvm.so)
+Compiling relocator.cpp (for libjvm.so)
+Compiling replacednodes.cpp (for libjvm.so)
+Compiling resolutionErrors.cpp (for libjvm.so)
+Compiling resolvedMethodTable.cpp (for libjvm.so)
+Compiling resourceArea.cpp (for libjvm.so)
+Compiling rewriter.cpp (for libjvm.so)
+Compiling rframe.cpp (for libjvm.so)
+Compiling rootResolver.cpp (for libjvm.so)
+Compiling rootSetClosure.cpp (for libjvm.so)
+Compiling rootnode.cpp (for libjvm.so)
+Compiling rtmLocking.cpp (for libjvm.so)
+Compiling runtime.cpp (for libjvm.so)
+Compiling runtimeService.cpp (for libjvm.so)
+Compiling runtime_arm.cpp (for libjvm.so)
+Compiling safepoint.cpp (for libjvm.so)
+Compiling safepointMechanism.cpp (for libjvm.so)
+Compiling safepointVerifiers.cpp (for libjvm.so)
+Compiling sampleList.cpp (for libjvm.so)
+Compiling samplePriorityQueue.cpp (for libjvm.so)
+Compiling satbMarkQueue.cpp (for libjvm.so)
+Compiling saveRestore.cpp (for libjvm.so)
+Compiling scopeDesc.cpp (for libjvm.so)
+Compiling semaphore_posix.cpp (for libjvm.so)
+Compiling serialArguments.cpp (for libjvm.so)
+Compiling serialHeap.cpp (for libjvm.so)
+Compiling serviceThread.cpp (for libjvm.so)
+Compiling set.cpp (for libjvm.so)
+Compiling sharedPathsMiscInfo.cpp (for libjvm.so)
+Compiling sharedRuntime.cpp (for libjvm.so)
+Compiling sharedRuntimeTrans.cpp (for libjvm.so)
+Compiling sharedRuntimeTrig.cpp (for libjvm.so)
+Compiling sharedRuntime_arm.cpp (for libjvm.so)
+Compiling signature.cpp (for libjvm.so)
+Compiling singleWriterSynchronizer.cpp (for libjvm.so)
+Compiling sizes.cpp (for libjvm.so)
+Compiling smallBlocks.cpp (for libjvm.so)
+Compiling softRefGenPolicy.cpp (for libjvm.so)
+Compiling softRefPolicy.cpp (for libjvm.so)
+Compiling space.cpp (for libjvm.so)
+Compiling spaceCounters.cpp (for libjvm.so)
+Compiling spaceDecorator.cpp (for libjvm.so)
+Compiling spaceManager.cpp (for libjvm.so)
+Compiling sparsePRT.cpp (for libjvm.so)
+Compiling spinYield.cpp (for libjvm.so)
+Compiling split_if.cpp (for libjvm.so)
+Compiling stackMapFrame.cpp (for libjvm.so)
+Compiling stackMapTable.cpp (for libjvm.so)
+Compiling stackValue.cpp (for libjvm.so)
+Compiling stackValueCollection.cpp (for libjvm.so)
+Compiling stackwalk.cpp (for libjvm.so)
+Compiling statSampler.cpp (for libjvm.so)
+Compiling stringDedup.cpp (for libjvm.so)
+Compiling stringDedupQueue.cpp (for libjvm.so)
+Compiling stringDedupStat.cpp (for libjvm.so)
+Compiling stringDedupTable.cpp (for libjvm.so)
+Compiling stringDedupThread.cpp (for libjvm.so)
+Compiling stringTable.cpp (for libjvm.so)
+Compiling stringUtils.cpp (for libjvm.so)
+Compiling stringopts.cpp (for libjvm.so)
+Compiling strongRootsScope.cpp (for libjvm.so)
+Compiling stubCodeGenerator.cpp (for libjvm.so)
+Compiling stubGenerator_arm.cpp (for libjvm.so)
+Compiling stubRoutines.cpp (for libjvm.so)
+Compiling stubRoutinesCrypto_arm.cpp (for libjvm.so)
+Compiling stubRoutines_arm.cpp (for libjvm.so)
+Compiling stubs.cpp (for libjvm.so)
+Compiling subnode.cpp (for libjvm.so)
+Compiling superword.cpp (for libjvm.so)
+Compiling survRateGroup.cpp (for libjvm.so)
+Compiling suspendibleThreadSet.cpp (for libjvm.so)
+Compiling sweeper.cpp (for libjvm.so)
+Compiling symbol.cpp (for libjvm.so)
+Compiling symbolTable.cpp (for libjvm.so)
+Compiling synchronizer.cpp (for libjvm.so)
+Compiling systemDictionary.cpp (for libjvm.so)
+Compiling systemDictionaryShared.cpp (for libjvm.so)
+Compiling task.cpp (for libjvm.so)
+Compiling taskqueue.cpp (for libjvm.so)
+Compiling templateInterpreter.cpp (for libjvm.so)
+Compiling templateInterpreterGenerator.cpp (for libjvm.so)
+Compiling templateInterpreterGenerator_arm.cpp (for libjvm.so)
+Compiling templateTable.cpp (for libjvm.so)
+Compiling templateTable_arm.cpp (for libjvm.so)
+Compiling tenuredGeneration.cpp (for libjvm.so)
+Compiling thread.cpp (for libjvm.so)
+Compiling threadCritical_linux.cpp (for libjvm.so)
+Compiling threadHeapSampler.cpp (for libjvm.so)
+Compiling threadLocalAllocBuffer.cpp (for libjvm.so)
+Compiling threadLocalStorage_posix.cpp (for libjvm.so)
+Compiling threadSMR.cpp (for libjvm.so)
+Compiling threadService.cpp (for libjvm.so)
+Compiling thread_linux_arm.cpp (for libjvm.so)
+Compiling ticks.cpp (for libjvm.so)
+Compiling tieredThresholdPolicy.cpp (for libjvm.so)
+Compiling timer.cpp (for libjvm.so)
+Compiling timerTrace.cpp (for libjvm.so)
+Compiling type.cpp (for libjvm.so)
+Compiling typeArrayKlass.cpp (for libjvm.so)
+Compiling unhandledOops.cpp (for libjvm.so)
+Compiling universe.cpp (for libjvm.so)
+Compiling unsafe.cpp (for libjvm.so)
+Compiling utf8.cpp (for libjvm.so)
+Compiling vectornode.cpp (for libjvm.so)
+Compiling vectset.cpp (for libjvm.so)
+Compiling verificationType.cpp (for libjvm.so)
+Compiling verifier.cpp (for libjvm.so)
+Compiling vframe.cpp (for libjvm.so)
+Compiling vframeArray.cpp (for libjvm.so)
+Compiling vframe_hp.cpp (for libjvm.so)
+Compiling virtualMemoryTracker.cpp (for libjvm.so)
+Compiling virtualSpaceList.cpp (for libjvm.so)
+Compiling virtualSpaceNode.cpp (for libjvm.so)
+Compiling virtualspace.cpp (for libjvm.so)
+Compiling vmCMSOperations.cpp (for libjvm.so)
+Compiling vmError.cpp (for libjvm.so)
+Compiling vmError_posix.cpp (for libjvm.so)
+Compiling vmGCOperations.cpp (for libjvm.so)
+Compiling vmPSOperations.cpp (for libjvm.so)
+Compiling vmStructs.cpp (for libjvm.so)
+Compiling vmSymbols.cpp (for libjvm.so)
+Compiling vmThread.cpp (for libjvm.so)
+Compiling vm_operations.cpp (for libjvm.so)
+Compiling vm_operations_g1.cpp (for libjvm.so)
+Compiling vm_version_arm_32.cpp (for libjvm.so)
+Compiling vm_version_ext_arm.cpp (for libjvm.so)
+Compiling vm_version_linux_arm_32.cpp (for libjvm.so)
+Compiling vmreg.cpp (for libjvm.so)
+Compiling vmreg_arm.cpp (for libjvm.so)
+Compiling vtableStubs.cpp (for libjvm.so)
+Compiling vtableStubs_arm.cpp (for libjvm.so)
+Compiling weakHandle.cpp (for libjvm.so)
+Compiling weakProcessor.cpp (for libjvm.so)
+Compiling weakProcessorPhaseTimes.cpp (for libjvm.so)
+Compiling weakProcessorPhases.cpp (for libjvm.so)
+Compiling whitebox.cpp (for libjvm.so)
+Compiling workerDataArray.cpp (for libjvm.so)
+Compiling workgroup.cpp (for libjvm.so)
+Compiling writeableFlags.cpp (for libjvm.so)
+Compiling xmlstream.cpp (for libjvm.so)
+Compiling yieldingWorkgroup.cpp (for libjvm.so)
+Compiling vm_version.cpp (for libjvm.so)
+Generating symbol list from object files
+Creating mapfile
+Linking libjvm.so
+Creating hotspot/variant-server/libjvm/gtest/libjvm.so from 94 file(s)
+Compiling gtest-all.cc (for libjvm.so)
+Compiling gtestMain.cpp (for libjvm.so)
+Compiling logTestFixture.cpp (for libjvm.so)
+Compiling test_AltHashing.cpp (for libjvm.so)
+Compiling test_align.cpp (for libjvm.so)
+Compiling test_arguments.cpp (for libjvm.so)
+Compiling test_arrayOop.cpp (for libjvm.so)
+Compiling test_bitMap.cpp (for libjvm.so)
+Compiling test_bitMap_search.cpp (for libjvm.so)
+Compiling test_bitMap_setops.cpp (for libjvm.so)
+Compiling test_chunkManager.cpp (for libjvm.so)
+Compiling test_chunkedList.cpp (for libjvm.so)
+Compiling test_classLoader.cpp (for libjvm.so)
+Compiling test_collectedHeap.cpp (for libjvm.so)
+Compiling test_collectorPolicy.cpp (for libjvm.so)
+Compiling test_committed_virtualmemory.cpp (for libjvm.so)
+Compiling test_concurrentHashtable.cpp (for libjvm.so)
+Compiling test_conditional.cpp (for libjvm.so)
+Compiling test_count_trailing_zeros.cpp (for libjvm.so)
+Compiling test_decay.cpp (for libjvm.so)
+Compiling test_dependencyContext.cpp (for libjvm.so)
+Compiling test_enableIf.cpp (for libjvm.so)
+Compiling test_freeRegionList.cpp (for libjvm.so)
+Compiling test_g1Analytics.cpp (for libjvm.so)
+Compiling test_g1BiasedArray.cpp (for libjvm.so)
+Compiling test_g1CodeCacheRemSet.cpp (for libjvm.so)
+Compiling test_g1HeapVerifier.cpp (for libjvm.so)
+Compiling test_g1IHOPControl.cpp (for libjvm.so)
+Compiling test_g1Predictions.cpp (for libjvm.so)
+Compiling test_gcTraceTime.cpp (for libjvm.so)
+Compiling test_globalCounter.cpp (for libjvm.so)
+Compiling test_globalDefinitions.cpp (for libjvm.so)
+Compiling test_globals.cpp (for libjvm.so)
+Compiling test_guardedMemory.cpp (for libjvm.so)
+Compiling test_heapRegion.cpp (for libjvm.so)
+Compiling test_instanceKlass.cpp (for libjvm.so)
+Compiling test_isConst.cpp (for libjvm.so)
+Compiling test_isFloatingPoint.cpp (for libjvm.so)
+Compiling test_isIntegral.cpp (for libjvm.so)
+Compiling test_isPointer.cpp (for libjvm.so)
+Compiling test_isRegisteredEnum.cpp (for libjvm.so)
+Compiling test_isSame.cpp (for libjvm.so)
+Compiling test_isSigned.cpp (for libjvm.so)
+Compiling test_isVolatile.cpp (for libjvm.so)
+Compiling test_json.cpp (for libjvm.so)
+Compiling test_linkedlist.cpp (for libjvm.so)
+Compiling test_log.cpp (for libjvm.so)
+Compiling test_logConfiguration.cpp (for libjvm.so)
+Compiling test_logDecorations.cpp (for libjvm.so)
+Compiling test_logDecorators.cpp (for libjvm.so)
+Compiling test_logFileOutput.cpp (for libjvm.so)
+Compiling test_logLevel.cpp (for libjvm.so)
+Compiling test_logMessageTest.cpp (for libjvm.so)
+Compiling test_logOutputList.cpp (for libjvm.so)
+Compiling test_logSelection.cpp (for libjvm.so)
+Compiling test_logSelectionList.cpp (for libjvm.so)
+Compiling test_logStream.cpp (for libjvm.so)
+Compiling test_logTag.cpp (for libjvm.so)
+Compiling test_logTagSet.cpp (for libjvm.so)
+Compiling test_logTagSetDescriptions.cpp (for libjvm.so)
+Compiling test_mathexact.cpp (for libjvm.so)
+Compiling test_memset_with_concurrent_readers.cpp (for libjvm.so)
+Compiling test_metachunk.cpp (for libjvm.so)
+Compiling test_metaspace_allocation.cpp (for libjvm.so)
+Compiling test_networkUtilization.cpp (for libjvm.so)
+Compiling test_objectMonitor.cpp (for libjvm.so)
+Compiling test_oop.cpp (for libjvm.so)
+Compiling test_oopStorage.cpp (for libjvm.so)
+Compiling test_oopStorage_parperf.cpp (for libjvm.so)
+Compiling test_os.cpp (for libjvm.so)
+Compiling test_perfdata.cpp (for libjvm.so)
+Compiling test_preservedMarks.cpp (for libjvm.so)
+Compiling test_primitiveConversions.cpp (for libjvm.so)
+Compiling test_psAdaptiveSizePolicy.cpp (for libjvm.so)
+Compiling test_psParallelCompact.cpp (for libjvm.so)
+Compiling test_quicksort.cpp (for libjvm.so)
+Compiling test_removeCV.cpp (for libjvm.so)
+Compiling test_removePointer.cpp (for libjvm.so)
+Compiling test_removeReference.cpp (for libjvm.so)
+Compiling test_resourceHash.cpp (for libjvm.so)
+Compiling test_semaphore.cpp (for libjvm.so)
+Compiling test_singleWriterSynchronizer.cpp (for libjvm.so)
+Compiling test_spaceManager.cpp (for libjvm.so)
+Compiling test_spinYield.cpp (for libjvm.so)
+Compiling test_stringUtils.cpp (for libjvm.so)
+Compiling test_symbolTable.cpp (for libjvm.so)
+Compiling test_synchronizer.cpp (for libjvm.so)
+Compiling test_threadCpuLoad.cpp (for libjvm.so)
+Compiling test_typeArrayOop.cpp (for libjvm.so)
+Compiling test_utf8.cpp (for libjvm.so)
+Compiling test_virtualMemoryTracker.cpp (for libjvm.so)
+Compiling test_vmStructs.cpp (for libjvm.so)
+Compiling test_vtableStub.cpp (for libjvm.so)
+Compiling test_workerDataArray.cpp (for libjvm.so)
+Creating mapfile
+Linking libjvm.so
+Creating hotspot/variant-server/libjvm/gtest/gtestLauncher from 1 file(s)
+Compiling gtestLauncher.cpp (for gtestLauncher)
+Linking gtestLauncher
+Copying jdk/lib/server/libjvm.so
+Creating symlink jdk/lib/server/libjvm.debuginfo
+Creating support/modules_libs/java.base/libverify.so from 2 file(s)
+Compiling check_code.c (for libverify.so)
+Compiling check_format.c (for libverify.so)
+Linking libverify.so
+Creating support/modules_libs/java.base/libjava.so from 58 file(s)
+Compiling AccessController.c (for libjava.so)
+Compiling Array.c (for libjava.so)
+Compiling AtomicLong.c (for libjava.so)
+Compiling BootLoader.c (for libjava.so)
+Compiling Class.c (for libjava.so)
+Compiling ClassLoader.c (for libjava.so)
+Compiling Console_md.c (for libjava.so)
+Compiling ConstantPool.c (for libjava.so)
+Compiling Double.c (for libjava.so)
+Compiling Executable.c (for libjava.so)
+Compiling Field.c (for libjava.so)
+Compiling FileDescriptor_md.c (for libjava.so)
+Compiling FileInputStream.c (for libjava.so)
+Compiling FileOutputStream_md.c (for libjava.so)
+Compiling Float.c (for libjava.so)
+Compiling Module.c (for libjava.so)
+Compiling NativeAccessors.c (for libjava.so)
+Compiling Object.c (for libjava.so)
+Compiling ObjectInputStream.c (for libjava.so)
+Compiling ObjectOutputStream.c (for libjava.so)
+Compiling ObjectStreamClass.c (for libjava.so)
+Compiling ProcessEnvironment_md.c (for libjava.so)
+Compiling ProcessHandleImpl_linux.c (for libjava.so)
+Compiling ProcessHandleImpl_unix.c (for libjava.so)
+Compiling ProcessImpl_md.c (for libjava.so)
+Compiling RandomAccessFile.c (for libjava.so)
+Compiling Reference.c (for libjava.so)
+Compiling Reflection.c (for libjava.so)
+Compiling Runtime.c (for libjava.so)
+Compiling SecurityManager.c (for libjava.so)
+Compiling Shutdown.c (for libjava.so)
+Compiling Signal.c (for libjava.so)
+Compiling StackStreamFactory.c (for libjava.so)
+Compiling StackTraceElement.c (for libjava.so)
+Compiling StrictMath.c (for libjava.so)
+Compiling String.c (for libjava.so)
+Compiling StringCoding.c (for libjava.so)
+Compiling System.c (for libjava.so)
+Compiling Thread.c (for libjava.so)
+Compiling Throwable.c (for libjava.so)
+Compiling TimeZone.c (for libjava.so)
+Compiling TimeZone_md.c (for libjava.so)
+Compiling UnixFileSystem_md.c (for libjava.so)
+Compiling VM.c (for libjava.so)
+Compiling VMSupport.c (for libjava.so)
+Compiling VM_md.c (for libjava.so)
+Compiling canonicalize_md.c (for libjava.so)
+Compiling check_version.c (for libjava.so)
+Compiling childproc.c (for libjava.so)
+Compiling io_util.c (for libjava.so)
+Compiling io_util_md.c (for libjava.so)
+Compiling java_props_md.c (for libjava.so)
+Compiling jdk_util.c (for libjava.so)
+Compiling jdk_util_md.c (for libjava.so)
+Compiling jio.c (for libjava.so)
+Compiling jni_util.c (for libjava.so)
+Compiling jni_util_md.c (for libjava.so)
+Compiling verify_stub.c (for libjava.so)
+Creating support/native/java.base/libfdlibm.a from 57 file(s)
+Compiling e_acos.c (for libfdlibm.a)
+Compiling e_asin.c (for libfdlibm.a)
+Compiling e_atan2.c (for libfdlibm.a)
+Compiling e_atanh.c (for libfdlibm.a)
+Compiling e_cosh.c (for libfdlibm.a)
+Compiling e_exp.c (for libfdlibm.a)
+Compiling e_fmod.c (for libfdlibm.a)
+Compiling e_log.c (for libfdlibm.a)
+Compiling e_log10.c (for libfdlibm.a)
+Compiling e_rem_pio2.c (for libfdlibm.a)
+Compiling e_remainder.c (for libfdlibm.a)
+Compiling e_scalb.c (for libfdlibm.a)
+Compiling e_sinh.c (for libfdlibm.a)
+Compiling e_sqrt.c (for libfdlibm.a)
+Compiling k_cos.c (for libfdlibm.a)
+Compiling k_rem_pio2.c (for libfdlibm.a)
+Compiling k_sin.c (for libfdlibm.a)
+Compiling k_standard.c (for libfdlibm.a)
+Compiling k_tan.c (for libfdlibm.a)
+Compiling s_atan.c (for libfdlibm.a)
+Compiling s_ceil.c (for libfdlibm.a)
+Compiling s_copysign.c (for libfdlibm.a)
+Compiling s_cos.c (for libfdlibm.a)
+Compiling s_expm1.c (for libfdlibm.a)
+Compiling s_fabs.c (for libfdlibm.a)
+Compiling s_finite.c (for libfdlibm.a)
+Compiling s_floor.c (for libfdlibm.a)
+Compiling s_frexp.c (for libfdlibm.a)
+Compiling s_ilogb.c (for libfdlibm.a)
+Compiling s_isnan.c (for libfdlibm.a)
+Compiling s_ldexp.c (for libfdlibm.a)
+Compiling s_lib_version.c (for libfdlibm.a)
+Compiling s_log1p.c (for libfdlibm.a)
+Compiling s_logb.c (for libfdlibm.a)
+Compiling s_matherr.c (for libfdlibm.a)
+Compiling s_modf.c (for libfdlibm.a)
+Compiling s_nextafter.c (for libfdlibm.a)
+Compiling s_rint.c (for libfdlibm.a)
+Compiling s_scalbn.c (for libfdlibm.a)
+Compiling s_signgam.c (for libfdlibm.a)
+Compiling s_significand.c (for libfdlibm.a)
+Compiling s_sin.c (for libfdlibm.a)
+Compiling s_tan.c (for libfdlibm.a)
+Compiling s_tanh.c (for libfdlibm.a)
+Compiling w_acos.c (for libfdlibm.a)
+Compiling w_asin.c (for libfdlibm.a)
+Compiling w_atan2.c (for libfdlibm.a)
+Compiling w_atanh.c (for libfdlibm.a)
+Compiling w_cosh.c (for libfdlibm.a)
+Compiling w_exp.c (for libfdlibm.a)
+Compiling w_fmod.c (for libfdlibm.a)
+Compiling w_log.c (for libfdlibm.a)
+Compiling w_log10.c (for libfdlibm.a)
+Compiling w_remainder.c (for libfdlibm.a)
+Compiling w_scalb.c (for libfdlibm.a)
+Compiling w_sinh.c (for libfdlibm.a)
+Compiling w_sqrt.c (for libfdlibm.a)
+Building static library libfdlibm.a
+Linking libjava.so
+Creating support/modules_libs/java.base/libzip.so from 5 file(s)
+Compiling Adler32.c (for libzip.so)
+Compiling CRC32.c (for libzip.so)
+Compiling Deflater.c (for libzip.so)
+Compiling Inflater.c (for libzip.so)
+Compiling zip_util.c (for libzip.so)
+Linking libzip.so
+Creating support/modules_libs/java.base/libjimage.so from 6 file(s)
+Compiling NativeImageBuffer.cpp (for libjimage.so)
+Compiling endian.cpp (for libjimage.so)
+Compiling imageDecompressor.cpp (for libjimage.so)
+Compiling imageFile.cpp (for libjimage.so)
+Compiling jimage.cpp (for libjimage.so)
+Compiling osSupport_unix.cpp (for libjimage.so)
+Linking libjimage.so
+Creating support/modules_libs/java.base/jli/libjli.so from 8 file(s)
+Compiling args.c (for libjli.so)
+Compiling java.c (for libjli.so)
+Compiling java_md_common.c (for libjli.so)
+Compiling java_md_solinux.c (for libjli.so)
+Compiling jli_util.c (for libjli.so)
+Compiling parse_manifest.c (for libjli.so)
+Compiling splashscreen_stubs.c (for libjli.so)
+Compiling wildcard.c (for libjli.so)
+Linking libjli.so
+Creating support/modules_libs/java.base/libnet.so from 21 file(s)
+Compiling DatagramPacket.c (for libnet.so)
+Compiling DefaultProxySelector.c (for libnet.so)
+Compiling Inet4Address.c (for libnet.so)
+Compiling Inet4AddressImpl.c (for libnet.so)
+Compiling Inet6Address.c (for libnet.so)
+Compiling Inet6AddressImpl.c (for libnet.so)
+Compiling InetAddress.c (for libnet.so)
+Compiling InetAddressImplFactory.c (for libnet.so)
+Compiling NetworkInterface.c (for libnet.so)
+Compiling PlainDatagramSocketImpl.c (for libnet.so)
+Compiling PlainSocketImpl.c (for libnet.so)
+Compiling ResolverConfigurationImpl.c (for libnet.so)
+Compiling SdpSupport.c (for libnet.so)
+Compiling SocketImpl.c (for libnet.so)
+Compiling SocketInputStream.c (for libnet.so)
+Compiling SocketOutputStream.c (for libnet.so)
+Compiling linux_close.c (for libnet.so)
+Compiling net_util.c (for libnet.so)
+Compiling net_util_md.c (for libnet.so)
+Compiling portconfig.c (for libnet.so)
+Compiling proxy_util.c (for libnet.so)
+Linking libnet.so
+Creating support/modules_libs/java.base/libnio.so from 22 file(s)
+Compiling DatagramChannelImpl.c (for libnio.so)
+Compiling DatagramDispatcher.c (for libnio.so)
+Compiling EPoll.c (for libnio.so)
+Compiling FileChannelImpl.c (for libnio.so)
+Compiling FileDispatcherImpl.c (for libnio.so)
+Compiling FileKey.c (for libnio.so)
+Compiling IOUtil.c (for libnio.so)
+Compiling InheritedChannel.c (for libnio.so)
+Compiling LinuxNativeDispatcher.c (for libnio.so)
+Compiling LinuxWatchService.c (for libnio.so)
+Compiling MappedByteBuffer.c (for libnio.so)
+Compiling NativeThread.c (for libnio.so)
+Compiling Net.c (for libnio.so)
+Compiling PollSelectorImpl.c (for libnio.so)
+Compiling ServerSocketChannelImpl.c (for libnio.so)
+Compiling SocketChannelImpl.c (for libnio.so)
+Compiling SocketDispatcher.c (for libnio.so)
+Compiling UnixAsynchronousServerSocketChannelImpl.c (for libnio.so)
+Compiling UnixAsynchronousSocketChannelImpl.c (for libnio.so)
+Compiling UnixCopyFile.c (for libnio.so)
+Compiling UnixNativeDispatcher.c (for libnio.so)
+Compiling nio_util.c (for libnio.so)
+Linking libnio.so
+Creating support/modules_libs/java.base/libjsig.so from 1 file(s)
+Compiling jsig.c (for libjsig.so)
+Linking libjsig.so
+Copying jdk/lib/libverify.so
+Copying jdk/lib/libjava.so
+Copying jdk/lib/libzip.so
+Copying jdk/lib/libjimage.so
+Copying jdk/lib/jli/libjli.so
+Copying jdk/lib/libnet.so
+Copying jdk/lib/libnio.so
+Copying jdk/lib/libjsig.so
+Copying jdk/lib/server/libjsig.so
+Creating symlink jdk/lib/libverify.debuginfo
+Creating symlink jdk/lib/libjava.debuginfo
+Creating symlink jdk/lib/libzip.debuginfo
+Creating symlink jdk/lib/libjimage.debuginfo
+Creating symlink jdk/lib/jli/libjli.debuginfo
+Creating symlink jdk/lib/libnet.debuginfo
+Creating symlink jdk/lib/libnio.debuginfo
+Creating symlink jdk/lib/libjsig.debuginfo
+Creating support/native/java.base/java_objs/java from 1 file(s)
+Compiling main.c (for java)
+Linking java
+Creating support/modules_cmds/java.base/keytool from 1 file(s)
+Compiling main.c (for keytool)
+Linking keytool
+Creating support/modules_libs/java.base/jexec from 1 file(s)
+Compiling jexec.c (for jexec)
+Linking jexec
+Copying jdk/bin/java
+Copying jdk/bin/keytool
+Copying jdk/bin/keytool.debuginfo
+Creating symlink jdk/lib/jexec
+Creating symlink jdk/lib/jexec.debuginfo
+Creating support/modules_cmds/jdk.jlink/jimage from 1 file(s)
+Compiling main.c (for jimage)
+Linking jimage
+Creating support/modules_cmds/jdk.jlink/jlink from 1 file(s)
+Compiling main.c (for jlink)
+Linking jlink
+Creating support/modules_cmds/jdk.jlink/jmod from 1 file(s)
+Compiling main.c (for jmod)
+Linking jmod
+Copying jdk/bin/jimage
+Copying jdk/bin/jimage.debuginfo
+Copying jdk/bin/jlink
+Copying jdk/bin/jlink.debuginfo
+Copying jdk/bin/jmod
+Copying jdk/bin/jmod.debuginfo
+Compiling 117 files for java.compiler
+Compiling 18 files for java.datatransfer
+Generating icon classes
+Generating X11 wrapper source files
+Generating Nimbus source files
+Compiling 89 properties into resource bundles for java.desktop
+Compiling 1831 files for java.xml
+Compiling 14 files for java.prefs
+Compiling 2788 files for java.desktop
+Compiling 10 files for java.instrument
+Compiling 11 properties into resource bundles for java.logging
+Compiling 34 files for java.logging
+Compiling 330 files for java.management
+Compiling 30 files for java.security.sasl
+Compiling 193 files for java.naming
+Compiling 123 files for java.rmi
+Compiling 14 files for java.management.rmi
+Compiling 140 files for java.net.http
+Compiling 15 files for java.scripting
+Compiling 216 files for java.security.jgss
+Compiling 5 files for java.transaction.xa
+Compiling 75 files for java.sql
+Compiling 53 files for java.sql.rowset
+Compiling 269 files for java.xml.crypto
+Compiling 1 files for java.se
+Compiling 21 files for java.smartcardio
+Compiling 18 files for jdk.accessibility
+Compiling 61 files for jdk.internal.jvmstat
+Compiling 15 files for jdk.attach
+Generating jdk.charsets extcs
+Generating jdk.charsets hkscs
+Generating jdk.charsets euctw
+Generating support/gensrc/jdk.charsets/sun/nio/cs/ext/sjis0213.dat
+Compiling 119 files for jdk.charsets
+Compiling 399 files for jdk.compiler
+Compiling 15 files for jdk.crypto.ec
+Compiling 67 files for jdk.crypto.cryptoki
+Compiling 68 files for jdk.dynalink
+Compiling 3 files for jdk.internal.ed
+Compiling 3 files for jdk.editpad
+Compiling 997 files for jdk.hotspot.agent
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Compiling 44 files for jdk.httpserver
+Compiling 55 files for jdk.internal.le
+Compiling 51 files for jdk.internal.opt
+Compiling 11 properties into resource bundles for jdk.jartool
+Compiling 33 files for jdk.jartool
+Compiling 304 files for jdk.javadoc
+Compiling 38 files for jdk.jcmd
+Compiling 24 files for jdk.management
+Compiling 11 properties into resource bundles for jdk.management.agent
+Compiling 31 files for jdk.management.agent
+Compiling 64 files for jdk.jconsole
+Compiling 12 properties into resource bundles for jdk.jdeps
+Compiling 133 files for jdk.jdeps
+Creating JDWP.java and JDWPCommands.h from jdwp.spec
+Creating jdwp-protocol.html from jdwp.spec
+Compiling 3 properties into resource bundles for jdk.jdi
+Compiling 1 files for jdk.jdwp.agent
+Compiling 251 files for jdk.jdi
+Compiling 163 files for jdk.jfr
+Compiling 4 properties into resource bundles for jdk.jlink
+Compiling 3 properties into resource bundles for jdk.jlink
+Compiling 1 properties into resource bundles for jdk.jlink
+Compiling 75 files for jdk.jlink
+Compiling 7 properties into resource bundles for jdk.jshell
+Compiling 94 files for jdk.jshell
+Compiling 5 files for jdk.jsobject
+Compiling 11 files for jdk.jstatd
+Creating sun/util/resources/provider/NonBaseLocaleDataMetaInfo.java from 417 found resources
+Compiling 224 properties into resource bundles for jdk.localedata
+Compiling 1703 files for jdk.localedata
+Compiling 14 files for jdk.management.jfr
+Compiling 16 files for jdk.naming.dns
+Compiling 7 files for jdk.naming.rmi
+Compiling 9 files for jdk.net
+Compiling 1 files for jdk.pack
+Compiling 188 files for jdk.rmic
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Processing version.properties
+Compiling 593 files for jdk.scripting.nashorn
+Note: Some input files use or override a deprecated API that is marked for removal.
+Note: Recompile with -Xlint:removal for details.
+Compiling 131 files for BUILD_NASGEN
+Running nasgen
+Compiling 11 files for jdk.scripting.nashorn.shell
+Note: Some input files use or override a deprecated API that is marked for removal.
+Note: Recompile with -Xlint:removal for details.
+Compiling 33 files for jdk.sctp
+Compiling 30 files for jdk.security.auth
+Compiling 16 files for jdk.security.jgss
+Compiling 9 files for jdk.unsupported
+Compiling 8 files for jdk.unsupported.desktop
+Compiling 94 files for jdk.xml.dom
+Compiling 14 files for jdk.zipfs
+Copying support/modules_include/java.desktop/jawt.h
+Copying support/modules_include/java.desktop/linux/jawt_md.h
+Copying support/modules_legal/java.desktop/xwindows.md
+Copying support/modules_legal/java.desktop/lcms.md
+Copying support/modules_legal/java.desktop/harfbuzz.md
+Copying support/modules_legal/java.desktop/colorimaging.md
+Copying support/modules_legal/java.desktop/libpng.md
+Copying support/modules_legal/java.desktop/opengl.md
+Copying support/modules_legal/java.desktop/jpeg.md
+Copying support/modules_legal/java.desktop/mesa3d.md
+Copying support/modules_legal/java.desktop/giflib.md
+Copying jdk/include/jawt.h
+Copying jdk/include/linux/jawt_md.h
+Copying jdk/conf/sound.properties
+Creating symlink jdk/lib/psfont.properties.ja
+Creating symlink jdk/lib/psfontj2d.properties
+Copying jdk/conf/logging.properties
+Copying support/modules_include/jdk.jdwp.agent/jdwpTransport.h
+Copying jdk/include/jdwpTransport.h
+Copying jdk/modules/jdk.jfr/jdk/jfr/internal/types/metadata.xml
+Copying support/modules_libs/jdk.jfr/jfr/default.jfc
+Copying support/modules_libs/jdk.jfr/jfr/profile.jfc
+Creating symlink jdk/lib/jfr/default.jfc
+Creating symlink jdk/lib/jfr/profile.jfc
+Copying jdk/conf/management/management.properties
+Copying jdk/conf/management/jmxremote.password.template
+Copying jdk/conf/management/jmxremote.access
+Generating HTML DTD file
+Compiling 67 files for COMPILE_CREATE_SYMBOLS
+Creating ct.sym classes
+Creating support/symbols/ct.sym
+Copying support/modules_libs/jdk.compiler/ct.sym
+Creating symlink jdk/lib/ct.sym
+Creating support/modules_libs/java.desktop/libmlib_image.so from 50 file(s)
+Compiling mlib_ImageAffine.c (for libmlib_image.so)
+Compiling mlib_ImageAffineEdge.c (for libmlib_image.so)
+Compiling mlib_ImageAffine_BC_D64.c (for libmlib_image.so)
+Compiling mlib_ImageAffine_BC_F32.c (for libmlib_image.so)
+Compiling mlib_ImageAffine_BC_S32.c (for libmlib_image.so)
+Compiling mlib_ImageAffine_BL_D64.c (for libmlib_image.so)
+Compiling mlib_ImageAffine_BL_F32.c (for libmlib_image.so)
+Compiling mlib_ImageAffine_BL_S32.c (for libmlib_image.so)
+Compiling mlib_ImageAffine_NN.c (for libmlib_image.so)
+Compiling mlib_ImageAffine_NN_Bit.c (for libmlib_image.so)
+Compiling mlib_ImageClipping.c (for libmlib_image.so)
+Compiling mlib_ImageConvClearEdge_Bit.c (for libmlib_image.so)
+Compiling mlib_ImageConvClearEdge_Fp.c (for libmlib_image.so)
+Compiling mlib_ImageConvCopyEdge_Bit.c (for libmlib_image.so)
+Compiling mlib_ImageConvKernelConvert.c (for libmlib_image.so)
+Compiling mlib_ImageConvMxN.c (for libmlib_image.so)
+Compiling mlib_ImageConvMxN_Fp.c (for libmlib_image.so)
+Compiling mlib_ImageConvMxN_ext.c (for libmlib_image.so)
+Compiling mlib_ImageConv_16ext.c (for libmlib_image.so)
+Compiling mlib_ImageConv_16nw.c (for libmlib_image.so)
+Compiling mlib_ImageConv_32nw.c (for libmlib_image.so)
+Compiling mlib_ImageConv_8ext.c (for libmlib_image.so)
+Compiling mlib_ImageConv_8nw.c (for libmlib_image.so)
+Compiling mlib_ImageConv_D64nw.c (for libmlib_image.so)
+Compiling mlib_ImageConv_F32nw.c (for libmlib_image.so)
+Compiling mlib_ImageConv_u16ext.c (for libmlib_image.so)
+Compiling mlib_ImageConv_u16nw.c (for libmlib_image.so)
+Compiling mlib_ImageCopy_Bit.c (for libmlib_image.so)
+Compiling mlib_ImageCreate.c (for libmlib_image.so)
+Compiling mlib_ImageDivTables.c (for libmlib_image.so)
+Compiling mlib_ImageFilters.c (for libmlib_image.so)
+Compiling mlib_ImageLookUp_64.c (for libmlib_image.so)
+Compiling mlib_ImageLookUp_Bit.c (for libmlib_image.so)
+Compiling mlib_ImageScanPoly.c (for libmlib_image.so)
+Compiling mlib_ImageUtils.c (for libmlib_image.so)
+Compiling mlib_c_ImageAffine_BC.c (for libmlib_image.so)
+Compiling mlib_c_ImageAffine_BC_S16.c (for libmlib_image.so)
+Compiling mlib_c_ImageAffine_BC_U16.c (for libmlib_image.so)
+Compiling mlib_c_ImageAffine_BL.c (for libmlib_image.so)
+Compiling mlib_c_ImageAffine_BL_S16.c (for libmlib_image.so)
+Compiling mlib_c_ImageAffine_BL_U16.c (for libmlib_image.so)
+Compiling mlib_c_ImageAffine_NN.c (for libmlib_image.so)
+Compiling mlib_c_ImageConvClearEdge.c (for libmlib_image.so)
+Compiling mlib_c_ImageConvCopyEdge.c (for libmlib_image.so)
+Compiling mlib_c_ImageConvVersion.c (for libmlib_image.so)
+Compiling mlib_c_ImageConv_f.c (for libmlib_image.so)
+Compiling mlib_c_ImageCopy.c (for libmlib_image.so)
+Compiling mlib_c_ImageLookUp.c (for libmlib_image.so)
+Compiling mlib_c_ImageLookUp_f.c (for libmlib_image.so)
+Compiling mlib_sys.c (for libmlib_image.so)
+Linking libmlib_image.so
+Creating support/modules_libs/java.desktop/libawt.so from 73 file(s)
+Compiling AlphaMacros.c (for libawt.so)
+Compiling AlphaMath.c (for libawt.so)
+Compiling Any3Byte.c (for libawt.so)
+Compiling Any4Byte.c (for libawt.so)
+Compiling AnyByte.c (for libawt.so)
+Compiling AnyInt.c (for libawt.so)
+Compiling AnyShort.c (for libawt.so)
+Compiling Blit.c (for libawt.so)
+Compiling BlitBg.c (for libawt.so)
+Compiling BufImgSurfaceData.c (for libawt.so)
+Compiling BufferedMaskBlit.c (for libawt.so)
+Compiling BufferedRenderPipe.c (for libawt.so)
+Compiling ByteBinary1Bit.c (for libawt.so)
+Compiling ByteBinary2Bit.c (for libawt.so)
+Compiling ByteBinary4Bit.c (for libawt.so)
+Compiling ByteGray.c (for libawt.so)
+Compiling ByteIndexed.c (for libawt.so)
+Compiling DataBufferNative.c (for libawt.so)
+Compiling Disposer.c (for libawt.so)
+Compiling DrawLine.c (for libawt.so)
+Compiling DrawParallelogram.c (for libawt.so)
+Compiling DrawPath.c (for libawt.so)
+Compiling DrawPolygons.c (for libawt.so)
+Compiling DrawRect.c (for libawt.so)
+Compiling FillParallelogram.c (for libawt.so)
+Compiling FillPath.c (for libawt.so)
+Compiling FillRect.c (for libawt.so)
+Compiling FillSpans.c (for libawt.so)
+Compiling FourByteAbgr.c (for libawt.so)
+Compiling FourByteAbgrPre.c (for libawt.so)
+Compiling GraphicsPrimitiveMgr.c (for libawt.so)
+Compiling Index12Gray.c (for libawt.so)
+Compiling Index8Gray.c (for libawt.so)
+Compiling IntArgb.c (for libawt.so)
+Compiling IntArgbBm.c (for libawt.so)
+Compiling IntArgbPre.c (for libawt.so)
+Compiling IntBgr.c (for libawt.so)
+Compiling IntRgb.c (for libawt.so)
+Compiling IntRgbx.c (for libawt.so)
+Compiling MapAccelFunc.c (for libawt.so)
+Compiling MaskBlit.c (for libawt.so)
+Compiling MaskFill.c (for libawt.so)
+Compiling ProcessPath.c (for libawt.so)
+Compiling Region.c (for libawt.so)
+Compiling ScaledBlit.c (for libawt.so)
+Compiling ShapeSpanIterator.c (for libawt.so)
+Compiling SpanClipRenderer.c (for libawt.so)
+Compiling SurfaceData.c (for libawt.so)
+Compiling ThreeByteBgr.c (for libawt.so)
+Compiling Trace.c (for libawt.so)
+Compiling TransformHelper.c (for libawt.so)
+Compiling Ushort4444Argb.c (for libawt.so)
+Compiling Ushort555Rgb.c (for libawt.so)
+Compiling Ushort555Rgbx.c (for libawt.so)
+Compiling Ushort565Rgb.c (for libawt.so)
+Compiling UshortGray.c (for libawt.so)
+Compiling UshortIndexed.c (for libawt.so)
+Compiling awt_ImageRep.c (for libawt.so)
+Compiling awt_ImagingLib.c (for libawt.so)
+Compiling awt_LoadLibrary.c (for libawt.so)
+Compiling awt_Mlib.c (for libawt.so)
+Compiling awt_parseImage.c (for libawt.so)
+Compiling debug_assert.c (for libawt.so)
+Compiling debug_mem.c (for libawt.so)
+Compiling debug_trace.c (for libawt.so)
+Compiling debug_util.c (for libawt.so)
+Compiling dither.c (for libawt.so)
+Compiling gifdecoder.c (for libawt.so)
+Compiling imageInitIDs.c (for libawt.so)
+Compiling img_colors.c (for libawt.so)
+Compiling img_globals.c (for libawt.so)
+Compiling initIDs.c (for libawt.so)
+Compiling systemScale.c (for libawt.so)
+Linking libawt.so
+Creating support/modules_libs/java.desktop/libawt_xawt.so from 57 file(s)
+Compiling AccelGlyphCache.c (for libawt_xawt.so)
+Compiling CUPSfuncs.c (for libawt_xawt.so)
+Compiling GLXGraphicsConfig.c (for libawt_xawt.so)
+Compiling GLXSurfaceData.c (for libawt_xawt.so)
+Compiling OGLBlitLoops.c (for libawt_xawt.so)
+Compiling OGLBufImgOps.c (for libawt_xawt.so)
+Compiling OGLContext.c (for libawt_xawt.so)
+Compiling OGLFuncs.c (for libawt_xawt.so)
+Compiling OGLMaskBlit.c (for libawt_xawt.so)
+Compiling OGLMaskFill.c (for libawt_xawt.so)
+Compiling OGLPaints.c (for libawt_xawt.so)
+Compiling OGLRenderQueue.c (for libawt_xawt.so)
+Compiling OGLRenderer.c (for libawt_xawt.so)
+Compiling OGLSurfaceData.c (for libawt_xawt.so)
+Compiling OGLTextRenderer.c (for libawt_xawt.so)
+Compiling OGLVertexCache.c (for libawt_xawt.so)
+Compiling X11Color.c (for libawt_xawt.so)
+Compiling X11FontScaler_md.c (for libawt_xawt.so)
+Compiling X11PMBlitLoops.c (for libawt_xawt.so)
+Compiling X11Renderer.c (for libawt_xawt.so)
+Compiling X11SurfaceData.c (for libawt_xawt.so)
+Compiling X11TextRenderer_md.c (for libawt_xawt.so)
+Compiling XRBackendNative.c (for libawt_xawt.so)
+Compiling XRSurfaceData.c (for libawt_xawt.so)
+Compiling XToolkit.c (for libawt_xawt.so)
+Compiling XWindow.c (for libawt_xawt.so)
+Compiling XlibWrapper.c (for libawt_xawt.so)
+Compiling awt_AWTEvent.c (for libawt_xawt.so)
+Compiling awt_Desktop.c (for libawt_xawt.so)
+Compiling awt_DrawingSurface.c (for libawt_xawt.so)
+Compiling awt_Event.c (for libawt_xawt.so)
+Compiling awt_Font.c (for libawt_xawt.so)
+Compiling awt_GraphicsEnv.c (for libawt_xawt.so)
+Compiling awt_InputMethod.c (for libawt_xawt.so)
+Compiling awt_Insets.c (for libawt_xawt.so)
+Compiling awt_Robot.c (for libawt_xawt.so)
+Compiling awt_Taskbar.c (for libawt_xawt.so)
+Compiling awt_UNIXToolkit.c (for libawt_xawt.so)
+Compiling awt_util.c (for libawt_xawt.so)
+Compiling debug_assert.c (for libawt_xawt.so)
+Compiling debug_mem.c (for libawt_xawt.so)
+Compiling debug_trace.c (for libawt_xawt.so)
+Compiling debug_util.c (for libawt_xawt.so)
+Compiling fontpath.c (for libawt_xawt.so)
+Compiling gnome_interface.c (for libawt_xawt.so)
+Compiling gtk2_interface.c (for libawt_xawt.so)
+Compiling gtk3_interface.c (for libawt_xawt.so)
+Compiling gtk_interface.c (for libawt_xawt.so)
+Compiling list.c (for libawt_xawt.so)
+Compiling multiVis.c (for libawt_xawt.so)
+Compiling multi_font.c (for libawt_xawt.so)
+Compiling rect.c (for libawt_xawt.so)
+Compiling robot_common.c (for libawt_xawt.so)
+Compiling sun_awt_X11_GtkFileDialogPeer.c (for libawt_xawt.so)
+Compiling swing_GTKEngine.c (for libawt_xawt.so)
+Compiling swing_GTKStyle.c (for libawt_xawt.so)
+Compiling systemScale.c (for libawt_xawt.so)
+Linking libawt_xawt.so
+Creating support/modules_libs/java.desktop/liblcms.so from 27 file(s)
+Compiling LCMS.c (for liblcms.so)
+Compiling cmsalpha.c (for liblcms.so)
+Compiling cmscam02.c (for liblcms.so)
+Compiling cmscgats.c (for liblcms.so)
+Compiling cmscnvrt.c (for liblcms.so)
+Compiling cmserr.c (for liblcms.so)
+Compiling cmsgamma.c (for liblcms.so)
+Compiling cmsgmt.c (for liblcms.so)
+Compiling cmshalf.c (for liblcms.so)
+Compiling cmsintrp.c (for liblcms.so)
+Compiling cmsio0.c (for liblcms.so)
+Compiling cmsio1.c (for liblcms.so)
+Compiling cmslut.c (for liblcms.so)
+Compiling cmsmd5.c (for liblcms.so)
+Compiling cmsmtrx.c (for liblcms.so)
+Compiling cmsnamed.c (for liblcms.so)
+Compiling cmsopt.c (for liblcms.so)
+Compiling cmspack.c (for liblcms.so)
+Compiling cmspcs.c (for liblcms.so)
+Compiling cmsplugin.c (for liblcms.so)
+Compiling cmsps2.c (for liblcms.so)
+Compiling cmssamp.c (for liblcms.so)
+Compiling cmssm.c (for liblcms.so)
+Compiling cmstypes.c (for liblcms.so)
+Compiling cmsvirt.c (for liblcms.so)
+Compiling cmswtpnt.c (for liblcms.so)
+Compiling cmsxform.c (for liblcms.so)
+Linking liblcms.so
+Creating support/modules_libs/java.desktop/libjavajpeg.so from 46 file(s)
+Compiling imageioJPEG.c (for libjavajpeg.so)
+Compiling jcapimin.c (for libjavajpeg.so)
+Compiling jcapistd.c (for libjavajpeg.so)
+Compiling jccoefct.c (for libjavajpeg.so)
+Compiling jccolor.c (for libjavajpeg.so)
+Compiling jcdctmgr.c (for libjavajpeg.so)
+Compiling jchuff.c (for libjavajpeg.so)
+Compiling jcinit.c (for libjavajpeg.so)
+Compiling jcmainct.c (for libjavajpeg.so)
+Compiling jcmarker.c (for libjavajpeg.so)
+Compiling jcmaster.c (for libjavajpeg.so)
+Compiling jcomapi.c (for libjavajpeg.so)
+Compiling jcparam.c (for libjavajpeg.so)
+Compiling jcphuff.c (for libjavajpeg.so)
+Compiling jcprepct.c (for libjavajpeg.so)
+Compiling jcsample.c (for libjavajpeg.so)
+Compiling jctrans.c (for libjavajpeg.so)
+Compiling jdapimin.c (for libjavajpeg.so)
+Compiling jdapistd.c (for libjavajpeg.so)
+Compiling jdcoefct.c (for libjavajpeg.so)
+Compiling jdcolor.c (for libjavajpeg.so)
+Compiling jddctmgr.c (for libjavajpeg.so)
+Compiling jdhuff.c (for libjavajpeg.so)
+Compiling jdinput.c (for libjavajpeg.so)
+Compiling jdmainct.c (for libjavajpeg.so)
+Compiling jdmarker.c (for libjavajpeg.so)
+Compiling jdmaster.c (for libjavajpeg.so)
+Compiling jdmerge.c (for libjavajpeg.so)
+Compiling jdphuff.c (for libjavajpeg.so)
+Compiling jdpostct.c (for libjavajpeg.so)
+Compiling jdsample.c (for libjavajpeg.so)
+Compiling jdtrans.c (for libjavajpeg.so)
+Compiling jerror.c (for libjavajpeg.so)
+Compiling jfdctflt.c (for libjavajpeg.so)
+Compiling jfdctfst.c (for libjavajpeg.so)
+Compiling jfdctint.c (for libjavajpeg.so)
+Compiling jidctflt.c (for libjavajpeg.so)
+Compiling jidctfst.c (for libjavajpeg.so)
+Compiling jidctint.c (for libjavajpeg.so)
+Compiling jidctred.c (for libjavajpeg.so)
+Compiling jmemmgr.c (for libjavajpeg.so)
+Compiling jmemnobs.c (for libjavajpeg.so)
+Compiling jpegdecoder.c (for libjavajpeg.so)
+Compiling jquant1.c (for libjavajpeg.so)
+Compiling jquant2.c (for libjavajpeg.so)
+Compiling jutils.c (for libjavajpeg.so)
+Linking libjavajpeg.so
+Creating support/modules_libs/java.desktop/libawt_headless.so from 26 file(s)
+Compiling AccelGlyphCache.c (for libawt_headless.so)
+Compiling CUPSfuncs.c (for libawt_headless.so)
+Compiling GLXGraphicsConfig.c (for libawt_headless.so)
+Compiling GLXSurfaceData.c (for libawt_headless.so)
+Compiling HeadlessToolkit.c (for libawt_headless.so)
+Compiling OGLBlitLoops.c (for libawt_headless.so)
+Compiling OGLBufImgOps.c (for libawt_headless.so)
+Compiling OGLContext.c (for libawt_headless.so)
+Compiling OGLFuncs.c (for libawt_headless.so)
+Compiling OGLMaskBlit.c (for libawt_headless.so)
+Compiling OGLMaskFill.c (for libawt_headless.so)
+Compiling OGLPaints.c (for libawt_headless.so)
+Compiling OGLRenderQueue.c (for libawt_headless.so)
+Compiling OGLRenderer.c (for libawt_headless.so)
+Compiling OGLSurfaceData.c (for libawt_headless.so)
+Compiling OGLTextRenderer.c (for libawt_headless.so)
+Compiling OGLVertexCache.c (for libawt_headless.so)
+Compiling X11Color.c (for libawt_headless.so)
+Compiling X11FontScaler_md.c (for libawt_headless.so)
+Compiling X11PMBlitLoops.c (for libawt_headless.so)
+Compiling X11Renderer.c (for libawt_headless.so)
+Compiling X11SurfaceData.c (for libawt_headless.so)
+Compiling X11TextRenderer_md.c (for libawt_headless.so)
+Compiling awt_Font.c (for libawt_headless.so)
+Compiling fontpath.c (for libawt_headless.so)
+Compiling systemScale.c (for libawt_headless.so)
+Linking libawt_headless.so
+Creating support/modules_libs/java.desktop/libfontmanager.so from 45 file(s)
+Compiling DrawGlyphList.c (for libfontmanager.so)
+Compiling HBShaper.c (for libfontmanager.so)
+Compiling X11FontScaler.c (for libfontmanager.so)
+Compiling X11TextRenderer.c (for libfontmanager.so)
+Compiling freetypeScaler.c (for libfontmanager.so)
+Compiling hb-blob.cc (for libfontmanager.so)
+Compiling hb-buffer-serialize.cc (for libfontmanager.so)
+Compiling hb-buffer.cc (for libfontmanager.so)
+Compiling hb-common.cc (for libfontmanager.so)
+Compiling hb-face.cc (for libfontmanager.so)
+Compiling hb-fallback-shape.cc (for libfontmanager.so)
+Compiling hb-font.cc (for libfontmanager.so)
+Compiling hb-jdk-font.cc (for libfontmanager.so)
+Compiling hb-map.cc (for libfontmanager.so)
+Compiling hb-ot-font.cc (for libfontmanager.so)
+Compiling hb-ot-layout.cc (for libfontmanager.so)
+Compiling hb-ot-map.cc (for libfontmanager.so)
+Compiling hb-ot-shape-complex-arabic.cc (for libfontmanager.so)
+Compiling hb-ot-shape-complex-default.cc (for libfontmanager.so)
+Compiling hb-ot-shape-complex-hangul.cc (for libfontmanager.so)
+Compiling hb-ot-shape-complex-hebrew.cc (for libfontmanager.so)
+Compiling hb-ot-shape-complex-indic-table.cc (for libfontmanager.so)
+Compiling hb-ot-shape-complex-indic.cc (for libfontmanager.so)
+Compiling hb-ot-shape-complex-khmer.cc (for libfontmanager.so)
+Compiling hb-ot-shape-complex-myanmar.cc (for libfontmanager.so)
+Compiling hb-ot-shape-complex-thai.cc (for libfontmanager.so)
+Compiling hb-ot-shape-complex-tibetan.cc (for libfontmanager.so)
+Compiling hb-ot-shape-complex-use-table.cc (for libfontmanager.so)
+Compiling hb-ot-shape-complex-use.cc (for libfontmanager.so)
+Compiling hb-ot-shape-fallback.cc (for libfontmanager.so)
+Compiling hb-ot-shape-normalize.cc (for libfontmanager.so)
+Compiling hb-ot-shape.cc (for libfontmanager.so)
+Compiling hb-ot-tag.cc (for libfontmanager.so)
+Compiling hb-ot-var.cc (for libfontmanager.so)
+Compiling hb-set.cc (for libfontmanager.so)
+Compiling hb-shape-plan.cc (for libfontmanager.so)
+Compiling hb-shape.cc (for libfontmanager.so)
+Compiling hb-shaper.cc (for libfontmanager.so)
+Compiling hb-static.cc (for libfontmanager.so)
+Compiling hb-ucdn.cc (for libfontmanager.so)
+Compiling hb-unicode.cc (for libfontmanager.so)
+Compiling hb-warning.cc (for libfontmanager.so)
+Compiling scriptMapping.c (for libfontmanager.so)
+Compiling sunFont.c (for libfontmanager.so)
+Compiling ucdn.c (for libfontmanager.so)
+Linking libfontmanager.so
+Creating support/modules_libs/java.desktop/libjawt.so from 1 file(s)
+Compiling jawt.c (for libjawt.so)
+Linking libjawt.so
+Creating support/modules_libs/java.desktop/libsplashscreen.so from 67 file(s)
+Compiling dgif_lib.c (for libsplashscreen.so)
+Compiling gif_err.c (for libsplashscreen.so)
+Compiling gifalloc.c (for libsplashscreen.so)
+Compiling java_awt_SplashScreen.c (for libsplashscreen.so)
+Compiling jcapimin.c (for libsplashscreen.so)
+Compiling jcapistd.c (for libsplashscreen.so)
+Compiling jccoefct.c (for libsplashscreen.so)
+Compiling jccolor.c (for libsplashscreen.so)
+Compiling jcdctmgr.c (for libsplashscreen.so)
+Compiling jchuff.c (for libsplashscreen.so)
+Compiling jcinit.c (for libsplashscreen.so)
+Compiling jcmainct.c (for libsplashscreen.so)
+Compiling jcmarker.c (for libsplashscreen.so)
+Compiling jcmaster.c (for libsplashscreen.so)
+Compiling jcomapi.c (for libsplashscreen.so)
+Compiling jcparam.c (for libsplashscreen.so)
+Compiling jcphuff.c (for libsplashscreen.so)
+Compiling jcprepct.c (for libsplashscreen.so)
+Compiling jcsample.c (for libsplashscreen.so)
+Compiling jctrans.c (for libsplashscreen.so)
+Compiling jdapimin.c (for libsplashscreen.so)
+Compiling jdapistd.c (for libsplashscreen.so)
+Compiling jdcoefct.c (for libsplashscreen.so)
+Compiling jdcolor.c (for libsplashscreen.so)
+Compiling jddctmgr.c (for libsplashscreen.so)
+Compiling jdhuff.c (for libsplashscreen.so)
+Compiling jdinput.c (for libsplashscreen.so)
+Compiling jdmainct.c (for libsplashscreen.so)
+Compiling jdmarker.c (for libsplashscreen.so)
+Compiling jdmaster.c (for libsplashscreen.so)
+Compiling jdmerge.c (for libsplashscreen.so)
+Compiling jdphuff.c (for libsplashscreen.so)
+Compiling jdpostct.c (for libsplashscreen.so)
+Compiling jdsample.c (for libsplashscreen.so)
+Compiling jdtrans.c (for libsplashscreen.so)
+Compiling jerror.c (for libsplashscreen.so)
+Compiling jfdctflt.c (for libsplashscreen.so)
+Compiling jfdctfst.c (for libsplashscreen.so)
+Compiling jfdctint.c (for libsplashscreen.so)
+Compiling jidctflt.c (for libsplashscreen.so)
+Compiling jidctfst.c (for libsplashscreen.so)
+Compiling jidctint.c (for libsplashscreen.so)
+Compiling jidctred.c (for libsplashscreen.so)
+Compiling jmemmgr.c (for libsplashscreen.so)
+Compiling jmemnobs.c (for libsplashscreen.so)
+Compiling jquant1.c (for libsplashscreen.so)
+Compiling jquant2.c (for libsplashscreen.so)
+Compiling jutils.c (for libsplashscreen.so)
+Compiling openbsd-reallocarray.c (for libsplashscreen.so)
+Compiling png.c (for libsplashscreen.so)
+Compiling pngerror.c (for libsplashscreen.so)
+Compiling pngget.c (for libsplashscreen.so)
+Compiling pngmem.c (for libsplashscreen.so)
+Compiling pngpread.c (for libsplashscreen.so)
+Compiling pngread.c (for libsplashscreen.so)
+Compiling pngrio.c (for libsplashscreen.so)
+Compiling pngrtran.c (for libsplashscreen.so)
+Compiling pngrutil.c (for libsplashscreen.so)
+Compiling pngset.c (for libsplashscreen.so)
+Compiling pngtrans.c (for libsplashscreen.so)
+Compiling splashscreen_gfx_impl.c (for libsplashscreen.so)
+Compiling splashscreen_gif.c (for libsplashscreen.so)
+Compiling splashscreen_impl.c (for libsplashscreen.so)
+Compiling splashscreen_jpeg.c (for libsplashscreen.so)
+Compiling splashscreen_png.c (for libsplashscreen.so)
+Compiling splashscreen_sys.c (for libsplashscreen.so)
+Compiling systemScale.c (for libsplashscreen.so)
+Linking libsplashscreen.so
+Creating support/modules_libs/java.desktop/libjsound.so from 18 file(s)
+Compiling DirectAudioDevice.c (for libjsound.so)
+Compiling DirectAudioDeviceProvider.c (for libjsound.so)
+Compiling MidiInDevice.c (for libjsound.so)
+Compiling MidiInDeviceProvider.c (for libjsound.so)
+Compiling MidiOutDevice.c (for libjsound.so)
+Compiling MidiOutDeviceProvider.c (for libjsound.so)
+Compiling PLATFORM_API_LinuxOS_ALSA_CommonUtils.c (for libjsound.so)
+Compiling PLATFORM_API_LinuxOS_ALSA_MidiIn.c (for libjsound.so)
+Compiling PLATFORM_API_LinuxOS_ALSA_MidiOut.c (for libjsound.so)
+Compiling PLATFORM_API_LinuxOS_ALSA_MidiUtils.c (for libjsound.so)
+Compiling PLATFORM_API_LinuxOS_ALSA_PCM.c (for libjsound.so)
+Compiling PLATFORM_API_LinuxOS_ALSA_PCMUtils.c (for libjsound.so)
+Compiling PLATFORM_API_LinuxOS_ALSA_Ports.c (for libjsound.so)
+Compiling Platform.c (for libjsound.so)
+Compiling PlatformMidi.c (for libjsound.so)
+Compiling PortMixer.c (for libjsound.so)
+Compiling PortMixerProvider.c (for libjsound.so)
+Compiling Utilities.c (for libjsound.so)
+Linking libjsound.so
+Copying jdk/lib/libmlib_image.so
+Copying jdk/lib/libawt.so
+Copying jdk/lib/libawt_xawt.so
+Copying jdk/lib/liblcms.so
+Copying jdk/lib/libjavajpeg.so
+Copying jdk/lib/libawt_headless.so
+Copying jdk/lib/libfontmanager.so
+Copying jdk/lib/libjawt.so
+Copying jdk/lib/libsplashscreen.so
+Copying jdk/lib/libjsound.so
+Creating symlink jdk/lib/libmlib_image.debuginfo
+Creating symlink jdk/lib/libawt.debuginfo
+Creating symlink jdk/lib/libawt_xawt.debuginfo
+Creating symlink jdk/lib/liblcms.debuginfo
+Creating symlink jdk/lib/libjavajpeg.debuginfo
+Creating symlink jdk/lib/libawt_headless.debuginfo
+Creating symlink jdk/lib/libfontmanager.debuginfo
+Creating symlink jdk/lib/libjawt.debuginfo
+Creating symlink jdk/lib/libsplashscreen.debuginfo
+Creating symlink jdk/lib/libjsound.debuginfo
+Creating support/modules_libs/java.instrument/libinstrument.so from 12 file(s)
+Compiling EncodingSupport.c (for libinstrument.so)
+Compiling EncodingSupport_md.c (for libinstrument.so)
+Compiling FileSystemSupport_md.c (for libinstrument.so)
+Compiling InstrumentationImplNativeMethods.c (for libinstrument.so)
+Compiling InvocationAdapter.c (for libinstrument.so)
+Compiling JPLISAgent.c (for libinstrument.so)
+Compiling JPLISAssert.c (for libinstrument.so)
+Compiling JarFacade.c (for libinstrument.so)
+Compiling JavaExceptions.c (for libinstrument.so)
+Compiling PathCharsValidator.c (for libinstrument.so)
+Compiling Reentrancy.c (for libinstrument.so)
+Compiling Utilities.c (for libinstrument.so)
+Linking libinstrument.so
+Copying jdk/lib/libinstrument.so
+Creating symlink jdk/lib/libinstrument.debuginfo
+Creating support/modules_libs/java.management/libmanagement.so from 9 file(s)
+Compiling ClassLoadingImpl.c (for libmanagement.so)
+Compiling GarbageCollectorImpl.c (for libmanagement.so)
+Compiling HotspotThread.c (for libmanagement.so)
+Compiling MemoryImpl.c (for libmanagement.so)
+Compiling MemoryManagerImpl.c (for libmanagement.so)
+Compiling MemoryPoolImpl.c (for libmanagement.so)
+Compiling ThreadImpl.c (for libmanagement.so)
+Compiling VMManagementImpl.c (for libmanagement.so)
+Compiling management.c (for libmanagement.so)
+Linking libmanagement.so
+Copying jdk/lib/libmanagement.so
+Creating symlink jdk/lib/libmanagement.debuginfo
+Generating module-info.java for jdk.rmic.interim
+Compiling 188 files for BUILD_jdk.rmic.interim
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Running rmic -v1.2 -keepgenerated for javax.management.remote.rmi.RMIConnectionImpl javax.management.remote.rmi.RMIServerImpl
+Warning: generation and use of skeletons and static stubs for JRMP
+is deprecated. Skeletons are unnecessary, and static stubs have
+been superseded by dynamically generated stubs. Users are
+encouraged to migrate away from using rmic to generate skeletons and static
+stubs. See the documentation for java.rmi.server.UnicastRemoteObject.
+Creating support/modules_libs/java.prefs/libprefs.so from 1 file(s)
+Compiling FileSystemPreferences.c (for libprefs.so)
+Linking libprefs.so
+Copying jdk/lib/libprefs.so
+Creating symlink jdk/lib/libprefs.debuginfo
+Running rmic -v1.2 for sun.rmi.server.Activation\$ActivationSystemImpl java.rmi.activation.ActivationGroup
+Warning: generation and use of skeletons and static stubs for JRMP
+is deprecated. Skeletons are unnecessary, and static stubs have
+been superseded by dynamically generated stubs. Users are
+encouraged to migrate away from using rmic to generate skeletons and static
+stubs. See the documentation for java.rmi.server.UnicastRemoteObject.
+Creating support/modules_libs/java.rmi/librmi.so from 1 file(s)
+Compiling GC.c (for librmi.so)
+Linking librmi.so
+Copying jdk/lib/librmi.so
+Creating symlink jdk/lib/librmi.debuginfo
+Creating support/modules_cmds/java.rmi/rmid from 1 file(s)
+Compiling main.c (for rmid)
+Linking rmid
+Creating support/modules_cmds/java.rmi/rmiregistry from 1 file(s)
+Compiling main.c (for rmiregistry)
+Linking rmiregistry
+Copying jdk/bin/rmid
+Copying jdk/bin/rmid.debuginfo
+Copying jdk/bin/rmiregistry
+Copying jdk/bin/rmiregistry.debuginfo
+Creating support/modules_cmds/java.scripting/jrunscript from 1 file(s)
+Compiling main.c (for jrunscript)
+Linking jrunscript
+Copying jdk/bin/jrunscript
+Copying jdk/bin/jrunscript.debuginfo
+Creating support/modules_libs/java.security.jgss/libj2gss.so from 3 file(s)
+Compiling GSSLibStub.c (for libj2gss.so)
+Compiling NativeFunc.c (for libj2gss.so)
+Compiling NativeUtil.c (for libj2gss.so)
+Linking libj2gss.so
+Copying jdk/lib/libj2gss.so
+Creating symlink jdk/lib/libj2gss.debuginfo
+Creating support/modules_libs/java.smartcardio/libj2pcsc.so from 2 file(s)
+Compiling pcsc.c (for libj2pcsc.so)
+Compiling pcsc_md.c (for libj2pcsc.so)
+Linking libj2pcsc.so
+Copying jdk/lib/libj2pcsc.so
+Creating symlink jdk/lib/libj2pcsc.debuginfo
+Creating support/modules_libs/jdk.attach/libattach.so from 1 file(s)
+Compiling VirtualMachineImpl.c (for libattach.so)
+Linking libattach.so
+Copying jdk/lib/libattach.so
+Creating symlink jdk/lib/libattach.debuginfo
+Creating support/modules_cmds/jdk.compiler/javac from 1 file(s)
+Compiling main.c (for javac)
+Linking javac
+Creating support/modules_cmds/jdk.compiler/serialver from 1 file(s)
+Compiling main.c (for serialver)
+Linking serialver
+Copying jdk/bin/javac
+Copying jdk/bin/javac.debuginfo
+Copying jdk/bin/serialver
+Copying jdk/bin/serialver.debuginfo
+Creating support/modules_libs/jdk.crypto.cryptoki/libj2pkcs11.so from 14 file(s)
+Compiling j2secmod.c (for libj2pkcs11.so)
+Compiling j2secmod_md.c (for libj2pkcs11.so)
+Compiling p11_convert.c (for libj2pkcs11.so)
+Compiling p11_crypt.c (for libj2pkcs11.so)
+Compiling p11_digest.c (for libj2pkcs11.so)
+Compiling p11_dual.c (for libj2pkcs11.so)
+Compiling p11_general.c (for libj2pkcs11.so)
+Compiling p11_keymgmt.c (for libj2pkcs11.so)
+Compiling p11_md.c (for libj2pkcs11.so)
+Compiling p11_mutex.c (for libj2pkcs11.so)
+Compiling p11_objmgmt.c (for libj2pkcs11.so)
+Compiling p11_sessmgmt.c (for libj2pkcs11.so)
+Compiling p11_sign.c (for libj2pkcs11.so)
+Compiling p11_util.c (for libj2pkcs11.so)
+Linking libj2pkcs11.so
+Copying jdk/lib/libj2pkcs11.so
+Creating symlink jdk/lib/libj2pkcs11.debuginfo
+Creating support/modules_libs/jdk.crypto.ec/libsunec.so from 28 file(s)
+Compiling ECC_JNI.cpp (for libsunec.so)
+Compiling ec.c (for libsunec.so)
+Compiling ec2_163.c (for libsunec.so)
+Compiling ec2_193.c (for libsunec.so)
+Compiling ec2_233.c (for libsunec.so)
+Compiling ec2_aff.c (for libsunec.so)
+Compiling ec2_mont.c (for libsunec.so)
+Compiling ec_naf.c (for libsunec.so)
+Compiling ecdecode.c (for libsunec.so)
+Compiling ecl.c (for libsunec.so)
+Compiling ecl_curve.c (for libsunec.so)
+Compiling ecl_gf.c (for libsunec.so)
+Compiling ecl_mult.c (for libsunec.so)
+Compiling ecp_192.c (for libsunec.so)
+Compiling ecp_224.c (for libsunec.so)
+Compiling ecp_256.c (for libsunec.so)
+Compiling ecp_384.c (for libsunec.so)
+Compiling ecp_521.c (for libsunec.so)
+Compiling ecp_aff.c (for libsunec.so)
+Compiling ecp_jac.c (for libsunec.so)
+Compiling ecp_jm.c (for libsunec.so)
+Compiling ecp_mont.c (for libsunec.so)
+Compiling mp_gf2m.c (for libsunec.so)
+Compiling mpi.c (for libsunec.so)
+Compiling mplogic.c (for libsunec.so)
+Compiling mpmontg.c (for libsunec.so)
+Compiling oid.c (for libsunec.so)
+Compiling secitem.c (for libsunec.so)
+Linking libsunec.so
+Copying jdk/lib/libsunec.so
+Creating symlink jdk/lib/libsunec.debuginfo
+Creating support/modules_libs/jdk.hotspot.agent/libsaproc.so from 7 file(s)
+Compiling LinuxDebuggerLocal.c (for libsaproc.so)
+Compiling libproc_impl.c (for libsaproc.so)
+Compiling ps_core.c (for libsaproc.so)
+Compiling ps_proc.c (for libsaproc.so)
+Compiling sadis.c (for libsaproc.so)
+Compiling salibelf.c (for libsaproc.so)
+Compiling symtab.c (for libsaproc.so)
+Linking libsaproc.so
+Copying jdk/lib/libsaproc.so
+Creating symlink jdk/lib/libsaproc.debuginfo
+Creating support/modules_cmds/jdk.hotspot.agent/jhsdb from 1 file(s)
+Compiling main.c (for jhsdb)
+Linking jhsdb
+Copying jdk/bin/jhsdb
+Copying jdk/bin/jhsdb.debuginfo
+Creating support/modules_cmds/jdk.jartool/jar from 1 file(s)
+Compiling main.c (for jar)
+Linking jar
+Creating support/modules_cmds/jdk.jartool/jarsigner from 1 file(s)
+Compiling main.c (for jarsigner)
+Linking jarsigner
+Copying jdk/bin/jar
+Copying jdk/bin/jar.debuginfo
+Copying jdk/bin/jarsigner
+Copying jdk/bin/jarsigner.debuginfo
+Creating support/modules_cmds/jdk.javadoc/javadoc from 1 file(s)
+Compiling main.c (for javadoc)
+Linking javadoc
+Copying jdk/bin/javadoc
+Copying jdk/bin/javadoc.debuginfo
+Creating support/modules_cmds/jdk.jcmd/jinfo from 1 file(s)
+Compiling main.c (for jinfo)
+Linking jinfo
+Creating support/modules_cmds/jdk.jcmd/jmap from 1 file(s)
+Compiling main.c (for jmap)
+Linking jmap
+Creating support/modules_cmds/jdk.jcmd/jps from 1 file(s)
+Compiling main.c (for jps)
+Linking jps
+Creating support/modules_cmds/jdk.jcmd/jstack from 1 file(s)
+Compiling main.c (for jstack)
+Linking jstack
+Creating support/modules_cmds/jdk.jcmd/jstat from 1 file(s)
+Compiling main.c (for jstat)
+Linking jstat
+Creating support/modules_cmds/jdk.jcmd/jcmd from 1 file(s)
+Compiling main.c (for jcmd)
+Linking jcmd
+Copying jdk/bin/jinfo
+Copying jdk/bin/jinfo.debuginfo
+Copying jdk/bin/jmap
+Copying jdk/bin/jmap.debuginfo
+Copying jdk/bin/jps
+Copying jdk/bin/jps.debuginfo
+Copying jdk/bin/jstack
+Copying jdk/bin/jstack.debuginfo
+Copying jdk/bin/jstat
+Copying jdk/bin/jstat.debuginfo
+Copying jdk/bin/jcmd
+Copying jdk/bin/jcmd.debuginfo
+Creating support/modules_cmds/jdk.jconsole/jconsole from 1 file(s)
+Compiling main.c (for jconsole)
+Linking jconsole
+Copying jdk/bin/jconsole
+Copying jdk/bin/jconsole.debuginfo
+Creating support/modules_cmds/jdk.jdeps/javap from 1 file(s)
+Compiling main.c (for javap)
+Linking javap
+Creating support/modules_cmds/jdk.jdeps/jdeps from 1 file(s)
+Compiling main.c (for jdeps)
+Linking jdeps
+Creating support/modules_cmds/jdk.jdeps/jdeprscan from 1 file(s)
+Compiling main.c (for jdeprscan)
+Linking jdeprscan
+Copying jdk/bin/javap
+Copying jdk/bin/javap.debuginfo
+Copying jdk/bin/jdeps
+Copying jdk/bin/jdeps.debuginfo
+Copying jdk/bin/jdeprscan
+Copying jdk/bin/jdeprscan.debuginfo
+Creating support/modules_cmds/jdk.jdi/jdb from 1 file(s)
+Compiling main.c (for jdb)
+Linking jdb
+Copying jdk/bin/jdb
+Copying jdk/bin/jdb.debuginfo
+Creating support/modules_libs/jdk.jdwp.agent/libdt_socket.so from 2 file(s)
+Compiling socketTransport.c (for libdt_socket.so)
+Compiling socket_md.c (for libdt_socket.so)
+Linking libdt_socket.so
+Creating support/modules_libs/jdk.jdwp.agent/libjdwp.so from 42 file(s)
+Compiling ArrayReferenceImpl.c (for libjdwp.so)
+Compiling ArrayTypeImpl.c (for libjdwp.so)
+Compiling ClassLoaderReferenceImpl.c (for libjdwp.so)
+Compiling ClassObjectReferenceImpl.c (for libjdwp.so)
+Compiling ClassTypeImpl.c (for libjdwp.so)
+Compiling EventRequestImpl.c (for libjdwp.so)
+Compiling FieldImpl.c (for libjdwp.so)
+Compiling FrameID.c (for libjdwp.so)
+Compiling InterfaceTypeImpl.c (for libjdwp.so)
+Compiling MethodImpl.c (for libjdwp.so)
+Compiling ModuleReferenceImpl.c (for libjdwp.so)
+Compiling ObjectReferenceImpl.c (for libjdwp.so)
+Compiling ReferenceTypeImpl.c (for libjdwp.so)
+Compiling SDE.c (for libjdwp.so)
+Compiling StackFrameImpl.c (for libjdwp.so)
+Compiling StringReferenceImpl.c (for libjdwp.so)
+Compiling ThreadGroupReferenceImpl.c (for libjdwp.so)
+Compiling ThreadReferenceImpl.c (for libjdwp.so)
+Compiling VirtualMachineImpl.c (for libjdwp.so)
+Compiling bag.c (for libjdwp.so)
+Compiling classTrack.c (for libjdwp.so)
+Compiling commonRef.c (for libjdwp.so)
+Compiling debugDispatch.c (for libjdwp.so)
+Compiling debugInit.c (for libjdwp.so)
+Compiling debugLoop.c (for libjdwp.so)
+Compiling error_messages.c (for libjdwp.so)
+Compiling eventFilter.c (for libjdwp.so)
+Compiling eventHandler.c (for libjdwp.so)
+Compiling eventHelper.c (for libjdwp.so)
+Compiling exec_md.c (for libjdwp.so)
+Compiling inStream.c (for libjdwp.so)
+Compiling invoker.c (for libjdwp.so)
+Compiling linker_md.c (for libjdwp.so)
+Compiling log_messages.c (for libjdwp.so)
+Compiling outStream.c (for libjdwp.so)
+Compiling standardHandlers.c (for libjdwp.so)
+Compiling stepControl.c (for libjdwp.so)
+Compiling stream.c (for libjdwp.so)
+Compiling threadControl.c (for libjdwp.so)
+Compiling transport.c (for libjdwp.so)
+Compiling utf_util.c (for libjdwp.so)
+Compiling util.c (for libjdwp.so)
+Linking libjdwp.so
+Copying jdk/lib/libdt_socket.so
+Copying jdk/lib/libjdwp.so
+Creating symlink jdk/lib/libdt_socket.debuginfo
+Creating symlink jdk/lib/libjdwp.debuginfo
+Creating support/modules_cmds/jdk.jshell/jshell from 1 file(s)
+Compiling main.c (for jshell)
+Linking jshell
+Copying jdk/bin/jshell
+Copying jdk/bin/jshell.debuginfo
+Creating support/modules_cmds/jdk.jstatd/jstatd from 1 file(s)
+Compiling main.c (for jstatd)
+Linking jstatd
+Copying jdk/bin/jstatd
+Copying jdk/bin/jstatd.debuginfo
+Creating support/modules_libs/jdk.management/libmanagement_ext.so from 8 file(s)
+Compiling DiagnosticCommandImpl.c (for libmanagement_ext.so)
+Compiling Flag.c (for libmanagement_ext.so)
+Compiling GarbageCollectorExtImpl.c (for libmanagement_ext.so)
+Compiling GcInfoBuilder.c (for libmanagement_ext.so)
+Compiling HotSpotDiagnostic.c (for libmanagement_ext.so)
+Compiling OperatingSystemImpl.c (for libmanagement_ext.so)
+Compiling UnixOperatingSystem.c (for libmanagement_ext.so)
+Compiling management_ext.c (for libmanagement_ext.so)
+Linking libmanagement_ext.so
+Copying jdk/lib/libmanagement_ext.so
+Creating symlink jdk/lib/libmanagement_ext.debuginfo
+Creating support/modules_libs/jdk.management.agent/libmanagement_agent.so from 1 file(s)
+Compiling FileSystemImpl.c (for libmanagement_agent.so)
+Linking libmanagement_agent.so
+Copying jdk/lib/libmanagement_agent.so
+Creating symlink jdk/lib/libmanagement_agent.debuginfo
+Running rmic -v1.2 for com.sun.jndi.rmi.registry.ReferenceWrapper
+Warning: generation and use of skeletons and static stubs for JRMP
+is deprecated. Skeletons are unnecessary, and static stubs have
+been superseded by dynamically generated stubs. Users are
+encouraged to migrate away from using rmic to generate skeletons and static
+stubs. See the documentation for java.rmi.server.UnicastRemoteObject.
+Creating support/modules_libs/jdk.net/libextnet.so from 1 file(s)
+Compiling LinuxSocketOptions.c (for libextnet.so)
+Linking libextnet.so
+Copying jdk/lib/libextnet.so
+Creating symlink jdk/lib/libextnet.debuginfo
+Creating support/modules_libs/jdk.pack/libunpack.so from 7 file(s)
+Compiling bands.cpp (for libunpack.so)
+Compiling bytes.cpp (for libunpack.so)
+Compiling coding.cpp (for libunpack.so)
+Compiling jni.cpp (for libunpack.so)
+Compiling unpack.cpp (for libunpack.so)
+Compiling utils.cpp (for libunpack.so)
+Compiling zip.cpp (for libunpack.so)
+Linking libunpack.so
+Copying jdk/lib/libunpack.so
+Creating symlink jdk/lib/libunpack.debuginfo
+Creating support/modules_cmds/jdk.pack/pack200 from 1 file(s)
+Compiling main.c (for pack200)
+Linking pack200
+Creating support/modules_cmds/jdk.pack/unpack200 from 7 file(s)
+Compiling bands.cpp (for unpack200)
+Compiling bytes.cpp (for unpack200)
+Compiling coding.cpp (for unpack200)
+Compiling main.cpp (for unpack200)
+Compiling unpack.cpp (for unpack200)
+Compiling utils.cpp (for unpack200)
+Compiling zip.cpp (for unpack200)
+Linking unpack200
+Copying jdk/bin/pack200
+Copying jdk/bin/pack200.debuginfo
+Copying jdk/bin/unpack200
+Copying jdk/bin/unpack200.debuginfo
+Creating support/modules_cmds/jdk.rmic/rmic from 1 file(s)
+Compiling main.c (for rmic)
+Linking rmic
+Copying jdk/bin/rmic
+Copying jdk/bin/rmic.debuginfo
+Creating support/modules_cmds/jdk.scripting.nashorn.shell/jjs from 1 file(s)
+Compiling main.c (for jjs)
+Linking jjs
+Copying jdk/bin/jjs
+Copying jdk/bin/jjs.debuginfo
+Creating support/modules_libs/jdk.sctp/libsctp.so from 3 file(s)
+Compiling SctpChannelImpl.c (for libsctp.so)
+Compiling SctpNet.c (for libsctp.so)
+Compiling SctpServerChannelImpl.c (for libsctp.so)
+Linking libsctp.so
+Copying jdk/lib/libsctp.so
+Creating symlink jdk/lib/libsctp.debuginfo
+Creating support/modules_libs/jdk.security.auth/libjaas.so from 1 file(s)
+Compiling Unix.c (for libjaas.so)
+Linking libjaas.so
+Copying jdk/lib/libjaas.so
+Creating symlink jdk/lib/libjaas.debuginfo
+Compiling 4 files for BUILD_JIGSAW_TOOLS
+Optimizing the exploded image
+Creating support/interim-jmods/java.base.jmod
+Creating support/interim-jmods/java.logging.jmod
+Creating interim jimage
+Creating support/classlist.jar
+Generating support/link_opt/classlist
+Generating support/link_opt/default_jli_trace.txt
+Copying support/modules_libs/java.base/classlist
+Copying jdk/modules/jdk.jlink/jdk/tools/jlink/internal/plugins/default_jli_trace.txt
+Compiling 31 files for BUILD_JRTFS
+Copying support/jrtfs_classes/META-INF/services/java.nio.file.spi.FileSystemProvider
+Processing java-main-manifest.mf
+Creating support/modules_libs/java.base/jrt-fs.jar
+Creating images/jmods/java.compiler.jmod
+Creating images/jmods/java.datatransfer.jmod
+Creating images/jmods/java.desktop.jmod
+Creating images/jmods/java.instrument.jmod
+Creating images/jmods/java.logging.jmod
+Creating images/jmods/java.management.jmod
+Creating images/jmods/java.management.rmi.jmod
+Creating images/jmods/java.naming.jmod
+Creating images/jmods/java.net.http.jmod
+Creating images/jmods/java.prefs.jmod
+Creating images/jmods/java.rmi.jmod
+Creating images/jmods/java.scripting.jmod
+Creating images/jmods/java.se.jmod
+Creating images/jmods/java.security.jgss.jmod
+Creating images/jmods/java.security.sasl.jmod
+Creating images/jmods/java.smartcardio.jmod
+Creating images/jmods/java.sql.jmod
+Creating images/jmods/java.sql.rowset.jmod
+Creating images/jmods/java.transaction.xa.jmod
+Creating images/jmods/java.xml.jmod
+Creating images/jmods/java.xml.crypto.jmod
+Creating images/jmods/jdk.accessibility.jmod
+Creating images/jmods/jdk.attach.jmod
+Creating images/jmods/jdk.charsets.jmod
+Creating images/jmods/jdk.compiler.jmod
+Creating images/jmods/jdk.crypto.cryptoki.jmod
+Creating images/jmods/jdk.crypto.ec.jmod
+Creating images/jmods/jdk.dynalink.jmod
+Creating images/jmods/jdk.editpad.jmod
+Creating images/jmods/jdk.hotspot.agent.jmod
+Creating images/jmods/jdk.httpserver.jmod
+Creating images/jmods/jdk.internal.ed.jmod
+Creating images/jmods/jdk.internal.jvmstat.jmod
+Creating images/jmods/jdk.internal.le.jmod
+Creating images/jmods/jdk.internal.opt.jmod
+Creating images/jmods/jdk.jartool.jmod
+Creating images/jmods/jdk.javadoc.jmod
+Creating images/jmods/jdk.jcmd.jmod
+Creating images/jmods/jdk.jconsole.jmod
+Creating images/jmods/jdk.jdeps.jmod
+Creating images/jmods/jdk.jdi.jmod
+Creating images/jmods/jdk.jdwp.agent.jmod
+Creating images/jmods/jdk.jfr.jmod
+Creating images/jmods/jdk.jlink.jmod
+Creating images/jmods/jdk.jshell.jmod
+Creating images/jmods/jdk.jsobject.jmod
+Creating images/jmods/jdk.jstatd.jmod
+Creating images/jmods/jdk.localedata.jmod
+Creating images/jmods/jdk.management.jmod
+Creating images/jmods/jdk.management.agent.jmod
+Creating images/jmods/jdk.management.jfr.jmod
+Creating images/jmods/jdk.naming.dns.jmod
+Creating images/jmods/jdk.naming.rmi.jmod
+Creating images/jmods/jdk.net.jmod
+Creating images/jmods/jdk.pack.jmod
+Creating images/jmods/jdk.rmic.jmod
+Creating images/jmods/jdk.scripting.nashorn.jmod
+Creating images/jmods/jdk.scripting.nashorn.shell.jmod
+Creating images/jmods/jdk.sctp.jmod
+Creating images/jmods/jdk.security.auth.jmod
+Creating images/jmods/jdk.security.jgss.jmod
+Creating images/jmods/jdk.unsupported.jmod
+Creating images/jmods/jdk.unsupported.desktop.jmod
+Creating images/jmods/jdk.xml.dom.jmod
+Creating images/jmods/jdk.zipfs.jmod
+Creating images/jmods/java.base.jmod
+Updating support/src.zip
+Compiling 3 files for BUILD_DEMO_CodePointIM
+Processing java-main-manifest.mf
+Creating support/demos/image/jfc/CodePointIM/CodePointIM.jar
+Updating support/demos/image/jfc/CodePointIM/src.zip
+Copying support/demos/image/jfc/CodePointIM/README.html
+Copying support/demos/image/jfc/CodePointIM/README_ja.html
+Copying support/demos/image/jfc/CodePointIM/README_zh_CN.html
+Compiling 3 files for BUILD_DEMO_FileChooserDemo
+Note: /home/server/jdk/src/demo/share/jfc/FileChooserDemo/FileChooserDemo.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: /home/server/jdk/src/demo/share/jfc/FileChooserDemo/FileChooserDemo.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Creating support/demos/image/jfc/FileChooserDemo/FileChooserDemo.jar
+Updating support/demos/image/jfc/FileChooserDemo/src.zip
+Copying support/demos/image/jfc/FileChooserDemo/README.txt
+Compiling 30 files for BUILD_DEMO_SwingSet2
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Creating support/demos/image/jfc/SwingSet2/SwingSet2.jar
+Updating support/demos/image/jfc/SwingSet2/src.zip
+Copying support/demos/image/jfc/SwingSet2/README.txt
+Copying support/demos/image/jfc/SwingSet2/SwingSet2.html
+Compiling 4 files for BUILD_DEMO_Font2DTest
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Creating support/demos/image/jfc/Font2DTest/Font2DTest.jar
+Updating support/demos/image/jfc/Font2DTest/src.zip
+Copying support/demos/image/jfc/Font2DTest/Font2DTest.html
+Copying support/demos/image/jfc/Font2DTest/README.txt
+Compiling 64 files for BUILD_DEMO_J2Ddemo
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Creating support/demos/image/jfc/J2Ddemo/J2Ddemo.jar
+Updating support/demos/image/jfc/J2Ddemo/src.zip
+Copying support/demos/image/jfc/J2Ddemo/README.txt
+Compiling 15 files for BUILD_DEMO_Metalworks
+Note: /home/server/jdk/src/demo/share/jfc/Metalworks/MetalworksPrefs.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Creating support/demos/image/jfc/Metalworks/Metalworks.jar
+Updating support/demos/image/jfc/Metalworks/src.zip
+Copying support/demos/image/jfc/Metalworks/README.txt
+Compiling 2 files for BUILD_DEMO_Notepad
+Creating support/demos/image/jfc/Notepad/Notepad.jar
+Updating support/demos/image/jfc/Notepad/src.zip
+Copying support/demos/image/jfc/Notepad/README.txt
+Compiling 5 files for BUILD_DEMO_Stylepad
+Note: /home/server/jdk/src/demo/share/jfc/Stylepad/Stylepad.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Creating support/demos/image/jfc/Stylepad/Stylepad.jar
+Updating support/demos/image/jfc/Stylepad/src.zip
+Copying support/demos/image/jfc/Stylepad/README.txt
+Compiling 5 files for BUILD_DEMO_SampleTree
+Creating support/demos/image/jfc/SampleTree/SampleTree.jar
+Updating support/demos/image/jfc/SampleTree/src.zip
+Copying support/demos/image/jfc/SampleTree/README.txt
+Compiling 8 files for BUILD_DEMO_TableExample
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: /home/server/jdk/src/demo/share/jfc/TableExample/TableExample4.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Creating support/demos/image/jfc/TableExample/TableExample.jar
+Updating support/demos/image/jfc/TableExample/src.zip
+Copying support/demos/image/jfc/TableExample/README.txt
+Compiling 1 files for BUILD_DEMO_TransparentRuler
+Creating support/demos/image/jfc/TransparentRuler/TransparentRuler.jar
+Updating support/demos/image/jfc/TransparentRuler/src.zip
+Copying support/demos/image/jfc/TransparentRuler/README.txt
+Generating jdk/release
+Creating jdk image
+Copying images/jdk/man/man1/java.1
+Copying images/jdk/man/man1/jjs.1
+Copying images/jdk/man/man1/keytool.1
+Copying images/jdk/man/man1/pack200.1
+Copying images/jdk/man/man1/rmid.1
+Copying images/jdk/man/man1/rmiregistry.1
+Copying images/jdk/man/man1/unpack200.1
+Copying images/jdk/man/man1/jar.1
+Copying images/jdk/man/man1/jarsigner.1
+Copying images/jdk/man/man1/javac.1
+Copying images/jdk/man/man1/javadoc.1
+Copying images/jdk/man/man1/javap.1
+Copying images/jdk/man/man1/jconsole.1
+Copying images/jdk/man/man1/jcmd.1
+Copying images/jdk/man/man1/jdb.1
+Copying images/jdk/man/man1/jdeps.1
+Copying images/jdk/man/man1/jinfo.1
+Copying images/jdk/man/man1/jmap.1
+Copying images/jdk/man/man1/jps.1
+Copying images/jdk/man/man1/jrunscript.1
+Copying images/jdk/man/man1/jstack.1
+Copying images/jdk/man/man1/jstat.1
+Copying images/jdk/man/man1/jstatd.1
+Copying images/jdk/man/man1/rmic.1
+Copying images/jdk/man/man1/serialver.1
+Copying images/jdk/man/ja_JP.UTF-8/man1/java.1
+Copying images/jdk/man/ja_JP.UTF-8/man1/jjs.1
+Copying images/jdk/man/ja_JP.UTF-8/man1/keytool.1
+Copying images/jdk/man/ja_JP.UTF-8/man1/pack200.1
+Copying images/jdk/man/ja_JP.UTF-8/man1/rmid.1
+Copying images/jdk/man/ja_JP.UTF-8/man1/rmiregistry.1
+Copying images/jdk/man/ja_JP.UTF-8/man1/unpack200.1
+Copying images/jdk/man/ja_JP.UTF-8/man1/jar.1
+Copying images/jdk/man/ja_JP.UTF-8/man1/jarsigner.1
+Copying images/jdk/man/ja_JP.UTF-8/man1/javac.1
+Copying images/jdk/man/ja_JP.UTF-8/man1/javadoc.1
+Copying images/jdk/man/ja_JP.UTF-8/man1/javap.1
+Copying images/jdk/man/ja_JP.UTF-8/man1/jconsole.1
+Copying images/jdk/man/ja_JP.UTF-8/man1/jcmd.1
+Copying images/jdk/man/ja_JP.UTF-8/man1/jdb.1
+Copying images/jdk/man/ja_JP.UTF-8/man1/jdeps.1
+Copying images/jdk/man/ja_JP.UTF-8/man1/jinfo.1
+Copying images/jdk/man/ja_JP.UTF-8/man1/jmap.1
+Copying images/jdk/man/ja_JP.UTF-8/man1/jps.1
+Copying images/jdk/man/ja_JP.UTF-8/man1/jrunscript.1
+Copying images/jdk/man/ja_JP.UTF-8/man1/jstack.1
+Copying images/jdk/man/ja_JP.UTF-8/man1/jstat.1
+Copying images/jdk/man/ja_JP.UTF-8/man1/jstatd.1
+Copying images/jdk/man/ja_JP.UTF-8/man1/rmic.1
+Copying images/jdk/man/ja_JP.UTF-8/man1/serialver.1
+Creating images/jdk/man/ja
+Copying images/jdk/lib/src.zip
+Copying images/jdk/demo/jfc/FileChooserDemo/README.txt
+Copying images/jdk/demo/jfc/FileChooserDemo/src.zip
+Copying images/jdk/demo/jfc/FileChooserDemo/FileChooserDemo.jar
+Copying images/jdk/demo/jfc/Stylepad/README.txt
+Copying images/jdk/demo/jfc/Stylepad/src.zip
+Copying images/jdk/demo/jfc/Stylepad/Stylepad.jar
+Copying images/jdk/demo/jfc/Notepad/README.txt
+Copying images/jdk/demo/jfc/Notepad/src.zip
+Copying images/jdk/demo/jfc/Notepad/Notepad.jar
+Copying images/jdk/demo/jfc/TransparentRuler/README.txt
+Copying images/jdk/demo/jfc/TransparentRuler/src.zip
+Copying images/jdk/demo/jfc/TransparentRuler/TransparentRuler.jar
+Copying images/jdk/demo/jfc/SampleTree/README.txt
+Copying images/jdk/demo/jfc/SampleTree/src.zip
+Copying images/jdk/demo/jfc/SampleTree/SampleTree.jar
+Copying images/jdk/demo/jfc/Font2DTest/README.txt
+Copying images/jdk/demo/jfc/Font2DTest/Font2DTest.html
+Copying images/jdk/demo/jfc/Font2DTest/src.zip
+Copying images/jdk/demo/jfc/Font2DTest/Font2DTest.jar
+Copying images/jdk/demo/jfc/Metalworks/README.txt
+Copying images/jdk/demo/jfc/Metalworks/Metalworks.jar
+Copying images/jdk/demo/jfc/Metalworks/src.zip
+Copying images/jdk/demo/jfc/CodePointIM/README_zh_CN.html
+Copying images/jdk/demo/jfc/CodePointIM/README.html
+Copying images/jdk/demo/jfc/CodePointIM/src.zip
+Copying images/jdk/demo/jfc/CodePointIM/README_ja.html
+Copying images/jdk/demo/jfc/CodePointIM/CodePointIM.jar
+Copying images/jdk/demo/jfc/TableExample/README.txt
+Copying images/jdk/demo/jfc/TableExample/src.zip
+Copying images/jdk/demo/jfc/TableExample/TableExample.jar
+Copying images/jdk/demo/jfc/J2Ddemo/README.txt
+Copying images/jdk/demo/jfc/J2Ddemo/src.zip
+Copying images/jdk/demo/jfc/J2Ddemo/J2Ddemo.jar
+Copying images/jdk/demo/jfc/SwingSet2/README.txt
+Copying images/jdk/demo/jfc/SwingSet2/SwingSet2.jar
+Copying images/jdk/demo/jfc/SwingSet2/src.zip
+Copying images/jdk/demo/jfc/SwingSet2/SwingSet2.html
+Copying images/jdk/demo/nbproject/jfc/FileChooserDemo/nbproject/jdk.xml
+Copying images/jdk/demo/nbproject/jfc/FileChooserDemo/nbproject/project.xml
+Copying images/jdk/demo/nbproject/jfc/FileChooserDemo/nbproject/file-targets.xml
+Copying images/jdk/demo/nbproject/jfc/FileChooserDemo/nbproject/netbeans-targets.xml
+Copying images/jdk/demo/nbproject/jfc/FileChooserDemo/build.xml
+Copying images/jdk/demo/nbproject/jfc/FileChooserDemo/build.properties
+Copying images/jdk/demo/nbproject/jfc/Notepad/nbproject/jdk.xml
+Copying images/jdk/demo/nbproject/jfc/Notepad/nbproject/project.xml
+Copying images/jdk/demo/nbproject/jfc/Notepad/nbproject/file-targets.xml
+Copying images/jdk/demo/nbproject/jfc/Notepad/nbproject/netbeans-targets.xml
+Copying images/jdk/demo/nbproject/jfc/Notepad/build.xml
+Copying images/jdk/demo/nbproject/jfc/Notepad/build.properties
+Copying images/jdk/demo/nbproject/jfc/TransparentRuler/nbproject/jdk.xml
+Copying images/jdk/demo/nbproject/jfc/TransparentRuler/nbproject/project.xml
+Copying images/jdk/demo/nbproject/jfc/TransparentRuler/nbproject/file-targets.xml
+Copying images/jdk/demo/nbproject/jfc/TransparentRuler/nbproject/netbeans-targets.xml
+Copying images/jdk/demo/nbproject/jfc/TransparentRuler/build.xml
+Copying images/jdk/demo/nbproject/jfc/TransparentRuler/build.properties
+Copying images/jdk/demo/nbproject/jfc/SampleTree/nbproject/jdk.xml
+Copying images/jdk/demo/nbproject/jfc/SampleTree/nbproject/project.xml
+Copying images/jdk/demo/nbproject/jfc/SampleTree/nbproject/file-targets.xml
+Copying images/jdk/demo/nbproject/jfc/SampleTree/nbproject/netbeans-targets.xml
+Copying images/jdk/demo/nbproject/jfc/SampleTree/build.xml
+Copying images/jdk/demo/nbproject/jfc/SampleTree/build.properties
+Copying images/jdk/demo/nbproject/jfc/Font2DTest/nbproject/jdk.xml
+Copying images/jdk/demo/nbproject/jfc/Font2DTest/nbproject/project.xml
+Copying images/jdk/demo/nbproject/jfc/Font2DTest/nbproject/file-targets.xml
+Copying images/jdk/demo/nbproject/jfc/Font2DTest/nbproject/netbeans-targets.xml
+Copying images/jdk/demo/nbproject/jfc/Font2DTest/build.xml
+Copying images/jdk/demo/nbproject/jfc/Font2DTest/build.properties
+Copying images/jdk/demo/nbproject/jfc/Metalworks/nbproject/jdk.xml
+Copying images/jdk/demo/nbproject/jfc/Metalworks/nbproject/project.xml
+Copying images/jdk/demo/nbproject/jfc/Metalworks/nbproject/file-targets.xml
+Copying images/jdk/demo/nbproject/jfc/Metalworks/nbproject/netbeans-targets.xml
+Copying images/jdk/demo/nbproject/jfc/Metalworks/build.xml
+Copying images/jdk/demo/nbproject/jfc/Metalworks/build.properties
+Copying images/jdk/demo/nbproject/jfc/SwingApplet/nbproject/jdk.xml
+Copying images/jdk/demo/nbproject/jfc/SwingApplet/nbproject/project.xml
+Copying images/jdk/demo/nbproject/jfc/SwingApplet/nbproject/file-targets.xml
+Copying images/jdk/demo/nbproject/jfc/SwingApplet/nbproject/netbeans-targets.xml
+Copying images/jdk/demo/nbproject/jfc/SwingApplet/build.xml
+Copying images/jdk/demo/nbproject/jfc/SwingApplet/build.properties
+Copying images/jdk/demo/nbproject/jfc/TableExample/nbproject/jdk.xml
+Copying images/jdk/demo/nbproject/jfc/TableExample/nbproject/project.xml
+Copying images/jdk/demo/nbproject/jfc/TableExample/nbproject/file-targets.xml
+Copying images/jdk/demo/nbproject/jfc/TableExample/nbproject/netbeans-targets.xml
+Copying images/jdk/demo/nbproject/jfc/TableExample/build.xml
+Copying images/jdk/demo/nbproject/jfc/TableExample/build.properties
+Copying images/jdk/demo/nbproject/README.txt
+Copying images/jdk/demo/nbproject/management/JTop/nbproject/jdk.xml
+Copying images/jdk/demo/nbproject/management/JTop/nbproject/project.xml
+Copying images/jdk/demo/nbproject/management/JTop/nbproject/file-targets.xml
+Copying images/jdk/demo/nbproject/management/JTop/nbproject/netbeans-targets.xml
+Copying images/jdk/demo/nbproject/management/JTop/build.xml
+Copying images/jdk/demo/nbproject/management/JTop/build.properties
+Copying images/jdk/demo/nbproject/management/VerboseGC/nbproject/jdk.xml
+Copying images/jdk/demo/nbproject/management/VerboseGC/nbproject/project.xml
+Copying images/jdk/demo/nbproject/management/VerboseGC/nbproject/file-targets.xml
+Copying images/jdk/demo/nbproject/management/VerboseGC/nbproject/netbeans-targets.xml
+Copying images/jdk/demo/nbproject/management/VerboseGC/build.xml
+Copying images/jdk/demo/nbproject/management/VerboseGC/build.properties
+Copying images/jdk/demo/nbproject/management/MemoryMonitor/nbproject/jdk.xml
+Copying images/jdk/demo/nbproject/management/MemoryMonitor/nbproject/project.xml
+Copying images/jdk/demo/nbproject/management/MemoryMonitor/nbproject/file-targets.xml
+Copying images/jdk/demo/nbproject/management/MemoryMonitor/nbproject/netbeans-targets.xml
+Copying images/jdk/demo/nbproject/management/MemoryMonitor/build.xml
+Copying images/jdk/demo/nbproject/management/MemoryMonitor/build.properties
+Copying images/jdk/demo/nbproject/management/FullThreadDump/nbproject/jdk.xml
+Copying images/jdk/demo/nbproject/management/FullThreadDump/nbproject/project.xml
+Copying images/jdk/demo/nbproject/management/FullThreadDump/nbproject/file-targets.xml
+Copying images/jdk/demo/nbproject/management/FullThreadDump/nbproject/netbeans-targets.xml
+Copying images/jdk/demo/nbproject/management/FullThreadDump/build.xml
+Copying images/jdk/demo/nbproject/management/FullThreadDump/build.properties
+Copying images/jdk/demo/nbproject/project.xml
+Copying images/jdk/demo/nbproject/scripting/jconsole-plugin/nbproject/jdk.xml
+Copying images/jdk/demo/nbproject/scripting/jconsole-plugin/nbproject/project.xml
+Copying images/jdk/demo/nbproject/scripting/jconsole-plugin/nbproject/file-targets.xml
+Copying images/jdk/demo/nbproject/scripting/jconsole-plugin/nbproject/netbeans-targets.xml
+Copying images/jdk/demo/nbproject/scripting/jconsole-plugin/build.xml
+Copying images/jdk/demo/nbproject/scripting/jconsole-plugin/build.properties
+Copying images/jdk/demo/README
+Copying images/jdk/lib/libverify.debuginfo
+Copying images/jdk/lib/libnet.debuginfo
+Copying images/jdk/lib/libjava.debuginfo
+Copying images/jdk/lib/libzip.debuginfo
+Copying images/jdk/lib/libjsig.debuginfo
+Copying images/jdk/lib/libnio.debuginfo
+Copying images/jdk/lib/jexec.debuginfo
+Copying images/jdk/lib/libjimage.debuginfo
+Copying images/jdk/lib/jli/libjli.debuginfo
+Copying images/jdk/lib/server/libjvm.debuginfo
+Copying images/jdk/lib/libawt.debuginfo
+Copying images/jdk/lib/libsplashscreen.debuginfo
+Copying images/jdk/lib/libawt_xawt.debuginfo
+Copying images/jdk/lib/libjsound.debuginfo
+Copying images/jdk/lib/libjavajpeg.debuginfo
+Copying images/jdk/lib/libmlib_image.debuginfo
+Copying images/jdk/lib/libawt_headless.debuginfo
+Copying images/jdk/lib/liblcms.debuginfo
+Copying images/jdk/lib/libjawt.debuginfo
+Copying images/jdk/lib/libfontmanager.debuginfo
+Copying images/jdk/lib/libinstrument.debuginfo
+Copying images/jdk/lib/libmanagement.debuginfo
+Copying images/jdk/lib/libprefs.debuginfo
+Copying images/jdk/lib/librmi.debuginfo
+Copying images/jdk/lib/libj2gss.debuginfo
+Copying images/jdk/lib/libj2pcsc.debuginfo
+Copying images/jdk/lib/libattach.debuginfo
+Copying images/jdk/lib/libj2pkcs11.debuginfo
+Copying images/jdk/lib/libsunec.debuginfo
+Copying images/jdk/lib/libsaproc.debuginfo
+Copying images/jdk/lib/libjdwp.debuginfo
+Copying images/jdk/lib/libdt_socket.debuginfo
+Copying images/jdk/lib/libmanagement_ext.debuginfo
+Copying images/jdk/lib/libmanagement_agent.debuginfo
+Copying images/jdk/lib/libextnet.debuginfo
+Copying images/jdk/lib/libunpack.debuginfo
+Copying images/jdk/lib/libsctp.debuginfo
+Copying images/jdk/lib/libjaas.debuginfo
+Updating images/sec-bin.zip
+Stopping sjavac server
+----- Build times -------
+Start 2018-09-11 15:36:40
+End   2018-09-11 19:28:43
+
+03:52:03 TOTAL
+-------------------------
+Finished building target 'images' in configuration 'linux-arm-normal-server-release'
