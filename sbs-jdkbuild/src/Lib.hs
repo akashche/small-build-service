@@ -159,7 +159,9 @@ run (JDKBuildInput ctx cf) = do
     qrs <- loadQueries (qdir <> "queries-jdkbuild.sql")
     rid <- dbWithSyncTransaction db (
         createDbEntry db qrs tid)
-    when (enabled cf) (createDirectory (unpack bd))
+    when (enabled cf) ( do
+        createDirectory (unpack wd)
+        createDirectory (unpack bd))
     repo <- readRepoUrl cf appd wd
     rev <- readRepoRevision cf appd wd
     cflog <- spawnConfigureAndWait cf appd wd bd
