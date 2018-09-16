@@ -3,7 +3,7 @@
         "appDir": "/home/server/",
 
         "database": {
-            "dbFilePath": "work/sbs.db",
+            "dbFilePath": "sbs.db",
             "queriesDir": "sbs/resources/",
             "reCreateDb": false
         },
@@ -33,6 +33,7 @@
     "tier1": {
         "enabled": true,
         "workDir": "work/tier1/",
+        "buildDir": "work/jdkbuild/build/",
         "mockOutput": "UNSPECIFIED",
         "makePath": "/usr/bin/make",
         "target": "run-test-tier1"

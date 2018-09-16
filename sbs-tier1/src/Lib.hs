@@ -57,13 +57,12 @@ finalizeDbEntry db qrs rid = do
 spawnMakeAndWait :: Tier1Config -> Text -> IO ()
 spawnMakeAndWait cf appd = do
     let wd = prependIfRelative appd (workDir (cf :: Tier1Config))
-    let bd = wd <> "build"
     let log = wd <> "tier1.log"
     if enabled cf
     then do
         createDirectory (unpack wd)
         code <- spawnProcess SpawnedProcessArgs
-            { workDir = bd
+            { workDir = prependIfRelative appd (buildDir cf)
             , executable = prependIfRelative appd (makePath cf)
             , execArgs = fromList [target cf]
             , outputFile = log
