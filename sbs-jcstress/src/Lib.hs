@@ -56,8 +56,8 @@ createDbEntry db qrs tid = do
         ])
     return idx
 
-spawnJCStressAndWait :: JCStressConfig -> Text -> IO Text
-spawnJCStressAndWait cf jdk = do
+spawnJCStressAndWait :: JCStressConfig -> Text -> Text -> IO Text
+spawnJCStressAndWait cf appd jdk = do
     if (enabled cf)
     then do
         createDirectory (unpack wd)
@@ -74,10 +74,11 @@ spawnJCStressAndWait cf jdk = do
             }
         checkSpawnSuccess "jcstresss" code log
     else
-        copyFile (unpack (mockOutput cf)) (unpack log)
+        copyFile (unpack mockLog) (unpack log)
     return log
     where
-        wd = workDir (cf :: JCStressConfig)
+        wd = prependIfRelative appd (workDir (cf :: JCStressConfig))
+        mockLog = prependIfRelative appd (mockOutput cf)
         log = wd <> "jcstress.log"
         exec = jdk <> "/bin/java"
 
@@ -103,12 +104,14 @@ run :: JCStressInput -> IO ()
 run (JCStressInput ctx jdkDir cf) = do
     let tid = taskId ctx
     let db = dbConnection ctx
-    qrs <- loadQueries ((queriesDir ctx) <> "queries-jcstress.sql")
+    let appd = appDir ctx
+    let qdir = prependIfRelative appd (queriesDir ctx)
+    qrs <- loadQueries (qdir <> "queries-jcstress.sql")
     rid <- dbWithSyncTransaction db (
         createDbEntry db qrs tid)
-    log <- spawnJCStressAndWait cf jdkDir
+    log <- spawnJCStressAndWait cf appd jdkDir
     res <- parseOutput log
-    bl <- parseOutput (baselineOutput cf)
+    bl <- parseOutput (prependIfRelative appd (baselineOutput cf))
     let diff = diffResults bl res
     dbWithSyncTransaction db ( do
         finalizeDbEntry db qrs rid res diff )

@@ -153,7 +153,8 @@ start arguments = do
     -- openDB connection
     db <- openDb cf
     let sbsc = sbs cf
-    let qdir = queriesDir ((database sbsc) :: DBConfig)
+    let appd = appDir (sbsc :: SBSConfig)
+    let qdir = prependIfRelative appd (queriesDir ((database sbsc) :: DBConfig))
     qrs <- loadQueries (qdir <> "queries-main.sql")
     -- create task
     tid <- createTask db qrs

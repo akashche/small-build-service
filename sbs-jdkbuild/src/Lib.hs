@@ -114,7 +114,7 @@ spawnConfigureAndWait cf appd wd bd = do
             }
         checkSpawnSuccess "jdkbuild_conf" code log
     else do
-        let mockLog = (mockOutputDir cf) <> "conf.log"
+        let mockLog = prependIfRelative appd ((mockOutputDir cf) <> "conf.log")
         copyFile (unpack mockLog) (unpack log)
     return log
     where
@@ -144,7 +144,7 @@ spawnMakeAndWait cf appd wd bd = do
             }
         checkSpawnSuccess "jdkbuild_make" code log
     else do
-        let mockLog = (mockOutputDir cf) <> "make.log"
+        let mockLog = prependIfRelative appd ((mockOutputDir cf) <> "make.log")
         copyFile (unpack mockLog) (unpack log)
     return log
 
@@ -155,7 +155,8 @@ run (JDKBuildInput ctx cf) = do
     let appd = appDir ctx
     let wd = prependIfRelative appd (workDir (cf :: JDKBuildConfig))
     let bd = wd <> "build"
-    qrs <- loadQueries ((queriesDir ctx) <> "queries-jdkbuild.sql")
+    let qdir = prependIfRelative appd (queriesDir ctx)
+    qrs <- loadQueries (qdir <> "queries-jdkbuild.sql")
     rid <- dbWithSyncTransaction db (
         createDbEntry db qrs tid)
     when (enabled cf) (createDirectory (unpack bd))

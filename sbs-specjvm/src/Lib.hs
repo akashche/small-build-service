@@ -57,8 +57,8 @@ createDbEntry db qrs tid = do
         ])
     return idx
 
-spawnSpecJVMAndWait :: SpecJVMConfig -> Text -> IO Text
-spawnSpecJVMAndWait cf jdk = do
+spawnSpecJVMAndWait :: SpecJVMConfig -> Text -> Text -> IO Text
+spawnSpecJVMAndWait cf appd jdk = do
     if (enabled cf)
     then do
         createDirectory (unpack wd)
@@ -76,11 +76,12 @@ spawnSpecJVMAndWait cf jdk = do
             }
         checkSpawnSuccess "specjvm" code log
     else
-        copyFile (unpack (mockOutput cf)) (unpack log)
+        copyFile (unpack mockLog) (unpack log)
     return log
     where
-        wd = workDir (cf :: SpecJVMConfig)
+        wd = prependIfRelative appd (workDir (cf :: SpecJVMConfig))
         log = wd <> "specjvm.log"
+        mockLog = prependIfRelative appd (mockOutput cf)
         exec = jdk <> "/bin/java"
         sepNonEmpty st = if Text.length st > 0 then st <> "|" else st
         folder ac el = (sepNonEmpty ac) <> (Text.replace "." "\\." el)
@@ -134,20 +135,22 @@ copyNcNote :: SpecJVMConfig -> Text -> IO ()
 copyNcNote cf appd = copyFile (unpack from) (unpack to)
     where
         from = prependIfRelative appd (ncNotePath cf)
-        wd = workDir (cf :: SpecJVMConfig)
+        wd = prependIfRelative appd (workDir (cf :: SpecJVMConfig))
         to = wd <> "nc_note.txt"
 
 run :: SpecJVMInput -> IO ()
 run (SpecJVMInput ctx jdkDir cf) = do
     let tid = taskId ctx
     let db = dbConnection ctx
-    qrs <- loadQueries ((queriesDir ctx) <> "queries-specjvm.sql")
+    let appd = appDir ctx
+    let qdir = prependIfRelative appd (queriesDir ctx)
+    qrs <- loadQueries (qdir <> "queries-specjvm.sql")
     rid <- dbWithSyncTransaction db (
         createDbEntry db qrs tid)
-    log <- spawnSpecJVMAndWait cf jdkDir
+    log <- spawnSpecJVMAndWait cf appd jdkDir
     res <- parseOutput log
     copyNcNote cf (appDir ctx)
-    bl <- parseOutput (baselineOutput cf)
+    bl <- parseOutput (prependIfRelative appd (baselineOutput cf))
     let diff = diffResults bl res
     dbWithSyncTransaction db ( do
         saveResults db qrs rid res

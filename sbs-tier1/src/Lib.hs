@@ -71,7 +71,7 @@ spawnMakeAndWait cf appd = do
             }
         checkSpawnSuccess "tier1" code log
     else do
-        let mockLog = mockOutput cf
+        let mockLog = prependIfRelative appd (mockOutput cf)
         copyFile (unpack mockLog) (unpack log)
     return ()
 
@@ -80,7 +80,8 @@ run (Tier1Input ctx cf) = do
     let tid = taskId ctx
     let db = dbConnection ctx
     let appd = appDir ctx
-    qrs <- loadQueries ((queriesDir ctx) <> "queries-tier1.sql")
+    let qdir = prependIfRelative appd (queriesDir ctx)
+    qrs <- loadQueries (qdir <> "queries-tier1.sql")
     rid <- dbWithSyncTransaction db (
         createDbEntry db qrs tid )
     spawnMakeAndWait cf appd
