@@ -20,9 +20,11 @@
 {-# LANGUAGE Strict #-}
 
 import Prelude ()
+import qualified Data.HashMap.Strict as HashMap
 
 import SBS.Common.Prelude
 import SBS.Common.Data
+import SBS.Common.Queries
 import SBS.Common.Utils
 
 main :: IO ()
@@ -45,6 +47,10 @@ main = do
     unless("/bar" == prependIfRelative "foo" "/bar") (errorText "prepend fail")
     unless("c:\\bar" == prependIfRelative "foo" "c:\\bar") (errorText "prepend fail")
     unless("c:/bar" == prependIfRelative "foo" "c:/bar") (errorText "prepend fail")
+
+    -- queries
+    qrs <- loadQueries "../resources/queries-main.sql"
+    unless(4 == HashMap.size qrs) (errorText "Queries fail")
 
     putStrLn "Tests Passed."
     return ()

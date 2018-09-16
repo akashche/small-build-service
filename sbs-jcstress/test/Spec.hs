@@ -25,7 +25,7 @@ import SBS.Common.Prelude
 import SBS.Common.Utils
 
 import Data
-import Lib
+import Diff
 import Parser
 
 parseLog :: Text -> IO JCStressResults
