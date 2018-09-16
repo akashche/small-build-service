@@ -105,7 +105,6 @@ spawnConfigureAndWait :: JDKBuildConfig -> Text -> Text -> Text -> IO Text
 spawnConfigureAndWait cf appd wd bd = do
     if enabled cf
     then do
-        createDirectory (unpack bd)
         code <- spawnProcess SpawnedProcessArgs
             { workDir = bd
             , executable = prependIfRelative appd (bashPath cf)
@@ -159,6 +158,7 @@ run (JDKBuildInput ctx cf) = do
     qrs <- loadQueries ((queriesDir ctx) <> "queries-jdkbuild.sql")
     rid <- dbWithSyncTransaction db (
         createDbEntry db qrs tid)
+    when (enabled cf) (createDirectory (unpack bd))
     repo <- readRepoUrl cf appd wd
     rev <- readRepoRevision cf appd wd
     cflog <- spawnConfigureAndWait cf appd wd bd
