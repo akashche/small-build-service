@@ -13,25 +13,24 @@
 -- See the License for the specific language governing permissions and
 -- limitations under the License.
 
-{-# LANGUAGE DeriveGeneric #-}
-{-# LANGUAGE DuplicateRecordFields #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE ScopedTypeVariables #-}
-{-# LANGUAGE Strict #-}
+-- jdkbuild_runs
 
-module Data
-    ( ConfigureDetails(..)
-    , MakeDetails(..)
-    ) where
+/** updateRunsId */
+update jdkbuild_runs_seq
+set value = value + 1
 
-import Prelude ()
+/** selectRunsId */
+select value as id
+from jdkbuild_runs_seq
 
-import SBS.Common.Prelude
+/** insertRun */
+insert into jdkbuild_runs (id, start_date, state, task_id)
+values (:id, :startDate, :state, :taskId)
 
-data ConfigureDetails = ConfigureDetails
-    { confDirectory :: Text
-    } deriving (Show)
-
-data MakeDetails = MakeDetails
-    { imageDirRelative :: Text
-    } deriving (Show)
+/** updateRunFinish */
+update jdkbuild_runs
+set   state = :state
+    , finish_date = :finishDate
+    , repository = :repository
+    , revision = :revision
+where id = :id

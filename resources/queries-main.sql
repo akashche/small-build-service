@@ -24,13 +24,8 @@ select value as id
 from tasks_seq
 
 /** tasksInsert */
-insert into tasks (id, start_date, state, repository, revision, comment)
-values (:id, :startDate, :state, :repository, :revision, :comment)
-
-/** tasksUpdateState */
-update tasks
-set state = :state
-where id = :id
+insert into tasks (id, start_date, state, comment)
+values (:id, :startDate, :state, :comment)
 
 /** tasksUpdateFinish */
 update tasks

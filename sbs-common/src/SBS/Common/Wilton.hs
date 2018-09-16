@@ -33,6 +33,7 @@ module SBS.Common.Wilton
     -- process
     , SpawnedProcessArgs(..)
     , spawnProcess
+    , checkSpawnSuccess
     ) where
 
 import Prelude ()
@@ -186,6 +187,7 @@ data SpawnedProcessArgs = SpawnedProcessArgs
     } deriving (Show)
 
 -- process
+
 spawnProcess :: SpawnedProcessArgs -> IO Int
 spawnProcess (SpawnedProcessArgs wd exec args outFile await) = do
     cwd <- getCurrentDirectory
@@ -199,3 +201,14 @@ spawnProcess (SpawnedProcessArgs wd exec args outFile await) = do
     -- restored on process fail, but not on spawn fail
     setCurrentDirectory cwd
     return code
+
+checkSpawnSuccess :: Text -> Int -> Text -> IO ()
+checkSpawnSuccess label code logFile =
+    when (0 /= code) (do
+        let logStr = unpack logFile
+        outex <- doesFileExist logStr
+        out <- if outex then readFile logStr else return ""
+        errorText ("Process spawn error,"
+            <> " process: [" <> label <> "],"
+            <> " code: [" <> (showText code) <>"],"
+            <> " output: [" <> (Text.take 1024 (Text.strip out)) <> "]"))

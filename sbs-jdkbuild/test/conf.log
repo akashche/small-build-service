@@ -1,7 +1,7 @@
 Runnable configure script is not present
-Generating runnable configure script at /home/server/jdk/build/.configure-support/generated-configure.sh
+Generating runnable configure script at /home/server/tmp/jdkbuild/build/configure-support/generated-configure.sh
 Using autoconf at /usr/bin/autoconf [autoconf (GNU Autoconf) 2.69]
-configure: Configuration created at Fri Sep 14 21:08:39 UTC 2018.
+configure: Configuration created at Sat Sep 15 12:55:06 UTC 2018.
 checking for basename... /usr/bin/basename
 checking for bash... /bin/bash
 checking for cat... /bin/cat
@@ -71,8 +71,8 @@ checking which variants of the JVM to build... server
 checking for sysroot... 
 checking for toolchain path... 
 checking for extra path... 
-checking where to store configuration... in default location
-checking what configuration name to use... linux-arm-normal-server-release
+checking where to store configuration... in current directory
+checking what configuration name to use... /home/server/tmp/jdkbuild/build
 checking for apt-get... apt-get
 checking for gmake... no
 checking for make... /usr/bin/make
@@ -102,7 +102,7 @@ checking if bash supports pipefail... yes
 checking if bash supports errexit (-e)... yes
 checking for pkg-config... /usr/bin/pkg-config
 checking pkg-config is at least version 0.9.0... yes
-checking for default LOG value... 
+checking for default LOG value... info
 checking headless only... no
 checking for graphviz dot... no, cannot generate full docs
 checking for pandoc... no, cannot generate full docs
@@ -155,8 +155,7 @@ checking for objdump... objdump
 configure: Rewriting OBJDUMP to "/usr/bin/objdump"
 checking for c++filt... c++filt
 configure: Rewriting CXXFILT to "/usr/bin/c++filt"
-checking for jtreg... no
-checking for jtreg test harness... no, not found
+checking for jtreg test harness... /home/server/apps/jtreg
 checking for jib... no
 checking if @file is supported by gcc... yes
 checking if the C compiler supports "-m32"... no
@@ -230,14 +229,14 @@ checking if graal module jdk.internal.vm.compiler should be built... no
 checking if aot should be enabled... no
 checking if cds should be enabled... yes
 checking if elliptic curve crypto implementation is present... yes
-checking if jtreg failure handler should be built... no, missing jtreg
+checking if jtreg failure handler should be built... yes, jtreg present
 checking if the CDS classlist generation should be enabled... yes
 checking if any translations should be excluded... no
 checking if man pages should be built... yes
 checking for number of cores... 4
 checking for memory size... 2020 MB
 checking for appropriate number of jobs to run in parallel... 1
-checking flags for boot jdk java command ...  -Duser.language=en -Duser.country=US  -XX:+UnlockDiagnosticVMOptions -XX:-VerifySharedSpaces -XX:SharedArchiveFile=/home/server/jdk/build/linux-arm-normal-server-release/configure-support/classes.jsa -Xshare:auto 
+checking flags for boot jdk java command ...  -Duser.language=en -Duser.country=US  -XX:+UnlockDiagnosticVMOptions -XX:-VerifySharedSpaces -XX:SharedArchiveFile=/home/server/tmp/jdkbuild/build/configure-support/classes.jsa -Xshare:auto 
 checking flags for boot jdk java command for big workloads...  -Xms64M -Xmx768M -XX:ThreadStackSize=768
 checking flags for bootcycle boot jdk java command for big workloads... -Xms64M -Xmx768M -XX:ThreadStackSize=768
 checking flags for boot jdk java command for small workloads...  -XX:+UseSerialGC -Xms32M -Xmx512M -XX:TieredStopAtLevel=1
@@ -248,17 +247,17 @@ checking that precompiled headers work... yes
 checking is ccache enabled... no
 checking if build directory is on local disk... yes
 checking JVM features for JVM variant 'server'... "cds cmsgc compiler1 compiler2 epsilongc g1gc jfr jni-check jvmti management nmt parallelgc serialgc services vm-structs"
-configure: creating /home/server/jdk/build/linux-arm-normal-server-release/configure-support/config.status
-config.status: creating /home/server/jdk/build/linux-arm-normal-server-release/spec.gmk
-config.status: creating /home/server/jdk/build/linux-arm-normal-server-release/bootcycle-spec.gmk
-config.status: creating /home/server/jdk/build/linux-arm-normal-server-release/buildjdk-spec.gmk
-config.status: creating /home/server/jdk/build/linux-arm-normal-server-release/compare.sh
-config.status: creating /home/server/jdk/build/linux-arm-normal-server-release/Makefile
+configure: creating /home/server/tmp/jdkbuild/build/configure-support/config.status
+config.status: creating /home/server/tmp/jdkbuild/build/spec.gmk
+config.status: creating /home/server/tmp/jdkbuild/build/bootcycle-spec.gmk
+config.status: creating /home/server/tmp/jdkbuild/build/buildjdk-spec.gmk
+config.status: creating /home/server/tmp/jdkbuild/build/compare.sh
+config.status: creating /home/server/tmp/jdkbuild/build/Makefile
 
 ====================================================
 A new configuration has been successfully created in
-/home/server/jdk/build/linux-arm-normal-server-release
-using configure arguments '--with-boot-jdk=/home/server/apps/jdk-11+28/ --disable-warnings-as-errors'.
+/home/server/tmp/jdkbuild/build
+using configure arguments '--with-boot-jdk=/home/server/apps/jdk-11+28/ --with-jtreg=/home/server/apps/jtreg/ --with-log=info --disable-warnings-as-errors'.
 
 Configuration summary:
 * Debug level:    release

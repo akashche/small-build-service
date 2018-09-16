@@ -24,8 +24,6 @@ create table tasks
     , start_date date time not null
     , finish_date date time
     , state text not null
-    , repository text not null
-    , revision text not null
     , comment text not null
     );
 create index tasks__start_date_idx on tasks (start_date);
@@ -40,9 +38,8 @@ create table jdkbuild_runs
     , start_date date time not null
     , finish_date date time
     , state text not null
-    , source_directory text not null
-    , image_directory text not null
-    --, TODO
+    , repository text
+    , revision text
     , task_id text not null
     , foreign key (task_id) references tasks (id)
     );
@@ -58,7 +55,6 @@ create table tier1_runs
     , start_date date time not null
     , finish_date date time
     , state text not null
-    --, TODO
     , task_id text not null
     , foreign key (task_id) references tasks (id)
     );

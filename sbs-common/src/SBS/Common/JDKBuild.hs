@@ -32,10 +32,16 @@ import SBS.Common.Data
 
 data JDKBuildConfig = JDKBuildConfig
     { enabled :: Bool
+    , workDir :: Text
     , mockOutputDir :: Text
-    , sourcesDir :: Text
-    , additionalConfigureArguments :: Vector Text
+    , sourceDir :: Text
+    , bootJdkDir :: Text
+    , jtregDir :: Text
+    , bashPath :: Text
+    , hgPath :: Text
+    , makePath :: Text
     , logLevel :: Text
+    , additionalConfigureArguments :: Vector Text
     , target :: Text
     } deriving (Generic, Show)
 instance ToJSON JDKBuildConfig
@@ -49,8 +55,7 @@ instance ToJSON JDKBuildInput
 instance FromJSON JDKBuildInput
 
 data JDKBuildOutput = JDKBuildOutput
-    { revision :: Text
-    , jdkImageDir :: Text
+    { jdkImageDir :: Text
     } deriving (Generic, Show)
 instance ToJSON JDKBuildOutput
 instance FromJSON JDKBuildOutput

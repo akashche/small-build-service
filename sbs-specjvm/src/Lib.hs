@@ -57,8 +57,8 @@ createDbEntry db qrs tid = do
         ])
     return idx
 
-spawnProcessAndWait :: SpecJVMConfig -> Text -> IO Text
-spawnProcessAndWait cf jdk = do
+spawnSpecJVMAndWait :: SpecJVMConfig -> Text -> IO Text
+spawnSpecJVMAndWait cf jdk = do
     if (enabled cf)
     then do
         createDirectory (unpack wd)
@@ -74,24 +74,17 @@ spawnProcessAndWait cf jdk = do
             , outputFile = log
             , awaitExit = True
             }
-        when (0 /= code) (throwSpawnFail code)
+        checkSpawnSuccess "specjvm" code log
     else
-        copyFile (unpack (mockOutput cf)) logStr
+        copyFile (unpack (mockOutput cf)) (unpack log)
     return log
     where
         wd = workDir (cf :: SpecJVMConfig)
         log = wd <> "specjvm.log"
-        logStr = (unpack log)
         exec = jdk <> "/bin/java"
         sepNonEmpty st = if Text.length st > 0 then st <> "|" else st
         folder ac el = (sepNonEmpty ac) <> (Text.replace "." "\\." el)
         exreg vec = Vector.foldl' folder "" vec
-        throwSpawnFail code = do
-            outex <- doesFileExist logStr
-            out <- if outex then readFile logStr else return ""
-            errorText ("Error running SPECjvm,"
-                <> " code: [" <> (showText code) <>"]"
-                <> " output: [" <> (Text.take 1024 (Text.strip out)) <> "]")
 
 finalizeDbEntry :: DBConnection -> Queries -> Int64 -> Int -> Int -> IO ()
 finalizeDbEntry db qrs rid totalTime relativeTime = do
@@ -151,7 +144,7 @@ run (SpecJVMInput ctx jdkDir cf) = do
     qrs <- loadQueries ((queriesDir ctx) <> "queries-specjvm.sql")
     rid <- dbWithSyncTransaction db (
         createDbEntry db qrs tid)
-    log <- spawnProcessAndWait cf jdkDir
+    log <- spawnSpecJVMAndWait cf jdkDir
     res <- parseOutput log
     copyNcNote cf (appDir ctx)
     bl <- parseOutput (baselineOutput cf)

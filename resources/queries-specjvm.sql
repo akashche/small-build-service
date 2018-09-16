@@ -39,12 +39,12 @@ where id = :id
 -- specjvm_results
 
 /** updateResultsId */
-update specjvm_runs_seq
+update specjvm_results_seq
 set value = value + 1
 
 /** selectResultsId */
 select value as id
-from specjvm_runs_seq
+from specjvm_results_seq
 
 /** insertResult */
 insert into specjvm_results (id, name, mode, counts, score, error, units, run_id)

@@ -24,7 +24,6 @@ module Lib
     ) where
 
 import Prelude ()
-import qualified Data.Text as Text
 import qualified Data.Vector as Vector
 
 import SBS.Common.Prelude
@@ -57,8 +56,8 @@ createDbEntry db qrs tid = do
         ])
     return idx
 
-spawnProcessAndWait :: JCStressConfig -> Text -> IO Text
-spawnProcessAndWait cf jdk = do
+spawnJCStressAndWait :: JCStressConfig -> Text -> IO Text
+spawnJCStressAndWait cf jdk = do
     if (enabled cf)
     then do
         createDirectory (unpack wd)
@@ -73,21 +72,14 @@ spawnProcessAndWait cf jdk = do
             , outputFile = log
             , awaitExit = True
             }
-        when (0 /= code) (throwSpawnFail code)
+        checkSpawnSuccess "jcstresss" code log
     else
-        copyFile (unpack (mockOutput cf)) logStr
+        copyFile (unpack (mockOutput cf)) (unpack log)
     return log
     where
         wd = workDir (cf :: JCStressConfig)
         log = wd <> "jcstress.log"
-        logStr = (unpack log)
         exec = jdk <> "/bin/java"
-        throwSpawnFail code = do
-            outex <- doesFileExist logStr
-            out <- if outex then readFile logStr else return ""
-            errorText ("Error running JCStress,"
-                <> " code: [" <> (showText code) <>"]"
-                <> " output: [" <> (Text.take 1024 (Text.strip out)) <> "]")
 
 finalizeDbEntry :: DBConnection -> Queries -> Int64 -> JCStressResults -> JCStressResultsDiff -> IO ()
 finalizeDbEntry db qrs rid res diff = do
@@ -114,7 +106,7 @@ run (JCStressInput ctx jdkDir cf) = do
     qrs <- loadQueries ((queriesDir ctx) <> "queries-jcstress.sql")
     rid <- dbWithSyncTransaction db (
         createDbEntry db qrs tid)
-    log <- spawnProcessAndWait cf jdkDir
+    log <- spawnJCStressAndWait cf jdkDir
     res <- parseOutput log
     bl <- parseOutput (baselineOutput cf)
     let diff = diffResults bl res

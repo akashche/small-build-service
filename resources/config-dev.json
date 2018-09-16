@@ -5,7 +5,7 @@
         "database": {
             "dbFilePath": "work/sbs.db",
             "queriesDir": "resources/",
-            "reCreateDb": true
+            "reCreateDb": false
         },
 
         "logging": {
@@ -15,10 +15,14 @@
 
     "jdkbuild": {
         "enabled": false,
+        "workDir": "work/jdkbuild/",
         "mockOutputDir": "sbs-jdkbuild/test/",
-        "sourcesDir": "work/jdk",
-        "bootJdkDir": "work/bootjdk",
-        "jtregDir": "work/jtreg",
+        "sourceDir": "work/jdk/",
+        "bootJdkDir": "work/bootjdk/",
+        "jtregDir": "work/jtreg/",
+        "bashPath": "/bin/bash",
+        "hgPath": "/usr/bin/hg",
+        "makePath": "/usr/bin/make",
         "logLevel": "info",
         "additionalConfigureArguments": [
             "--disable-warnings-as-errors"

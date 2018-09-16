@@ -90,9 +90,7 @@ createTask db qrs = do
                 [ "id" .= idx
                 , "startDate" .= formatISO8601 curdate
                 , "state" .= ("running" :: Text)
-                , "repository" .= ("" :: Text)
-                , "revision" .= ("" :: Text)
-                , "comment" .= ("created from command line invocation" :: Text)
+                , "comment" .= ("" :: Text)
                 ])
             return idx
 
@@ -110,9 +108,9 @@ finalizeTask db qrs tid = do
                 ])
 
 runJDKBuild :: Config -> TaskContext -> IO JDKBuildOutput
-runJDKBuild cf task = do
+runJDKBuild cf ctx = do
     res <- wiltoncall "sbs_jdkbuild_run" (JDKBuildInput
-        { taskCtx = task
+        { taskCtx = ctx
         , jdkbuildConfig = (jdkbuild cf)
         })
     return res

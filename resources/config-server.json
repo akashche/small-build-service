@@ -1,25 +1,52 @@
 {
-    "dbFilePath": "/home/server/sbs/work/sbs.db",
-    "queriesDir": "/home/server/sbs/resources/",
-    "createDb": {
-        "enabled": false,
-        "ddlPath": "/home/server/sbs/resources/schema.sql"
+    "sbs" : {
+        "appDir": "/home/server/",
+
+        "database": {
+            "dbFilePath": "work/sbs.db",
+            "queriesDir": "sbs/resources/",
+            "reCreateDb": false
+        },
+
+        "logging": {
+            "enabled": false
+        }
     },
-    "jdkImageDir": "/home/server/jdk/build/linux-arm-normal-server-release/images/jdk/",
+
+    "jdkbuild": {
+        "enabled": true,
+        "workDir": "work/jdkbuild/",
+        "mockOutputDir": "UNSPECIFIED",
+        "sourceDir": "jdk/",
+        "bootJdkDir": "apps/bootjdk/",
+        "jtregDir": "apps/jtreg/",
+        "bashPath": "/bin/bash",
+        "hgPath": "/usr/bin/hg",
+        "makePath": "/usr/bin/make",
+        "logLevel": "info",
+        "additionalConfigureArguments": [
+            "--disable-warnings-as-errors"
+        ],
+        "target": "images"
+    },
+
     "jcstress": {
         "enabled": true,
-        "mockOutput": "DISABLED",
-        "baselineOutput": "/home/server/sbs/work/baseline/jcstress.log",
-        "jcstressJarPath": "/home/server/apps/jcstress/jcstress.jar",
+        "workDir": "work/jcstress/",
+        "mockOutput": "UNSPECIFIED",
+        "baselineOutput": "baseline/jcstress.log",
+        "jcstressJarPath": "apps/jcstress/jcstress.jar",
         "xmxMemoryLimitMB": 1024,
         "mode": "quick"
     },
+
     "specjvm": {
         "enabled": true,
-        "mockOutput": "DISABLED",
-        "baselineOutput": "/home/server/sbs/work/baseline/specjvm.log",
-        "specjvmJarPath": "/home/server/apps/specjvm/jmh-specjvm2016.jar",
-        "ncNotePath": "/home/server/sbs/resources/nc_note.txt",
+        "workDir": "work/specjvm/",
+        "mockOutput": "UNSPECIFIED",
+        "baselineOutput": "baseline/specjvm.log",
+        "specjvmJarPath": "apps/specjvm/jmh-specjvm2016.jar",
+        "ncNotePath": "sbs/resources/nc_note.txt",
         "xmxMemoryLimitMB": 1024,
         "threadsCount": 2,
         "excludedBenchmarks": [

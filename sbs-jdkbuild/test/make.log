@@ -1,6 +1,4 @@
-Generating main target list
-Running make as 'make LOG=info images'
-Building target 'images' in configuration 'linux-arm-normal-server-release'
+Building target 'images' in configuration '/home/server/tmp/jdkbuild/build'
 Compiling 8 files for BUILD_TOOLS_LANGTOOLS
 Compiling 19 properties into resource bundles for jdk.compiler
 Parsing 2 properties into enum-like class for jdk.compiler
@@ -2628,10 +2626,4 @@ Copying images/jdk/lib/libsctp.debuginfo
 Copying images/jdk/lib/libjaas.debuginfo
 Updating images/sec-bin.zip
 Stopping sjavac server
------ Build times -------
-Start 2018-09-11 15:36:40
-End   2018-09-11 19:28:43
-
-03:52:03 TOTAL
--------------------------
-Finished building target 'images' in configuration 'linux-arm-normal-server-release'
+Finished building target 'images' in configuration '/home/server/tmp/jdkbuild/build'

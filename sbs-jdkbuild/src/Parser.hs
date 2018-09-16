@@ -38,7 +38,7 @@ configureDetails = do
     skipManyTill "A new configuration has been successfully created in"
     skipLines 1
     dir <- manyTill (noneOf ['\n']) (char '\n')
-    return (ConfigureDetails (pack dir))
+    return (ConfigureDetails ((pack dir) <> "/"))
 
 parseConfigureOutput :: TextLazy.Text -> Text -> ConfigureDetails
 parseConfigureOutput contents path =
@@ -48,18 +48,15 @@ parseConfigureOutput contents path =
 
 makeDetails :: Parser MakeDetails
 makeDetails = do
-    skipManyTill "----- Build times -------"
-    skipLines 3
-    hoursString <- many1 digit
-    let hours = read hoursString :: Int
-    skipOne (char ':')
-    minutesString <- many1 digit
-    let minutes = read minutesString :: Int
-    skipOne (char ':')
-    secondsString <- many1 digit
-    let seconds = read secondsString :: Int
-    let totalSecs = (hours * 3600) + (minutes * 60) + seconds
-    return (MakeDetails totalSecs)
+    skipManyTill "Creating jdk image"
+    skipLines 1
+    skipOne (string "Copying")
+    whitespace
+    imagesDir <- many1 alphaNum
+    skipOne (char '/')
+    jdkDir <- many1 alphaNum
+    let dir = (pack imagesDir) <> "/" <> (pack jdkDir) <> "/"
+    return (MakeDetails dir)
 
 parseMakeOutput :: TextLazy.Text -> Text -> MakeDetails
 parseMakeOutput contents path =

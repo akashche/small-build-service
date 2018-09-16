@@ -23,8 +23,7 @@ packages:
 - sbs-specjvm
 
 extra-deps:
-#- wilton-ffi-0.3.0.2
-- /home/alex/projects/haskell/wilton-ffi/
+- wilton-ffi-0.3.0.3
 
 ghc-options:
   "$locals": -O2 -Wall -Werror
