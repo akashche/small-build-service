@@ -21,6 +21,7 @@ packages:
 - sbs-jdkbuild
 - sbs-main
 - sbs-specjvm
+- sbs-tier1
 
 extra-deps:
 - wilton-ffi-0.3.0.3

@@ -33,6 +33,7 @@ import SBS.Common.JCStress
 import SBS.Common.JDKBuild
 import SBS.Common.Queries
 import SBS.Common.SpecJVM
+import SBS.Common.Tier1
 import SBS.Common.Utils
 import SBS.Common.Wilton
 
@@ -47,6 +48,7 @@ loadModules = do
         , "sbs_jcstress"
         , "sbs_jdkbuild"
         , "sbs_specjvm"
+        , "sbs_tier1"
         ]) :: [Text])
     where
         load mod = wiltoncall "dyload_shared_library" (args mod) :: IO ()
@@ -115,6 +117,14 @@ runJDKBuild cf ctx = do
         })
     return res
 
+runTier1 :: Config -> TaskContext -> IO ()
+runTier1 cf ctx = do
+    wiltoncall "sbs_tier1_run" (Tier1Input
+        { taskCtx = ctx
+        , tier1Config = (tier1 cf)
+        }) :: IO ()
+    return ()
+
 runJCStress :: Config -> TaskContext -> JDKBuildOutput -> IO ()
 runJCStress cf ctx jdk = do
     wiltoncall "sbs_jcstress_run" (JCStressInput
@@ -150,6 +160,8 @@ start arguments = do
     let ctx = TaskContext tid db (appDir (sbsc :: SBSConfig)) qdir
     -- run jdkbuild
     jdk <- runJDKBuild cf ctx
+    -- run tier1
+    runTier1 cf ctx
     -- run jcstress
     runJCStress cf ctx jdk
     -- run specjvm

@@ -32,6 +32,7 @@ import SBS.Common.Prelude
 import SBS.Common.JCStress
 import SBS.Common.JDKBuild
 import SBS.Common.SpecJVM
+import SBS.Common.Tier1
 
 data DBConfig = DBConfig
     { dbFilePath :: Text
@@ -58,6 +59,7 @@ instance ToJSON SBSConfig
 data Config = Config
     { sbs :: SBSConfig
     , jdkbuild :: JDKBuildConfig
+    , tier1 :: Tier1Config
     , jcstress :: JCStressConfig
     , specjvm :: SpecJVMConfig
     } deriving (Generic, Show)

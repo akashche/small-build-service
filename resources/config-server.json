@@ -30,6 +30,14 @@
         "target": "images"
     },
 
+    "tier1": {
+        "enabled": true,
+        "workDir": "work/tier1/",
+        "mockOutput": "UNSPECIFIED",
+        "makePath": "/usr/bin/make",
+        "target": "run-test-tier1"
+    },
+
     "jcstress": {
         "enabled": true,
         "workDir": "work/jcstress/",

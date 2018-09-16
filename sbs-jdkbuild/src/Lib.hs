@@ -49,8 +49,8 @@ parseMake path =
     where
         fun tx = return (parseMakeOutput tx path)
 
-createDbEntry :: JDKBuildConfig -> DBConnection -> Queries -> Int64 -> IO Int64
-createDbEntry _cf db qrs tid = do
+createDbEntry :: DBConnection -> Queries -> Int64 -> IO Int64
+createDbEntry db qrs tid = do
     dbExecute db (get qrs "updateRunsId") Empty
     (IncrementedSeq idx) <- dbQueryObject db (get qrs "selectRunsId") Empty
     curdate <- getCurrentTime
@@ -158,14 +158,14 @@ run (JDKBuildInput ctx cf) = do
     let bd = wd <> "build"
     qrs <- loadQueries ((queriesDir ctx) <> "queries-jdkbuild.sql")
     rid <- dbWithSyncTransaction db (
-        createDbEntry cf db qrs tid)
+        createDbEntry db qrs tid)
     repo <- readRepoUrl cf appd wd
     rev <- readRepoRevision cf appd wd
     cflog <- spawnConfigureAndWait cf appd wd bd
     cfres <- parseConf cflog
     mlog <- spawnMakeAndWait cf appd wd bd
     mres <- parseMake mlog
-    dbWithSyncTransaction db ( do
+    dbWithSyncTransaction db (
         finalizeDbEntry db qrs rid repo rev )
     let imageDir = (confDirectory cfres) <> (imageDirRelative mres)
     return (JDKBuildOutput imageDir)
