@@ -61,7 +61,7 @@ spawnMakeAndWait cf appd = do
     if enabled cf
     then do
         createDirectory (unpack wd)
-        code <- spawnProcess SpawnedProcessArgs
+        _code <- spawnProcess SpawnedProcessArgs
             { workDir = prependIfRelative appd (buildDir cf)
             , executable = prependIfRelative appd (makePath cf)
             , execArgs = fromList [target cf]
@@ -70,6 +70,7 @@ spawnMakeAndWait cf appd = do
             }
         -- todo: add less strict check
         -- checkSpawnSuccess "tier1" code log
+        return ()
     else do
         let mockLog = prependIfRelative appd (mockOutput cf)
         copyFile (unpack mockLog) (unpack log)
