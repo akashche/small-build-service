@@ -41,8 +41,8 @@ oneTest prefix = do
 
 listOfTests :: Text -> Text -> Parser (Vector Text)
 listOfTests header prefix = do
-    skipManyTill header
-    skipLines 3
+    skipLinesTill header
+    skipLines 2
     list <- scan
     whitespace
     return (fromList list)
@@ -55,16 +55,16 @@ listOfTests header prefix = do
 
 passedTestsCount :: Parser Int
 passedTestsCount = do
-    skipManyTill "*** All remaining tests\n"
-    skipLines 2
+    skipLinesTill "*** All remaining tests"
+    skipLines 1
     numStr <- many1 digit
     return (read numStr :: Int)
 
 jcstressResults :: Parser JCStressResults
 jcstressResults = do
-    tint <- listOfTests "*** INTERESTING tests\n" "[OK]"
-    tfail <- listOfTests "*** FAILED tests\n" "[FAILED]"
-    terr <- listOfTests "*** ERROR tests\n" "[ERROR]"
+    tint <- listOfTests "*** INTERESTING tests" "[OK]"
+    tfail <- listOfTests "*** FAILED tests" "[FAILED]"
+    terr <- listOfTests "*** ERROR tests" "[ERROR]"
     count <- passedTestsCount
     return (JCStressResults count tint tfail terr)
 

@@ -37,6 +37,7 @@ parseLog path =
 main :: IO ()
 main = do
     baseline <- parseLog "test/specjvm.log"
+    unless (8703 == totalTimeSeconds baseline) (errorText "Time fail")
     res <- parseLog "test/specjvm_alt.log"
     let diff = diffResults baseline res
     putStrLn (showText diff)

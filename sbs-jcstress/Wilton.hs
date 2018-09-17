@@ -32,5 +32,7 @@ wilton_module_init = do
     { errRun <- registerWiltonCall "sbs_jcstress_run" run
     ; if isJust errRun then createWiltonError errRun
 
-      else createWiltonError Nothing
-    }
+    ; else do { errParseLog <- registerWiltonCall "sbs_jcstress_parse_log" parse_log
+    ; if isJust errParseLog then createWiltonError errParseLog
+
+      else createWiltonError Nothing }}

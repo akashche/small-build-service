@@ -35,8 +35,7 @@ import Data
 
 configureDetails :: Parser ConfigureDetails
 configureDetails = do
-    skipManyTill "A new configuration has been successfully created in"
-    skipLines 1
+    skipLinesTill "A new configuration has been successfully created in"
     dir <- manyTill (noneOf ['\n']) (char '\n')
     return (ConfigureDetails ((pack dir) <> "/"))
 
@@ -48,8 +47,7 @@ parseConfigureOutput contents path =
 
 makeDetails :: Parser MakeDetails
 makeDetails = do
-    skipManyTill "Creating jdk image"
-    skipLines 1
+    skipLinesTill "Creating jdk image"
     skipOne (string "Copying")
     whitespace
     imagesDir <- many1 alphaNum

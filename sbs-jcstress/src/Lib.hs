@@ -21,6 +21,7 @@
 
 module Lib
     ( run
+    , parse_log
     ) where
 
 import Prelude ()
@@ -117,3 +118,10 @@ run (JCStressInput ctx jdkDir cf) = do
         finalizeDbEntry db qrs rid res diff )
     return ()
 
+parse_log :: Vector Text -> IO ()
+parse_log arguments = do
+    when (1 /= Vector.length arguments)
+        (errorText "Path to 'jcstress.log' file must be specified as a first and only argument")
+    res <- parseOutput (arguments ! 0)
+    putStrLn (showText res)
+    return ()

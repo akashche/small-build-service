@@ -22,7 +22,8 @@
 module SBS.Common.Parsec
     ( ParseError
     , (<|>), (<?>)
-    , char, choice, eof, lookAhead, many, many1, manyTill, noneOf, oneOf, option, parse, sepBy, sepBy1, skipMany, try
+    , char, choice, eof, lookAhead, many, many1, manyTill, noneOf
+    , oneOf, option, parse, sepBy, sepBy1, skipMany, try, unexpected
     -- Text.Parsec.Char
     , alphaNum, anyChar, digit, newline, string
     -- Text.Parsec.Error
@@ -34,20 +35,22 @@ module SBS.Common.Parsec
     -- helpers
     , errToText
     -- combinators
-    , floatAsInt, skipLines, skipManyTill, skipOne, whitespace
+    , floatAsInt, lineContains, skipLines, skipLinesPrefix, skipLinesTill, skipManyTill, skipOne, whitespace
     ) where
 
 import Prelude ()
 import Text.Parsec
     ( ParseError
     , (<|>), (<?>)
-    , char, choice, eof, lookAhead, many, many1, manyTill, noneOf, oneOf, option, parse, sepBy, sepBy1, skipMany, try)
+    , char, choice, eof, lookAhead, many, many1, manyTill, noneOf
+    , oneOf, option, parse, sepBy, sepBy1, skipMany, try, unexpected)
 import Text.Parsec.Char (alphaNum, anyChar, digit, newline, string)
 import Text.Parsec.Error (Message(..), errorMessages, errorPos, messageString)
 import Text.Parsec.Pos (sourceColumn, sourceLine, sourceName)
 import Text.Parsec.Text.Lazy (Parser)
 
 import qualified Data.List as List
+import qualified Data.Text as Text
 import qualified Data.Text.Lazy as TextLazy
 
 import SBS.Common.Prelude
@@ -98,12 +101,22 @@ floatAsInt = do
     whitespace
     return res
 
+lineContains :: Text -> Parser Text
+lineContains needle = do
+    lineSt <- manyTill (noneOf ['\n']) (char '\n')
+    let line = (pack lineSt)
+    whitespace
+    if Text.isInfixOf needle line
+    then return line
+    else lineContains needle
+
 skipOne :: Parser a -> Parser ()
 skipOne acomb = do
     _ <- acomb
     whitespace
     return ()
 
+-- warning: all look-ahead is kept in memory
 skipManyTill :: Text -> Parser ()
 skipManyTill end = do
     scan
@@ -123,11 +136,26 @@ skipLines :: Int -> Parser ()
 skipLines count =
     if count > 0
     then do
-        skipManyTill "\n"
+        _ <- manyTill (noneOf ['\n']) (char '\n')
+        whitespace
         skipLines (count - 1)
     else
         return ()
 
+skipLinesPrefix :: Text -> Parser ()
+skipLinesPrefix prefix = do
+    lineSt <- manyTill (noneOf ['\n']) (char '\n')
+    let line = (pack lineSt)
+    if Text.isPrefixOf prefix (Text.stripStart line)
+    then skipLinesPrefix prefix
+    else do
+        whitespace
+        return ()
+
+skipLinesTill :: Text -> Parser ()
+skipLinesTill needle = do
+    _ <- lineContains needle
+    return ()
 
 -- lexeme may be used instead
 whitespace :: Parser ()

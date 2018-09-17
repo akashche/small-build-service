@@ -51,6 +51,7 @@ singleQuery = do
 
 queries :: Parser Queries
 queries = do
+    skipLinesPrefix "--"
     skipManyTill "/**"
     li <- many1 singleQuery
     return (HashMap.fromList li)
