@@ -24,8 +24,6 @@ module Parser
     ) where
 
 import Prelude ()
-import qualified Data.Char as Char
-import qualified Data.Text as Text
 import qualified Data.Text.Lazy as TextLazy
 
 import SBS.Common.Prelude
@@ -75,20 +73,24 @@ benchResult = do
     whitespace
     return res
 
+totalTimeSecsFromLine :: Parser Int
+totalTimeSecsFromLine = do
+    skipOne (string "# Run complete. Total time:")
+    hoursString <- many1 digit
+    let hours = read hoursString :: Int
+    skipOne (char ':')
+    minutesString <- many1 digit
+    let minutes = read minutesString :: Int
+    skipOne (char ':')
+    secondsString <- many1 digit
+    let seconds = read secondsString :: Int
+    return ((hours * 3600) + (minutes * 60) + seconds)
+
 totalTimeSecs :: Parser Int
 totalTimeSecs = do
     line <- lineContains "# Run complete. Total time:"
-    let nums = Text.filter Char.isDigit line
-    when (6 /= Text.length nums) (unexpected (unpack
-        ("Error parsing 'Total time', nums found: [" <> nums <> "]")))
-    let hoursString = Text.take 2 nums
-    let hours = read (unpack hoursString) :: Int
-    let minutesString = Text.take 2 (Text.drop 2 nums)
-    let minutes = read (unpack minutesString) :: Int
-    let secondsString = Text.take 2 (Text.drop 4 nums)
-    let seconds = read (unpack secondsString) :: Int
-    whitespace
-    return ((hours * 3600) + (minutes * 60) + seconds)
+    let res = parseText totalTimeSecsFromLine line
+    return res
 
 specJVMResults :: Parser SpecJVMResults
 specJVMResults = do

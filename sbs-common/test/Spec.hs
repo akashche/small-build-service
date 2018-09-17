@@ -24,8 +24,14 @@ import qualified Data.HashMap.Strict as HashMap
 
 import SBS.Common.Prelude
 import SBS.Common.Data
+import SBS.Common.Parsec
 import SBS.Common.Queries
 import SBS.Common.Utils
+
+testParser :: Parser Text
+testParser = do
+    foo <- string "foo"
+    return (pack foo)
 
 main :: IO ()
 main = do
@@ -43,14 +49,18 @@ main = do
     unless ("2018-09-09 19:15:11" == formatISO8601 (parseISO8601 "2018-09-09 19:15:11")) (errorText "ISO8601 fail")
 
     -- paths
-    unless("foobar" == prependIfRelative "foo" "bar") (errorText "prepend fail")
-    unless("/bar" == prependIfRelative "foo" "/bar") (errorText "prepend fail")
-    unless("c:\\bar" == prependIfRelative "foo" "c:\\bar") (errorText "prepend fail")
-    unless("c:/bar" == prependIfRelative "foo" "c:/bar") (errorText "prepend fail")
+    unless ("foobar" == prependIfRelative "foo" "bar") (errorText "prepend fail")
+    unless ("/bar" == prependIfRelative "foo" "/bar") (errorText "prepend fail")
+    unless ("c:\\bar" == prependIfRelative "foo" "c:\\bar") (errorText "prepend fail")
+    unless ("c:/bar" == prependIfRelative "foo" "c:/bar") (errorText "prepend fail")
 
     -- queries
     qrs <- loadQueries "../resources/queries-main.sql"
-    unless(4 == HashMap.size qrs) (errorText "Queries fail")
+    unless (4 == HashMap.size qrs) (errorText "Queries fail")
+
+    -- Parsec
+    let res = parseText testParser "foo"
+    putStrLn res
 
     putStrLn "Tests Passed."
     return ()

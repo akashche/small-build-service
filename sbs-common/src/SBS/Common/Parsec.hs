@@ -36,6 +36,8 @@ module SBS.Common.Parsec
     , errToText
     -- combinators
     , floatAsInt, lineContains, skipLines, skipLinesPrefix, skipLinesTill, skipManyTill, skipOne, whitespace
+    -- strict text
+    , parseText
     ) where
 
 import Prelude ()
@@ -161,3 +163,10 @@ skipLinesTill needle = do
 whitespace :: Parser ()
 whitespace = skipMany (oneOf [' ', '\t', '\n', '\r'])
 
+-- strict text
+
+parseText :: Parser a -> Text -> a
+parseText parser text =
+    case parse parser "" (TextLazy.fromChunks [text]) of
+        Left err -> errorText (errToText err)
+        Right res -> res
