@@ -67,13 +67,13 @@ spawnJCStressAndWait cf appd jdk = do
             , executable = exec
             , execArgs = fromList
                 [  ("-Xmx" <> (showText (xmxMemoryLimitMB cf)) <> "M")
-                , "-jar", jcstressJarPath cf
+                , "-jar", prependIfRelative appd (jcstressJarPath cf)
                 , "-m", mode cf
                 ]
             , outputFile = log
             , awaitExit = True
             }
-        checkSpawnSuccess "jcstresss" code log
+        checkSpawnSuccess "jcstress" code log
     else
         copyFile (unpack mockLog) (unpack log)
     return log

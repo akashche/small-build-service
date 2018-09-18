@@ -67,7 +67,7 @@ spawnSpecJVMAndWait cf appd jdk = do
             , executable = exec
             , execArgs = fromList
                 [  ("-Xmx" <> (showText (xmxMemoryLimitMB cf)) <> "M")
-                , "-jar", specjvmJarPath cf
+                , "-jar", prependIfRelative appd (specjvmJarPath cf)
                 , "-t", (showText (threadsCount cf))
                 , "-e", exreg (excludedBenchmarks cf)
                 ]
