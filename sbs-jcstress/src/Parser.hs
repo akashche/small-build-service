@@ -24,6 +24,7 @@ module Parser
     ) where
 
 import Prelude ()
+import qualified Data.List as List
 import qualified Data.Text.Lazy as TextLazy
 
 import SBS.Common.Prelude
@@ -37,13 +38,23 @@ oneTest prefix = do
     skipOne (try (string (unpack prefix)))
     res <- manyTill (alphaNum <|> char '.') (char '\n')
     skipManyTill "\n\n"
+    optional (skipOne (try (string "Messages:")) >> skipManyTill "\n\n")
     return (pack res)
 
 listOfTests :: Text -> Text -> Parser (Vector Text)
 listOfTests header prefix = do
     skipLinesTill header
-    skipLines 2
+    skipLines 1
+    lenStr <- many1 digit
+    let len = read lenStr :: Int
+    skipManyTill "\n"
     list <- scan
+    let lenList = List.length list
+    when (lenList /= len) (errorText
+        (  "Wrong number of tests parsed,"
+        <> " expected: [" <> (showText len) <> "]"
+        <> " actual: [" <> (showText lenList) <> "]"
+        ))
     whitespace
     return (fromList list)
     where

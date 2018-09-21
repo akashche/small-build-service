@@ -63,7 +63,7 @@ RUN RESULTS:
 *** INTERESTING tests
   Some interesting behaviors observed. This is for the plain curiosity.
 
-  77 matching test results.
+  1 matching test results.
       [OK] o.o.j.t.atomicity.buffers.ByteBufferAtomicityTests.LongTest
     (JVM args: [-Xmx1G, -XX:+UnlockDiagnosticVMOptions, -XX:+StressLCM, -XX:+StressGCM])
   Observed state   Occurrences              Expectation  Interpretation

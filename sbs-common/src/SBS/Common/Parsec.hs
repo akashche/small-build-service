@@ -23,7 +23,7 @@ module SBS.Common.Parsec
     ( ParseError
     , (<|>), (<?>)
     , char, choice, eof, lookAhead, many, many1, manyTill, noneOf
-    , oneOf, option, parse, sepBy, sepBy1, skipMany, try, unexpected
+    , oneOf, option, optional, parse, sepBy, sepBy1, skipMany, try, unexpected
     -- Text.Parsec.Char
     , alphaNum, anyChar, digit, newline, string
     -- Text.Parsec.Error
@@ -45,7 +45,7 @@ import Text.Parsec
     ( ParseError
     , (<|>), (<?>)
     , char, choice, eof, lookAhead, many, many1, manyTill, noneOf
-    , oneOf, option, parse, sepBy, sepBy1, skipMany, try, unexpected)
+    , oneOf, option, optional, parse, sepBy, sepBy1, skipMany, try, unexpected)
 import Text.Parsec.Char (alphaNum, anyChar, digit, newline, string)
 import Text.Parsec.Error (Message(..), errorMessages, errorPos, messageString)
 import Text.Parsec.Pos (sourceColumn, sourceLine, sourceName)

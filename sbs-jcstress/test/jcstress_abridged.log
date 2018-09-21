@@ -63,7 +63,7 @@ RUN RESULTS:
 *** INTERESTING tests
   Some interesting behaviors observed. This is for the plain curiosity.
 
-  75 matching test results.
+  5 matching test results.
       [OK] o.o.j.t.atomicity.buffers.ByteBufferAtomicityTests.LongTest
     (JVM args: [-Xmx1G, -XX:+UnlockDiagnosticVMOptions, -XX:+StressLCM, -XX:+StressGCM])
   Observed state   Occurrences              Expectation  Interpretation
@@ -79,6 +79,24 @@ RUN RESULTS:
      -4294967296           500   ACCEPTABLE_INTERESTING  All other cases are unexpected, but legal.
                0         1,800               ACCEPTABLE  Seeing the default value, this is valid under race.
       4294967295             9   ACCEPTABLE_INTERESTING  All other cases are unexpected, but legal.
+
+      [OK] o.o.j.t.interrupt.PlainBusyLoopTest
+    (JVM args: [-Xmx1024M, -XX:+UnlockDiagnosticVMOptions, -XX:+StressLCM, -XX:+StressGCM])
+  Observed state   Occurrences              Expectation  Interpretation
+           STALE             1   ACCEPTABLE_INTERESTING  Thread had failed to respond.
+      TERMINATED             3               ACCEPTABLE  The thread had sucessfully terminated.
+
+    Messages:
+        Have stale threads, forcing VM to exit for proper cleanup.
+
+      [OK] o.o.j.t.interrupt.PlainBusyLoopTest
+    (JVM args: [-Xmx1024M, -XX:-TieredCompilation, -XX:+UnlockDiagnosticVMOptions, -XX:+StressLCM, -XX:+StressGCM])
+  Observed state   Occurrences              Expectation  Interpretation
+           STALE             1   ACCEPTABLE_INTERESTING  Thread had failed to respond.
+      TERMINATED             2               ACCEPTABLE  The thread had sucessfully terminated.
+
+    Messages:
+        Have stale threads, forcing VM to exit for proper cleanup.
 
       [OK] o.o.j.t.volatiles.VolatileIncrementAtomicityTest
     (JVM args: [-Xmx1G])
