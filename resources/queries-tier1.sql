@@ -13,22 +13,42 @@
 -- See the License for the specific language governing permissions and
 -- limitations under the License.
 
--- tier1_runs
+-- tier1_jobs
 
-/** updateRunsId */
-update tier1_runs_seq
+/** updateJobsSeq */
+update tier1_jobs_seq
 set value = value + 1
 
-/** selectRunsId */
+/** selectNewJobId */
 select value as id
-from tier1_runs_seq
+from tier1_jobs_seq
 
-/** insertRun */
-insert into tier1_runs (id, start_date, state, task_id)
+/** insertJob */
+insert into tier1_jobs (id, start_date, state, task_id)
 values (:id, :startDate, :state, :taskId)
 
-/** updateRunFinish */
-update tier1_runs
+/** updateJobState */
+update tier1_jobs
+set   state = :state
+where id = :id
+
+/** updateJobFinish */
+update tier1_jobs
 set   state = :state
     , finish_date = :finishDate
+    , total_not_pass = :totalNotPass
 where id = :id
+
+-- tier1_results
+
+/** updateResultsId */
+update tier1_results_seq
+set value = value + 1
+
+/** selectResultsId */
+select value as id
+from tier1_results_seq
+
+/** insertResult */
+insert into tier1_results (id, name, pass, fail, error, run_id)
+values (:id, :name, :pass, :fail, :error, :runId)

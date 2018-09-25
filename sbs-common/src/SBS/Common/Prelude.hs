@@ -20,7 +20,7 @@
 {-# LANGUAGE Strict #-}
 
 module SBS.Common.Prelude
-    ( Bool(True, False), Int, IO, Maybe(Just, Nothing), Either(Left, Right), Show, String
+    ( Bool(True, False), Either(Left, Right), Int, IO, Maybe(Just, Nothing), Read, Show, String
     , (+), (-), (*), (/), (>), (<), (==), (/=), (.), (>>), (>>=), (&&), (||)
     , div, flip, id, not, otherwise, read, return, undefined
     -- Control.Concurrent.MVar
@@ -78,7 +78,7 @@ module SBS.Common.Prelude
     ) where
 
 import Prelude
-    ( Bool(True, False), Int, IO, Maybe(Just, Nothing), Either(Left, Right), Show, String
+    ( Bool(True, False), Either(Left, Right), Int, IO, Maybe(Just, Nothing), Read, Show, String
     , (+), (-), (*), (/), (>), (<), (==), (/=), (.), (>>), (>>=), (&&), (&&), (||)
     , div, flip, id, not, otherwise, read, return, undefined
     )

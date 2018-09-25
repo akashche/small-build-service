@@ -35,7 +35,7 @@ module SBS.Common.Parsec
     -- helpers
     , errToText
     -- combinators
-    , floatAsInt, lineContains, skipLines, skipLinesPrefix, skipLinesTill, skipManyTill, skipOne, whitespace
+    , floatAsInt, integer, lineContains, skipLines, skipLinesPrefix, skipLinesTill, skipManyTill, skipOne, whitespace
     -- strict text
     , parseText
     ) where
@@ -87,6 +87,13 @@ errToText err =
         msg = List.foldl' (<>) (fromText "") commaList
 
 -- helper combinators
+
+integer :: Parser Int
+integer = do
+    valStr <- many1 digit
+    let val = read valStr :: Int
+    whitespace
+    return val
 
 floatAsInt :: Parser Int
 floatAsInt = do

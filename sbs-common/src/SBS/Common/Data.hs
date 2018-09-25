@@ -24,6 +24,7 @@ module SBS.Common.Data
     , IncrementedSeq(..)
     , DBConnection(..)
     , TaskContext(..)
+    , State(..)
     ) where
 
 import Prelude ()
@@ -58,5 +59,15 @@ data TaskContext = TaskContext
     } deriving (Generic, Show)
 instance FromJSON TaskContext
 instance ToJSON TaskContext
+
+-- JobState
+
+data State =
+      StateCreated
+    | StateRunning
+    | StateSuccess
+    | StateError
+    deriving (Read, Show)
+
 
 

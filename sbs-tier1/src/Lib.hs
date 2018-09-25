@@ -20,7 +20,12 @@
 {-# LANGUAGE Strict #-}
 
 module Lib
-    ( run
+    ( createJob
+    , updateJobState
+    , finalizeJob
+    , spawnTestsAndWait
+    , saveResults
+    , extractSummary
     ) where
 
 import Prelude ()
@@ -32,60 +37,57 @@ import SBS.Common.Tier1
 import SBS.Common.Utils
 import SBS.Common.Wilton
 
-createDbEntry :: DBConnection -> Queries -> Int64 -> IO Int64
-createDbEntry db qrs tid = do
-    dbExecute db (get qrs "updateRunsId") Empty
-    (IncrementedSeq idx) <- dbQueryObject db (get qrs "selectRunsId") Empty
+import Data
+
+createJob :: DBConnection -> Queries -> Int64 -> IO Int64
+createJob db qrs tid = do
+    dbExecute db (get qrs "updateJobsSeq") Empty
+    (IncrementedSeq idx) <- dbQueryObject db (get qrs "selectNewJobId") Empty
     curdate <- getCurrentTime
-    dbExecute db (get qrs "insertRun") (object
+    dbExecute db (get qrs "insertJob") (object
         [ "id" .= idx
         , "startDate" .= formatISO8601 curdate
-        , "state" .= ("running" :: Text)
+        , "state" .= showText StateCreated
         , "taskId" .= tid
         ])
     return idx
 
-finalizeDbEntry :: DBConnection -> Queries -> Int64 -> IO ()
-finalizeDbEntry db qrs rid = do
-    curdate <- getCurrentTime
+updateJobState :: DBConnection -> Queries -> Int64 -> State -> IO ()
+updateJobState db qrs jid st =
     dbExecute db (get qrs "updateRunFinish") (object
-        [ "id" .= rid
-        , "finishDate" .= formatISO8601 curdate
-        , "state" .= ("finished" :: Text)
+        [ "id" .= jid
+        , "state" .= showText st
         ])
 
-spawnMakeAndWait :: Tier1Config -> Text -> IO ()
-spawnMakeAndWait cf appd = do
+finalizeJob :: DBConnection -> Queries -> Int64 -> State -> IO ()
+finalizeJob db qrs jid st = do
+    curdate <- getCurrentTime
+    dbExecute db (get qrs "updateJobFinish") (object
+        [ "id" .= jid
+        , "finishDate" .= formatISO8601 curdate
+        , "state" .= showText st
+        ])
+
+spawnTestsAndWait :: Tier1Config -> Text -> IO ()
+spawnTestsAndWait cf appd = do
     let wd = prependIfRelative appd (workDir (cf :: Tier1Config))
     let log = wd <> "tier1.log"
-    if enabled cf
-    then do
-        createDirectory (unpack wd)
-        _code <- spawnProcess SpawnedProcessArgs
-            { workDir = prependIfRelative appd (buildDir cf)
-            , executable = prependIfRelative appd (makePath cf)
-            , execArgs = fromList [target cf]
-            , outputFile = log
-            , awaitExit = True
-            }
-        -- todo: add less strict check
-        -- checkSpawnSuccess "tier1" code log
-        return ()
-    else do
-        let mockLog = prependIfRelative appd (mockOutput cf)
-        copyFile (unpack mockLog) (unpack log)
+    createDirectory (unpack wd)
+    _code <- spawnProcess SpawnedProcessArgs
+        { workDir = prependIfRelative appd (buildDir cf)
+        , executable = prependIfRelative appd (makePath cf)
+        , execArgs = fromList [target cf]
+        , outputFile = log
+        , awaitExit = True
+        }
+    -- todo: add less strict check
+    -- checkSpawnSuccess "tier1" code log
     return ()
 
-run :: Tier1Input -> IO ()
-run (Tier1Input ctx cf) = do
-    let tid = taskId ctx
-    let db = dbConnection ctx
-    let appd = appDir ctx
-    let qdir = prependIfRelative appd (queriesDir ctx)
-    qrs <- loadQueries (qdir <> "queries-tier1.sql")
-    rid <- dbWithSyncTransaction db (
-        createDbEntry db qrs tid )
-    spawnMakeAndWait cf appd
-    dbWithSyncTransaction db (
-        finalizeDbEntry db qrs rid )
+saveResults :: DBConnection -> Queries -> Int64 -> Tier1Results -> IO ()
+saveResults _db _qrs _jid _results = do
+    return ()
+
+extractSummary :: Text -> Text -> IO ()
+extractSummary _logPath _destPath = do
     return ()

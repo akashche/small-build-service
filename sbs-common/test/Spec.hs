@@ -59,8 +59,7 @@ main = do
     unless (4 == HashMap.size qrs) (errorText "Queries fail")
 
     -- Parsec
-    let res = parseText testParser "foo"
-    putStrLn res
+    unless ("foo" == parseText testParser "foo") (errorText "parser fail")
 
     putStrLn "Tests Passed."
     return ()

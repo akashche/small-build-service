@@ -22,9 +22,21 @@
 import Prelude ()
 
 import SBS.Common.Prelude
+import SBS.Common.Utils
+
+import Data
+import Parser
+
+parseLog :: Text -> IO Tier1Results
+parseLog path =
+    withFileText path fun
+    where
+        fun tx = return (parseTier1Output tx path)
 
 main :: IO ()
 main = do
+    res <- parseLog "test/tier1.log"
+    putStrLn (showText res)
 
     putStrLn "Tests Passed."
     return ()

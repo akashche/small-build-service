@@ -19,29 +19,20 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE Strict #-}
 
-module SBS.Common.Tier1
-    ( Tier1Config(..)
-    , Tier1Input(..)
+module Data
+    ( Tier1TestSuite(..)
+    , Tier1Results
     ) where
 
 import Prelude ()
 
 import SBS.Common.Prelude
-import SBS.Common.Data
 
-data Tier1Config = Tier1Config
-    { enabled :: Bool
-    , workDir :: Text
-    , buildDir :: Text
-    , makePath :: Text
-    , target :: Text
-    } deriving (Generic, Show)
-instance ToJSON Tier1Config
-instance FromJSON Tier1Config
+data Tier1TestSuite = Tier1TestSuite
+    { name :: Text
+    , pass :: Int
+    , fail :: Int
+    , error :: Int
+    } deriving (Show)
 
-data Tier1Input = Tier1Input
-    { taskCtx :: TaskContext
-    , tier1Config :: Tier1Config
-    } deriving (Generic, Show)
-instance ToJSON Tier1Input
-instance FromJSON Tier1Input
+type Tier1Results = Vector Tier1TestSuite

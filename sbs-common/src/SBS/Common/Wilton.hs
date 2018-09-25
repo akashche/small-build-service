@@ -21,6 +21,8 @@
 
 module SBS.Common.Wilton
     ( wiltoncall
+    -- dyload
+    , dyloadModules
     -- db
     , dbOpen
     , dbExecute
@@ -37,6 +39,7 @@ module SBS.Common.Wilton
     ) where
 
 import Prelude ()
+import qualified Prelude
 import qualified Data.Char as Char
 import qualified Data.Text as Text
 import qualified Data.Vector as Vector
@@ -58,6 +61,15 @@ wiltoncall callName callData = do
             <> " name: [" <> callName <> "],"
             <> " message: [" <> (decodeUtf8 msg) <> "]")
         Right res -> return res
+
+-- modules load
+
+dyloadModules :: [Text] -> IO ()
+dyloadModules mods = do
+    Prelude.mapM_ load mods
+    where
+        load mod = wiltoncall "dyload_shared_library" (args mod) :: IO ()
+        args name = object ["name" .= name]
 
 -- DB access
 
