@@ -20,19 +20,29 @@
 {-# LANGUAGE Strict #-}
 
 module Data
-    ( Tier1TestSuite(..)
-    , Tier1Results
+    ( Paths(..)
+    , TestSuite(..)
+    , Results
     ) where
 
 import Prelude ()
 
 import SBS.Common.Prelude
 
-data Tier1TestSuite = Tier1TestSuite
+data Paths = Paths
+    { workDir :: Text
+    , execPath :: Text
+    , outputPath :: Text
+    , mockOutputPath :: Text
+    , summaryPath :: Text
+    , queriesPath :: Text
+    } deriving Show
+
+data TestSuite = TestSuite
     { name :: Text
     , pass :: Int
     , fail :: Int
     , error :: Int
     } deriving (Show)
 
-type Tier1Results = Vector Tier1TestSuite
+type Results = Vector TestSuite

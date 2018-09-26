@@ -33,6 +33,7 @@
     "tier1": {
         "enabled": false,
         "workDir": "work/tier1/",
+        "mockOutputPath": "sbs-tier1/test/tier1.log",
         "buildDir": "work/jdkbuild/build/",
         "makePath": "/usr/bin/make",
         "target": "run-test-tier1"

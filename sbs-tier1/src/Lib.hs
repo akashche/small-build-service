@@ -20,11 +20,9 @@
 {-# LANGUAGE Strict #-}
 
 module Lib
-    ( createJob
-    , updateJobState
-    , finalizeJob
+    ( Paths(..)
+    , resolvePaths
     , spawnTestsAndWait
-    , saveResults
     , extractSummary
     ) where
 
@@ -32,62 +30,36 @@ import Prelude ()
 
 import SBS.Common.Prelude
 import SBS.Common.Data
-import SBS.Common.Queries
 import SBS.Common.Tier1
 import SBS.Common.Utils
 import SBS.Common.Wilton
 
 import Data
 
-createJob :: DBConnection -> Queries -> Int64 -> IO Int64
-createJob db qrs tid = do
-    dbExecute db (get qrs "updateJobsSeq") Empty
-    (IncrementedSeq idx) <- dbQueryObject db (get qrs "selectNewJobId") Empty
-    curdate <- getCurrentTime
-    dbExecute db (get qrs "insertJob") (object
-        [ "id" .= idx
-        , "startDate" .= formatISO8601 curdate
-        , "state" .= showText StateCreated
-        , "taskId" .= tid
-        ])
-    return idx
+resolvePaths :: TaskContext -> Tier1Config -> Paths
+resolvePaths ctx cf = Paths wd ep op mop sp qp
+    where
+        appd = appDir ctx
+        wd = prependIfRelative appd (workDir (cf :: Tier1Config))
+        ep = prependIfRelative appd (makePath cf)
+        op = wd <> "tier1.log"
+        mop = prependIfRelative appd (mockOutputPath (cf :: Tier1Config))
+        sp = wd <> "tier1-summary.log"
+        qp = (prependIfRelative appd (queriesDir ctx)) <> "queries-tier1.sql"
 
-updateJobState :: DBConnection -> Queries -> Int64 -> State -> IO ()
-updateJobState db qrs jid st =
-    dbExecute db (get qrs "updateRunFinish") (object
-        [ "id" .= jid
-        , "state" .= showText st
-        ])
-
-finalizeJob :: DBConnection -> Queries -> Int64 -> State -> IO ()
-finalizeJob db qrs jid st = do
-    curdate <- getCurrentTime
-    dbExecute db (get qrs "updateJobFinish") (object
-        [ "id" .= jid
-        , "finishDate" .= formatISO8601 curdate
-        , "state" .= showText st
-        ])
-
-spawnTestsAndWait :: Tier1Config -> Text -> IO ()
-spawnTestsAndWait cf appd = do
-    let wd = prependIfRelative appd (workDir (cf :: Tier1Config))
-    let log = wd <> "tier1.log"
-    createDirectory (unpack wd)
+spawnTestsAndWait :: Paths -> Vector Text -> IO ()
+spawnTestsAndWait paths args = do
     _code <- spawnProcess SpawnedProcessArgs
-        { workDir = prependIfRelative appd (buildDir cf)
-        , executable = prependIfRelative appd (makePath cf)
-        , execArgs = fromList [target cf]
-        , outputFile = log
+        { workDir = workDir (paths :: Paths)
+        , executable = execPath paths
+        , execArgs = args
+        , outputFile = outputPath (paths :: Paths)
         , awaitExit = True
         }
     -- todo: add less strict check
     -- checkSpawnSuccess "tier1" code log
     return ()
 
-saveResults :: DBConnection -> Queries -> Int64 -> Tier1Results -> IO ()
-saveResults _db _qrs _jid _results = do
-    return ()
-
 extractSummary :: Text -> Text -> IO ()
-extractSummary _logPath _destPath = do
+extractSummary _outputPath _destPath = do
     return ()

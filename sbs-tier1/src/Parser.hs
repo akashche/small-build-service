@@ -20,7 +20,7 @@
 {-# LANGUAGE Strict #-}
 
 module Parser
-    ( parseTier1Output
+    ( parseTier1File
     ) where
 
 import Prelude ()
@@ -32,7 +32,7 @@ import SBS.Common.Utils
 
 import Data
 
-testSuite :: Parser Tier1TestSuite
+testSuite :: Parser TestSuite
 testSuite = do
     optional (string ">>")
     whitespace
@@ -54,9 +54,9 @@ testSuite = do
     whitespace
     optional (string "<<")
     whitespace
-    return (Tier1TestSuite nameText passNum failNum errorNum)
+    return (TestSuite nameText passNum failNum errorNum)
 
-tier1Results :: Parser Tier1Results
+tier1Results :: Parser Results
 tier1Results = do
     skipLinesTill "TEST                                              TOTAL  PASS  FAIL ERROR"
     list <- scan
@@ -68,8 +68,14 @@ tier1Results = do
             xs <- scan
             return (x:xs)
 
-parseTier1Output :: TextLazy.Text -> Text -> Tier1Results
+parseTier1Output :: TextLazy.Text -> Text -> Results
 parseTier1Output contents path =
     case parse tier1Results (unpack path) contents of
         Left err -> errorText (errToText err)
         Right res -> res
+
+parseTier1File :: Text -> IO Results
+parseTier1File path =
+    withFileText path fun
+    where
+        fun tx = return (parseTier1Output tx path)

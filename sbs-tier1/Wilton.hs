@@ -30,30 +30,67 @@ import SBS.Common.Tier1
 import SBS.Common.Utils
 import SBS.Common.Wilton
 
+import DB
 import Lib
+import Parser
 
 run :: Tier1Input -> IO ()
 run (Tier1Input ctx cf) = do
-    dyloadModules ["wilton_db", "wilton_process"]
-    let tid = taskId ctx
-    let db = dbConnection ctx
-    let appd = appDir ctx
-    let qdir = prependIfRelative appd (queriesDir ctx)
-    qrs <- loadQueries (qdir <> "queries-tier1.sql")
-    jid <- dbWithSyncTransaction db ( do
-        jid <- createJob db qrs tid
-        updateJobState db qrs jid StateRunning
-        return jid )
-    catch (spawnTestsAndWait cf appd) (\(e :: SomeException) -> do
-        dbWithSyncTransaction db (finalizeJob db qrs jid StateError)
-        errorText (showText e))
-    dbWithSyncTransaction db (
-        finalizeJob db qrs jid StateSuccess )
+    createDirectory (unpack (workDir (paths :: Paths)))
+    qrs <- loadQueries (queriesPath paths)
+    jid <- dbWithSyncTransaction db (createJob db qrs (taskId ctx))
+    catch
+        (do
+            dbWithSyncTransaction db (updateJobState db qrs jid StateRunning)
+            spawnTestsAndWait paths (fromList [target cf])
+            res <- parseTier1File (outputPath (paths :: Paths))
+            saveResults db qrs jid res
+            extractSummary (outputPath (paths :: Paths)) (summaryPath paths)
+            dbWithSyncTransaction db (finalizeJob db qrs jid StateSuccess))
+        (\(e :: SomeException) -> do
+            dbWithSyncTransaction db (finalizeJob db qrs jid StateError)
+            errorText (showText e))
     return ()
+    where
+        db = dbConnection ctx
+        paths = resolvePaths ctx cf
 
--- tier1_all: run rec - spawn - run rec update - parse - results - run rec update - shortlog
--- tier1_test_db
--- tier1_test_spawn:
+runMock :: Tier1Input -> IO ()
+runMock (Tier1Input ctx cf) = do
+    createDirectory (unpack (workDir (paths :: Paths)))
+    qrs <- loadQueries (queriesPath paths)
+    jid <- dbWithSyncTransaction db (createJob db qrs (taskId ctx))
+    catch
+        (do
+            dbWithSyncTransaction db (updateJobState db qrs jid StateRunning)
+            copyFile (unpack (mockOutputPath (paths :: Paths))) (unpack (outputPath (paths :: Paths)))
+            res <- parseTier1File (outputPath (paths :: Paths))
+            saveResults db qrs jid res
+            extractSummary (outputPath (paths :: Paths)) (summaryPath paths)
+            dbWithSyncTransaction db (finalizeJob db qrs jid StateSuccess))
+        (\(e :: SomeException) -> do
+            dbWithSyncTransaction db (finalizeJob db qrs jid StateError)
+            errorText (showText e))
+    return ()
+    where
+        db = dbConnection ctx
+        paths = resolvePaths ctx cf
+
+spawn :: Vector Text -> IO ()
+spawn _ = do
+    dyloadModules ["wilton_process"]
+    spawnTestsAndWait paths (fromList ["run-test-tier1"])
+    where
+        paths = Paths
+            { workDir = "./"
+            , execPath = "/usr/bin/make"
+            , outputPath = "tier1.log"
+            , mockOutputPath = ""
+            , summaryPath = "tier1-summary.log"
+            , queriesPath = ""
+            }
+
+
 -- tier1_test_parse:
 -- tier1_test_shortlog:
 
@@ -63,6 +100,12 @@ wilton_module_init = do
     { errRun <- registerWiltonCall "tier1_run" run
     ; if isJust errRun then createWiltonError errRun
 
+    ; else do { errRunMock <- registerWiltonCall "tier1_run_mock" runMock
+    ; if isJust errRun then createWiltonError errRunMock
+
+    ; else do { errSpawn <- registerWiltonCall "tier1_spawn" spawn
+    ; if isJust errSpawn then createWiltonError errSpawn
+
       else createWiltonError Nothing
-    }
+    }}}
 

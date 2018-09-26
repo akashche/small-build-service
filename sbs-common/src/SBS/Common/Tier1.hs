@@ -32,6 +32,7 @@ import SBS.Common.Data
 data Tier1Config = Tier1Config
     { enabled :: Bool
     , workDir :: Text
+    , mockOutputPath :: Text
     , buildDir :: Text
     , makePath :: Text
     , target :: Text
