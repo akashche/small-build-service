@@ -22,7 +22,7 @@
 module SBS.Common.Prelude
     ( Bool(True, False), Either(Left, Right), Int, IO, Maybe(Just, Nothing), Read, Show, String
     , (+), (-), (*), (/), (>), (<), (==), (/=), (.), (>>), (>>=), (&&), (||)
-    , div, flip, id, not, otherwise, read, return, undefined
+    , div, flip, fmap, id, not, otherwise, read, return, undefined
     -- Control.Concurrent.MVar
     , MVar
     , newMVar, putMVar, takeMVar
@@ -80,7 +80,7 @@ module SBS.Common.Prelude
 import Prelude
     ( Bool(True, False), Either(Left, Right), Int, IO, Maybe(Just, Nothing), Read, Show, String
     , (+), (-), (*), (/), (>), (<), (==), (/=), (.), (>>), (>>=), (&&), (&&), (||)
-    , div, flip, id, not, otherwise, read, return, undefined
+    , div, flip, fmap, id, not, otherwise, read, return, undefined
     )
 import Control.Concurrent.MVar (MVar, newMVar, putMVar, takeMVar)
 import Control.Exception (SomeException, catch, throw)

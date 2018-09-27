@@ -22,17 +22,18 @@
 module Lib
     ( Paths(..)
     , resolvePaths
-    , spawnTestsAndWait
     , extractSummary
+    , diffTwoResults
     ) where
 
 import Prelude ()
+import qualified Data.HashMap.Strict as HashMap
+import qualified Data.Vector as Vector
 
 import SBS.Common.Prelude
 import SBS.Common.Data
 import SBS.Common.Tier1
 import SBS.Common.Utils
-import SBS.Common.Wilton
 
 import Data
 
@@ -47,19 +48,19 @@ resolvePaths ctx cf = Paths wd ep op mop sp qp
         sp = wd <> "tier1-summary.log"
         qp = (prependIfRelative appd (queriesDir ctx)) <> "queries-tier1.sql"
 
-spawnTestsAndWait :: Paths -> Vector Text -> IO ()
-spawnTestsAndWait paths args = do
-    _code <- spawnProcess SpawnedProcessArgs
-        { workDir = workDir (paths :: Paths)
-        , executable = execPath paths
-        , execArgs = args
-        , outputFile = outputPath (paths :: Paths)
-        , awaitExit = True
-        }
-    -- todo: add less strict check
-    -- checkSpawnSuccess "tier1" code log
-    return ()
-
 extractSummary :: Text -> Text -> IO ()
 extractSummary _outputPath _destPath = do
     return ()
+
+diffTwoResults :: Results -> Results -> ResultsDiff
+diffTwoResults res1 res2 =
+    fromList (Vector.foldl' folder [] res1)
+    where
+        nm el = name (el :: TestSuite)
+        pairFolder li el = ((nm el, el) : li)
+        pairs = Vector.foldl' pairFolder [] res2
+        hmap = HashMap.fromList pairs
+        nonPassed el = (fail el) + (error el)
+        diffNonPassed el1 el2 = (nonPassed el1) - (nonPassed el2)
+        diff el1 = fmap (diffNonPassed el1) (HashMap.lookup (nm el1) hmap)
+        folder li el1 = (TestSuiteDiff (nm el1) (diff el1)  : li)

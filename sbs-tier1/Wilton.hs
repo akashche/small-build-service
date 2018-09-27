@@ -22,6 +22,7 @@
 module Wilton ( ) where
 
 import Prelude ()
+import qualified Data.Vector as Vector
 
 import SBS.Common.Prelude
 import SBS.Common.Data
@@ -33,6 +34,7 @@ import SBS.Common.Wilton
 import DB
 import Lib
 import Parser
+import Spawn
 
 run :: Tier1Input -> IO ()
 run (Tier1Input ctx cf) = do
@@ -90,8 +92,14 @@ spawn _ = do
             , queriesPath = ""
             }
 
+parse :: Vector Text -> IO ()
+parse arguments = do
+    when (1 /= Vector.length arguments)
+        (errorText "Path to tier1 tests output must be provided as a first and only argument")
+    parsed <- parseTier1File (arguments ! 0)
+    putStrLn (showText parsed)
+    return ()
 
--- tier1_test_parse:
 -- tier1_test_shortlog:
 
 foreign export ccall wilton_module_init :: IO CString
@@ -106,6 +114,9 @@ wilton_module_init = do
     ; else do { errSpawn <- registerWiltonCall "tier1_spawn" spawn
     ; if isJust errSpawn then createWiltonError errSpawn
 
+    ; else do { errParse <- registerWiltonCall "tier1_parse" parse
+    ; if isJust errParse then createWiltonError errParse
+
       else createWiltonError Nothing
-    }}}
+    }}}}
 

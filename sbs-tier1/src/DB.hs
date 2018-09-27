@@ -24,9 +24,11 @@ module DB
     , updateJobState
     , finalizeJob
     , saveResults
+    , loadResults
     ) where
 
 import Prelude ()
+import qualified Data.Vector as Vector
 
 import SBS.Common.Prelude
 import SBS.Common.Data
@@ -66,6 +68,24 @@ finalizeJob db qrs jid st = do
         ])
 
 saveResults :: DBConnection -> Queries -> Int64 -> Results -> IO ()
-saveResults _db _qrs _jid _results = do
+saveResults db qrs jid results = do
+    Vector.mapM_ insert results
     return ()
+    where
+        insert res = do
+            dbExecute db (get qrs "updateResultsSeq") Empty
+            (IncrementedSeq idx) <- dbQueryObject db (get qrs "selectNewResultId") Empty
+            dbExecute db (get qrs "insertResult") (object
+                [ "id" .= idx
+                , "name" .= name (res :: TestSuite)
+                , "pass" .= pass res
+                , "fail" .= fail res
+                , "error" .= error res
+                , "jobId" .= jid
+                ])
 
+loadResults :: DBConnection -> Queries -> Int64 -> IO (Vector TestSuite)
+loadResults db qrs jid =
+    dbQueryList db (get qrs "selectResultsByJobId") (object
+        [ "jobId" .= jid
+        ])

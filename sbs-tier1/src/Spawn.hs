@@ -19,41 +19,27 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE Strict #-}
 
-module Data
-    ( Paths(..)
-    , TestSuite(..)
-    , Results
-    , TestSuiteDiff(..)
-    , ResultsDiff
+module Spawn
+    ( spawnTestsAndWait
     ) where
 
 import Prelude ()
+-- import qualified Data.Vector as Vector
 
 import SBS.Common.Prelude
+import SBS.Common.Wilton
 
-data Paths = Paths
-    { workDir :: Text
-    , execPath :: Text
-    , outputPath :: Text
-    , mockOutputPath :: Text
-    , summaryPath :: Text
-    , queriesPath :: Text
-    } deriving Show
+import Data
 
-data TestSuite = TestSuite
-    { name :: Text
-    , pass :: Int
-    , fail :: Int
-    , error :: Int
-    } deriving (Generic, Show)
-instance ToJSON TestSuite
-instance FromJSON TestSuite
-
-type Results = Vector TestSuite
-
-data TestSuiteDiff = TestSuiteDiff
-    { name :: Text
-    , notPassedDiff :: Maybe Int
-    } deriving (Show)
-
-type ResultsDiff = Vector TestSuiteDiff
+spawnTestsAndWait :: Paths -> Vector Text -> IO ()
+spawnTestsAndWait paths args = do
+    _code <- spawnProcess SpawnedProcessArgs
+        { workDir = workDir (paths :: Paths)
+        , executable = execPath paths
+        , execArgs = args
+        , outputFile = outputPath (paths :: Paths)
+        , awaitExit = True
+        }
+    -- todo: add less strict check
+    -- checkSpawnSuccess "tier1" code log
+    return ()

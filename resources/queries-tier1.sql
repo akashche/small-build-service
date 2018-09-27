@@ -41,14 +41,22 @@ where id = :id
 
 -- tier1_results
 
-/** updateResultsId */
+/** updateResultsSeq */
 update tier1_results_seq
 set value = value + 1
 
-/** selectResultsId */
+/** selectNewResultId */
 select value as id
 from tier1_results_seq
 
 /** insertResult */
-insert into tier1_results (id, name, pass, fail, error, run_id)
-values (:id, :name, :pass, :fail, :error, :runId)
+insert into tier1_results (id, name, pass, fail, error, job_id)
+values (:id, :name, :pass, :fail, :error, :jobId)
+
+/** selectResultsByJobId **/
+select
+    , name
+    , pass
+    , fail
+    , error
+where job_id = :jobId

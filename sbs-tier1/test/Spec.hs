@@ -25,12 +25,26 @@ import SBS.Common.Prelude
 import SBS.Common.Utils
 
 import Data
+import Lib
 import Parser
 
 main :: IO ()
 main = do
-    res <- parseTier1File "test/tier1.log"
-    putStrLn (showText res)
+    _res <- parseTier1File "test/tier1.log"
+--     putStrLn (showText res)
+
+    let res1 = fromList
+            [ TestSuite "foo" 1 2 3
+            , TestSuite "bar" 2 3 1
+            , TestSuite "baz" 2 3 1
+            ]
+    let res2 = fromList
+            [ TestSuite "foo" 4 1 2
+            , TestSuite "bar" 3 1 4
+            ]
+    let diff = diffTwoResults res1 res2
+    putStrLn (showText diff)
+
 
     putStrLn "Tests Passed."
     return ()
