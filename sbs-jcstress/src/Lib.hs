@@ -96,7 +96,7 @@ finalizeDbEntry db qrs rid res diff = do
         , "interestingDiff" .= interestingDiff diff
         , "failed" .= Vector.length (failed res)
         , "failedDiff" .= failedDiff diff
-        , "error" .= Vector.length (error res)
+        , "error" .= Vector.length (errored res)
         , "errorDiff" .= errorDiff diff
         ])
     return ()
@@ -121,7 +121,7 @@ run (JCStressInput ctx jdkDir cf) = do
 parse_log :: Vector Text -> IO ()
 parse_log arguments = do
     when (1 /= Vector.length arguments)
-        (errorText "Path to 'jcstress.log' file must be specified as a first and only argument")
+        ((error . unpack) "Path to 'jcstress.log' file must be specified as a first and only argument")
     res <- parseOutput (arguments ! 0)
     putStrLn (showText res)
     return ()

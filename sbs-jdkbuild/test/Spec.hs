@@ -43,7 +43,7 @@ main :: IO ()
 main = do
     -- conf.log
     cd <- parseConf "test/conf.log"
---     unless ("foo" == showText ("foo" :: Text)) (errorText "showText fail")
+--     unless ("foo" == showText ("foo" :: Text)) ((error . unpack) "showText fail")
     putStrLn (showText cd)
 
     -- make.log

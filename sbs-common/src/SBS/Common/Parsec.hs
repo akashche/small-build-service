@@ -175,5 +175,5 @@ whitespace = skipMany (oneOf [' ', '\t', '\n', '\r'])
 parseText :: Parser a -> Text -> a
 parseText parser text =
     case parse parser "" (TextLazy.fromChunks [text]) of
-        Left err -> errorText (errToText err)
+        Left err -> (error . unpack) (errToText err)
         Right res -> res

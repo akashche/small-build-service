@@ -110,9 +110,9 @@ saveResults db qrs rid res =
                 [ "id" .= idx
                 , "name" .= (name (bench :: BenchResult))
                 , "mode" .= showText (mode bench)
-                , "counts" .= (count bench)
-                , "score" .= (score bench)
-                , "error" .= (error bench)
+                , "counts" .= count bench
+                , "score" .= score bench
+                , "error" .= errored bench
                 , "units" .= showText (units bench)
                 , "runId" .= rid
                 ])

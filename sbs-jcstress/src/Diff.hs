@@ -37,5 +37,5 @@ diffResults baseline res =
         pd = (passedCount res) - (passedCount baseline)
         xd = (Vector.length (interesting res)) - (Vector.length (interesting baseline))
         fd = (Vector.length (failed res)) - (Vector.length (failed baseline))
-        ed = (Vector.length (error res)) - (Vector.length (error baseline))
+        ed = (Vector.length (errored res)) - (Vector.length (errored baseline))
 

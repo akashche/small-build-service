@@ -51,7 +51,7 @@ data BenchResult = BenchResult
     , mode :: BenchMode
     , count :: Int
     , score :: Int
-    , error :: Int
+    , errored :: Int
     , units :: BenchUnit
     } deriving (Show)
 

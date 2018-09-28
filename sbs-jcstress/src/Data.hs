@@ -32,7 +32,7 @@ data JCStressResults = JCStressResults
     { passedCount :: Int
     , interesting :: Vector Text
     , failed :: Vector Text
-    , error :: Vector Text
+    , errored :: Vector Text
     } deriving (Show)
 
 data JCStressResultsDiff = JCStressResultsDiff

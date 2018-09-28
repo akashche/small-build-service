@@ -51,7 +51,7 @@ run (Tier1Input ctx cf) = do
             dbWithSyncTransaction db (finalizeJob db qrs jid StateSuccess))
         (\(e :: SomeException) -> do
             dbWithSyncTransaction db (finalizeJob db qrs jid StateError)
-            errorText (showText e))
+            (error . unpack) (showText e))
     return ()
     where
         db = dbConnection ctx
@@ -72,7 +72,7 @@ runMock (Tier1Input ctx cf) = do
             dbWithSyncTransaction db (finalizeJob db qrs jid StateSuccess))
         (\(e :: SomeException) -> do
             dbWithSyncTransaction db (finalizeJob db qrs jid StateError)
-            errorText (showText e))
+            (error . unpack) (showText e))
     return ()
     where
         db = dbConnection ctx
@@ -84,7 +84,8 @@ spawn _ = do
     spawnTestsAndWait paths (fromList ["run-test-tier1"])
     where
         paths = Paths
-            { workDir = "./"
+            { workDir = ""
+            , buildDir = ""
             , execPath = "/usr/bin/make"
             , outputPath = "tier1.log"
             , mockOutputPath = ""
@@ -95,7 +96,7 @@ spawn _ = do
 parse :: Vector Text -> IO ()
 parse arguments = do
     when (1 /= Vector.length arguments)
-        (errorText "Path to tier1 tests output must be provided as a first and only argument")
+        ((error . unpack) "Path to tier1 tests output must be provided as a first and only argument")
     parsed <- parseTier1File (arguments ! 0)
     putStrLn (showText parsed)
     return ()

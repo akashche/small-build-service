@@ -29,7 +29,6 @@ import qualified Data.Text.Lazy as TextLazy
 
 import SBS.Common.Prelude
 import SBS.Common.Parsec
-import SBS.Common.Utils
 
 import Data
 
@@ -42,7 +41,7 @@ configureDetails = do
 parseConfigureOutput :: TextLazy.Text -> Text -> ConfigureDetails
 parseConfigureOutput contents path =
     case parse configureDetails (unpack path) contents of
-        Left err -> errorText (errToText err)
+        Left err -> (error . unpack) (errToText err)
         Right res -> res
 
 makeDetails :: Parser MakeDetails
@@ -59,6 +58,6 @@ makeDetails = do
 parseMakeOutput :: TextLazy.Text -> Text -> MakeDetails
 parseMakeOutput contents path =
     case parse makeDetails (unpack path) contents of
-        Left err -> errorText (errToText err)
+        Left err -> (error . unpack) (errToText err)
         Right res -> res
 

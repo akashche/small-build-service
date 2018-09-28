@@ -28,7 +28,6 @@ import qualified Data.Text.Lazy as TextLazy
 
 import SBS.Common.Prelude
 import SBS.Common.Parsec
-import SBS.Common.Utils
 import Data
 
 benchMode :: Parser BenchMode
@@ -103,5 +102,5 @@ specJVMResults = do
 parseSpecJVMOutput :: TextLazy.Text -> Text -> SpecJVMResults
 parseSpecJVMOutput contents path =
     case parse specJVMResults (unpack path) contents of
-        Left err -> errorText (errToText err)
+        Left err -> (error . unpack) (errToText err)
         Right res -> res

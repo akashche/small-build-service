@@ -38,10 +38,11 @@ import SBS.Common.Utils
 import Data
 
 resolvePaths :: TaskContext -> Tier1Config -> Paths
-resolvePaths ctx cf = Paths wd ep op mop sp qp
+resolvePaths ctx cf = Paths wd bd ep op mop sp qp
     where
         appd = appDir ctx
         wd = prependIfRelative appd (workDir (cf :: Tier1Config))
+        bd = wd <> (buildDir (cf :: Tier1Config))
         ep = prependIfRelative appd (makePath cf)
         op = wd <> "tier1.log"
         mop = prependIfRelative appd (mockOutputPath (cf :: Tier1Config))
@@ -54,13 +55,13 @@ extractSummary _outputPath _destPath = do
 
 diffTwoResults :: Results -> Results -> ResultsDiff
 diffTwoResults res1 res2 =
-    fromList (Vector.foldl' folder [] res1)
+    fromList (Vector.foldr' folder [] res1)
     where
         nm el = name (el :: TestSuite)
-        pairFolder li el = ((nm el, el) : li)
-        pairs = Vector.foldl' pairFolder [] res2
+        pairFolder el li = ((nm el, el) : li)
+        pairs = Vector.foldr' pairFolder [] res2
         hmap = HashMap.fromList pairs
-        nonPassed el = (fail el) + (error el)
+        nonPassed el = (fail el) + (errored el)
         diffNonPassed el1 el2 = (nonPassed el1) - (nonPassed el2)
         diff el1 = fmap (diffNonPassed el1) (HashMap.lookup (nm el1) hmap)
-        folder li el1 = (TestSuiteDiff (nm el1) (diff el1)  : li)
+        folder el1 li = (TestSuiteDiff (nm el1) (diff el1)  : li)

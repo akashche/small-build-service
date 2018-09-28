@@ -22,8 +22,7 @@
 module SBS.Common.Utils
     (
     -- prelude text
-      errorText
-    , showText
+      showText
     -- file IO
     , withFileBytes
     , withFileText
@@ -59,9 +58,6 @@ import qualified System.IO as SystemIO
 import SBS.Common.Prelude
 
 -- prelude text
-
-errorText :: Text -> a
-errorText = Prelude.error . unpack
 
 showText :: (Show a, Typeable a) => a -> Text
 showText val
@@ -101,7 +97,7 @@ encodeJsonText = decodeUtf8 . ByteString.concat . ByteStringLazy.toChunks . Aeso
 decodeJsonText :: forall a . (FromJSON a) => Text -> a
 decodeJsonText tx =
     case Aeson.eitherDecode bs :: Either String a of
-        Left err -> errorText ("Error decoding JSON,"
+        Left err -> (error . unpack) ("Error decoding JSON,"
             <> " message: [" <> pack err <> "]")
         Right res -> res
     where
@@ -113,7 +109,7 @@ decodeJsonFile path =
     where
         fun bs =
             case Aeson.eitherDecode bs :: Either String a of
-                Left err -> errorText ("Error decoding JSON,"
+                Left err -> (error . unpack) ("Error decoding JSON,"
                     <> " path: [" <> path <> "]"
                     <> " message: [" <> pack err <> "]")
                 Right res -> return res
@@ -121,7 +117,7 @@ decodeJsonFile path =
 jsonGet :: forall a . (FromJSON a) => Object -> Text -> a
 jsonGet obj fieldName =
     case AesonTypes.parseEither (.: fieldName) obj :: Either String a of
-        Left err -> errorText ("Error accessing field,"
+        Left err -> (error . unpack) ("Error accessing field,"
              <> " name: [" <> fieldName <> "],"
              <> " object: [" <> (encodeJsonText obj) <> "]"
              <> " message: [" <> (pack err) <> "]")
@@ -139,7 +135,7 @@ get :: HashMap Text v -> Text -> v
 get map key =
     case lookup key map of
         Just res -> res
-        Nothing -> errorText ("Map entry not found, key: [" <> key <> "]")
+        Nothing -> (error . unpack) ("Map entry not found, key: [" <> key <> "]")
 
 -- datetime
 formatISO8601 :: UTCTime -> Text
@@ -152,7 +148,7 @@ parseISO8601 :: Text -> UTCTime
 parseISO8601 tx =
     case TimeFormat.parseTimeM False locale iso (unpack tx) :: Maybe UTCTime of
         Just tm -> tm
-        Nothing -> errorText ("Error parsing ISO8601 format, date: [" <> tx <> "]")
+        Nothing -> (error . unpack) ("Error parsing ISO8601 format, date: [" <> tx <> "]")
     where
         locale = TimeFormat.defaultTimeLocale
         iso = "%Y-%m-%d %H:%M:%S"

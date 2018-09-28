@@ -36,30 +36,30 @@ testParser = do
 main :: IO ()
 main = do
     -- Data
-    unless ("{}" == encodeJsonText Empty) (errorText "empty fail")
+    unless ("{}" == encodeJsonText Empty) (error "empty fail")
 
     -- Utils
 
     -- prelude text
-    unless ("foo" == showText ("foo" :: Text)) (errorText "showText fail")
-    unless ("foo" == showText ("foo" :: String)) (errorText "showText fail")
-    unless ("foo" == showText ("foo" :: ByteString)) (errorText "showText fail")
+    unless ("foo" == showText ("foo" :: Text)) (error "showText fail")
+    unless ("foo" == showText ("foo" :: String)) (error "showText fail")
+    unless ("foo" == showText ("foo" :: ByteString)) (error "showText fail")
 
     -- datetime
-    unless ("2018-09-09 19:15:11" == formatISO8601 (parseISO8601 "2018-09-09 19:15:11")) (errorText "ISO8601 fail")
+    unless ("2018-09-09 19:15:11" == formatISO8601 (parseISO8601 "2018-09-09 19:15:11")) (error "ISO8601 fail")
 
     -- paths
-    unless ("foobar" == prependIfRelative "foo" "bar") (errorText "prepend fail")
-    unless ("/bar" == prependIfRelative "foo" "/bar") (errorText "prepend fail")
-    unless ("c:\\bar" == prependIfRelative "foo" "c:\\bar") (errorText "prepend fail")
-    unless ("c:/bar" == prependIfRelative "foo" "c:/bar") (errorText "prepend fail")
+    unless ("foobar" == prependIfRelative "foo" "bar") (error "prepend fail")
+    unless ("/bar" == prependIfRelative "foo" "/bar") (error "prepend fail")
+    unless ("c:\\bar" == prependIfRelative "foo" "c:\\bar") (error "prepend fail")
+    unless ("c:/bar" == prependIfRelative "foo" "c:/bar") (error "prepend fail")
 
     -- queries
     qrs <- loadQueries "../resources/queries-main.sql"
-    unless (4 == HashMap.size qrs) (errorText "Queries fail")
+    unless (4 == HashMap.size qrs) (error "Queries fail")
 
     -- Parsec
-    unless ("foo" == parseText testParser "foo") (errorText "parser fail")
+    unless ("foo" == parseText testParser "foo") (error "parser fail")
 
     putStrLn "Tests Passed."
     return ()

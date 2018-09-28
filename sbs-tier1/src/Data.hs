@@ -33,6 +33,7 @@ import SBS.Common.Prelude
 
 data Paths = Paths
     { workDir :: Text
+    , buildDir :: Text
     , execPath :: Text
     , outputPath :: Text
     , mockOutputPath :: Text
@@ -44,7 +45,7 @@ data TestSuite = TestSuite
     { name :: Text
     , pass :: Int
     , fail :: Int
-    , error :: Int
+    , errored :: Int
     } deriving (Generic, Show)
 instance ToJSON TestSuite
 instance FromJSON TestSuite

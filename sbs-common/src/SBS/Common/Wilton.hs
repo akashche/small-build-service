@@ -57,7 +57,7 @@ wiltoncall ::
 wiltoncall callName callData = do
     err <- invokeWiltonCall (encodeUtf8 callName) callData :: IO (Either ByteString b)
     case err of
-        Left msg -> errorText ("WiltonCall error,"
+        Left msg -> (error . unpack) ("WiltonCall error,"
             <> " name: [" <> callName <> "],"
             <> " message: [" <> (decodeUtf8 msg) <> "]")
         Right res -> return res
@@ -126,7 +126,7 @@ dbExecuteFile db path = do
         exec qr = dbExecute db qr Empty
         load contents =
             case parse parser (unpack path) contents of
-                Left err -> errorText (errToText err)
+                Left err -> (error . unpack) (errToText err)
                 Right res -> return res
 
 dbQueryList ::
@@ -146,7 +146,7 @@ dbQueryObject ::
 dbQueryObject db sqlQuery pars = do
     vec <- dbQueryList db sqlQuery pars
     let len = Vector.length vec
-    when (1 /= len) (errorText (
+    when (1 /= len) ((error . unpack) (
                "Invalid number of records returned, expected 1 record,"
             <> " query: [" <> sqlQuery <> "], params: [" <> encodeJsonText(pars) <> "],"
             <> " number of records: [" <> (showText len) <>  "]"))
@@ -220,7 +220,7 @@ checkSpawnSuccess label code logFile =
         let logStr = unpack logFile
         outex <- doesFileExist logStr
         out <- if outex then readFile logStr else return ""
-        errorText ("Process spawn error,"
+        (error . unpack) ("Process spawn error,"
             <> " process: [" <> label <> "],"
             <> " code: [" <> (showText code) <>"],"
             <> " output: [" <> (Text.take 1024 (Text.strip out)) <> "]"))

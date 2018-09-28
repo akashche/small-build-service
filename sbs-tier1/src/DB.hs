@@ -80,7 +80,7 @@ saveResults db qrs jid results = do
                 , "name" .= name (res :: TestSuite)
                 , "pass" .= pass res
                 , "fail" .= fail res
-                , "error" .= error res
+                , "error" .= errored res
                 , "jobId" .= jid
                 ])
 

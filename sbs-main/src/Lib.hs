@@ -145,7 +145,7 @@ start :: Vector Text -> IO ()
 start arguments = do
     -- check arguments
     when (1 /= Vector.length arguments)
-        (errorText "Path to the JSON configuration file must be specified as a first and only argument")
+        (error "Path to the JSON configuration file must be specified as a first and only argument")
     -- load modules
     loadModules
     -- load config

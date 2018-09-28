@@ -34,7 +34,7 @@ import Data
 spawnTestsAndWait :: Paths -> Vector Text -> IO ()
 spawnTestsAndWait paths args = do
     _code <- spawnProcess SpawnedProcessArgs
-        { workDir = workDir (paths :: Paths)
+        { workDir = buildDir (paths :: Paths)
         , executable = execPath paths
         , execArgs = args
         , outputFile = outputPath (paths :: Paths)

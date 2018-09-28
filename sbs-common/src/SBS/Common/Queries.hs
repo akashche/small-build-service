@@ -62,5 +62,5 @@ loadQueries path =
     where
         fun contents =
             case parse queries (unpack path) contents of
-                Left err -> errorText (errToText err)
+                Left err -> (error . unpack) (errToText err)
                 Right res -> return res

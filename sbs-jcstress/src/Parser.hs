@@ -50,7 +50,7 @@ listOfTests header prefix = do
     skipManyTill "\n"
     list <- scan
     let lenList = List.length list
-    when (lenList /= len) (errorText
+    when (lenList /= len) ((error . unpack)
         (  "Wrong number of tests parsed,"
         <> " expected: [" <> (showText len) <> "]"
         <> " actual: [" <> (showText lenList) <> "]"
@@ -82,5 +82,5 @@ jcstressResults = do
 parseJCStressOutput :: TextLazy.Text -> Text -> JCStressResults
 parseJCStressOutput contents path =
     case parse jcstressResults (unpack path) contents of
-        Left err -> errorText (errToText err)
+        Left err -> (error . unpack) (errToText err)
         Right res -> res

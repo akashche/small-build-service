@@ -46,7 +46,7 @@ testSuite = do
     passNum <- integer
     failNum <- integer
     errorNum <- integer
-    when (totalNum /= passNum + failNum + errorNum) (errorText
+    when (totalNum /= passNum + failNum + errorNum) ((error . unpack)
         (  "Wrong number of tests parsed,"
         <> " expected: [" <> (showText totalNum) <> "]"
         <> " actual: [" <> (showText (passNum + failNum + errorNum)) <> "]"
@@ -71,7 +71,7 @@ tier1Results = do
 parseTier1Output :: TextLazy.Text -> Text -> Results
 parseTier1Output contents path =
     case parse tier1Results (unpack path) contents of
-        Left err -> errorText (errToText err)
+        Left err -> (error . unpack) (errToText err)
         Right res -> res
 
 parseTier1File :: Text -> IO Results
