@@ -31,9 +31,9 @@ create index tasks__start_date_idx on tasks (start_date);
 
 -- jdk builds
 
-create table jdkbuild_runs_seq (value bigint);
-insert into jdkbuild_runs_seq (value) values (0);
-create table jdkbuild_runs
+create table jdkbuild_jobs_seq (value bigint);
+insert into jdkbuild_jobs_seq (value) values (0);
+create table jdkbuild_jobs
     ( id bigint primary key
     , start_date date time not null
     , finish_date date time
@@ -43,7 +43,7 @@ create table jdkbuild_runs
     , task_id int not null
     , foreign key (task_id) references tasks (id)
     );
-create index jdkbuild_runs__start_date_idx on jdkbuild_runs (start_date);
+create index jdkbuild_jobs__start_date_idx on jdkbuild_jobs (start_date);
 
 
 -- tier1

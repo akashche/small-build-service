@@ -39,16 +39,18 @@ import SBS.Common.Utils
 import Data
 
 resolvePaths :: TaskContext -> Tier1Config -> Paths
-resolvePaths ctx cf = Paths wd bd ep op mop sp qp
+resolvePaths ctx cf = Paths
+    { workDir = wd
+    , buildDir = wd <> (buildDir (cf :: Tier1Config))
+    , execPath = prependIfRelative appd (makePath cf)
+    , outputPath = wd <> "tier1.log"
+    , mockOutputPath = prependIfRelative appd (mockOutputPath (cf :: Tier1Config))
+    , summaryPath = wd <> "tier1-summary.log"
+    , queriesPath = (prependIfRelative appd (queriesDir ctx)) <> "queries-tier1.sql"
+    }
     where
         appd = appDir ctx
         wd = prependIfRelative appd (workDir (cf :: Tier1Config))
-        bd = wd <> (buildDir (cf :: Tier1Config))
-        ep = prependIfRelative appd (makePath cf)
-        op = wd <> "tier1.log"
-        mop = prependIfRelative appd (mockOutputPath (cf :: Tier1Config))
-        sp = wd <> "tier1-summary.log"
-        qp = (prependIfRelative appd (queriesDir ctx)) <> "queries-tier1.sql"
 
 extractSummary :: Text -> Text -> IO ()
 extractSummary _outputPath _destPath = do

@@ -22,6 +22,7 @@
 module Data
     ( ConfigureDetails(..)
     , MakeDetails(..)
+    , Paths(..)
     ) where
 
 import Prelude ()
@@ -35,3 +36,18 @@ data ConfigureDetails = ConfigureDetails
 data MakeDetails = MakeDetails
     { imageDirRelative :: Text
     } deriving (Show)
+
+data Paths = Paths
+    { workDir :: Text
+    , sourceDir :: Text
+    , buildDir :: Text
+    , bootJdkDir :: Text
+    , jtregDir :: Text
+    , hgPath :: Text
+    , bashPath :: Text
+    , makePath :: Text
+    , confOutPath :: Text
+    , makeOutPath :: Text
+    , mockOutputDir :: Text
+    , queriesPath :: Text
+    } deriving Show

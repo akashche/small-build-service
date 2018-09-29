@@ -61,18 +61,12 @@ runMock :: Tier1Input -> IO ()
 runMock (Tier1Input ctx cf) = do
     qrs <- loadQueries (queriesPath paths)
     jid <- dbWithSyncTransaction db (createJob db qrs (taskId ctx))
-    catch
-        (do
-            dbWithSyncTransaction db (updateJobState db qrs jid StateRunning)
-            copyFile (unpack (mockOutputPath (paths :: Paths))) (unpack (outputPath (paths :: Paths)))
-            res <- parseResults (outputPath (paths :: Paths))
-            saveResults db qrs jid res
-            extractSummary (outputPath (paths :: Paths)) (summaryPath paths)
-            dbWithSyncTransaction db (finalizeJob db qrs jid StateSuccess (totalNotPassed res)))
-        (\(e :: SomeException) -> do
-            dbWithSyncTransaction db (finalizeJob db qrs jid StateError 0)
-            (error . unpack) (showText e))
-    return ()
+    dbWithSyncTransaction db (updateJobState db qrs jid StateRunning)
+    copyFile (unpack (mockOutputPath (paths :: Paths))) (unpack (outputPath (paths :: Paths)))
+    res <- parseResults (outputPath (paths :: Paths))
+    saveResults db qrs jid res
+    extractSummary (outputPath (paths :: Paths)) (summaryPath paths)
+    dbWithSyncTransaction db (finalizeJob db qrs jid StateSuccess (totalNotPassed res))
     where
         db = dbConnection ctx
         paths = resolvePaths ctx cf

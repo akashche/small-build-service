@@ -22,7 +22,6 @@
 module SBS.Common.JDKBuild
     ( JDKBuildConfig(..)
     , JDKBuildInput(..)
-    , JDKBuildOutput(..)
     ) where
 
 import Prelude ()
@@ -35,6 +34,7 @@ data JDKBuildConfig = JDKBuildConfig
     , workDir :: Text
     , mockOutputDir :: Text
     , sourceDir :: Text
+    , buildDir :: Text
     , bootJdkDir :: Text
     , jtregDir :: Text
     , bashPath :: Text
@@ -50,12 +50,7 @@ instance FromJSON JDKBuildConfig
 data JDKBuildInput = JDKBuildInput
     { taskCtx :: TaskContext
     , jdkbuildConfig :: JDKBuildConfig
+    , expectedImageDir :: Text
     } deriving (Generic, Show)
 instance ToJSON JDKBuildInput
 instance FromJSON JDKBuildInput
-
-data JDKBuildOutput = JDKBuildOutput
-    { jdkImageDir :: Text
-    } deriving (Generic, Show)
-instance ToJSON JDKBuildOutput
-instance FromJSON JDKBuildOutput

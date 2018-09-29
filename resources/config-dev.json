@@ -18,6 +18,7 @@
         "workDir": "work/jdkbuild/",
         "mockOutputDir": "sbs-jdkbuild/test/",
         "sourceDir": "work/jdk/",
+        "buildDir": "build/",
         "bootJdkDir": "work/bootjdk/",
         "jtregDir": "work/jtreg/",
         "bashPath": "/bin/bash",

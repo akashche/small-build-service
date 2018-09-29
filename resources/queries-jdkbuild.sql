@@ -15,22 +15,31 @@
 
 -- jdkbuild_runs
 
-/** updateRunsId */
-update jdkbuild_runs_seq
+/** updateJobsSeq */
+update jdkbuild_jobs_seq
 set value = value + 1
 
-/** selectRunsId */
+/** selectNewJobId */
 select value as id
-from jdkbuild_runs_seq
+from jdkbuild_jobs_seq
 
-/** insertRun */
-insert into jdkbuild_runs (id, start_date, state, task_id)
+/** insertJob */
+insert into jdkbuild_jobs (id, start_date, state, task_id)
 values (:id, :startDate, :state, :taskId)
 
-/** updateRunFinish */
-update jdkbuild_runs
+/** updateJobRepo */
+update jdkbuild_jobs
+set   repository = :repository
+    , revision = :revision
+where id = :id
+
+/** updateJobState */
+update jdkbuild_jobs
+set   state = :state
+where id = :id
+
+/** updateJobFinish */
+update jdkbuild_jobs
 set   state = :state
     , finish_date = :finishDate
-    , repository = :repository
-    , revision = :revision
 where id = :id

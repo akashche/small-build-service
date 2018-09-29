@@ -38,18 +38,20 @@ run arguments = do
     (cf, db, qrs) <- initApp arguments
     ctx <- initTask cf db qrs
     when (enabled (jdkbuild cf :: JDKBuildConfig))
-        (wiltoncall "jdkbuild_run" (JDKBuildInput ctx (jdkbuild cf)))
+        (wiltoncall "jdkbuild_run" (JDKBuildInput ctx (jdkbuild cf) eim))
     when (enabled (tier1 cf :: Tier1Config))
         (wiltoncall "tier1_run" (Tier1Input ctx (tier1 cf)))
     finalizeTask db qrs (taskId ctx)
     putStrLn "Run finished"
     return ()
+    where
+        eim = "" -- TODO
 
 runMock :: Vector Text -> IO ()
 runMock arguments = do
     (cf, db, qrs) <- initApp arguments
     ctx <- initTask cf db qrs
-    wiltoncall "jdkbuild_run_mock" (JDKBuildInput ctx (jdkbuild cf)) :: IO ()
+    wiltoncall "jdkbuild_run_mock" (JDKBuildInput ctx (jdkbuild cf) "") :: IO ()
     wiltoncall "tier1_run_mock" (Tier1Input ctx (tier1 cf)) :: IO ()
     finalizeTask db qrs (taskId ctx)
     putStrLn "MOCK Run finished"
