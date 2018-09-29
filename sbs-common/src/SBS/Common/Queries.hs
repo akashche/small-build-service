@@ -30,7 +30,6 @@ import qualified Data.Text as Text
 
 import SBS.Common.Prelude
 import SBS.Common.Parsec
-import SBS.Common.Utils
 
 type Queries = HashMap Text Text
 
@@ -57,10 +56,6 @@ queries = do
     return (HashMap.fromList li)
 
 loadQueries :: Text -> IO Queries
-loadQueries path =
-    withFileText path fun
-    where
-        fun contents =
-            case parse queries (unpack path) contents of
-                Left err -> (error . unpack) (errToText err)
-                Right res -> return res
+loadQueries path = do
+    qrs <- parseFile queries path
+    return qrs

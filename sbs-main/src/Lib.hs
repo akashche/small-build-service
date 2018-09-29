@@ -20,28 +20,24 @@
 {-# LANGUAGE Strict #-}
 
 module Lib
-    ( start
+    ( initApp
+    , initTask
     ) where
 
 import Prelude ()
-import qualified Prelude
 import qualified Data.Vector as Vector
 
 import SBS.Common.Prelude
 import SBS.Common.Data
-import SBS.Common.JCStress
-import SBS.Common.JDKBuild
 import SBS.Common.Queries
-import SBS.Common.SpecJVM
-import SBS.Common.Tier1
 import SBS.Common.Utils
 import SBS.Common.Wilton
 
 import Data
+import DB
 
-loadModules :: IO ()
-loadModules = do
-    Prelude.mapM_ load ((
+modules :: [Text]
+modules =
         [ "wilton_db"
         , "wilton_channel"
         , "wilton_process"
@@ -49,126 +45,29 @@ loadModules = do
         , "sbs_jdkbuild"
         , "sbs_specjvm"
         , "sbs_tier1"
-        ]) :: [Text])
+        ]
+
+resolveQueriesDir :: Config -> Text
+resolveQueriesDir cf =
+    prependIfRelative appd qdir
     where
-        load mod = wiltoncall "dyload_shared_library" (args mod) :: IO ()
-        args name = object ["name" .= name]
+        appd = appDir (sbs cf :: SBSConfig)
+        qdir = queriesDir ((database (sbs cf)) :: DBConfig)
 
-openDb :: Config -> IO DBConnection
-openDb cf =
-    if reCreateDb dbc
-    then do
-        drop
-        db <- open
-        create db
-        return db
-    else do
-        db <- open
-        return db
-    where
-        sbsc = sbs cf
-        appd = appDir (sbsc :: SBSConfig)
-        dbc = database sbsc
-        dbPath = prependIfRelative appd (dbFilePath dbc)
-        qdir = queriesDir (dbc :: DBConfig)
-        ddlPath = (prependIfRelative appd qdir) <> "schema.sql"
-        dbPathStr = unpack dbPath
-        open = dbOpen ("sqlite://" <> dbPath)
-        drop = do
-            exists <- doesFileExist dbPathStr
-            when (exists) (removeFile dbPathStr)
-        create db = dbExecuteFile db ddlPath
-
-createTask :: DBConnection -> Queries -> IO Int64
-createTask db qrs = do
-    idx <- dbWithSyncTransaction db work
-    return idx
-    where
-        work = do
-            dbExecute db (get qrs "tasksUpdateId") Empty
-            (IncrementedSeq idx) <- dbQueryObject db (get qrs "tasksSelectId") Empty
-            curdate <- getCurrentTime
-            dbExecute db (get qrs "tasksInsert") (object
-                [ "id" .= idx
-                , "startDate" .= formatISO8601 curdate
-                , "state" .= ("running" :: Text)
-                , "comment" .= ("" :: Text)
-                ])
-            return idx
-
-finalizeTask :: DBConnection -> Queries -> Int64 -> IO ()
-finalizeTask db qrs tid = do
-    dbWithSyncTransaction db work
-    return ()
-    where
-        work = do
-            curdate <- getCurrentTime
-            dbExecute db (get qrs "tasksUpdateFinish") (object
-                [ "id" .= tid
-                , "state" .= ("finished" :: Text)
-                , "finishDate" .= formatISO8601 curdate
-                ])
-
-runJDKBuild :: Config -> TaskContext -> IO JDKBuildOutput
-runJDKBuild cf ctx = do
-    res <- wiltoncall "sbs_jdkbuild_run" (JDKBuildInput
-        { taskCtx = ctx
-        , jdkbuildConfig = (jdkbuild cf)
-        })
-    return res
-
-runTier1 :: Config -> TaskContext -> IO ()
-runTier1 cf ctx = do
-    wiltoncall "sbs_tier1_run" (Tier1Input
-        { taskCtx = ctx
-        , tier1Config = (tier1 cf)
-        }) :: IO ()
-    return ()
-
-runJCStress :: Config -> TaskContext -> JDKBuildOutput -> IO ()
-runJCStress cf ctx jdk = do
-    wiltoncall "sbs_jcstress_run" (JCStressInput
-        { taskCtx = ctx
-        , jdkImageDir = (jdkImageDir (jdk :: JDKBuildOutput))
-        , jcstressConfig = (jcstress cf)
-        }) :: IO ()
-
-runSpecJVM :: Config -> TaskContext -> JDKBuildOutput -> IO ()
-runSpecJVM cf ctx jdk = do
-    wiltoncall "sbs_specjvm_run" (SpecJVMInput
-        { taskCtx = ctx
-        , jdkImageDir = (jdkImageDir (jdk :: JDKBuildOutput))
-        , specjvmConfig = (specjvm cf)
-        }) :: IO ()
-
-start :: Vector Text -> IO ()
-start arguments = do
-    -- check arguments
+initApp :: Vector Text -> IO (Config, DBConnection, Queries)
+initApp arguments = do
     when (1 /= Vector.length arguments)
         (error "Path to the JSON configuration file must be specified as a first and only argument")
-    -- load modules
-    loadModules
-    -- load config
+    dyloadModules modules
     cf <- decodeJsonFile (arguments ! 0) :: IO Config
-    -- openDB connection
-    db <- openDb cf
-    let sbsc = sbs cf
-    let appd = appDir (sbsc :: SBSConfig)
-    let qdir = prependIfRelative appd (queriesDir ((database sbsc) :: DBConfig))
-    qrs <- loadQueries (qdir <> "queries-main.sql")
-    -- create task
-    tid <- createTask db qrs
-    let ctx = TaskContext tid db (appDir (sbsc :: SBSConfig)) qdir
-    -- run jdkbuild
-    jdk <- runJDKBuild cf ctx
-    -- run tier1
-    runTier1 cf ctx
-    -- run jcstress
-    runJCStress cf ctx jdk
-    -- run specjvm
-    runSpecJVM cf ctx jdk
-    -- finalize
-    finalizeTask db qrs tid
+    db <- openDbConnection cf
+    qrs <- loadQueries ((resolveQueriesDir cf) <> "queries-main.sql")
+    return (cf, db, qrs)
 
-    putStrLn "Run finished"
-    return ()
+initTask :: Config -> DBConnection -> Queries -> IO TaskContext
+initTask cf db qrs = do
+    tid <- createTask db qrs
+    return (TaskContext tid db appd qdir)
+    where
+        appd = appDir (sbs cf :: SBSConfig)
+        qdir = resolveQueriesDir cf

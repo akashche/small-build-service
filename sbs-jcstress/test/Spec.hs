@@ -22,23 +22,18 @@
 import Prelude ()
 
 import SBS.Common.Prelude
+import SBS.Common.Parsec
 import SBS.Common.Utils
 
-import Data
 import Diff
 import Parser
 
-parseLog :: Text -> IO JCStressResults
-parseLog path =
-    withFileText path fun
-    where
-        fun tx = return (parseJCStressOutput tx path)
 
 main :: IO ()
 main = do
-    baseline <- parseLog "test/jcstress_abridged.log"
+    baseline <- parseFile jcstressResultsParser "test/jcstress_abridged.log"
     putStrLn (showText baseline)
-    res <- parseLog "test/jcstress_abridged_alt.log"
+    res <- parseFile jcstressResultsParser "test/jcstress_abridged_alt.log"
     let diff = diffResults baseline res
     putStrLn (showText diff)
 

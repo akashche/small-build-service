@@ -20,32 +20,25 @@
 {-# LANGUAGE Strict #-}
 
 module Parser
-    ( parseConfigureOutput
-    , parseMakeOutput
+    ( configureDetailsParser
+    , makeDetailsParser
     ) where
 
 import Prelude ()
-import qualified Data.Text.Lazy as TextLazy
 
 import SBS.Common.Prelude
 import SBS.Common.Parsec
 
 import Data
 
-configureDetails :: Parser ConfigureDetails
-configureDetails = do
+configureDetailsParser :: Parser ConfigureDetails
+configureDetailsParser = do
     skipLinesTill "A new configuration has been successfully created in"
     dir <- manyTill (noneOf ['\n']) (char '\n')
     return (ConfigureDetails ((pack dir) <> "/"))
 
-parseConfigureOutput :: TextLazy.Text -> Text -> ConfigureDetails
-parseConfigureOutput contents path =
-    case parse configureDetails (unpack path) contents of
-        Left err -> (error . unpack) (errToText err)
-        Right res -> res
-
-makeDetails :: Parser MakeDetails
-makeDetails = do
+makeDetailsParser :: Parser MakeDetails
+makeDetailsParser = do
     skipLinesTill "Creating jdk image"
     skipOne (string "Copying")
     whitespace
@@ -54,10 +47,3 @@ makeDetails = do
     jdkDir <- many1 alphaNum
     let dir = (pack imagesDir) <> "/" <> (pack jdkDir) <> "/"
     return (MakeDetails dir)
-
-parseMakeOutput :: TextLazy.Text -> Text -> MakeDetails
-parseMakeOutput contents path =
-    case parse makeDetails (unpack path) contents of
-        Left err -> (error . unpack) (errToText err)
-        Right res -> res
-

@@ -22,32 +22,20 @@
 import Prelude ()
 
 import SBS.Common.Prelude
+import SBS.Common.Parsec
 import SBS.Common.Utils
 
-import Data
 import Parser
-
-parseConf :: Text -> IO ConfigureDetails
-parseConf path =
-    withFileText path fun
-    where
-        fun tx = return (parseConfigureOutput tx path)
-
-parseMake :: Text -> IO MakeDetails
-parseMake path =
-    withFileText path fun
-    where
-        fun tx = return (parseMakeOutput tx path)
 
 main :: IO ()
 main = do
     -- conf.log
-    cd <- parseConf "test/conf.log"
+    cd <- parseFile configureDetailsParser "test/conf.log"
 --     unless ("foo" == showText ("foo" :: Text)) ((error . unpack) "showText fail")
     putStrLn (showText cd)
 
     -- make.log
-    md <- parseMake "test/make.log"
+    md <- parseFile makeDetailsParser "test/make.log"
     putStrLn (showText md)
 
     putStrLn "Tests Passed."

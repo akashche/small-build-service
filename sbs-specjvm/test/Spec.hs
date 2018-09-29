@@ -22,23 +22,18 @@
 import Prelude ()
 
 import SBS.Common.Prelude
+import SBS.Common.Parsec
 import SBS.Common.Utils
 
 import Data
 import Diff
 import Parser
 
-parseLog :: Text -> IO SpecJVMResults
-parseLog path =
-    withFileText path fun
-    where
-        fun tx = return (parseSpecJVMOutput tx path)
-
 main :: IO ()
 main = do
-    baseline <- parseLog "test/specjvm.log"
+    baseline <- parseFile specJVMResultsParser "test/specjvm.log"
     unless (8703 == totalTimeSeconds baseline) ((error . unpack) "Time fail")
-    res <- parseLog "test/specjvm_alt.log"
+    res <- parseFile specJVMResultsParser "test/specjvm_alt.log"
     let diff = diffResults baseline res
     putStrLn (showText diff)
 

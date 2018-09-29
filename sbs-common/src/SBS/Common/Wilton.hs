@@ -105,7 +105,7 @@ dbExecute db sqlQuery pars = do
 
 dbExecuteFile :: DBConnection -> Text -> IO ()
 dbExecuteFile db path = do
-    qrs <- withFileText path load
+    qrs <- parseFile parser path
     Vector.mapM_ exec qrs
     return ()
     where
@@ -124,10 +124,10 @@ dbExecuteFile db path = do
             let queries = Vector.map concatBucket filtered
             return queries
         exec qr = dbExecute db qr Empty
-        load contents =
-            case parse parser (unpack path) contents of
-                Left err -> (error . unpack) (errToText err)
-                Right res -> return res
+--         load contents =
+--             case parse parser (unpack path) contents of
+--                 Left err -> (error . unpack) (errToText err)
+--                 Right res -> return res
 
 dbQueryList ::
     forall a b . (ToJSON a, FromJSON b) =>

@@ -97,7 +97,8 @@ encodeJsonText = decodeUtf8 . ByteString.concat . ByteStringLazy.toChunks . Aeso
 decodeJsonText :: forall a . (FromJSON a) => Text -> a
 decodeJsonText tx =
     case Aeson.eitherDecode bs :: Either String a of
-        Left err -> (error . unpack) ("Error decoding JSON,"
+        Left err -> (error . unpack) (
+               "Error decoding JSON,"
             <> " message: [" <> pack err <> "]")
         Right res -> res
     where
@@ -109,7 +110,8 @@ decodeJsonFile path =
     where
         fun bs =
             case Aeson.eitherDecode bs :: Either String a of
-                Left err -> (error . unpack) ("Error decoding JSON,"
+                Left err -> (error . unpack) (
+                       "Error decoding JSON,"
                     <> " path: [" <> path <> "]"
                     <> " message: [" <> pack err <> "]")
                 Right res -> return res
@@ -117,7 +119,8 @@ decodeJsonFile path =
 jsonGet :: forall a . (FromJSON a) => Object -> Text -> a
 jsonGet obj fieldName =
     case AesonTypes.parseEither (.: fieldName) obj :: Either String a of
-        Left err -> (error . unpack) ("Error accessing field,"
+        Left err -> (error . unpack) (
+                "Error accessing field,"
              <> " name: [" <> fieldName <> "],"
              <> " object: [" <> (encodeJsonText obj) <> "]"
              <> " message: [" <> (pack err) <> "]")

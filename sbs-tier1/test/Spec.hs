@@ -26,7 +26,6 @@ import qualified Data.Vector.Mutable as MVector
 import SBS.Common.Prelude
 import SBS.Common.Data
 import SBS.Common.Tier1
-import SBS.Common.Utils
 
 import Data
 import Lib
@@ -35,13 +34,17 @@ import Parser
 main :: IO ()
 main = do
 
-    -- parse
+    -- parse results
 
-    res <- parseTier1File "test/tier1.log"
+    res <- parseResults "test/tier1.log"
     when (5 /= Vector.length res) (error "Parse length fail")
     when ("hotspot" /= name ((res ! 0) :: TestSuite)) (error "Parse fail")
     when (3934 /= pass ((res ! 2) :: TestSuite)) (error "Parse fail")
     when (12 /= fail ((res ! 1) :: TestSuite)) (error "Parse fail")
+
+    -- parse summary
+    summary <- parseSummary "test/tier1.log"
+    putStrLn summary
 
     -- diff
 
@@ -73,7 +76,6 @@ main = do
             , target = "run-test-tier1"
             }
     let paths = resolvePaths ctx cf
-    putStrLn (showText paths)
     when ("/foo/bar/" /= workDir (paths :: Paths)) (error "Paths workDir fail")
     when ("/foo/bar/build/" /= buildDir (paths :: Paths)) (error "Paths buildDir fail")
     when ("/usr/bin/make" /= execPath (paths :: Paths)) (error "Paths execPath fail")

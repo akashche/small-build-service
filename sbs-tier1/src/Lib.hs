@@ -24,6 +24,7 @@ module Lib
     , resolvePaths
     , extractSummary
     , diffTwoResults
+    , totalNotPassed
     ) where
 
 import Prelude ()
@@ -65,3 +66,9 @@ diffTwoResults res1 res2 =
         diffNonPassed el1 el2 = (nonPassed el1) - (nonPassed el2)
         diff el1 = fmap (diffNonPassed el1) (HashMap.lookup (nm el1) hmap)
         folder el1 li = (TestSuiteDiff (nm el1) (diff el1)  : li)
+
+totalNotPassed :: Results -> Int
+totalNotPassed res =
+    Vector.foldl' folder 0 res
+    where
+        folder np el = np + (fail el) + (errored el)

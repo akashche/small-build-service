@@ -53,18 +53,19 @@ createJob db qrs tid = do
 
 updateJobState :: DBConnection -> Queries -> Int64 -> State -> IO ()
 updateJobState db qrs jid st =
-    dbExecute db (get qrs "updateRunFinish") (object
+    dbExecute db (get qrs "updateJobState") (object
         [ "id" .= jid
         , "state" .= showText st
         ])
 
-finalizeJob :: DBConnection -> Queries -> Int64 -> State -> IO ()
-finalizeJob db qrs jid st = do
+finalizeJob :: DBConnection -> Queries -> Int64 -> State -> Int -> IO ()
+finalizeJob db qrs jid st np = do
     curdate <- getCurrentTime
     dbExecute db (get qrs "updateJobFinish") (object
         [ "id" .= jid
         , "finishDate" .= formatISO8601 curdate
         , "state" .= showText st
+        , "totalNotPass" .= np
         ])
 
 saveResults :: DBConnection -> Queries -> Int64 -> Results -> IO ()

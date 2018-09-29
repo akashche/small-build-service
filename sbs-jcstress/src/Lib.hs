@@ -30,6 +30,7 @@ import qualified Data.Vector as Vector
 import SBS.Common.Prelude
 import SBS.Common.Data
 import SBS.Common.JCStress
+import SBS.Common.Parsec
 import SBS.Common.Queries
 import SBS.Common.Utils
 import SBS.Common.Wilton
@@ -37,12 +38,6 @@ import SBS.Common.Wilton
 import Data
 import Diff
 import Parser
-
-parseOutput :: Text -> IO JCStressResults
-parseOutput path =
-    withFileText path fun
-    where
-        fun tx = return (parseJCStressOutput tx path)
 
 createDbEntry :: DBConnection -> Queries -> Int64 -> IO Int64
 createDbEntry db qrs tid = do
@@ -111,8 +106,8 @@ run (JCStressInput ctx jdkDir cf) = do
     rid <- dbWithSyncTransaction db (
         createDbEntry db qrs tid)
     log <- spawnJCStressAndWait cf appd jdkDir
-    res <- parseOutput log
-    bl <- parseOutput (prependIfRelative appd (baselineOutput cf))
+    res <- parseFile jcstressResultsParser log
+    bl <- parseFile jcstressResultsParser (prependIfRelative appd (baselineOutput cf))
     let diff = diffResults bl res
     dbWithSyncTransaction db ( do
         finalizeDbEntry db qrs rid res diff )
@@ -122,6 +117,6 @@ parse_log :: Vector Text -> IO ()
 parse_log arguments = do
     when (1 /= Vector.length arguments)
         ((error . unpack) "Path to 'jcstress.log' file must be specified as a first and only argument")
-    res <- parseOutput (arguments ! 0)
+    res <- parseFile jcstressResultsParser (arguments ! 0)
     putStrLn (showText res)
     return ()

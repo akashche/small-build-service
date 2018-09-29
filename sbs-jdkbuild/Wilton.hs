@@ -24,14 +24,22 @@ module Wilton ( ) where
 import Prelude ()
 
 import SBS.Common.Prelude
+import SBS.Common.JDKBuild
+
 import Lib
+
+runMock :: JDKBuildInput -> IO ()
+runMock _ = return ()
 
 foreign export ccall wilton_module_init :: IO CString
 wilton_module_init :: IO CString
 wilton_module_init = do
-    { errRun <- registerWiltonCall "sbs_jdkbuild_run" run
+    {           errRun <- registerWiltonCall "jdkbuild_run" run
     ; if isJust errRun then createWiltonError errRun
 
+    ; else do { errRunMock <- registerWiltonCall "jdkbuild_run_mock" runMock
+    ; if isJust errRunMock then createWiltonError errRunMock
+
       else createWiltonError Nothing
-    }
+    }}
 

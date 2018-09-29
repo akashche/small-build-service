@@ -45,12 +45,12 @@ run (Tier1Input ctx cf) = do
         (do
             dbWithSyncTransaction db (updateJobState db qrs jid StateRunning)
             spawnTestsAndWait paths (fromList [target cf])
-            res <- parseTier1File (outputPath (paths :: Paths))
+            res <- parseResults (outputPath (paths :: Paths))
             saveResults db qrs jid res
             extractSummary (outputPath (paths :: Paths)) (summaryPath paths)
-            dbWithSyncTransaction db (finalizeJob db qrs jid StateSuccess))
+            dbWithSyncTransaction db (finalizeJob db qrs jid StateSuccess (totalNotPassed res)))
         (\(e :: SomeException) -> do
-            dbWithSyncTransaction db (finalizeJob db qrs jid StateError)
+            dbWithSyncTransaction db (finalizeJob db qrs jid StateError 0)
             (error . unpack) (showText e))
     return ()
     where
@@ -59,19 +59,18 @@ run (Tier1Input ctx cf) = do
 
 runMock :: Tier1Input -> IO ()
 runMock (Tier1Input ctx cf) = do
-    createDirectory (unpack (workDir (paths :: Paths)))
     qrs <- loadQueries (queriesPath paths)
     jid <- dbWithSyncTransaction db (createJob db qrs (taskId ctx))
     catch
         (do
             dbWithSyncTransaction db (updateJobState db qrs jid StateRunning)
             copyFile (unpack (mockOutputPath (paths :: Paths))) (unpack (outputPath (paths :: Paths)))
-            res <- parseTier1File (outputPath (paths :: Paths))
+            res <- parseResults (outputPath (paths :: Paths))
             saveResults db qrs jid res
             extractSummary (outputPath (paths :: Paths)) (summaryPath paths)
-            dbWithSyncTransaction db (finalizeJob db qrs jid StateSuccess))
+            dbWithSyncTransaction db (finalizeJob db qrs jid StateSuccess (totalNotPassed res)))
         (\(e :: SomeException) -> do
-            dbWithSyncTransaction db (finalizeJob db qrs jid StateError)
+            dbWithSyncTransaction db (finalizeJob db qrs jid StateError 0)
             (error . unpack) (showText e))
     return ()
     where
@@ -97,20 +96,26 @@ parse :: Vector Text -> IO ()
 parse arguments = do
     when (1 /= Vector.length arguments)
         ((error . unpack) "Path to tier1 tests output must be provided as a first and only argument")
-    parsed <- parseTier1File (arguments ! 0)
+    parsed <- parseResults (arguments ! 0)
     putStrLn (showText parsed)
     return ()
 
--- tier1_test_shortlog:
+summary :: Vector Text -> IO ()
+summary arguments = do
+    when (1 /= Vector.length arguments)
+        ((error . unpack) "Path to tier1 tests output must be provided as a first and only argument")
+    parsed <- parseSummary (arguments ! 0)
+    putStrLn (showText parsed)
+    return ()
 
 foreign export ccall wilton_module_init :: IO CString
 wilton_module_init :: IO CString
 wilton_module_init = do
-    { errRun <- registerWiltonCall "tier1_run" run
+    {           errRun <- registerWiltonCall "tier1_run" run
     ; if isJust errRun then createWiltonError errRun
 
     ; else do { errRunMock <- registerWiltonCall "tier1_run_mock" runMock
-    ; if isJust errRun then createWiltonError errRunMock
+    ; if isJust errRunMock then createWiltonError errRunMock
 
     ; else do { errSpawn <- registerWiltonCall "tier1_spawn" spawn
     ; if isJust errSpawn then createWiltonError errSpawn
@@ -118,6 +123,9 @@ wilton_module_init = do
     ; else do { errParse <- registerWiltonCall "tier1_parse" parse
     ; if isJust errParse then createWiltonError errParse
 
+    ; else do { errSummary <- registerWiltonCall "tier1_summary" summary
+    ; if isJust errSummary then createWiltonError errSummary
+
       else createWiltonError Nothing
-    }}}}
+    }}}}}
 

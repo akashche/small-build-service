@@ -20,11 +20,10 @@
 {-# LANGUAGE Strict #-}
 
 module Parser
-    ( parseSpecJVMOutput
+    ( specJVMResultsParser
     ) where
 
 import Prelude ()
-import qualified Data.Text.Lazy as TextLazy
 
 import SBS.Common.Prelude
 import SBS.Common.Parsec
@@ -91,16 +90,10 @@ totalTimeSecs = do
     let res = parseText totalTimeSecsFromLine line
     return res
 
-specJVMResults :: Parser SpecJVMResults
-specJVMResults = do
+specJVMResultsParser :: Parser SpecJVMResults
+specJVMResultsParser = do
     time <- totalTimeSecs
     skipOne (manyTill anyChar newline)
     benchRes <- many1 benchResult
     let res = SpecJVMResults time (fromList benchRes)
     return res
-
-parseSpecJVMOutput :: TextLazy.Text -> Text -> SpecJVMResults
-parseSpecJVMOutput contents path =
-    case parse specJVMResults (unpack path) contents of
-        Left err -> (error . unpack) (errToText err)
-        Right res -> res

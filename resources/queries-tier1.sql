@@ -53,7 +53,7 @@ from tier1_results_seq
 insert into tier1_results (id, name, pass, fail, error, job_id)
 values (:id, :name, :pass, :fail, :error, :jobId)
 
-/** selectResultsByJobId **/
+/** selectResultsByJobId */
 select
     , name
     , pass

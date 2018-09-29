@@ -20,17 +20,23 @@
 {-# LANGUAGE Strict #-}
 
 module Parser
-    ( parseTier1File
+    ( parseResults
+    , parseSummary
     ) where
 
 import Prelude ()
-import qualified Data.Text.Lazy as TextLazy
 
 import SBS.Common.Prelude
 import SBS.Common.Parsec
 import SBS.Common.Utils
 
 import Data
+
+summaryHeader :: Text
+summaryHeader = "TEST                                              TOTAL  PASS  FAIL ERROR   "
+
+summaryFooter :: Text
+summaryFooter = "=============================="
 
 testSuite :: Parser TestSuite
 testSuite = do
@@ -56,9 +62,9 @@ testSuite = do
     whitespace
     return (TestSuite nameText passNum failNum errorNum)
 
-tier1Results :: Parser Results
-tier1Results = do
-    skipLinesTill "TEST                                              TOTAL  PASS  FAIL ERROR"
+results :: Parser Results
+results = do
+    skipLinesTill summaryHeader
     list <- scan
     return (fromList list)
     where
@@ -68,14 +74,19 @@ tier1Results = do
             xs <- scan
             return (x:xs)
 
-parseTier1Output :: TextLazy.Text -> Text -> Results
-parseTier1Output contents path =
-    case parse tier1Results (unpack path) contents of
-        Left err -> (error . unpack) (errToText err)
-        Right res -> res
+summary :: Parser Text
+summary = do
+    skipLinesTill summaryHeader
+    st <- manyTill anyChar (string (unpack summaryFooter))
+    let head = "   " <> summaryHeader <> "\n"
+    return (head <> (pack st))
 
-parseTier1File :: Text -> IO Results
-parseTier1File path =
-    withFileText path fun
-    where
-        fun tx = return (parseTier1Output tx path)
+parseResults :: Text -> IO Results
+parseResults path = do
+    res <- parseFile results path
+    return res
+
+parseSummary :: Text -> IO Text
+parseSummary path = do
+    res <- parseFile summary path
+    return res

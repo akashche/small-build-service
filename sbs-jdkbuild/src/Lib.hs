@@ -30,24 +30,13 @@ import qualified Data.Vector as Vector
 import SBS.Common.Prelude
 import SBS.Common.Data
 import SBS.Common.JDKBuild
+import SBS.Common.Parsec
 import SBS.Common.Queries
 import SBS.Common.Utils
 import SBS.Common.Wilton
 
 import Data
 import Parser
-
-parseConf :: Text -> IO ConfigureDetails
-parseConf path =
-    withFileText path fun
-    where
-        fun tx = return (parseConfigureOutput tx path)
-
-parseMake :: Text -> IO MakeDetails
-parseMake path =
-    withFileText path fun
-    where
-        fun tx = return (parseMakeOutput tx path)
 
 createDbEntry :: DBConnection -> Queries -> Int64 -> IO Int64
 createDbEntry db qrs tid = do
@@ -165,9 +154,9 @@ run (JDKBuildInput ctx cf) = do
     repo <- readRepoUrl cf appd wd
     rev <- readRepoRevision cf appd wd
     cflog <- spawnConfigureAndWait cf appd wd bd
-    cfres <- parseConf cflog
+    cfres <- parseFile configureDetailsParser cflog
     mlog <- spawnMakeAndWait cf appd wd bd
-    mres <- parseMake mlog
+    mres <- parseFile makeDetailsParser mlog
     dbWithSyncTransaction db (
         finalizeDbEntry db qrs rid repo rev )
     let imageDir = (confDirectory cfres) <> (imageDirRelative mres)

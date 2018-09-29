@@ -30,6 +30,7 @@ import qualified Data.Vector as Vector
 import SBS.Common.Prelude
 import SBS.Common.Data
 import SBS.Common.Queries
+import SBS.Common.Parsec
 import SBS.Common.SpecJVM
 import SBS.Common.Utils
 import SBS.Common.Wilton
@@ -37,12 +38,6 @@ import SBS.Common.Wilton
 import Data
 import Diff
 import Parser
-
-parseOutput :: Text -> IO SpecJVMResults
-parseOutput path =
-    withFileText path fun
-    where
-        fun tx = return (parseSpecJVMOutput tx path)
 
 createDbEntry :: DBConnection -> Queries -> Int64 -> IO Int64
 createDbEntry db qrs tid = do
@@ -148,9 +143,9 @@ run (SpecJVMInput ctx jdkDir cf) = do
     rid <- dbWithSyncTransaction db (
         createDbEntry db qrs tid)
     log <- spawnSpecJVMAndWait cf appd jdkDir
-    res <- parseOutput log
+    res <- parseFile specJVMResultsParser log
     copyNcNote cf (appDir ctx)
-    bl <- parseOutput (prependIfRelative appd (baselineOutput cf))
+    bl <- parseFile specJVMResultsParser (prependIfRelative appd (baselineOutput cf))
     let diff = diffResults bl res
     dbWithSyncTransaction db ( do
         saveResults db qrs rid res

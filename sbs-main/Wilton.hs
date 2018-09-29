@@ -24,13 +24,46 @@ module Wilton ( ) where
 import Prelude ()
 
 import SBS.Common.Prelude
+import SBS.Common.Data
+import SBS.Common.JDKBuild
+import SBS.Common.Tier1
+import SBS.Common.Wilton
+
+import Data
+import DB
 import Lib
+
+run :: Vector Text -> IO ()
+run arguments = do
+    (cf, db, qrs) <- initApp arguments
+    ctx <- initTask cf db qrs
+    when (enabled (jdkbuild cf :: JDKBuildConfig))
+        (wiltoncall "jdkbuild_run" (JDKBuildInput ctx (jdkbuild cf)))
+    when (enabled (tier1 cf :: Tier1Config))
+        (wiltoncall "tier1_run" (Tier1Input ctx (tier1 cf)))
+    finalizeTask db qrs (taskId ctx)
+    putStrLn "Run finished"
+    return ()
+
+runMock :: Vector Text -> IO ()
+runMock arguments = do
+    (cf, db, qrs) <- initApp arguments
+    ctx <- initTask cf db qrs
+    wiltoncall "jdkbuild_run_mock" (JDKBuildInput ctx (jdkbuild cf)) :: IO ()
+    wiltoncall "tier1_run_mock" (Tier1Input ctx (tier1 cf)) :: IO ()
+    finalizeTask db qrs (taskId ctx)
+    putStrLn "MOCK Run finished"
+    return ()
+
 
 foreign export ccall wilton_module_init :: IO CString
 wilton_module_init :: IO CString
 wilton_module_init = do
-    { errStart <- registerWiltonCall "sbs_start" start
-    ; if isJust errStart then createWiltonError errStart
+    {           errRun <- registerWiltonCall "run" run
+    ; if isJust errRun then createWiltonError errRun
+
+    ; else do { errRunMock <- registerWiltonCall "run_mock" runMock
+    ; if isJust errRunMock then createWiltonError errRunMock
 
       else createWiltonError Nothing
-    }
+    }}

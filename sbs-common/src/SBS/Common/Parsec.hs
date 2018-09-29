@@ -23,7 +23,7 @@ module SBS.Common.Parsec
     ( ParseError
     , (<|>), (<?>)
     , char, choice, eof, lookAhead, many, many1, manyTill, noneOf
-    , oneOf, option, optional, parse, sepBy, sepBy1, skipMany, try, unexpected
+    , oneOf, option, optional, sepBy, sepBy1, skipMany, try, unexpected
     -- Text.Parsec.Char
     , alphaNum, anyChar, digit, newline, string
     -- Text.Parsec.Error
@@ -38,6 +38,8 @@ module SBS.Common.Parsec
     , floatAsInt, integer, lineContains, skipLines, skipLinesPrefix, skipLinesTill, skipManyTill, skipOne, whitespace
     -- strict text
     , parseText
+    -- file
+    , parseFile
     ) where
 
 import Prelude ()
@@ -177,3 +179,15 @@ parseText parser text =
     case parse parser "" (TextLazy.fromChunks [text]) of
         Left err -> (error . unpack) (errToText err)
         Right res -> res
+
+-- file
+
+parseFile :: Parser a -> Text -> IO a
+parseFile parser path =
+    withFileText path fun
+    where
+        parseContents contents =
+            case parse parser (unpack path) contents of
+                Left err -> (error . unpack) (errToText err)
+                Right res -> res
+        fun contents = return (parseContents contents)

@@ -56,7 +56,7 @@ create table tier1_jobs
     , start_date date time not null
     , finish_date date time
     , state text not null
-    , total_not_pass int,
+    , total_not_pass int
     , task_id int not null
     , foreign key (task_id) references tasks (id)
     );
@@ -67,11 +67,11 @@ create table tier1_results_seq (value bigint);
 insert into tier1_results_seq (value) values (0);
 create table tier1_results
     ( id bigint primary key
-    , name text not null,
-    , pass int not null,
-    , fail int not null,
-    , error int not null,
-    , run_id int not null
+    , name text not null
+    , pass int not null
+    , fail int not null
+    , error int not null
+    , job_id int not null
     , foreign key (job_id) references tier1_jobs (id)
     );
 

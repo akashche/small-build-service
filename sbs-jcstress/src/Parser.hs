@@ -20,12 +20,11 @@
 {-# LANGUAGE Strict #-}
 
 module Parser
-    ( parseJCStressOutput
+    ( jcstressResultsParser
     ) where
 
 import Prelude ()
 import qualified Data.List as List
-import qualified Data.Text.Lazy as TextLazy
 
 import SBS.Common.Prelude
 import SBS.Common.Parsec
@@ -71,16 +70,10 @@ passedTestsCount = do
     numStr <- many1 digit
     return (read numStr :: Int)
 
-jcstressResults :: Parser JCStressResults
-jcstressResults = do
+jcstressResultsParser :: Parser JCStressResults
+jcstressResultsParser = do
     tint <- listOfTests "*** INTERESTING tests" "[OK]"
     tfail <- listOfTests "*** FAILED tests" "[FAILED]"
     terr <- listOfTests "*** ERROR tests" "[ERROR]"
     count <- passedTestsCount
     return (JCStressResults count tint tfail terr)
-
-parseJCStressOutput :: TextLazy.Text -> Text -> JCStressResults
-parseJCStressOutput contents path =
-    case parse jcstressResults (unpack path) contents of
-        Left err -> (error . unpack) (errToText err)
-        Right res -> res
