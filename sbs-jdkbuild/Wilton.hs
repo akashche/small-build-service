@@ -22,6 +22,7 @@
 module Wilton ( ) where
 
 import Prelude ()
+import qualified Data.Vector as Vector
 
 import SBS.Common.Prelude
 import SBS.Common.Data
@@ -89,9 +90,15 @@ runMock (JDKBuildInput ctx cf _) = do
         confOut = confOutPath (paths :: Paths)
         makeOut = makeOutPath (paths :: Paths)
 
+pathsFromArgs :: Vector Text -> Paths
+pathsFromArgs arguments =
+    if (1 /= Vector.length arguments)
+    then ((error . unpack) "Path to application directory must be specified as a first and only argument")
+    else mockPaths (arguments ! 0)
+
 spawnRepoUrl :: Vector Text -> IO ()
 spawnRepoUrl arguments = do
-    let paths = mockPaths (arguments ! 0)
+    let paths = pathsFromArgs arguments
     dyloadModules ["wilton_process"]
     url <- readRepoUrl paths
     putStrLn url
@@ -99,7 +106,7 @@ spawnRepoUrl arguments = do
 
 spawnRepoRevision :: Vector Text -> IO ()
 spawnRepoRevision arguments = do
-    let paths = mockPaths (arguments ! 0)
+    let paths = pathsFromArgs arguments
     dyloadModules ["wilton_process"]
     rev <- readRepoRevision paths
     putStrLn rev
@@ -107,14 +114,14 @@ spawnRepoRevision arguments = do
 
 spawnConf :: Vector Text -> IO ()
 spawnConf arguments = do
-    let paths = mockPaths (arguments ! 0)
+    let paths = pathsFromArgs arguments
     dyloadModules ["wilton_process"]
     spawnConfigureAndWait mockConfig paths
     return ()
 
 spawnMake :: Vector Text -> IO ()
 spawnMake arguments = do
-    let paths = mockPaths (arguments ! 0)
+    let paths = pathsFromArgs arguments
     dyloadModules ["wilton_process"]
     spawnMakeAndWait mockConfig paths
     return ()

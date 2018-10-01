@@ -59,14 +59,14 @@ mockCtx appd = TaskContext
     { taskId = 42
     , dbConnection = DBConnection 43 44
     , appDir = appd
-    , queriesDir = ""
+    , queriesDir = "queries/"
     }
 
 mockConfig :: JDKBuildConfig
 mockConfig = JDKBuildConfig
     { enabled = True
     , workDir = ""
-    , mockOutputDir = ""
+    , mockOutputDir = "mock/"
     , sourceDir = "jdk/"
     , buildDir = "jdk/"
     , bootJdkDir = "bootjdk/"
