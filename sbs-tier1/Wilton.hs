@@ -54,8 +54,21 @@ run (Tier1Input ctx cf) = do
             (error . unpack) (showText e))
     return ()
     where
-        db = dbConnection ctx
+        db = dbConnection (ctx :: TaskContext)
         paths = resolvePaths ctx cf
+
+diff :: DiffRequest -> IO Text
+diff req = do
+    qrs <- loadQueries (resolveQueriesPath req)
+    res1 <- loadResults db qrs (taskId1 req)
+    res2 <- loadResults db qrs (taskId2 req)
+    let rd = diffTwoResults res1 res2
+    let tx = formatResultsDiff rd
+    return tx
+    where
+        db = dbConnection (req :: DiffRequest)
+
+-- test calls
 
 runMock :: Tier1Input -> IO ()
 runMock (Tier1Input ctx cf) = do
@@ -68,7 +81,7 @@ runMock (Tier1Input ctx cf) = do
     extractSummary (outputPath (paths :: Paths)) (summaryPath paths)
     dbWithSyncTransaction db (finalizeJob db qrs jid StateSuccess (totalNotPassed res))
     where
-        db = dbConnection ctx
+        db = dbConnection (ctx :: TaskContext)
         paths = resolvePaths ctx cf
 
 spawn :: Vector Text -> IO ()
@@ -89,7 +102,7 @@ spawn _ = do
 parse :: Vector Text -> IO ()
 parse arguments = do
     when (1 /= Vector.length arguments)
-        ((error . unpack) "Path to tier1 tests output must be provided as a first and only argument")
+        ((error . unpack) "Path to tier1 tests output must be specified as a first and only argument")
     parsed <- parseResults (arguments ! 0)
     putStrLn (showText parsed)
     return ()
@@ -97,7 +110,7 @@ parse arguments = do
 summary :: Vector Text -> IO ()
 summary arguments = do
     when (1 /= Vector.length arguments)
-        ((error . unpack) "Path to tier1 tests output must be provided as a first and only argument")
+        ((error . unpack) "Path to tier1 tests output must be specified as a first and only argument")
     parsed <- parseSummary (arguments ! 0)
     putStrLn (showText parsed)
     return ()
@@ -107,6 +120,9 @@ wilton_module_init :: IO CString
 wilton_module_init = do
     {           errRun <- registerWiltonCall "tier1_run" run
     ; if isJust errRun then createWiltonError errRun
+
+    ; else do { errDiff <- registerWiltonCall "tier1_diff" diff
+    ; if isJust errDiff then createWiltonError errDiff
 
     ; else do { errRunMock <- registerWiltonCall "tier1_run_mock" runMock
     ; if isJust errRunMock then createWiltonError errRunMock
@@ -121,5 +137,5 @@ wilton_module_init = do
     ; if isJust errSummary then createWiltonError errSummary
 
       else createWiltonError Nothing
-    }}}}}
+    }}}}}}
 

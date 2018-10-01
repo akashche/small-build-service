@@ -43,7 +43,7 @@ main = do
     let paths = resolvePaths (mockCtx "appdir/") cf
     unless ("appdir/work/" == workDir (paths :: Paths)) (error "Paths workDir fail")
     unless ("appdir/jdk/" == sourceDir (paths :: Paths)) (error "Paths sourceDir fail")
-    unless ("appdir/work/jdk/" == buildDir (paths :: Paths)) (error "Paths buildDir fail")
+    unless ("appdir/jdk/" == buildDir (paths :: Paths)) (error "Paths buildDir fail")
     unless ("appdir/bootjdk/" == bootJdkDir (paths :: Paths)) (error "Paths bootJdkDir fail")
     unless ("appdir/jtreg/" == jtregDir (paths :: Paths)) (error "Paths jtregDir fail")
     unless ("/usr/bin/hg" == hgPath (paths :: Paths)) (error "Paths hgPath fail")

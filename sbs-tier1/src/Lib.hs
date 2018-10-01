@@ -22,8 +22,10 @@
 module Lib
     ( Paths(..)
     , resolvePaths
+    , resolveQueriesPath
     , extractSummary
     , diffTwoResults
+    , formatResultsDiff
     , totalNotPassed
     ) where
 
@@ -46,11 +48,19 @@ resolvePaths ctx cf = Paths
     , outputPath = wd <> "tier1.log"
     , mockOutputPath = prependIfRelative appd (mockOutputPath (cf :: Tier1Config))
     , summaryPath = wd <> "tier1-summary.log"
-    , queriesPath = (prependIfRelative appd (queriesDir ctx)) <> "queries-tier1.sql"
+    , queriesPath = (prependIfRelative appd qdir) <> "queries-tier1.sql"
     }
     where
-        appd = appDir ctx
+        appd = appDir (ctx :: TaskContext)
+        qdir = queriesDir (ctx :: TaskContext)
         wd = prependIfRelative appd (workDir (cf :: Tier1Config))
+
+resolveQueriesPath :: DiffRequest -> Text
+resolveQueriesPath req =
+    (prependIfRelative appd qdir) <> "queries-tier1.sql"
+    where
+        appd = appDir (req :: DiffRequest)
+        qdir = queriesDir (req :: DiffRequest)
 
 extractSummary :: Text -> Text -> IO ()
 extractSummary _outputPath _destPath = do
@@ -68,6 +78,20 @@ diffTwoResults res1 res2 =
         diffNonPassed el1 el2 = (nonPassed el1) - (nonPassed el2)
         diff el1 = fmap (diffNonPassed el1) (HashMap.lookup (nm el1) hmap)
         folder el1 li = (TestSuiteDiff (nm el1) (diff el1)  : li)
+
+formatResultsDiff :: ResultsDiff -> Text
+formatResultsDiff rd =
+    Vector.ifoldl' folder "" rd
+    where
+        showDiff el = case (notPassedDiff (el :: TestSuiteDiff)) of
+            Just num -> showText num
+            Nothing -> "="
+        folder ac idx el =
+               ac
+            <> (if idx > 0 then "; " else "")
+            <> (name (el :: TestSuiteDiff))
+            <> ": "
+            <> showDiff (el)
 
 totalNotPassed :: Results -> Int
 totalNotPassed res =

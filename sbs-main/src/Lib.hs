@@ -56,8 +56,8 @@ resolveQueriesDir cf =
 
 initApp :: Vector Text -> IO (Config, DBConnection, Queries)
 initApp arguments = do
-    when (1 /= Vector.length arguments)
-        (error "Path to the JSON configuration file must be specified as a first and only argument")
+    when (Vector.length arguments < 1)
+        (error "Path to the JSON configuration file must be specified as a first argument")
     dyloadModules modules
     cf <- decodeJsonFile (arguments ! 0) :: IO Config
     db <- openDbConnection cf

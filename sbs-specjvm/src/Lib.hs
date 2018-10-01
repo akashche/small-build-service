@@ -136,15 +136,15 @@ copyNcNote cf appd = copyFile (unpack from) (unpack to)
 run :: SpecJVMInput -> IO ()
 run (SpecJVMInput ctx jdkDir cf) = do
     let tid = taskId ctx
-    let db = dbConnection ctx
-    let appd = appDir ctx
-    let qdir = prependIfRelative appd (queriesDir ctx)
+    let db = dbConnection (ctx :: TaskContext)
+    let appd = appDir (ctx :: TaskContext)
+    let qdir = prependIfRelative appd (queriesDir (ctx :: TaskContext))
     qrs <- loadQueries (qdir <> "queries-specjvm.sql")
     rid <- dbWithSyncTransaction db (
         createDbEntry db qrs tid)
     log <- spawnSpecJVMAndWait cf appd jdkDir
     res <- parseFile specJVMResultsParser log
-    copyNcNote cf (appDir ctx)
+    copyNcNote cf (appDir (ctx :: TaskContext))
     bl <- parseFile specJVMResultsParser (prependIfRelative appd (baselineOutput cf))
     let diff = diffResults bl res
     dbWithSyncTransaction db ( do

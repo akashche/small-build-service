@@ -99,9 +99,9 @@ finalizeDbEntry db qrs rid res diff = do
 run :: JCStressInput -> IO ()
 run (JCStressInput ctx jdkDir cf) = do
     let tid = taskId ctx
-    let db = dbConnection ctx
-    let appd = appDir ctx
-    let qdir = prependIfRelative appd (queriesDir ctx)
+    let db = dbConnection (ctx :: TaskContext)
+    let appd = appDir (ctx :: TaskContext)
+    let qdir = prependIfRelative appd (queriesDir (ctx :: TaskContext))
     qrs <- loadQueries (qdir <> "queries-jcstress.sql")
     rid <- dbWithSyncTransaction db (
         createDbEntry db qrs tid)

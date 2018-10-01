@@ -86,7 +86,7 @@ saveResults db qrs jid results = do
                 ])
 
 loadResults :: DBConnection -> Queries -> Int64 -> IO (Vector TestSuite)
-loadResults db qrs jid =
-    dbQueryList db (get qrs "selectResultsByJobId") (object
-        [ "jobId" .= jid
+loadResults db qrs tid =
+    dbQueryList db (get qrs "selectResultsByTaskId") (object
+        [ "taskId" .= tid
         ])

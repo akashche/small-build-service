@@ -53,10 +53,13 @@ from tier1_results_seq
 insert into tier1_results (id, name, pass, fail, error, job_id)
 values (:id, :name, :pass, :fail, :error, :jobId)
 
-/** selectResultsByJobId */
+/** selectResultsByTaskId */
 select
-    , name
-    , pass
-    , fail
-    , error
-where job_id = :jobId
+      tr.name as name
+    , tr.pass as pass
+    , tr.fail as fail
+    , tr.error as errored
+from tier1_results as tr
+join tier1_jobs as tj
+    on tr.job_id = tj.id
+where tj.task_id = :taskId

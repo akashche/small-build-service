@@ -24,6 +24,7 @@ module SBS.Common.Data
     , IncrementedSeq(..)
     , DBConnection(..)
     , TaskContext(..)
+    , DiffRequest(..)
     , State(..)
     ) where
 
@@ -59,6 +60,16 @@ data TaskContext = TaskContext
     } deriving (Generic, Show)
 instance FromJSON TaskContext
 instance ToJSON TaskContext
+
+data DiffRequest = DiffRequest
+    { taskId1 :: Int64
+    , taskId2 :: Int64
+    , dbConnection :: DBConnection
+    , appDir :: Text
+    , queriesDir :: Text
+    } deriving (Generic, Show)
+instance FromJSON DiffRequest
+instance ToJSON DiffRequest
 
 -- JobState
 

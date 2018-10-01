@@ -66,8 +66,11 @@ run (JDKBuildInput ctx cf _eim) = do
             (error . unpack) (showText e))
     return ()
     where
-        db = dbConnection ctx
+        db = dbConnection (ctx :: TaskContext)
         paths = resolvePaths ctx cf
+
+
+-- test calls
 
 runMock :: JDKBuildInput -> IO ()
 runMock (JDKBuildInput ctx cf _) = do
@@ -84,7 +87,7 @@ runMock (JDKBuildInput ctx cf _) = do
     dbWithSyncTransaction db (finalizeJob db qrs jid StateSuccess)
     return ()
     where
-        db = dbConnection ctx
+        db = dbConnection (ctx :: TaskContext)
         paths = resolvePaths ctx cf
         md = mockOutputDir (paths :: Paths)
         confOut = confOutPath (paths :: Paths)

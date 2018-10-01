@@ -5,7 +5,7 @@
         "database": {
             "dbFilePath": "work/sbs.db",
             "queriesDir": "resources/",
-            "reCreateDb": true
+            "reCreateDb": false
         },
 
         "logging": {
@@ -18,7 +18,7 @@
         "workDir": "work/jdkbuild/",
         "mockOutputDir": "sbs-jdkbuild/test/",
         "sourceDir": "work/jdk/",
-        "buildDir": "build/",
+        "buildDir": "work/jdkbuild/build/",
         "bootJdkDir": "work/bootjdk/",
         "jtregDir": "work/jtreg/",
         "bashPath": "/bin/bash",
@@ -34,8 +34,8 @@
     "tier1": {
         "enabled": false,
         "workDir": "work/tier1/",
-        "mockOutputPath": "sbs-tier1/test/tier1.log",
         "buildDir": "work/jdkbuild/build/",
+        "mockOutputPath": "sbs-tier1/test/tier1.log",
         "makePath": "/usr/bin/make",
         "target": "run-test-tier1"
     },

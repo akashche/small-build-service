@@ -41,17 +41,17 @@ resolvePaths ctx cf = Paths
     , sourceDir = prependIfRelative appd (sourceDir (cf :: JDKBuildConfig))
     , bootJdkDir = prependIfRelative appd (bootJdkDir (cf :: JDKBuildConfig))
     , jtregDir = prependIfRelative appd (jtregDir (cf :: JDKBuildConfig))
-    , buildDir = wd <> (buildDir (cf :: JDKBuildConfig))
+    , buildDir = prependIfRelative appd (buildDir (cf :: JDKBuildConfig))
     , hgPath = prependIfRelative appd (hgPath (cf :: JDKBuildConfig))
     , bashPath = prependIfRelative appd (bashPath (cf :: JDKBuildConfig))
     , makePath = prependIfRelative appd (makePath (cf :: JDKBuildConfig))
     , confOutPath = wd <> "conf.log"
     , makeOutPath = wd <> "make.log"
     , mockOutputDir = prependIfRelative appd (mockOutputDir (cf :: JDKBuildConfig))
-    , queriesPath = prependIfRelative appd (queriesDir ctx) <> "queries-jdkbuild.sql"
+    , queriesPath = prependIfRelative appd (queriesDir (ctx :: TaskContext)) <> "queries-jdkbuild.sql"
     }
     where
-        appd = appDir ctx
+        appd = appDir (ctx :: TaskContext)
         wd = prependIfRelative appd (workDir (cf :: JDKBuildConfig))
 
 mockCtx :: Text -> TaskContext
