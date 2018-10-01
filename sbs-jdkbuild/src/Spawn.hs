@@ -20,11 +20,14 @@
 {-# LANGUAGE Strict #-}
 
 module Spawn
-    ( spawnConfigureAndWait
+    ( readRepoUrl
+    , readRepoRevision
+    , spawnConfigureAndWait
     , spawnMakeAndWait
     ) where
 
 import Prelude ()
+import qualified Data.Text as Text
 import qualified Data.Vector as Vector
 
 import SBS.Common.Prelude
@@ -32,6 +35,38 @@ import SBS.Common.JDKBuild
 import SBS.Common.Wilton
 
 import Data
+
+readRepoUrl :: Paths -> IO Text
+readRepoUrl paths = do
+    code <- spawnProcess SpawnedProcessArgs
+        { workDir = sourceDir (paths :: Paths)
+        , executable = hgPath (paths :: Paths)
+        , execArgs = fromList [ "paths", "default"]
+        , outputFile = log
+        , awaitExit = True
+        }
+    checkSpawnSuccess "jdkbuild_repourl" code log
+    url <- readFile (unpack log)
+    return (Text.strip url)
+    where
+        wd = workDir (paths :: Paths)
+        log = wd <> "repourl.log"
+
+readRepoRevision :: Paths -> IO Text
+readRepoRevision paths = do
+    code <- spawnProcess SpawnedProcessArgs
+        { workDir = sourceDir (paths :: Paths)
+        , executable = hgPath (paths :: Paths)
+        , execArgs = fromList [ "id", "-i"]
+        , outputFile = log
+        , awaitExit = True
+        }
+    checkSpawnSuccess "jdkbuild_revision" code log
+    rev <- readFile (unpack log)
+    return (Text.strip rev)
+    where
+        wd = workDir (paths :: Paths)
+        log = wd <> "revision.log"
 
 spawnConfigureAndWait :: JDKBuildConfig -> Paths -> IO ()
 spawnConfigureAndWait cf paths = do

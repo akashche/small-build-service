@@ -89,16 +89,34 @@ runMock (JDKBuildInput ctx cf _) = do
         confOut = confOutPath (paths :: Paths)
         makeOut = makeOutPath (paths :: Paths)
 
-spawnConf :: Vector Text -> IO ()
-spawnConf _ = do
+spawnRepoUrl :: Vector Text -> IO ()
+spawnRepoUrl arguments = do
+    let paths = mockPaths (arguments ! 0)
     dyloadModules ["wilton_process"]
-    -- todo
+    url <- readRepoUrl paths
+    putStrLn url
+    return ()
+
+spawnRepoRevision :: Vector Text -> IO ()
+spawnRepoRevision arguments = do
+    let paths = mockPaths (arguments ! 0)
+    dyloadModules ["wilton_process"]
+    rev <- readRepoRevision paths
+    putStrLn rev
+    return ()
+
+spawnConf :: Vector Text -> IO ()
+spawnConf arguments = do
+    let paths = mockPaths (arguments ! 0)
+    dyloadModules ["wilton_process"]
+    spawnConfigureAndWait mockConfig paths
     return ()
 
 spawnMake :: Vector Text -> IO ()
-spawnMake _ = do
+spawnMake arguments = do
+    let paths = mockPaths (arguments ! 0)
     dyloadModules ["wilton_process"]
-    -- todo
+    spawnMakeAndWait mockConfig paths
     return ()
 
 foreign export ccall wilton_module_init :: IO CString
@@ -107,8 +125,14 @@ wilton_module_init = do
     {           errRun <- registerWiltonCall "jdkbuild_run" run
     ; if isJust errRun then createWiltonError errRun
 
-    ; else do { errRunMock <- registerWiltonCall "jdkbuild_run_mock" runMock
-    ; if isJust errRunMock then createWiltonError errRunMock
+    ; else do { errMock <- registerWiltonCall "jdkbuild_run_mock" runMock
+    ; if isJust errMock then createWiltonError errMock
+
+    ; else do { errUrl <- registerWiltonCall "jdkbuild_spawn_repourl" spawnRepoUrl
+    ; if isJust errUrl then createWiltonError errUrl
+
+    ; else do { errRev <- registerWiltonCall "jdkbuild_spawn_reporev" spawnRepoRevision
+    ; if isJust errRev then createWiltonError errRev
 
     ; else do { errConf <- registerWiltonCall "jdkbuild_spawn_conf" spawnConf
     ; if isJust errConf then createWiltonError errConf
@@ -117,5 +141,5 @@ wilton_module_init = do
     ; if isJust errMake then createWiltonError errMake
 
       else createWiltonError Nothing
-    }}}}
+    }}}}}}
 

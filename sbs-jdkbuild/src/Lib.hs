@@ -21,19 +21,17 @@
 
 module Lib
     ( resolvePaths
+    , mockCtx
+    , mockConfig
     , mockPaths
-    , readRepoUrl
-    , readRepoRevision
     ) where
 
 import Prelude ()
-import qualified Data.Text as Text
 
 import SBS.Common.Prelude
 import SBS.Common.Data
 import SBS.Common.JDKBuild
 import SBS.Common.Utils
-import SBS.Common.Wilton
 
 import Data
 
@@ -56,50 +54,30 @@ resolvePaths ctx cf = Paths
         appd = appDir ctx
         wd = prependIfRelative appd (workDir (cf :: JDKBuildConfig))
 
-mockPaths :: Paths
-mockPaths = Paths
-    { workDir = ""
-    , sourceDir = ""
-    , bootJdkDir = ""
-    , jtregDir =  ""
-    , buildDir =  ""
-    , hgPath = ""
-    , bashPath = ""
-    , makePath = ""
-    , confOutPath = ""
-    , makeOutPath = ""
-    , mockOutputDir = ""
-    , queriesPath = ""
+mockCtx :: Text -> TaskContext
+mockCtx appd = TaskContext
+    { taskId = 42
+    , dbConnection = DBConnection 43 44
+    , appDir = appd
+    , queriesDir = ""
     }
 
-readRepoUrl :: Paths -> IO Text
-readRepoUrl paths = do
-    code <- spawnProcess SpawnedProcessArgs
-        { workDir = sourceDir (paths :: Paths)
-        , executable = hgPath (paths :: Paths)
-        , execArgs = fromList [ "paths", "default"]
-        , outputFile = log
-        , awaitExit = True
-        }
-    checkSpawnSuccess "jdkbuild_repourl" code log
-    url <- readFile (unpack log)
-    return (Text.strip url)
-    where
-        wd = workDir (paths :: Paths)
-        log = wd <> "repourl.log"
+mockConfig :: JDKBuildConfig
+mockConfig = JDKBuildConfig
+    { enabled = True
+    , workDir = ""
+    , mockOutputDir = ""
+    , sourceDir = "jdk/"
+    , buildDir = "jdk/"
+    , bootJdkDir = "bootjdk/"
+    , jtregDir = "jtreg/"
+    , bashPath = "/bin/bash"
+    , hgPath = "/usr/bin/hg"
+    , makePath = "/usr/bin/make"
+    , logLevel = "info"
+    , additionalConfigureArguments = fromList ["--disable-warnings-as-errors"]
+    , target = "images"
+    }
 
-readRepoRevision :: Paths -> IO Text
-readRepoRevision paths = do
-    code <- spawnProcess SpawnedProcessArgs
-        { workDir = sourceDir (paths :: Paths)
-        , executable = hgPath (paths :: Paths)
-        , execArgs = fromList [ "id", "-i"]
-        , outputFile = log
-        , awaitExit = True
-        }
-    checkSpawnSuccess "jdkbuild_revision" code log
-    rev <- readFile (unpack log)
-    return (Text.strip rev)
-    where
-        wd = workDir (paths :: Paths)
-        log = wd <> "revision.log"
+mockPaths :: Text -> Paths
+mockPaths appd = resolvePaths (mockCtx (appd <> "/")) mockConfig
