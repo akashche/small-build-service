@@ -35,7 +35,7 @@
         "enabled": true,
         "workDir": "work/tier1/",
         "buildDir": "work/jdkbuild/build/",
-        "mockOutput": "UNSPECIFIED",
+        "mockOutputPath": "UNSPECIFIED",
         "makePath": "/usr/bin/make",
         "target": "run-test-tier1"
     },

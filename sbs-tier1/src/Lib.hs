@@ -43,7 +43,7 @@ import Data
 resolvePaths :: TaskContext -> Tier1Config -> Paths
 resolvePaths ctx cf = Paths
     { workDir = wd
-    , buildDir = wd <> (buildDir (cf :: Tier1Config))
+    , buildDir = prependIfRelative appd (buildDir (cf :: Tier1Config))
     , execPath = prependIfRelative appd (makePath cf)
     , outputPath = wd <> "tier1.log"
     , mockOutputPath = prependIfRelative appd (mockOutputPath (cf :: Tier1Config))
