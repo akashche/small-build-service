@@ -39,6 +39,7 @@ import SBS.Common.Tier1
 import SBS.Common.Utils
 
 import Data
+import Parser
 
 resolvePaths :: TaskContext -> Tier1Config -> Paths
 resolvePaths ctx cf = Paths
@@ -63,7 +64,9 @@ resolveQueriesPath req =
         qdir = queriesDir (req :: DiffRequest)
 
 extractSummary :: Text -> Text -> IO ()
-extractSummary _outputPath _destPath = do
+extractSummary outp destp = do
+    sm <- parseSummary outp
+    writeFile (unpack destp) sm
     return ()
 
 diffTwoResults :: Results -> Results -> ResultsDiff
