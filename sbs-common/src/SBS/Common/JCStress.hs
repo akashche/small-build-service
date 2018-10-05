@@ -33,7 +33,7 @@ data JCStressConfig = JCStressConfig
     { enabled :: Bool
     , workDir :: Text
     , mockOutput :: Text
-    , baselineOutput :: Text
+    , jdkDir :: Text
     , jcstressJarPath :: Text
     , xmxMemoryLimitMB :: Int
     , mode :: Text
@@ -43,7 +43,6 @@ instance FromJSON JCStressConfig
 
 data JCStressInput = JCStressInput
     { taskCtx :: TaskContext
-    , jdkImageDir :: Text
     , jcstressConfig :: JCStressConfig
     } deriving (Generic, Show)
 instance ToJSON JCStressInput

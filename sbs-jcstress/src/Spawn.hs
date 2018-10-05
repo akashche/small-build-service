@@ -19,23 +19,33 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE Strict #-}
 
-module Diff
-    ( diffResults
+module Spawn
+    ( spawnJCStressAndWait
     ) where
 
 import Prelude ()
-import qualified Data.Vector as Vector
 
 import SBS.Common.Prelude
+import SBS.Common.JCStress
+import SBS.Common.Utils
+import SBS.Common.Wilton
 
 import Data
 
-diffResults :: JCStressResults -> JCStressResults -> JCStressResultsDiff
-diffResults baseline res =
-    JCStressResultsDiff pd xd fd ed
+spawnJCStressAndWait :: JCStressConfig -> Paths -> IO ()
+spawnJCStressAndWait cf paths = do
+    code <- spawnProcess SpawnedProcessArgs
+        { workDir = workDir (paths :: Paths)
+        , executable = execPath (paths :: Paths)
+        , execArgs = fromList
+            [  ("-Xmx" <> (showText (xmxMemoryLimitMB cf)) <> "M")
+            , "-jar", jcstressJarPath (paths :: Paths)
+            , "-m", mode cf
+            ]
+        , outputFile = log
+        , awaitExit = True
+        }
+    checkSpawnSuccess "jcstress" code log
+    return ()
     where
-        pd = (passedCount res) - (passedCount baseline)
-        xd = (Vector.length (interesting res)) - (Vector.length (interesting baseline))
-        fd = (Vector.length (failed res)) - (Vector.length (failed baseline))
-        ed = (Vector.length (errored res)) - (Vector.length (errored baseline))
-
+        log = outputPath (paths :: Paths)

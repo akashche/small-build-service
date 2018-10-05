@@ -43,7 +43,7 @@ executables:
     - sbs-tier1
 
 tests:
-  sbs-jcstress-test:
+  sbs-tier1-test:
     main:                Spec.hs
     source-dirs:         test
     ghc-options:

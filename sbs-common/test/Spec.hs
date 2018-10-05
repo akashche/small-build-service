@@ -56,7 +56,7 @@ main = do
 
     -- queries
     qrs <- loadQueries "../resources/queries-main.sql"
-    unless (4 == HashMap.size qrs) (error "Queries fail")
+    unless (5 == HashMap.size qrs) (error "Queries fail")
 
     -- Parsec
     unless ("foo" == parseText testParser "foo") (error "parser fail")

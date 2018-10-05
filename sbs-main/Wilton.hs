@@ -26,6 +26,7 @@ import qualified Data.Vector as Vector
 
 import SBS.Common.Prelude
 import SBS.Common.Data
+import SBS.Common.JCStress
 import SBS.Common.JDKBuild
 import SBS.Common.Tier1
 import SBS.Common.Utils
@@ -46,6 +47,8 @@ run arguments = do
                 (wiltoncall "jdkbuild_run" (JDKBuildInput ctx (jdkbuild cf) eim))
             when (enabled (tier1 cf :: Tier1Config))
                 (wiltoncall "tier1_run" (Tier1Input ctx (tier1 cf)))
+            when (enabled (jcstress cf :: JCStressConfig))
+                (wiltoncall "jcstress_run" (JCStressInput ctx (jcstress cf)))
             dbWithTransaction db (finalizeTask db qrs (taskId ctx) StateSuccess))
         (\(e :: SomeException) -> do
             dbWithSyncTransaction db (finalizeTask db qrs (taskId ctx) StateError)
@@ -65,9 +68,14 @@ diff arguments = do
     let appd = appDir (sbs (cf :: Config) :: SBSConfig)
     let qdir = queriesDir (database (sbs (cf :: Config) :: SBSConfig) :: DBConfig)
     let req = DiffRequest tid1 tid2 db appd qdir
+    -- tier1
     tier1Diff <- wiltoncall "tier1_diff" req :: IO Text
     putStrLn "tier1:"
     putStrLn tier1Diff
+    -- jcstress
+    jcstressDiff <- wiltoncall "jcstress_diff" req :: IO Text
+    putStrLn "jcstress:"
+    putStrLn jcstressDiff
     return ()
 
 
@@ -79,6 +87,7 @@ runMock arguments = do
     ctx <- dbWithTransaction db (initTask cf db qrs)
     wiltoncall "jdkbuild_run_mock" (JDKBuildInput ctx (jdkbuild cf) "") :: IO ()
     wiltoncall "tier1_run_mock" (Tier1Input ctx (tier1 cf)) :: IO ()
+    wiltoncall "jcstress_run_mock" (JCStressInput ctx (jcstress cf)) :: IO ()
     dbWithTransaction db (finalizeTask db qrs (taskId ctx) StateSuccess)
     putStrLn "MOCK Run finished"
     return ()

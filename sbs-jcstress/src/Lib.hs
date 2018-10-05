@@ -20,8 +20,13 @@
 {-# LANGUAGE Strict #-}
 
 module Lib
-    ( run
-    , parse_log
+    ( resolvePaths
+    , mockPaths
+    , mockConfig
+    , diffResultsCount
+    , formatSummary
+    , formatResultsDiff
+    , totalFailOrError
     ) where
 
 import Prelude ()
@@ -30,93 +35,72 @@ import qualified Data.Vector as Vector
 import SBS.Common.Prelude
 import SBS.Common.Data
 import SBS.Common.JCStress
-import SBS.Common.Parsec
-import SBS.Common.Queries
 import SBS.Common.Utils
-import SBS.Common.Wilton
 
 import Data
-import Diff
-import Parser
 
-createDbEntry :: DBConnection -> Queries -> Int64 -> IO Int64
-createDbEntry db qrs tid = do
-    dbExecute db (get qrs "updateRunsId") Empty
-    (IncrementedSeq idx) <- dbQueryObject db (get qrs "selectRunsId") Empty
-    curdate <- getCurrentTime
-    dbExecute db (get qrs "insertRun") (object
-        [ "id" .= idx
-        , "startDate" .= formatISO8601 curdate
-        , "state" .= ("running" :: Text)
-        , "taskId" .= tid
-        ])
-    return idx
-
-spawnJCStressAndWait :: JCStressConfig -> Text -> Text -> IO Text
-spawnJCStressAndWait cf appd jdk = do
-    if (enabled cf)
-    then do
-        createDirectory (unpack wd)
-        code <- spawnProcess SpawnedProcessArgs
-            { workDir = wd
-            , executable = exec
-            , execArgs = fromList
-                [  ("-Xmx" <> (showText (xmxMemoryLimitMB cf)) <> "M")
-                , "-jar", prependIfRelative appd (jcstressJarPath cf)
-                , "-m", mode cf
-                ]
-            , outputFile = log
-            , awaitExit = True
-            }
-        checkSpawnSuccess "jcstress" code log
-    else
-        copyFile (unpack mockLog) (unpack log)
-    return log
+resolvePaths :: TaskContext -> JCStressConfig -> Paths
+resolvePaths ctx cf = Paths
+    { workDir = wd
+    , execPath = (prependIfRelative appd (jdkDir cf)) <> "bin/java"
+    , jcstressJarPath = prependIfRelative appd (jcstressJarPath (cf :: JCStressConfig))
+    , outputPath = wd <> "jcstress.log"
+    , summaryPath = wd <> "jcstress-summary.log"
+    , mockOutputPath = prependIfRelative appd (mockOutput (cf :: JCStressConfig))
+    , queriesPath = (prependIfRelative appd qdir) <> "queries-jcstress.sql"
+    }
     where
+        appd = appDir (ctx :: TaskContext)
+        qdir = queriesDir (ctx :: TaskContext)
         wd = prependIfRelative appd (workDir (cf :: JCStressConfig))
-        mockLog = prependIfRelative appd (mockOutput cf)
-        log = wd <> "jcstress.log"
-        exec = jdk <> "/bin/java"
 
-finalizeDbEntry :: DBConnection -> Queries -> Int64 -> JCStressResults -> JCStressResultsDiff -> IO ()
-finalizeDbEntry db qrs rid res diff = do
-    curdate <- getCurrentTime
-    dbExecute db (get qrs "updateRunFinish") (object
-        [ "id" .= rid
-        , "state" .= ("finished" :: Text)
-        , "finishDate" .= formatISO8601 curdate
-        , "passed" .= passedCount res
-        , "passedDiff" .= passedDiff diff
-        , "interesting" .= Vector.length (interesting res)
-        , "interestingDiff" .= interestingDiff diff
-        , "failed" .= Vector.length (failed res)
-        , "failedDiff" .= failedDiff diff
-        , "error" .= Vector.length (errored res)
-        , "errorDiff" .= errorDiff diff
-        ])
-    return ()
+mockPaths :: Paths
+mockPaths = Paths
+    { workDir = ""
+    , execPath = "jdk/bin/java"
+    , jcstressJarPath = "jcstress.jar"
+    , outputPath = "jcstress.log"
+    , summaryPath = "jcstress-summary.log"
+    , mockOutputPath = ""
+    , queriesPath = ""
+    }
 
-run :: JCStressInput -> IO ()
-run (JCStressInput ctx jdkDir cf) = do
-    let tid = taskId ctx
-    let db = dbConnection (ctx :: TaskContext)
-    let appd = appDir (ctx :: TaskContext)
-    let qdir = prependIfRelative appd (queriesDir (ctx :: TaskContext))
-    qrs <- loadQueries (qdir <> "queries-jcstress.sql")
-    rid <- dbWithSyncTransaction db (
-        createDbEntry db qrs tid)
-    log <- spawnJCStressAndWait cf appd jdkDir
-    res <- parseFile jcstressResultsParser log
-    bl <- parseFile jcstressResultsParser (prependIfRelative appd (baselineOutput cf))
-    let diff = diffResults bl res
-    dbWithSyncTransaction db ( do
-        finalizeDbEntry db qrs rid res diff )
-    return ()
+mockConfig :: JCStressConfig
+mockConfig = JCStressConfig
+    { enabled = True
+    , workDir = ""
+    , mockOutput = ""
+    , jdkDir = ""
+    , jcstressJarPath = ""
+    , xmxMemoryLimitMB = 1024
+    , mode = "quick"
+    }
 
-parse_log :: Vector Text -> IO ()
-parse_log arguments = do
-    when (1 /= Vector.length arguments)
-        ((error . unpack) "Path to 'jcstress.log' file must be specified as a first and only argument")
-    res <- parseFile jcstressResultsParser (arguments ! 0)
-    putStrLn (showText res)
-    return ()
+
+diffResultsCount :: ResultsCount -> ResultsCount -> ResultsDiff
+diffResultsCount res1 res2 =
+    ResultsDiff pd xd fd ed
+    where
+        spassed res = passedCount (res :: ResultsCount)
+        pd = (spassed res1) - (spassed res2)
+        xd = (interestingCount res1) - (interestingCount res2)
+        fd = (failedCount res1) - (failedCount res2)
+        ed = (errorCount res1) - (errorCount res2)
+
+formatSummary :: Results -> Text
+formatSummary res =
+       "passed: " <> (showText (passedCount (res :: Results))) <> "\n"
+    <> "interesting: " <> (showText (Vector.length (interesting res))) <> "\n"
+    <> "failed: " <> (showText (Vector.length (failed res))) <> "\n"
+    <> "error: " <> (showText (Vector.length (errored res)))
+
+formatResultsDiff :: ResultsDiff -> Text
+formatResultsDiff rd =
+       "passed: " <> (showText (passedDiff rd)) <> ";"
+    <> " interesting: " <> (showText (interestingDiff rd)) <> ";"
+    <> " failed: " <> (showText (failedDiff rd)) <> ";"
+    <> " error: " <> (showText (errorDiff rd))
+
+totalFailOrError :: Results -> Int
+totalFailOrError res =
+    Vector.length (failed res) + Vector.length (errored res)

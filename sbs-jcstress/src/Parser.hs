@@ -20,7 +20,7 @@
 {-# LANGUAGE Strict #-}
 
 module Parser
-    ( jcstressResultsParser
+    ( parseResults
     ) where
 
 import Prelude ()
@@ -70,10 +70,15 @@ passedTestsCount = do
     numStr <- many1 digit
     return (read numStr :: Int)
 
-jcstressResultsParser :: Parser JCStressResults
-jcstressResultsParser = do
+results :: Parser Results
+results = do
     tint <- listOfTests "*** INTERESTING tests" "[OK]"
     tfail <- listOfTests "*** FAILED tests" "[FAILED]"
     terr <- listOfTests "*** ERROR tests" "[ERROR]"
     count <- passedTestsCount
-    return (JCStressResults count tint tfail terr)
+    return (Results count tint tfail terr)
+
+parseResults :: Text -> IO Results
+parseResults path = do
+    res <- parseFile results path
+    return res

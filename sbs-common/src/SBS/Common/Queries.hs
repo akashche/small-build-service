@@ -22,6 +22,7 @@
 module SBS.Common.Queries
     ( Queries
     , loadQueries
+    , resolveQueriesPath
     ) where
 
 import Prelude ()
@@ -29,7 +30,9 @@ import qualified Data.HashMap.Strict as HashMap
 import qualified Data.Text as Text
 
 import SBS.Common.Prelude
+import SBS.Common.Data
 import SBS.Common.Parsec
+import SBS.Common.Utils
 
 type Queries = HashMap Text Text
 
@@ -59,3 +62,10 @@ loadQueries :: Text -> IO Queries
 loadQueries path = do
     qrs <- parseFile queries path
     return qrs
+
+resolveQueriesPath :: DiffRequest -> Text -> Text
+resolveQueriesPath req postfix =
+    (prependIfRelative appd qdir) <> "queries-" <> postfix <> ".sql"
+    where
+        appd = appDir (req :: DiffRequest)
+        qdir = queriesDir (req :: DiffRequest)

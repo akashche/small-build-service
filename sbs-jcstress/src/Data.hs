@@ -20,24 +20,46 @@
 {-# LANGUAGE Strict #-}
 
 module Data
-    ( JCStressResults(..)
-    , JCStressResultsDiff(..)
+    ( Paths(..)
+    , Results(..)
+    , ResultsDiff(..)
+    , ResultsCount(..)
     ) where
 
 import Prelude ()
 
 import SBS.Common.Prelude
 
-data JCStressResults = JCStressResults
+data Paths = Paths
+    { workDir :: Text
+    , execPath :: Text
+    , jcstressJarPath :: Text
+    , outputPath :: Text
+    , summaryPath :: Text
+    , mockOutputPath :: Text
+    , queriesPath :: Text
+    } deriving (Show)
+
+data Results = Results
     { passedCount :: Int
     , interesting :: Vector Text
     , failed :: Vector Text
     , errored :: Vector Text
     } deriving (Show)
 
-data JCStressResultsDiff = JCStressResultsDiff
+data ResultsCount = ResultsCount
+    { passedCount :: Int
+    , interestingCount :: Int
+    , failedCount :: Int
+    , errorCount :: Int
+    } deriving (Generic, Show)
+instance ToJSON ResultsCount
+instance FromJSON ResultsCount
+
+data ResultsDiff = ResultsDiff
     { passedDiff :: Int
     , interestingDiff :: Int
     , failedDiff :: Int
     , errorDiff :: Int
     } deriving (Show)
+

@@ -59,7 +59,7 @@ run (Tier1Input ctx cf) = do
 
 diff :: DiffRequest -> IO Text
 diff req = do
-    qrs <- loadQueries (resolveQueriesPath req)
+    qrs <- loadQueries (resolveQueriesPath req "tier1")
     res1 <- loadResults db qrs (taskId1 req)
     res2 <- loadResults db qrs (taskId2 req)
     let rd = diffTwoResults res1 res2
@@ -87,17 +87,7 @@ runMock (Tier1Input ctx cf) = do
 spawn :: Vector Text -> IO ()
 spawn _ = do
     dyloadModules ["wilton_process"]
-    spawnTestsAndWait paths (fromList ["run-test-tier1"])
-    where
-        paths = Paths
-            { workDir = ""
-            , buildDir = ""
-            , execPath = "/usr/bin/make"
-            , outputPath = "tier1.log"
-            , mockOutputPath = ""
-            , summaryPath = "tier1-summary.log"
-            , queriesPath = ""
-            }
+    spawnTestsAndWait mockPaths (fromList ["run-test-tier1"])
 
 parse :: Vector Text -> IO ()
 parse arguments = do

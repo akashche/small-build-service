@@ -35,7 +35,6 @@ main :: IO ()
 main = do
 
     -- parse results
-
     res <- parseResults "test/tier1.log"
     when (5 /= Vector.length res) (error "Parse length fail")
     when ("hotspot" /= name ((res ! 0) :: TestSuite)) (error "Parse fail")
@@ -43,11 +42,10 @@ main = do
     when (12 /= fail ((res ! 1) :: TestSuite)) (error "Parse fail")
 
     -- parse summary
-    summary <- parseSummary "test/tier1.log"
-    putStrLn summary
+    _summary <- parseSummary "test/tier1.log"
+--     putStrLn summary
 
     -- diff
-
     let resNew = runST (do
             let short = Vector.take ((Vector.length res) - 1) res
             let modifier el = el { fail = (fail el) + 42 }
@@ -77,7 +75,7 @@ main = do
             }
     let paths = resolvePaths ctx cf
     when ("/foo/bar/" /= workDir (paths :: Paths)) (error "Paths workDir fail")
-    when ("/foo/bar/build/" /= buildDir (paths :: Paths)) (error "Paths buildDir fail")
+    when ("/foo/build/" /= buildDir (paths :: Paths)) (error "Paths buildDir fail")
     when ("/usr/bin/make" /= execPath (paths :: Paths)) (error "Paths execPath fail")
     when ("/foo/bar/tier1.log" /= outputPath (paths :: Paths)) (error "Paths outputPath fail")
     when ("/foo/bar/tier1-summary.log" /= summaryPath (paths :: Paths)) (error "Paths summaryPath fail")

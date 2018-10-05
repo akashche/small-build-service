@@ -44,7 +44,7 @@
         "enabled": true,
         "workDir": "work/jcstress/",
         "mockOutput": "UNSPECIFIED",
-        "baselineOutput": "baseline/jcstress.log",
+        "jdkDir": "work/jdkbuild/build/images/jdk/",
         "jcstressJarPath": "apps/jcstress/jcstress.jar",
         "xmxMemoryLimitMB": 1024,
         "mode": "quick"

@@ -22,7 +22,7 @@
 module Lib
     ( Paths(..)
     , resolvePaths
-    , resolveQueriesPath
+    , mockPaths
     , extractSummary
     , diffTwoResults
     , formatResultsDiff
@@ -56,12 +56,16 @@ resolvePaths ctx cf = Paths
         qdir = queriesDir (ctx :: TaskContext)
         wd = prependIfRelative appd (workDir (cf :: Tier1Config))
 
-resolveQueriesPath :: DiffRequest -> Text
-resolveQueriesPath req =
-    (prependIfRelative appd qdir) <> "queries-tier1.sql"
-    where
-        appd = appDir (req :: DiffRequest)
-        qdir = queriesDir (req :: DiffRequest)
+mockPaths :: Paths
+mockPaths = Paths
+    { workDir = ""
+    , buildDir = ""
+    , execPath = "/usr/bin/make"
+    , outputPath = "tier1.log"
+    , mockOutputPath = ""
+    , summaryPath = "tier1-summary.log"
+    , queriesPath = ""
+    }
 
 extractSummary :: Text -> Text -> IO ()
 extractSummary outp destp = do

@@ -77,21 +77,32 @@ create table tier1_results
 
 -- jcstress
 
-create table jcstress_runs_seq (value bigint);
-insert into jcstress_runs_seq (value) values (0);
-create table jcstress_runs
+-- jobs
+create table jcstress_jobs_seq (value bigint);
+insert into jcstress_jobs_seq (value) values (0);
+create table jcstress_jobs
     ( id bigint primary key
     , start_date date time not null
     , finish_date date time
     , state text not null
+    , total_fail_or_error int
+    , task_id int not null
+    , foreign key (task_id) references tasks (id)
+    );
+create index jcstress_jobs__start_date_idx on jcstress_jobs(start_date);
+
+-- results
+create table jcstress_results_seq (value bigint);
+insert into jcstress_results_seq (value) values (0);
+create table jcstress_results
+    ( id bigint primary key
     , passed int
     , interesting int
     , failed int
     , error int
-    , task_id int not null
-    , foreign key (task_id) references tasks (id)
+    , job_id int not null
+    , foreign key (job_id) references jcstress_jobs (id)
     );
-create index jcstress_runs__start_date_idx on jcstress_runs(start_date);
 
 -- specjvm
 

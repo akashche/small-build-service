@@ -13,30 +13,53 @@
 -- See the License for the specific language governing permissions and
 -- limitations under the License.
 
--- jcstress_runs
+-- jcstress_jobs
 
-/** updateRunsId */
-update jcstress_runs_seq
+/** updateJobsSeq */
+update jcstress_jobs_seq
 set value = value + 1
 
-/** selectRunsId */
+/** selectNewJobId */
 select value as id
-from jcstress_runs_seq
+from jcstress_jobs_seq
 
-/** insertRun */
-insert into jcstress_runs (id, start_date, state, task_id)
+/** insertJob */
+insert into jcstress_jobs (id, start_date, state, task_id)
 values (:id, :startDate, :state, :taskId)
 
-/** updateRunFinish */
-update jcstress_runs
+/** updateJobState */
+update jcstress_jobs
+set   state = :state
+where id = :id
+
+/** updateJobFinish */
+update jcstress_jobs
 set   state = :state
     , finish_date = :finishDate
-    , passed = :passed
-    , passedDiff = :passedDiff
-    , interesting = :interesting
-    , interestingDiff = :interestingDiff
-    , failed = :failed
-    , failedDiff = :failedDiff
-    , error = :error
-    , errorDiff = :errorDiff
+    , total_fail_or_error = :totalFailOrError
 where id = :id
+
+-- jcstress_results
+
+/** updateResultsSeq */
+update jcstress_results_seq
+set value = value + 1
+
+/** selectNewResultId */
+select value as id
+from jcstress_results_seq
+
+/** insertResult */
+insert into jcstress_results (id, passed, interesting, failed, error, job_id)
+values (:id, :passed, :interesting, :failed, :error, :jobId)
+
+/** selectResultsByTaskId */
+select
+      jr.passed as passedCount
+    , jr.interesting as interestingCount
+    , jr.failed as failedCount
+    , jr.error as errorCount
+from jcstress_results as jr
+join jcstress_jobs as jj
+    on jr.job_id = jj.id
+where jj.task_id = :taskId
