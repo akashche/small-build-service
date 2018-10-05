@@ -38,12 +38,18 @@ import Lib
 run :: Vector Text -> IO ()
 run arguments = do
     (cf, db, qrs) <- initApp arguments
-    ctx <- initTask cf db qrs
-    when (enabled (jdkbuild cf :: JDKBuildConfig))
-        (wiltoncall "jdkbuild_run" (JDKBuildInput ctx (jdkbuild cf) eim))
-    when (enabled (tier1 cf :: Tier1Config))
-        (wiltoncall "tier1_run" (Tier1Input ctx (tier1 cf)))
-    finalizeTask db qrs (taskId ctx)
+    ctx <- dbWithTransaction db (initTask cf db qrs)
+    catch
+        (do
+            dbWithSyncTransaction db (updateTaskState db qrs (taskId ctx) StateRunning)
+            when (enabled (jdkbuild cf :: JDKBuildConfig))
+                (wiltoncall "jdkbuild_run" (JDKBuildInput ctx (jdkbuild cf) eim))
+            when (enabled (tier1 cf :: Tier1Config))
+                (wiltoncall "tier1_run" (Tier1Input ctx (tier1 cf)))
+            dbWithTransaction db (finalizeTask db qrs (taskId ctx) StateSuccess))
+        (\(e :: SomeException) -> do
+            dbWithSyncTransaction db (finalizeTask db qrs (taskId ctx) StateError)
+            (error . unpack) (showText e))
     putStrLn "Run finished"
     return ()
     where
@@ -70,10 +76,10 @@ diff arguments = do
 runMock :: Vector Text -> IO ()
 runMock arguments = do
     (cf, db, qrs) <- initApp arguments
-    ctx <- initTask cf db qrs
+    ctx <- dbWithTransaction db (initTask cf db qrs)
     wiltoncall "jdkbuild_run_mock" (JDKBuildInput ctx (jdkbuild cf) "") :: IO ()
     wiltoncall "tier1_run_mock" (Tier1Input ctx (tier1 cf)) :: IO ()
-    finalizeTask db qrs (taskId ctx)
+    dbWithTransaction db (finalizeTask db qrs (taskId ctx) StateSuccess)
     putStrLn "MOCK Run finished"
     return ()
 

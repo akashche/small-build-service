@@ -15,19 +15,24 @@
 
 -- top-level tasks
 
-/** tasksUpdateId */
+/** updateTasksSeq */
 update tasks_seq
 set value = value + 1
 
-/** tasksSelectId */
+/** selectNewTaskId */
 select value as id
 from tasks_seq
 
-/** tasksInsert */
+/** insertTask */
 insert into tasks (id, start_date, state, comment)
 values (:id, :startDate, :state, :comment)
 
-/** tasksUpdateFinish */
+/** updateTaskState */
+update tasks
+set   state = :state
+where id = :id
+
+/** updateTaskFinish */
 update tasks
 set   state = :state
     , finish_date = :finishDate

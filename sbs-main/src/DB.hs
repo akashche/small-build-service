@@ -22,6 +22,7 @@
 module DB
     ( openDbConnection
     , createTask
+    , updateTaskState
     , finalizeTask
     ) where
 
@@ -62,31 +63,30 @@ openDbConnection cf =
 
 createTask :: DBConnection -> Queries -> IO Int64
 createTask db qrs = do
-    idx <- dbWithSyncTransaction db work
+    dbExecute db (get qrs "updateTasksSeq") Empty
+    (IncrementedSeq idx) <- dbQueryObject db (get qrs "selectNewTaskId") Empty
+    curdate <- getCurrentTime
+    dbExecute db (get qrs "insertTask") (object
+        [ "id" .= idx
+        , "startDate" .= formatISO8601 curdate
+        , "state" .= showText StateCreated
+        , "comment" .= ("" :: Text)
+        ])
     return idx
-    where
-        work = do
-            dbExecute db (get qrs "tasksUpdateId") Empty
-            (IncrementedSeq idx) <- dbQueryObject db (get qrs "tasksSelectId") Empty
-            curdate <- getCurrentTime
-            dbExecute db (get qrs "tasksInsert") (object
-                [ "id" .= idx
-                , "startDate" .= formatISO8601 curdate
-                , "state" .= ("running" :: Text)
-                , "comment" .= ("" :: Text)
-                ])
-            return idx
 
-finalizeTask :: DBConnection -> Queries -> Int64 -> IO ()
-finalizeTask db qrs tid = do
-    dbWithSyncTransaction db work
-    return ()
-    where
-        work = do
-            curdate <- getCurrentTime
-            dbExecute db (get qrs "tasksUpdateFinish") (object
-                [ "id" .= tid
-                , "state" .= ("finished" :: Text)
-                , "finishDate" .= formatISO8601 curdate
-                ])
+updateTaskState :: DBConnection -> Queries -> Int64 -> State -> IO ()
+updateTaskState db qrs tid st = do
+    dbExecute db (get qrs "updateTaskState") (object
+        [ "id" .= tid
+        , "state" .= showText st
+        ])
+
+finalizeTask :: DBConnection -> Queries -> Int64 -> State -> IO ()
+finalizeTask db qrs tid st = do
+    curdate <- getCurrentTime
+    dbExecute db (get qrs "updateTaskFinish") (object
+        [ "id" .= tid
+        , "state" .= showText st
+        , "finishDate" .= formatISO8601 curdate
+        ])
 
