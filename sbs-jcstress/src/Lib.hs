@@ -56,7 +56,7 @@ resolvePaths ctx cf = Paths
 
 mockPaths :: Paths
 mockPaths = Paths
-    { workDir = ""
+    { workDir = "./"
     , execPath = "jdk/bin/java"
     , jcstressJarPath = "jcstress.jar"
     , outputPath = "jcstress.log"
