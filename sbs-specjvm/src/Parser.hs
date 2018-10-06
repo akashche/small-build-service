@@ -20,7 +20,8 @@
 {-# LANGUAGE Strict #-}
 
 module Parser
-    ( specJVMResultsParser
+    ( parseResults
+    , parseSummary
     ) where
 
 import Prelude ()
@@ -90,10 +91,26 @@ totalTimeSecs = do
     let res = parseText totalTimeSecsFromLine line
     return res
 
-specJVMResultsParser :: Parser SpecJVMResults
-specJVMResultsParser = do
+results :: Parser Results
+results = do
     time <- totalTimeSecs
     skipOne (manyTill anyChar newline)
     benchRes <- many1 benchResult
-    let res = SpecJVMResults time (fromList benchRes)
+    let res = Results time (fromList benchRes)
+    return res
+
+summary :: Parser Text
+summary = do
+    headline <- lineContains "# Run complete. Total time:"
+    st <- many1 anyChar
+    return (headline <> "\n\n" <> (pack st))
+
+parseResults :: Text -> IO Results
+parseResults path = do
+    res <- parseFile results path
+    return res
+
+parseSummary :: Text -> IO Text
+parseSummary path = do
+    res <- parseFile summary path
     return res

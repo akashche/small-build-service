@@ -15,51 +15,53 @@
 
 -- specjvm_runs
 
-/** updateRunsId */
-update specjvm_runs_seq
+/** updateJobsSeq */
+update specjvm_jobs_seq
 set value = value + 1
 
-/** selectRunsId */
+/** selectNewJobId */
 select value as id
-from specjvm_runs_seq
+from specjvm_jobs_seq
 
-/** insertRun */
-insert into specjvm_runs (id, start_date, state, task_id)
+/** insertJob */
+insert into specjvm_jobs (id, start_date, state, task_id)
 values (:id, :startDate, :state, :taskId)
 
-/** updateRunFinish */
-update specjvm_runs
+/** updateJobState */
+update specjvm_jobs
+set   state = :state
+where id = :id
+
+/** updateJobFinish */
+update specjvm_jobs
 set   state = :state
     , finish_date = :finishDate
     , total_time_seconds = :totalTimeSeconds
-    , relative_total_time = :relativeTotalTime
 where id = :id
-
 
 -- specjvm_results
 
-/** updateResultsId */
+/** updateResultsSeq */
 update specjvm_results_seq
 set value = value + 1
 
-/** selectResultsId */
+/** selectNewResultId */
 select value as id
 from specjvm_results_seq
 
 /** insertResult */
-insert into specjvm_results (id, name, mode, counts, score, error, units, run_id)
-values (:id, :name, :mode, :counts, :score, :error, :units, :runId)
+insert into specjvm_results (id, name, mode, counts, score, error, units, job_id)
+values (:id, :name, :mode, :counts, :score, :error, :units, :jobId)
 
--- specjvm_diffs
-
-/** updateDiffsId */
-update specjvm_diffs_seq
-set value = value + 1
-
-/** selectDiffsId */
-select value as id
-from specjvm_diffs_seq
-
-/** insertDiff */
-insert into specjvm_diffs (id, name, relative_score, run_id)
-values (:id, :name, :relativeScore, :runId)
+/** selectResultsByTaskId */
+select
+      sr.name as name
+    , sr.mode as mode
+    , sr.counts as counts
+    , sr.score as score
+    , sr.error as error
+    , sr.units as units
+from specjvm_results as sr
+join specjvm_jobs as sj
+    on sr.job_id = sj.id
+where sj.task_id = :taskId

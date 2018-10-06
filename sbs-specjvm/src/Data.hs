@@ -20,17 +20,28 @@
 {-# LANGUAGE Strict #-}
 
 module Data
-    ( BenchMode(..)
+    ( Paths(..)
+    , BenchMode(..)
     , BenchUnit(..)
     , BenchResult(..)
-    , SpecJVMResults(..)
+    , Results(..)
     , BenchDiff(..)
-    , SpecJVMResultsDiff(..)
+    , ResultsDiff(..)
     ) where
 
 import Prelude ()
 
 import SBS.Common.Prelude
+
+data Paths = Paths
+    { workDir :: Text
+    , execPath :: Text
+    , specjvmJarPath :: Text
+    , outputPath :: Text
+    , summaryPath :: Text
+    , mockOutputPath :: Text
+    , queriesPath :: Text
+    } deriving (Show)
 
 data BenchMode =
       All
@@ -38,13 +49,13 @@ data BenchMode =
     | SampleTime
     | SingleShotTime
     | Throughput
-    deriving (Show)
+    deriving (Show, Read)
 
 data BenchUnit =
       OpsMin
     | OpsSec
     | OpsMs
-    deriving (Show)
+    deriving (Show, Read)
 
 data BenchResult = BenchResult
     { name :: Text
@@ -55,17 +66,17 @@ data BenchResult = BenchResult
     , units :: BenchUnit
     } deriving (Show)
 
-data SpecJVMResults = SpecJVMResults
+data Results = Results
     { totalTimeSeconds :: Int
     , benchmarks :: Vector BenchResult
     } deriving (Show)
 
 data BenchDiff = BenchDiff
     { name :: Text
-    , relativeScore :: Int
+    , relativeScore :: Maybe Int
     } deriving (Show)
 
-data SpecJVMResultsDiff = SpecJVMResultsDiff
+data ResultsDiff = ResultsDiff
     { relativeTotalTime :: Int
     , benchmarks :: Vector BenchDiff
     } deriving (Show)

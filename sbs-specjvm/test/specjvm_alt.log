@@ -871,7 +871,6 @@ Compiler.sunflow        thrpt   30   17.995 ± 0.602  ops/min
 Compress.test           thrpt   15   23.966 ± 0.260  ops/min
 CryptoRsa.test          thrpt   15   13.232 ± 0.536  ops/min
 CryptoSignVerify.test   thrpt   15  188.887 ± 1.743  ops/min
-MpegAudio.test          thrpt   15    8.028 ± 0.130  ops/min
 ScimarkFFT.small        thrpt   15   16.206 ± 0.063  ops/min
 ScimarkLU.small         thrpt   15   10.807 ± 0.051  ops/min
 ScimarkMonteCarlo.test  thrpt   15  151.114 ± 1.194  ops/min

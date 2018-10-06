@@ -106,10 +106,10 @@ create table jcstress_results
 
 -- specjvm
 
--- runs
-create table specjvm_runs_seq (value bigint);
-insert into specjvm_runs_seq (value) values (0);
-create table specjvm_runs
+-- jobs
+create table specjvm_jobs_seq (value bigint);
+insert into specjvm_jobs_seq (value) values (0);
+create table specjvm_jobs
     ( id bigint primary key
     , start_date date time not null
     , finish_date date time
@@ -118,7 +118,7 @@ create table specjvm_runs
     , task_id int not null
     , foreign key (task_id) references tasks (id)
     );
-create index specjvm_runs__start_date_idx on specjvm_runs (start_date);
+create index specjvm_jobs__start_date_idx on specjvm_jobs (start_date);
 
 -- benchmark results
 create table specjvm_results_seq (value bigint);
@@ -131,8 +131,8 @@ create table specjvm_results
     , score int not null
     , error int not null
     , units text not null
-    , run_id int not null
-    , foreign key (run_id) references specjvm_runs (id)
+    , job_id int not null
+    , foreign key (job_id) references specjvm_jobs (id)
     );
 
 commit;

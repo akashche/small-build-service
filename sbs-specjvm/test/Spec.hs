@@ -20,22 +20,59 @@
 {-# LANGUAGE Strict #-}
 
 import Prelude ()
+import qualified Data.Vector as Vector
 
 import SBS.Common.Prelude
-import SBS.Common.Parsec
-import SBS.Common.Utils
+import SBS.Common.Data
+import SBS.Common.SpecJVM
+-- import SBS.Common.Utils
 
 import Data
-import Diff
+import Lib
 import Parser
 
 main :: IO ()
 main = do
-    baseline <- parseFile specJVMResultsParser "test/specjvm.log"
-    unless (8703 == totalTimeSeconds baseline) ((error . unpack) "Time fail")
-    res <- parseFile specJVMResultsParser "test/specjvm_alt.log"
-    let diff = diffResults baseline res
-    putStrLn (showText diff)
+    -- parser
+    res <- parseResults "test/specjvm.log"
+    unless (8703 == totalTimeSeconds res) (error "Time fail")
+    _summ <- parseSummary "test/specjvm.log"
+
+    -- diff
+    res1 <- parseResults "test/specjvm_alt.log"
+    let diff = diffResults res res1
+    unless (100 == relativeTotalTime diff) (error "Diff time fail")
+    unless (13 == Vector.length (benchmarks (diff :: ResultsDiff))) (error "Diff benches fail")
+
+    -- diff format
+    let _fd = formatResultsDiff diff
+
+    -- paths
+    let ctx = TaskContext
+            { taskId = 42
+            , dbConnection = DBConnection 43 44
+            , appDir = "/foo/"
+            , queriesDir = "queries/"
+            }
+    let cf = SpecJVMConfig
+            { enabled = True
+            , workDir = "bar/"
+            , mockOutput = "mock.log"
+            , jdkDir = "jdk/"
+            , specjvmJarPath = "specjvm.jar"
+            , ncNotePath = "ncnote.txt"
+            , xmxMemoryLimitMB = 42
+            , threadsCount = 43
+            , excludedBenchmarks = fromList []
+            }
+    let paths = resolvePaths ctx cf
+    when ("/foo/bar/" /= workDir (paths :: Paths)) (error "Paths workDir fail")
+    when ("/foo/jdk/bin/java" /= execPath (paths :: Paths)) (error "Paths execPath fail")
+    when ("/foo/specjvm.jar" /= specjvmJarPath (paths :: Paths)) (error "Paths specjvmJarPath fail")
+    when ("/foo/bar/specjvm.log" /= outputPath (paths :: Paths)) (error "Paths outputPath fail")
+    when ("/foo/bar/specjvm-summary.log" /= summaryPath (paths :: Paths)) (error "Paths summaryPath fail")
+    when ("/foo/mock.log" /= mockOutputPath (paths :: Paths)) (error "Paths mockOutputPath fail")
+    when ("/foo/queries/queries-specjvm.sql" /= queriesPath (paths :: Paths)) (error "Paths queriesPath fail")
 
     putStrLn "Tests Passed."
     return ()

@@ -127,7 +127,7 @@ skipOne acomb = do
     whitespace
     return ()
 
--- warning: all look-ahead is kept in memory
+-- warning: all look-ahead data is kept in memory
 skipManyTill :: Text -> Parser ()
 skipManyTill end = do
     scan

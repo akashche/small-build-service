@@ -28,6 +28,7 @@ import SBS.Common.Prelude
 import SBS.Common.Data
 import SBS.Common.JCStress
 import SBS.Common.JDKBuild
+import SBS.Common.SpecJVM
 import SBS.Common.Tier1
 import SBS.Common.Utils
 import SBS.Common.Wilton
@@ -49,6 +50,8 @@ run arguments = do
                 (wiltoncall "tier1_run" (Tier1Input ctx (tier1 cf)))
             when (enabled (jcstress cf :: JCStressConfig))
                 (wiltoncall "jcstress_run" (JCStressInput ctx (jcstress cf)))
+            when (enabled (specjvm cf :: SpecJVMConfig))
+                (wiltoncall "specjvm_run" (SpecJVMInput ctx (specjvm cf)))
             dbWithTransaction db (finalizeTask db qrs (taskId ctx) StateSuccess))
         (\(e :: SomeException) -> do
             dbWithSyncTransaction db (finalizeTask db qrs (taskId ctx) StateError)
@@ -76,6 +79,10 @@ diff arguments = do
     jcstressDiff <- wiltoncall "jcstress_diff" req :: IO Text
     putStrLn "jcstress:"
     putStrLn jcstressDiff
+    -- specjvm
+    specjvmDiff <- wiltoncall "specjvm_diff" req :: IO Text
+    putStrLn "specjvm:"
+    putStrLn specjvmDiff
     return ()
 
 
@@ -88,6 +95,7 @@ runMock arguments = do
     wiltoncall "jdkbuild_run_mock" (JDKBuildInput ctx (jdkbuild cf) "") :: IO ()
     wiltoncall "tier1_run_mock" (Tier1Input ctx (tier1 cf)) :: IO ()
     wiltoncall "jcstress_run_mock" (JCStressInput ctx (jcstress cf)) :: IO ()
+    wiltoncall "specjvm_run_mock" (SpecJVMInput ctx (specjvm cf)) :: IO ()
     dbWithTransaction db (finalizeTask db qrs (taskId ctx) StateSuccess)
     putStrLn "MOCK Run finished"
     return ()

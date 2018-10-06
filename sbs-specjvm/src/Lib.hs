@@ -20,111 +20,88 @@
 {-# LANGUAGE Strict #-}
 
 module Lib
-    ( run
+    ( resolvePaths
+    , mockPaths
+    , mockConfig
+    , diffResults
+    , copyNcNote
+    , formatResultsDiff
     ) where
 
 import Prelude ()
+import qualified Data.HashMap.Strict as HashMap
 import qualified Data.Text as Text
 import qualified Data.Vector as Vector
 
 import SBS.Common.Prelude
 import SBS.Common.Data
-import SBS.Common.Queries
-import SBS.Common.Parsec
 import SBS.Common.SpecJVM
 import SBS.Common.Utils
-import SBS.Common.Wilton
 
 import Data
-import Diff
-import Parser
 
-createDbEntry :: DBConnection -> Queries -> Int64 -> IO Int64
-createDbEntry db qrs tid = do
-    dbExecute db (get qrs "updateRunsId") Empty
-    (IncrementedSeq idx) <- dbQueryObject db (get qrs "selectRunsId") Empty
-    curdate <- getCurrentTime
-    dbExecute db (get qrs "insertRun") (object
-        [ "id" .= idx
-        , "startDate" .= formatISO8601 curdate
-        , "state" .= ("running" :: Text)
-        , "taskId" .= tid
-        ])
-    return idx
-
-spawnSpecJVMAndWait :: SpecJVMConfig -> Text -> Text -> IO Text
-spawnSpecJVMAndWait cf appd jdk = do
-    if (enabled cf)
-    then do
-        createDirectory (unpack wd)
-        code <- spawnProcess SpawnedProcessArgs
-            { workDir = wd
-            , executable = exec
-            , execArgs = fromList
-                [  ("-Xmx" <> (showText (xmxMemoryLimitMB cf)) <> "M")
-                , "-jar", prependIfRelative appd (specjvmJarPath cf)
-                , "-t", (showText (threadsCount cf))
-                , "-e", exreg (excludedBenchmarks cf)
-                ]
-            , outputFile = log
-            , awaitExit = True
-            }
-        checkSpawnSuccess "specjvm" code log
-    else
-        copyFile (unpack mockLog) (unpack log)
-    return log
+resolvePaths :: TaskContext -> SpecJVMConfig -> Paths
+resolvePaths ctx cf = Paths
+    { workDir = wd
+    , execPath = (prependIfRelative appd (jdkDir cf)) <> "bin/java"
+    , specjvmJarPath = prependIfRelative appd (specjvmJarPath (cf :: SpecJVMConfig))
+    , outputPath = wd <> "specjvm.log"
+    , summaryPath = wd <> "specjvm-summary.log"
+    , mockOutputPath = prependIfRelative appd (mockOutput (cf :: SpecJVMConfig))
+    , queriesPath = (prependIfRelative appd qdir) <> "queries-specjvm.sql"
+    }
     where
+        appd = appDir (ctx :: TaskContext)
+        qdir = queriesDir (ctx :: TaskContext)
         wd = prependIfRelative appd (workDir (cf :: SpecJVMConfig))
-        log = wd <> "specjvm.log"
-        mockLog = prependIfRelative appd (mockOutput cf)
-        exec = jdk <> "/bin/java"
-        sepNonEmpty st = if Text.length st > 0 then st <> "|" else st
-        folder ac el = (sepNonEmpty ac) <> (Text.replace "." "\\." el)
-        exreg vec = Vector.foldl' folder "" vec
 
-finalizeDbEntry :: DBConnection -> Queries -> Int64 -> Int -> Int -> IO ()
-finalizeDbEntry db qrs rid totalTime relativeTime = do
-    curdate <- getCurrentTime
-    dbExecute db (get qrs "updateRunFinish") (object
-        [ "id" .= rid
-        , "state" .= ("finished" :: Text)
-        , "finishDate" .= formatISO8601 curdate
-        , "totalTimeSeconds" .= totalTime
-        , "relativeTotalTime" .= relativeTime
-        ])
-    return ()
+mockPaths :: Paths
+mockPaths = Paths
+    { workDir = "./"
+    , execPath = "jdk/bin/java"
+    , specjvmJarPath = "jmh-specjvm2016.jar"
+    , outputPath = "specjvm.log"
+    , summaryPath = "specjvm-summary.log"
+    , mockOutputPath = ""
+    , queriesPath = ""
+    }
 
-saveResults :: DBConnection -> Queries -> Int64 -> SpecJVMResults -> IO ()
-saveResults db qrs rid res =
-    Vector.mapM_ fun (benchmarks (res :: SpecJVMResults))
+mockConfig :: SpecJVMConfig
+mockConfig = SpecJVMConfig
+    { enabled = True
+    , workDir = "./"
+    , mockOutput = ""
+    , jdkDir = ""
+    , specjvmJarPath = ""
+    , ncNotePath = ""
+    , xmxMemoryLimitMB = 1024
+    , threadsCount = 2
+    , excludedBenchmarks = fromList [
+        "Compiler.compiler",
+        "CryptoAes.test",
+        "Derby.test",
+        "ScimarkFFT.large",
+        "ScimarkLU.large",
+        "ScimarkSOR.large",
+        "ScimarkSparse.large",
+        "ScimarkSparse.small"
+    ]}
+
+diffResults :: Results -> Results -> ResultsDiff
+diffResults baseline res =
+    ResultsDiff relTime benches
     where
-        fun bench = do
-            dbExecute db (get qrs "updateResultsId") Empty
-            (IncrementedSeq idx) <- dbQueryObject db (get qrs "selectResultsId") Empty
-            dbExecute db (get qrs "insertResult") (object
-                [ "id" .= idx
-                , "name" .= (name (bench :: BenchResult))
-                , "mode" .= showText (mode bench)
-                , "counts" .= count bench
-                , "score" .= score bench
-                , "error" .= errored bench
-                , "units" .= showText (units bench)
-                , "runId" .= rid
-                ])
-
-saveDiff :: DBConnection -> Queries -> Int64 -> SpecJVMResultsDiff -> IO ()
-saveDiff db qrs rid diff =
-    Vector.mapM_ fun (benchmarks (diff :: SpecJVMResultsDiff))
-    where
-        fun bench = do
-            dbExecute db (get qrs "updateDiffsId") Empty
-            (IncrementedSeq idx) <- dbQueryObject db (get qrs "selectDiffsId") Empty
-            dbExecute db (get qrs "insertDiff") (object
-                [ "id" .= idx
-                , "name" .= (name (bench :: BenchDiff))
-                , "relativeScore" .= (relativeScore bench)
-                , "runId" .= rid
-                ])
+        nm el = name (el :: BenchResult)
+        relTime = div ((totalTimeSeconds res) * 100) (totalTimeSeconds baseline)
+        bsBase = benchmarks (baseline :: Results)
+        bsRes = benchmarks (res :: Results )
+        pairFolder el li = ((nm el, el) : li)
+        pairs = Vector.foldr' pairFolder [] bsRes
+        hmap = HashMap.fromList pairs
+        diffScore el1 el2 = div ((score el1) * 100) (score el2)
+        diff el = fmap (diffScore el) (HashMap.lookup (nm el) hmap)
+        folder el li = (BenchDiff (nm el) (diff el)  : li)
+        benches = fromList (Vector.foldr' folder [] bsBase)
 
 copyNcNote :: SpecJVMConfig -> Text -> IO ()
 copyNcNote cf appd = copyFile (unpack from) (unpack to)
@@ -133,22 +110,26 @@ copyNcNote cf appd = copyFile (unpack from) (unpack to)
         wd = prependIfRelative appd (workDir (cf :: SpecJVMConfig))
         to = wd <> "nc_note.txt"
 
-run :: SpecJVMInput -> IO ()
-run (SpecJVMInput ctx jdkDir cf) = do
-    let tid = taskId ctx
-    let db = dbConnection (ctx :: TaskContext)
-    let appd = appDir (ctx :: TaskContext)
-    let qdir = prependIfRelative appd (queriesDir (ctx :: TaskContext))
-    qrs <- loadQueries (qdir <> "queries-specjvm.sql")
-    rid <- dbWithSyncTransaction db (
-        createDbEntry db qrs tid)
-    log <- spawnSpecJVMAndWait cf appd jdkDir
-    res <- parseFile specJVMResultsParser log
-    copyNcNote cf (appDir (ctx :: TaskContext))
-    bl <- parseFile specJVMResultsParser (prependIfRelative appd (baselineOutput cf))
-    let diff = diffResults bl res
-    dbWithSyncTransaction db ( do
-        saveResults db qrs rid res
-        saveDiff db qrs rid diff
-        finalizeDbEntry db qrs rid (totalTimeSeconds res) (relativeTotalTime diff) )
-    return ()
+formatPercent :: Int -> Text
+formatPercent num =
+    if num < 100
+        then "0." <> ntx
+        else (Text.take fract ntx) <> "." <> (Text.drop fract ntx)
+    where
+        ntx = showText num
+        fract = (Text.length ntx) - 2
+
+formatResultsDiff :: ResultsDiff -> Text
+formatResultsDiff rd =
+    Vector.ifoldl' folder "" benches
+    where
+        benches = benchmarks (rd :: ResultsDiff)
+        showDiff el = case (relativeScore (el :: BenchDiff)) of
+            Just num -> formatPercent num
+            Nothing -> "N/A"
+        folder ac idx el =
+               ac
+            <> (if idx > 0 then "; " else "")
+            <> (name (el :: BenchDiff))
+            <> ": "
+            <> showDiff (el)

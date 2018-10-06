@@ -76,7 +76,6 @@ mockConfig = JCStressConfig
     , mode = "quick"
     }
 
-
 diffResultsCount :: ResultsCount -> ResultsCount -> ResultsDiff
 diffResultsCount res1 res2 =
     ResultsDiff pd xd fd ed

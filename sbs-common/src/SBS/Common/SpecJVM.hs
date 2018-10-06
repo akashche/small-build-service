@@ -33,7 +33,7 @@ data SpecJVMConfig = SpecJVMConfig
     { enabled :: Bool
     , workDir :: Text
     , mockOutput :: Text
-    , baselineOutput :: Text
+    , jdkDir :: Text
     , specjvmJarPath :: Text
     , ncNotePath :: Text
     , xmxMemoryLimitMB :: Int
@@ -45,7 +45,6 @@ instance ToJSON SpecJVMConfig
 
 data SpecJVMInput = SpecJVMInput
     { taskCtx :: TaskContext
-    , jdkImageDir :: Text
     , specjvmConfig :: SpecJVMConfig
     } deriving (Generic, Show)
 instance FromJSON SpecJVMInput

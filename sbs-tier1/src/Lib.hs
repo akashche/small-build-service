@@ -92,7 +92,7 @@ formatResultsDiff rd =
     where
         showDiff el = case (notPassedDiff (el :: TestSuiteDiff)) of
             Just num -> showText num
-            Nothing -> "="
+            Nothing -> "N/A"
         folder ac idx el =
                ac
             <> (if idx > 0 then "; " else "")

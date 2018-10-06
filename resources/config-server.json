@@ -54,7 +54,7 @@
         "enabled": true,
         "workDir": "work/specjvm/",
         "mockOutput": "UNSPECIFIED",
-        "baselineOutput": "baseline/specjvm.log",
+        "jdkDir": "work/jdkbuild/build/images/jdk/",
         "specjvmJarPath": "apps/specjvm/jmh-specjvm2016.jar",
         "ncNotePath": "sbs/resources/nc_note.txt",
         "xmxMemoryLimitMB": 1024,
