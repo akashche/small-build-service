@@ -96,11 +96,13 @@ resolveDestDir :: Paths -> Text -> IO Text
 resolveDestDir paths base = do
     urlfull <- readFile (unpack (repoUrlOutPath paths))
     let url = Text.strip urlfull
-    return (base <> (dest url) <> "/")
+    revfull <- readFile (unpack (repoRevOutPath paths))
+    let rev = Text.strip revfull
+    return (base <> (dest url rev) <> "/")
     where
         filfun el = Text.length el > 0
         nonempty parts = List.filter filfun parts
         tail parts = List.drop ((List.length parts) - 2) parts
         conc parts = (List.head parts) <> "_" <> (List.last parts)
-        dest url = conc (tail (nonempty (Text.splitOn "/" url)))
+        dest url rev = (conc (tail (nonempty (Text.splitOn "/" url)))) <> "_" <> rev
 
