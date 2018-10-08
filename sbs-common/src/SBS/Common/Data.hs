@@ -57,6 +57,8 @@ data TaskContext = TaskContext
     , dbConnection :: DBConnection
     , appDir :: Text
     , queriesDir :: Text
+    , destBaseDir :: Text
+    , destDir :: Text
     } deriving (Generic, Show)
 instance FromJSON TaskContext
 instance ToJSON TaskContext

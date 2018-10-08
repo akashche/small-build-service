@@ -49,8 +49,7 @@ readRepoUrl paths = do
     url <- readFile (unpack log)
     return (Text.strip url)
     where
-        wd = workDir (paths :: Paths)
-        log = wd <> "repourl.log"
+        log = repoUrlOutPath (paths :: Paths)
 
 readRepoRevision :: Paths -> IO Text
 readRepoRevision paths = do
@@ -65,8 +64,7 @@ readRepoRevision paths = do
     rev <- readFile (unpack log)
     return (Text.strip rev)
     where
-        wd = workDir (paths :: Paths)
-        log = wd <> "revision.log"
+        log = repoRevOutPath (paths :: Paths)
 
 spawnConfigureAndWait :: JDKBuildConfig -> Paths -> IO ()
 spawnConfigureAndWait cf paths = do

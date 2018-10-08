@@ -71,6 +71,17 @@ diff req = do
     where
         db = dbConnection (req :: DiffRequest)
 
+results :: JCStressInput -> IO ()
+results (JCStressInput ctx cf) = do
+    let destd = based <> "jcstress/"
+    createDirectory (unpack destd)
+    copyFile (unpack (outputPath paths)) (unpack (destd <> (outputFile (cf :: JCStressConfig))))
+    copyFile (unpack (summaryPath paths)) (unpack (destd <> (summaryFile cf)))
+    return ()
+    where
+        paths = resolvePaths ctx cf
+        based = destDir ctx
+
 -- test calls
 
 runMock :: JCStressInput -> IO ()
@@ -115,6 +126,9 @@ wilton_module_init = do
     {           errRun <- registerWiltonCall "jcstress_run" run
     ; if isJust errRun then createWiltonError errRun
 
+    ; else do { errResults <- registerWiltonCall "jcstress_results" results
+    ; if isJust errResults then createWiltonError errResults
+
     ; else do { errDiff <- registerWiltonCall "jcstress_diff" diff
     ; if isJust errDiff then createWiltonError errDiff
 
@@ -131,5 +145,5 @@ wilton_module_init = do
     ; if isJust errSummary then createWiltonError errSummary
 
       else createWiltonError Nothing
-    }}}}}}
+    }}}}}}}
 

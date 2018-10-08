@@ -85,6 +85,16 @@ diff arguments = do
     putStrLn specjvmDiff
     return ()
 
+results :: Vector Text -> IO ()
+results arguments = do
+    (ctxjdk, cf, based) <- initResults arguments
+    createDirectory (unpack based)
+    destd <- wiltoncall "jdkbuild_results" (JDKBuildInput ctxjdk (jdkbuild cf) "") :: IO Text
+    let ctx = ctxjdk {destDir = destd}
+    wiltoncall "tier1_results" (Tier1Input ctx (tier1 cf)) :: IO ()
+    wiltoncall "jcstress_results" (JCStressInput ctx (jcstress cf)) :: IO ()
+    wiltoncall "specjvm_results" (SpecJVMInput ctx (specjvm cf)) :: IO ()
+    return ()
 
 -- test calls
 
@@ -107,6 +117,9 @@ wilton_module_init = do
     {           errRun <- registerWiltonCall "run" run
     ; if isJust errRun then createWiltonError errRun
 
+    ; else do { errResults <- registerWiltonCall "results" results
+    ; if isJust errResults then createWiltonError errResults
+
     ; else do { errDiff <- registerWiltonCall "diff" diff
     ; if isJust errDiff then createWiltonError errDiff
 
@@ -114,4 +127,4 @@ wilton_module_init = do
     ; if isJust errRunMock then createWiltonError errRunMock
 
       else createWiltonError Nothing
-    }}}
+    }}}}

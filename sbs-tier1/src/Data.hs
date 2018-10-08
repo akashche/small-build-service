@@ -35,8 +35,8 @@ data Paths = Paths
     { workDir :: Text
     , buildDir :: Text
     , execPath :: Text
-    , outputPath :: Text
     , mockOutputPath :: Text
+    , outputPath :: Text
     , summaryPath :: Text
     , queriesPath :: Text
     } deriving Show

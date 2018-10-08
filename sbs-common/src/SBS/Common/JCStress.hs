@@ -33,6 +33,8 @@ data JCStressConfig = JCStressConfig
     { enabled :: Bool
     , workDir :: Text
     , mockOutput :: Text
+    , outputFile :: Text
+    , summaryFile :: Text
     , jdkDir :: Text
     , jcstressJarPath :: Text
     , xmxMemoryLimitMB :: Int

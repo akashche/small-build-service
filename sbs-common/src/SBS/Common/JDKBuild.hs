@@ -33,6 +33,8 @@ data JDKBuildConfig = JDKBuildConfig
     { enabled :: Bool
     , workDir :: Text
     , mockOutputDir :: Text
+    , confOutputFile :: Text
+    , makeOutputFile :: Text
     , sourceDir :: Text
     , buildDir :: Text
     , bootJdkDir :: Text
@@ -54,3 +56,4 @@ data JDKBuildInput = JDKBuildInput
     } deriving (Generic, Show)
 instance ToJSON JDKBuildInput
 instance FromJSON JDKBuildInput
+

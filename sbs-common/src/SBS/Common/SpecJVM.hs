@@ -33,6 +33,8 @@ data SpecJVMConfig = SpecJVMConfig
     { enabled :: Bool
     , workDir :: Text
     , mockOutput :: Text
+    , outputFile :: Text
+    , summaryFile :: Text
     , jdkDir :: Text
     , specjvmJarPath :: Text
     , ncNotePath :: Text

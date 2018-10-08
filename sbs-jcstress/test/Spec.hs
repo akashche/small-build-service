@@ -58,11 +58,15 @@ main = do
             , dbConnection = DBConnection 43 44
             , appDir = "/foo/"
             , queriesDir = "queries/"
+            , destBaseDir = ""
+            , destDir = ""
             }
     let cf = JCStressConfig
             { enabled = True
             , workDir = "bar/"
             , mockOutput = "mock.log"
+            , outputFile = "jcstress.log"
+            , summaryFile = "jcstress-summary.txt"
             , jdkDir = "jdk/"
             , jcstressJarPath = "jcstress.jar"
             , xmxMemoryLimitMB = 42
@@ -73,7 +77,7 @@ main = do
     when ("/foo/jdk/bin/java" /= execPath (paths :: Paths)) (error "Paths execPath fail")
     when ("/foo/jcstress.jar" /= jcstressJarPath (paths :: Paths)) (error "Paths jcstressJarPath fail")
     when ("/foo/bar/jcstress.log" /= outputPath (paths :: Paths)) (error "Paths outputPath fail")
-    when ("/foo/bar/jcstress-summary.log" /= summaryPath (paths :: Paths)) (error "Paths summaryPath fail")
+    when ("/foo/bar/jcstress-summary.txt" /= summaryPath (paths :: Paths)) (error "Paths summaryPath fail")
     when ("/foo/mock.log" /= mockOutputPath (paths :: Paths)) (error "Paths mockOutputPath fail")
     when ("/foo/queries/queries-jcstress.sql" /= queriesPath (paths :: Paths)) (error "Paths queriesPath fail")
 

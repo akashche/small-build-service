@@ -64,11 +64,15 @@ main = do
             , dbConnection = DBConnection 43 44
             , appDir = "/foo/"
             , queriesDir = "queries/"
+            , destBaseDir = ""
+            , destDir = ""
             }
     let cf = Tier1Config
             { enabled = True
             , workDir = "bar/"
             , mockOutputPath = ""
+            , outputFile = "tier1.log"
+            , summaryFile = "tier1-summary.txt"
             , buildDir = "build/"
             , makePath = "/usr/bin/make"
             , target = "run-test-tier1"
@@ -78,7 +82,7 @@ main = do
     when ("/foo/build/" /= buildDir (paths :: Paths)) (error "Paths buildDir fail")
     when ("/usr/bin/make" /= execPath (paths :: Paths)) (error "Paths execPath fail")
     when ("/foo/bar/tier1.log" /= outputPath (paths :: Paths)) (error "Paths outputPath fail")
-    when ("/foo/bar/tier1-summary.log" /= summaryPath (paths :: Paths)) (error "Paths summaryPath fail")
+    when ("/foo/bar/tier1-summary.txt" /= summaryPath (paths :: Paths)) (error "Paths summaryPath fail")
     when ("/foo/queries/queries-tier1.sql" /= queriesPath (paths :: Paths)) (error "Paths queriesPath fail")
 
     putStrLn "Tests Passed."

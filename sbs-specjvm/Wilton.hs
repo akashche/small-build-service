@@ -71,6 +71,17 @@ diff req = do
     where
         db = dbConnection (req :: DiffRequest)
 
+results :: SpecJVMInput -> IO ()
+results (SpecJVMInput ctx cf) = do
+    let destd = based <> "specjvm/"
+    createDirectory (unpack destd)
+    copyFile (unpack (outputPath paths)) (unpack (destd <> (outputFile (cf :: SpecJVMConfig))))
+    copyFile (unpack (summaryPath paths)) (unpack (destd <> (summaryFile cf)))
+    return ()
+    where
+        paths = resolvePaths ctx cf
+        based = destDir ctx
+
 -- test calls
 
 runMock :: SpecJVMInput -> IO ()
@@ -116,6 +127,9 @@ wilton_module_init = do
     {           errRun <- registerWiltonCall "specjvm_run" run
     ; if isJust errRun then createWiltonError errRun
 
+    ; else do { errResults <- registerWiltonCall "specjvm_results" results
+    ; if isJust errResults then createWiltonError errResults
+
     ; else do { errDiff <- registerWiltonCall "specjvm_diff" diff
     ; if isJust errDiff then createWiltonError errDiff
 
@@ -132,5 +146,5 @@ wilton_module_init = do
     ; if isJust errSummary then createWiltonError errSummary
 
       else createWiltonError Nothing
-    }}}}}}
+    }}}}}}}
 

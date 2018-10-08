@@ -22,6 +22,7 @@
 module Lib
     ( initApp
     , initTask
+    , initResults
     ) where
 
 import Prelude ()
@@ -67,7 +68,26 @@ initApp arguments = do
 initTask :: Config -> DBConnection -> Queries -> IO TaskContext
 initTask cf db qrs = do
     tid <- createTask db qrs
-    return (TaskContext tid db appd qdir)
+    return (TaskContext tid db appd qdir "" "")
     where
         appd = appDir (sbs cf :: SBSConfig)
         qdir = resolveQueriesDir cf
+
+initResults :: Vector Text -> IO (TaskContext, Config, Text)
+initResults arguments = do
+    when (2 /= Vector.length arguments)
+        (error "Invalid arguments specified, expected: [path/to/config.json, dest_dir]")
+    dyloadModules modules
+    cf <- decodeJsonFile (arguments ! 0) :: IO Config
+    curdate <- getCurrentTime
+    let postfix = formatDate "%Y_%m_%d" curdate
+    let basedir = (arguments ! 1) <> "/" <> postfix <> "/"
+    let ctx = TaskContext
+            { taskId = 0
+            , dbConnection = DBConnection 0 0
+            , appDir = appDir (sbs cf :: SBSConfig)
+            , queriesDir = ""
+            , destBaseDir = basedir
+            , destDir = ""
+            }
+    return (ctx, cf, basedir)

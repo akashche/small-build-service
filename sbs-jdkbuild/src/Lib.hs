@@ -24,9 +24,12 @@ module Lib
     , mockCtx
     , mockConfig
     , mockPaths
+    , resolveDestDir
     ) where
 
 import Prelude ()
+import qualified Data.List as List
+import qualified Data.Text as Text
 
 import SBS.Common.Prelude
 import SBS.Common.Data
@@ -45,8 +48,10 @@ resolvePaths ctx cf = Paths
     , hgPath = prependIfRelative appd (hgPath (cf :: JDKBuildConfig))
     , bashPath = prependIfRelative appd (bashPath (cf :: JDKBuildConfig))
     , makePath = prependIfRelative appd (makePath (cf :: JDKBuildConfig))
-    , confOutPath = wd <> "conf.log"
-    , makeOutPath = wd <> "make.log"
+    , confOutPath = wd <> confOutputFile (cf :: JDKBuildConfig)
+    , makeOutPath = wd <> makeOutputFile (cf :: JDKBuildConfig)
+    , repoUrlOutPath = wd <> "repourl.log"
+    , repoRevOutPath = wd <> "revision.log"
     , mockOutputDir = prependIfRelative appd (mockOutputDir (cf :: JDKBuildConfig))
     , queriesPath = prependIfRelative appd (queriesDir (ctx :: TaskContext)) <> "queries-jdkbuild.sql"
     }
@@ -60,6 +65,8 @@ mockCtx appd = TaskContext
     , dbConnection = DBConnection 43 44
     , appDir = appd
     , queriesDir = "queries/"
+    , destBaseDir = ""
+    , destDir = ""
     }
 
 mockConfig :: JDKBuildConfig
@@ -67,6 +74,8 @@ mockConfig = JDKBuildConfig
     { enabled = True
     , workDir = ""
     , mockOutputDir = "mock/"
+    , confOutputFile = "conf.log"
+    , makeOutputFile = "make.log"
     , sourceDir = "jdk/"
     , buildDir = "jdk/"
     , bootJdkDir = "bootjdk/"
@@ -81,3 +90,17 @@ mockConfig = JDKBuildConfig
 
 mockPaths :: Text -> Paths
 mockPaths appd = resolvePaths (mockCtx (appd <> "/")) mockConfig
+
+-- note: deliberately errors on invalid input
+resolveDestDir :: Paths -> Text -> IO Text
+resolveDestDir paths base = do
+    urlfull <- readFile (unpack (repoUrlOutPath paths))
+    let url = Text.strip urlfull
+    return (base <> (dest url) <> "/")
+    where
+        filfun el = Text.length el > 0
+        nonempty parts = List.filter filfun parts
+        tail parts = List.drop ((List.length parts) - 2) parts
+        conc parts = (List.head parts) <> "_" <> (List.last parts)
+        dest url = conc (tail (nonempty (Text.splitOn "/" url)))
+

@@ -46,9 +46,9 @@ resolvePaths ctx cf = Paths
     { workDir = wd
     , buildDir = prependIfRelative appd (buildDir (cf :: Tier1Config))
     , execPath = prependIfRelative appd (makePath cf)
-    , outputPath = wd <> "tier1.log"
     , mockOutputPath = prependIfRelative appd (mockOutputPath (cf :: Tier1Config))
-    , summaryPath = wd <> "tier1-summary.log"
+    , outputPath = wd <> outputFile (cf :: Tier1Config)
+    , summaryPath = wd <> summaryFile (cf :: Tier1Config)
     , queriesPath = (prependIfRelative appd qdir) <> "queries-tier1.sql"
     }
     where

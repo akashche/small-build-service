@@ -33,6 +33,8 @@ data Tier1Config = Tier1Config
     { enabled :: Bool
     , workDir :: Text
     , mockOutputPath :: Text
+    , outputFile :: Text
+    , summaryFile :: Text
     , buildDir :: Text
     , makePath :: Text
     , target :: Text

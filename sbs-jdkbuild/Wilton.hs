@@ -69,6 +69,18 @@ run (JDKBuildInput ctx cf _eim) = do
         db = dbConnection (ctx :: TaskContext)
         paths = resolvePaths ctx cf
 
+results :: JDKBuildInput -> IO Text
+results (JDKBuildInput ctx cf _eim) = do
+    destd <- resolveDestDir paths based
+    let jdkd = destd <> "jdkbuild/"
+    createDirectory (unpack destd)
+    createDirectory (unpack jdkd)
+    copyFile (unpack (confOutPath paths)) (unpack (jdkd <> (confOutputFile cf)))
+    copyFile (unpack (makeOutPath paths)) (unpack (jdkd <> (makeOutputFile cf)))
+    return destd
+    where
+        paths = resolvePaths ctx cf
+        based = destBaseDir ctx
 
 -- test calls
 
@@ -135,6 +147,9 @@ wilton_module_init = do
     {           errRun <- registerWiltonCall "jdkbuild_run" run
     ; if isJust errRun then createWiltonError errRun
 
+    ; else do { errResults <- registerWiltonCall "jdkbuild_results" results
+    ; if isJust errResults then createWiltonError errResults
+
     ; else do { errMock <- registerWiltonCall "jdkbuild_run_mock" runMock
     ; if isJust errMock then createWiltonError errMock
 
@@ -151,5 +166,5 @@ wilton_module_init = do
     ; if isJust errMake then createWiltonError errMake
 
       else createWiltonError Nothing
-    }}}}}}
+    }}}}}}}
 

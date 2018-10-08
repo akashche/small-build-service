@@ -68,6 +68,17 @@ diff req = do
     where
         db = dbConnection (req :: DiffRequest)
 
+results :: Tier1Input -> IO ()
+results (Tier1Input ctx cf) = do
+    let destd = based <> "tier1/"
+    createDirectory (unpack destd)
+    copyFile (unpack (outputPath paths)) (unpack (destd <> (outputFile (cf :: Tier1Config))))
+    copyFile (unpack (summaryPath paths)) (unpack (destd <> (summaryFile cf)))
+    return ()
+    where
+        paths = resolvePaths ctx cf
+        based = destDir ctx
+
 -- test calls
 
 runMock :: Tier1Input -> IO ()
@@ -111,6 +122,9 @@ wilton_module_init = do
     {           errRun <- registerWiltonCall "tier1_run" run
     ; if isJust errRun then createWiltonError errRun
 
+    ; else do { errResults <- registerWiltonCall "tier1_results" results
+    ; if isJust errResults then createWiltonError errResults
+
     ; else do { errDiff <- registerWiltonCall "tier1_diff" diff
     ; if isJust errDiff then createWiltonError errDiff
 
@@ -127,5 +141,5 @@ wilton_module_init = do
     ; if isJust errSummary then createWiltonError errSummary
 
       else createWiltonError Nothing
-    }}}}}}
+    }}}}}}}
 

@@ -37,6 +37,7 @@ module SBS.Common.Utils
     -- map
     , get
     -- datetime
+    , formatDate
     , formatISO8601
     , parseISO8601
     -- paths
@@ -145,11 +146,14 @@ get map key =
         Nothing -> (error . unpack) ("Map entry not found, key: [" <> key <> "]")
 
 -- datetime
-formatISO8601 :: UTCTime -> Text
-formatISO8601 tm = pack (TimeFormat.formatTime locale iso tm)
+formatDate :: Text -> UTCTime -> Text
+formatDate format tm =
+    pack (TimeFormat.formatTime locale (unpack format) tm)
     where
         locale = TimeFormat.defaultTimeLocale
-        iso = "%Y-%m-%d %H:%M:%S"
+
+formatISO8601 :: UTCTime -> Text
+formatISO8601 tm = formatDate "%Y-%m-%d %H:%M:%S" tm
 
 parseISO8601 :: Text -> UTCTime
 parseISO8601 tx =

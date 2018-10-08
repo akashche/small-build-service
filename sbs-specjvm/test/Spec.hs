@@ -53,11 +53,15 @@ main = do
             , dbConnection = DBConnection 43 44
             , appDir = "/foo/"
             , queriesDir = "queries/"
+            , destBaseDir = ""
+            , destDir = ""
             }
     let cf = SpecJVMConfig
             { enabled = True
             , workDir = "bar/"
             , mockOutput = "mock.log"
+            , outputFile = "specjvm.log"
+            , summaryFile = "specjvm-summary.txt"
             , jdkDir = "jdk/"
             , specjvmJarPath = "specjvm.jar"
             , ncNotePath = "ncnote.txt"
@@ -70,7 +74,7 @@ main = do
     when ("/foo/jdk/bin/java" /= execPath (paths :: Paths)) (error "Paths execPath fail")
     when ("/foo/specjvm.jar" /= specjvmJarPath (paths :: Paths)) (error "Paths specjvmJarPath fail")
     when ("/foo/bar/specjvm.log" /= outputPath (paths :: Paths)) (error "Paths outputPath fail")
-    when ("/foo/bar/specjvm-summary.log" /= summaryPath (paths :: Paths)) (error "Paths summaryPath fail")
+    when ("/foo/bar/specjvm-summary.txt" /= summaryPath (paths :: Paths)) (error "Paths summaryPath fail")
     when ("/foo/mock.log" /= mockOutputPath (paths :: Paths)) (error "Paths mockOutputPath fail")
     when ("/foo/queries/queries-specjvm.sql" /= queriesPath (paths :: Paths)) (error "Paths queriesPath fail")
 

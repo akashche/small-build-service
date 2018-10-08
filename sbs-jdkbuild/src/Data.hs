@@ -48,6 +48,8 @@ data Paths = Paths
     , makePath :: Text
     , confOutPath :: Text
     , makeOutPath :: Text
+    , repoUrlOutPath :: Text
+    , repoRevOutPath :: Text
     , mockOutputDir :: Text
     , queriesPath :: Text
     } deriving Show
