@@ -35,6 +35,8 @@ main = do
     unless ("/home/server/tmp/jdkbuild/build/" == confDirectory cd) (error "Conf parse fail")
     md <- parseMakeOutput "test/make.log"
     unless ("images/jdk/" == imageDirRelative md) (error "Make parse fail")
+    mdOld <- parseMakeOutput "test/make_old.log"
+    unless ("images/jdk/" == imageDirRelative mdOld) (error "Make parse fail")
 
     -- paths
     let cf = mockConfig { workDir = "work/" } :: JDKBuildConfig

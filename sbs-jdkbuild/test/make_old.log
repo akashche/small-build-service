@@ -1,5 +1,4 @@
-Building target 'images' in configuration '/home/server/work/jdkbuild/build'
-Copying buildtools/langtools_tools_classes/propertiesparser/resources/templates.properties
+Building target 'images' in configuration '/home/server/tmp/jdkbuild/build'
 Compiling 8 files for BUILD_TOOLS_LANGTOOLS
 Compiling 19 properties into resource bundles for jdk.compiler
 Parsing 2 properties into enum-like class for jdk.compiler
@@ -8,45 +7,10 @@ Generating module-info.java for java.compiler.interim
 Generating module-info.java for jdk.compiler.interim
 Generating module-info.java for jdk.javadoc.interim
 Compiling 117 files for BUILD_java.compiler.interim
-Copying buildtools/interim_langtools_modules/jdk.compiler.interim/META-INF/services/com.sun.tools.javac.platform.PlatformProvider
-Copying buildtools/interim_langtools_modules/jdk.compiler.interim/com/sun/tools/javac/services/javax.tools.JavaCompilerTool
 Compiling 395 files for BUILD_jdk.compiler.interim
-Copying buildtools/interim_langtools_modules/jdk.javadoc.interim/jdk/javadoc/internal/doclets/formats/html/resources/glass.png
-Copying buildtools/interim_langtools_modules/jdk.javadoc.interim/jdk/javadoc/internal/doclets/formats/html/resources/jquery/external/jquery/jquery.js
-Copying buildtools/interim_langtools_modules/jdk.javadoc.interim/jdk/javadoc/internal/doclets/formats/html/resources/jquery/images/ui-bg_flat_0_aaaaaa_40x100.png
-Copying buildtools/interim_langtools_modules/jdk.javadoc.interim/jdk/javadoc/internal/doclets/formats/html/resources/jquery/images/ui-bg_flat_75_ffffff_40x100.png
-Copying buildtools/interim_langtools_modules/jdk.javadoc.interim/jdk/javadoc/internal/doclets/formats/html/resources/jquery/images/ui-bg_glass_55_fbf9ee_1x400.png
-Copying buildtools/interim_langtools_modules/jdk.javadoc.interim/jdk/javadoc/internal/doclets/formats/html/resources/jquery/images/ui-bg_glass_65_ffffff_1x400.png
-Copying buildtools/interim_langtools_modules/jdk.javadoc.interim/jdk/javadoc/internal/doclets/formats/html/resources/jquery/images/ui-bg_glass_75_dadada_1x400.png
-Copying buildtools/interim_langtools_modules/jdk.javadoc.interim/jdk/javadoc/internal/doclets/formats/html/resources/jquery/images/ui-bg_glass_75_e6e6e6_1x400.png
-Copying buildtools/interim_langtools_modules/jdk.javadoc.interim/jdk/javadoc/internal/doclets/formats/html/resources/jquery/images/ui-bg_glass_95_fef1ec_1x400.png
-Copying buildtools/interim_langtools_modules/jdk.javadoc.interim/jdk/javadoc/internal/doclets/formats/html/resources/jquery/images/ui-bg_highlight-soft_75_cccccc_1x100.png
-Copying buildtools/interim_langtools_modules/jdk.javadoc.interim/jdk/javadoc/internal/doclets/formats/html/resources/jquery/images/ui-icons_222222_256x240.png
-Copying buildtools/interim_langtools_modules/jdk.javadoc.interim/jdk/javadoc/internal/doclets/formats/html/resources/jquery/images/ui-icons_2e83ff_256x240.png
-Copying buildtools/interim_langtools_modules/jdk.javadoc.interim/jdk/javadoc/internal/doclets/formats/html/resources/jquery/images/ui-icons_454545_256x240.png
-Copying buildtools/interim_langtools_modules/jdk.javadoc.interim/jdk/javadoc/internal/doclets/formats/html/resources/jquery/images/ui-icons_888888_256x240.png
-Copying buildtools/interim_langtools_modules/jdk.javadoc.interim/jdk/javadoc/internal/doclets/formats/html/resources/jquery/images/ui-icons_cd0a0a_256x240.png
-Copying buildtools/interim_langtools_modules/jdk.javadoc.interim/jdk/javadoc/internal/doclets/formats/html/resources/jquery/jquery-3.3.1.js
-Copying buildtools/interim_langtools_modules/jdk.javadoc.interim/jdk/javadoc/internal/doclets/formats/html/resources/jquery/jquery-migrate-3.0.1.js
-Copying buildtools/interim_langtools_modules/jdk.javadoc.interim/jdk/javadoc/internal/doclets/formats/html/resources/jquery/jquery-ui.css
-Copying buildtools/interim_langtools_modules/jdk.javadoc.interim/jdk/javadoc/internal/doclets/formats/html/resources/jquery/jquery-ui.js
-Copying buildtools/interim_langtools_modules/jdk.javadoc.interim/jdk/javadoc/internal/doclets/formats/html/resources/jquery/jquery-ui.min.css
-Copying buildtools/interim_langtools_modules/jdk.javadoc.interim/jdk/javadoc/internal/doclets/formats/html/resources/jquery/jquery-ui.min.js
-Copying buildtools/interim_langtools_modules/jdk.javadoc.interim/jdk/javadoc/internal/doclets/formats/html/resources/jquery/jquery-ui.structure.css
-Copying buildtools/interim_langtools_modules/jdk.javadoc.interim/jdk/javadoc/internal/doclets/formats/html/resources/jquery/jquery-ui.structure.min.css
-Copying buildtools/interim_langtools_modules/jdk.javadoc.interim/jdk/javadoc/internal/doclets/formats/html/resources/jquery/jszip-utils/dist/jszip-utils-ie.js
-Copying buildtools/interim_langtools_modules/jdk.javadoc.interim/jdk/javadoc/internal/doclets/formats/html/resources/jquery/jszip-utils/dist/jszip-utils-ie.min.js
-Copying buildtools/interim_langtools_modules/jdk.javadoc.interim/jdk/javadoc/internal/doclets/formats/html/resources/jquery/jszip-utils/dist/jszip-utils.js
-Copying buildtools/interim_langtools_modules/jdk.javadoc.interim/jdk/javadoc/internal/doclets/formats/html/resources/jquery/jszip-utils/dist/jszip-utils.min.js
-Copying buildtools/interim_langtools_modules/jdk.javadoc.interim/jdk/javadoc/internal/doclets/formats/html/resources/jquery/jszip/dist/jszip.js
-Copying buildtools/interim_langtools_modules/jdk.javadoc.interim/jdk/javadoc/internal/doclets/formats/html/resources/jquery/jszip/dist/jszip.min.js
-Copying buildtools/interim_langtools_modules/jdk.javadoc.interim/jdk/javadoc/internal/doclets/formats/html/resources/search.js
-Copying buildtools/interim_langtools_modules/jdk.javadoc.interim/jdk/javadoc/internal/doclets/formats/html/resources/x.png
-Copying buildtools/interim_langtools_modules/jdk.javadoc.interim/jdk/javadoc/internal/doclets/toolkit/resources/script.js
-Copying buildtools/interim_langtools_modules/jdk.javadoc.interim/jdk/javadoc/internal/doclets/toolkit/resources/stylesheet.css
 Compiling 303 files for BUILD_jdk.javadoc.interim
 Copying buildtools/interim_cldrconverter_classes/build/tools/cldrconverter/TimeZoneNames.java
-Compiling 161 files for BUILD_TOOLS_JDK
+Compiling 162 files for BUILD_TOOLS_JDK
 Note: Some input files use or override a deprecated API.
 Note: Recompile with -Xlint:deprecation for details.
 Note: Some input files use unchecked or unsafe operations.
@@ -72,18 +36,7 @@ Generating exceptions java.nio charset
 Generating exceptions java.nio channels
 Compiling 11 properties into resource bundles for java.base
 Compiling 6 properties into resource bundles for java.base
-Copying jdk/modules/java.base/META-INF/services/java.nio.file.spi.FileSystemProvider
-Copying jdk/modules/java.base/sun/net/www/content-types.properties
-Copying jdk/modules/java.base/java/time/chrono/hijrah-config-islamic-umalqura.properties
-Copying jdk/modules/java.base/jdk/internal/module/jdk8_packages.dat
-Copying jdk/modules/java.base/sun/net/idn/uidna.spp
-Copying jdk/modules/java.base/sun/text/resources/nfc.icu
-Copying jdk/modules/java.base/sun/text/resources/nfkc.icu
-Copying jdk/modules/java.base/sun/text/resources/nfkc_cf.icu
-Copying jdk/modules/java.base/sun/text/resources/ubidi.icu
-Copying jdk/modules/java.base/sun/text/resources/uprops.icu
-Cleaning jdk/modules/java.base/com/sun/java/util/jar/pack/intrinsic.properties
-Compiling 2987 files for java.base
+Compiling 2986 files for java.base
 Compiling 2 files for BUILD_BREAKITERATOR_BASE
 Compiling 2 files for BUILD_BREAKITERATOR_LD
 Generating BreakIteratorData
@@ -149,7 +102,6 @@ Adding -server KNOWN to jvm.cfg
 Adding -client IGNORE to jvm.cfg
 Copying support/modules_libs/java.base/security/cacerts
 Copying support/modules_conf/java.base/net.properties
-Copying support/modules_conf/java.base/sdp/sdp.conf.template
 Copying support/modules_legal/common/LICENSE
 Copying support/modules_legal/common/ASSEMBLY_EXCEPTION
 Copying support/modules_legal/common/ADDITIONAL_LICENSE_INFO
@@ -167,11 +119,10 @@ Copying jdk/include/linux/jni_md.h
 Copying jdk/include/classfile_constants.h
 Copying jdk/conf/security/java.policy
 Copying jdk/conf/net.properties
-Copying jdk/conf/sdp/sdp.conf.template
 Creating symlink jdk/lib/jvm.cfg
 Creating symlink jdk/lib/security/default.policy
 Creating symlink jdk/lib/security/cacerts
-Creating support/modules_libs/java.base/server/libjvm.so from 832 file(s)
+Creating support/modules_libs/java.base/server/libjvm.so from 831 file(s)
 Generating precompiled header
 Generating precompiled header
 Compiling abstractCompiler.cpp (for libjvm.so)
@@ -324,7 +275,6 @@ Compiling classFileStream.cpp (for libjvm.so)
 Compiling classListParser.cpp (for libjvm.so)
 Compiling classLoader.cpp (for libjvm.so)
 Compiling classLoaderData.cpp (for libjvm.so)
-Compiling classLoaderDataGraph.cpp (for libjvm.so)
 Compiling classLoaderExt.cpp (for libjvm.so)
 Compiling classLoaderHierarchyDCmd.cpp (for libjvm.so)
 Compiling classLoaderStats.cpp (for libjvm.so)
@@ -1249,7 +1199,7 @@ Compiling imageFile.cpp (for libjimage.so)
 Compiling jimage.cpp (for libjimage.so)
 Compiling osSupport_unix.cpp (for libjimage.so)
 Linking libjimage.so
-Creating support/modules_libs/java.base/libjli.so from 8 file(s)
+Creating support/modules_libs/java.base/jli/libjli.so from 8 file(s)
 Compiling args.c (for libjli.so)
 Compiling java.c (for libjli.so)
 Compiling java_md_common.c (for libjli.so)
@@ -1313,7 +1263,7 @@ Copying jdk/lib/libverify.so
 Copying jdk/lib/libjava.so
 Copying jdk/lib/libzip.so
 Copying jdk/lib/libjimage.so
-Copying jdk/lib/libjli.so
+Copying jdk/lib/jli/libjli.so
 Copying jdk/lib/libnet.so
 Copying jdk/lib/libnio.so
 Copying jdk/lib/libjsig.so
@@ -1322,7 +1272,7 @@ Creating symlink jdk/lib/libverify.debuginfo
 Creating symlink jdk/lib/libjava.debuginfo
 Creating symlink jdk/lib/libzip.debuginfo
 Creating symlink jdk/lib/libjimage.debuginfo
-Creating symlink jdk/lib/libjli.debuginfo
+Creating symlink jdk/lib/jli/libjli.debuginfo
 Creating symlink jdk/lib/libnet.debuginfo
 Creating symlink jdk/lib/libnio.debuginfo
 Creating symlink jdk/lib/libjsig.debuginfo
@@ -1356,671 +1306,94 @@ Copying jdk/bin/jlink.debuginfo
 Copying jdk/bin/jmod
 Copying jdk/bin/jmod.debuginfo
 Compiling 117 files for java.compiler
-Copying jdk/modules/java.datatransfer/sun/datatransfer/resources/flavormap.properties
 Compiling 18 files for java.datatransfer
 Generating icon classes
 Generating X11 wrapper source files
 Generating Nimbus source files
 Compiling 89 properties into resource bundles for java.desktop
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xalan/internal/res/XSLTInfo.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/DOMMessages.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/DOMMessages_de.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/DOMMessages_es.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/DOMMessages_fr.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/DOMMessages_it.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/DOMMessages_ja.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/DOMMessages_ko.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/DOMMessages_pt_BR.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/DOMMessages_sv.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/DOMMessages_zh_CN.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/DOMMessages_zh_TW.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/DatatypeMessages.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/DatatypeMessages_de.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/DatatypeMessages_es.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/DatatypeMessages_fr.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/DatatypeMessages_it.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/DatatypeMessages_ja.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/DatatypeMessages_ko.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/DatatypeMessages_pt_BR.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/DatatypeMessages_sv.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/DatatypeMessages_zh_CN.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/DatatypeMessages_zh_TW.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/JAXPValidationMessages.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/JAXPValidationMessages_de.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/JAXPValidationMessages_es.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/JAXPValidationMessages_fr.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/JAXPValidationMessages_it.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/JAXPValidationMessages_ja.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/JAXPValidationMessages_ko.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/JAXPValidationMessages_pt_BR.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/JAXPValidationMessages_sv.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/JAXPValidationMessages_zh_CN.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/JAXPValidationMessages_zh_TW.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/SAXMessages.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/SAXMessages_de.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/SAXMessages_es.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/SAXMessages_fr.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/SAXMessages_it.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/SAXMessages_ja.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/SAXMessages_ko.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/SAXMessages_pt_BR.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/SAXMessages_sv.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/SAXMessages_zh_CN.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/SAXMessages_zh_TW.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XIncludeMessages.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XIncludeMessages_de.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XIncludeMessages_es.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XIncludeMessages_fr.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XIncludeMessages_it.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XIncludeMessages_ja.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XIncludeMessages_ko.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XIncludeMessages_pt_BR.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XIncludeMessages_sv.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XIncludeMessages_zh_CN.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XIncludeMessages_zh_TW.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XMLMessages.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XMLMessages_de.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XMLMessages_es.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XMLMessages_fr.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XMLMessages_it.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XMLMessages_ja.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XMLMessages_ko.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XMLMessages_pt_BR.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XMLMessages_sv.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XMLMessages_zh_CN.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XMLMessages_zh_TW.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XMLSchemaMessages.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XMLSchemaMessages_de.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XMLSchemaMessages_es.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XMLSchemaMessages_fr.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XMLSchemaMessages_it.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XMLSchemaMessages_ja.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XMLSchemaMessages_ko.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XMLSchemaMessages_pt_BR.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XMLSchemaMessages_sv.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XMLSchemaMessages_zh_CN.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XMLSchemaMessages_zh_TW.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XMLSerializerMessages.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XMLSerializerMessages_de.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XMLSerializerMessages_es.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XMLSerializerMessages_fr.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XMLSerializerMessages_it.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XMLSerializerMessages_ja.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XMLSerializerMessages_ko.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XMLSerializerMessages_pt_BR.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XMLSerializerMessages_sv.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XMLSerializerMessages_zh_CN.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XMLSerializerMessages_zh_TW.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XPointerMessages.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XPointerMessages_de.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XPointerMessages_es.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XPointerMessages_fr.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XPointerMessages_it.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XPointerMessages_ja.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XPointerMessages_ko.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XPointerMessages_pt_BR.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XPointerMessages_sv.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XPointerMessages_zh_CN.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/msg/XPointerMessages_zh_TW.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/xpath/regex/message.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/xpath/regex/message_de.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/xpath/regex/message_es.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/xpath/regex/message_fr.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/xpath/regex/message_it.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/xpath/regex/message_ja.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/xpath/regex/message_ko.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/xpath/regex/message_pt_BR.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/xpath/regex/message_sv.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/xpath/regex/message_zh_CN.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xerces/internal/impl/xpath/regex/message_zh_TW.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xml/internal/serializer/Encodings.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xml/internal/serializer/HTMLEntities.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xml/internal/serializer/XMLEntities.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xml/internal/serializer/output_html.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xml/internal/serializer/output_text.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xml/internal/serializer/output_unknown.properties
-Cleaning jdk/modules/java.xml/com/sun/org/apache/xml/internal/serializer/output_xml.properties
-Cleaning jdk/modules/java.xml/javax/xml/catalog/CatalogMessages.properties
-Cleaning jdk/modules/java.xml/javax/xml/catalog/CatalogMessages_de.properties
-Cleaning jdk/modules/java.xml/javax/xml/catalog/CatalogMessages_es.properties
-Cleaning jdk/modules/java.xml/javax/xml/catalog/CatalogMessages_fr.properties
-Cleaning jdk/modules/java.xml/javax/xml/catalog/CatalogMessages_it.properties
-Cleaning jdk/modules/java.xml/javax/xml/catalog/CatalogMessages_ja.properties
-Cleaning jdk/modules/java.xml/javax/xml/catalog/CatalogMessages_ko.properties
-Cleaning jdk/modules/java.xml/javax/xml/catalog/CatalogMessages_pt_BR.properties
-Cleaning jdk/modules/java.xml/javax/xml/catalog/CatalogMessages_sv.properties
-Cleaning jdk/modules/java.xml/javax/xml/catalog/CatalogMessages_zh_CN.properties
-Cleaning jdk/modules/java.xml/javax/xml/catalog/CatalogMessages_zh_TW.properties
 Compiling 1831 files for java.xml
 Compiling 14 files for java.prefs
-Copying jdk/modules/java.desktop/com/sun/java/swing/plaf/gtk/icons/Directory.gif
-Copying jdk/modules/java.desktop/com/sun/java/swing/plaf/gtk/icons/File.gif
-Copying jdk/modules/java.desktop/com/sun/java/swing/plaf/gtk/icons/image-delayed.png
-Copying jdk/modules/java.desktop/com/sun/java/swing/plaf/gtk/icons/image-failed.png
-Copying jdk/modules/java.desktop/com/sun/java/swing/plaf/gtk/resources/metacity/SwingFallbackTheme/metacity-1/metacity-theme-1.xml
-Copying jdk/modules/java.desktop/com/sun/java/swing/plaf/motif/icons/DesktopIcon.gif
-Copying jdk/modules/java.desktop/com/sun/java/swing/plaf/motif/icons/Error.gif
-Copying jdk/modules/java.desktop/com/sun/java/swing/plaf/motif/icons/Inform.gif
-Copying jdk/modules/java.desktop/com/sun/java/swing/plaf/motif/icons/Question.gif
-Copying jdk/modules/java.desktop/com/sun/java/swing/plaf/motif/icons/TreeClosed.gif
-Copying jdk/modules/java.desktop/com/sun/java/swing/plaf/motif/icons/TreeOpen.gif
-Copying jdk/modules/java.desktop/com/sun/java/swing/plaf/motif/icons/Warn.gif
-Copying jdk/modules/java.desktop/com/sun/java/swing/plaf/motif/icons/image-delayed.png
-Copying jdk/modules/java.desktop/com/sun/java/swing/plaf/motif/icons/image-failed.png
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/AbstractButtonColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/BorderColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/BoxColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/BoxColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/BoxMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/BoxMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JAppletColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JAppletColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JAppletMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JAppletMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JButtonColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JButtonColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JButtonMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JButtonMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JCheckBoxColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JCheckBoxColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JCheckBoxMenuItemColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JCheckBoxMenuItemColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JCheckBoxMenuItemMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JCheckBoxMenuItemMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JCheckBoxMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JCheckBoxMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JColorChooserColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JColorChooserColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JColorChooserMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JColorChooserMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JComboBoxColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JComboBoxColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JComboBoxMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JComboBoxMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JComponentColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JDesktopPaneColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JDesktopPaneColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JDesktopPaneMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JDesktopPaneMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JDialogColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JDialogColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JDialogMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JDialogMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JEditorPaneColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JEditorPaneColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JEditorPaneMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JEditorPaneMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JFileChooserColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JFileChooserColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JFileChooserMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JFileChooserMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JFormattedTextFieldColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JFormattedTextFieldColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JFormattedTextFieldMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JFormattedTextFieldMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JFrameColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JFrameColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JFrameMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JFrameMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JInternalFrameColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JInternalFrameColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JInternalFrameMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JInternalFrameMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JLabelColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JLabelColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JLabelMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JLabelMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JLayeredPaneColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JLayeredPaneColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JLayeredPaneMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JLayeredPaneMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JListColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JListColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JListMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JListMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JMenuBarColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JMenuBarColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JMenuBarMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JMenuBarMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JMenuColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JMenuColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JMenuItemColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JMenuItemColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JMenuItemMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JMenuItemMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JMenuMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JMenuMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JOptionPaneColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JOptionPaneColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JOptionPaneMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JOptionPaneMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JPanelColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JPanelColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JPanelMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JPanelMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JPasswordFieldColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JPasswordFieldColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JPasswordFieldMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JPasswordFieldMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JPopupMenuColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JPopupMenuColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JPopupMenuMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JPopupMenuMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JProgressBarColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JProgressBarColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JProgressBarMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JProgressBarMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JRadioButtonColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JRadioButtonColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JRadioButtonMenuItemColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JRadioButtonMenuItemColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JRadioButtonMenuItemMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JRadioButtonMenuItemMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JRadioButtonMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JRadioButtonMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JRootPaneColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JRootPaneColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JRootPaneMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JRootPaneMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JScrollBarColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JScrollBarColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JScrollBarMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JScrollBarMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JScrollPaneColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JScrollPaneColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JScrollPaneMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JScrollPaneMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JSeparatorColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JSeparatorColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JSeparatorMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JSeparatorMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JSliderColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JSliderColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JSliderMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JSliderMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JSpinnerColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JSpinnerColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JSpinnerMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JSpinnerMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JSplitPaneColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JSplitPaneColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JSplitPaneMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JSplitPaneMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JTabbedPaneColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JTabbedPaneColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JTabbedPaneMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JTabbedPaneMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JTableColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JTableColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JTableMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JTableMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JTextAreaColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JTextAreaColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JTextAreaMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JTextAreaMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JTextFieldColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JTextFieldColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JTextFieldMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JTextFieldMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JTextPaneColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JTextPaneColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JTextPaneMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JTextPaneMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JToggleButtonColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JToggleButtonColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JToggleButtonMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JToggleButtonMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JToolBarColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JToolBarColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JToolBarMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JToolBarMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JTreeColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JTreeColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JTreeMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JTreeMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JViewportColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JViewportColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JViewportMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JViewportMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JWindowColor16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JWindowColor32.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JWindowMono16.gif
-Copying jdk/modules/java.desktop/javax/swing/beaninfo/images/JWindowMono32.gif
-Copying jdk/modules/java.desktop/javax/swing/plaf/basic/icons/JavaCup16.png
-Copying jdk/modules/java.desktop/javax/swing/plaf/basic/icons/image-delayed.png
-Copying jdk/modules/java.desktop/javax/swing/plaf/basic/icons/image-failed.png
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/icons/Error.gif
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/icons/Inform.gif
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/icons/Question.gif
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/icons/Warn.gif
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/icons/ocean/close-pressed.gif
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/icons/ocean/close.gif
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/icons/ocean/collapsed-rtl.gif
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/icons/ocean/collapsed.gif
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/icons/ocean/computer.gif
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/icons/ocean/directory.gif
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/icons/ocean/error.png
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/icons/ocean/expanded.gif
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/icons/ocean/file.gif
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/icons/ocean/floppy.gif
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/icons/ocean/hardDrive.gif
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/icons/ocean/homeFolder.gif
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/icons/ocean/iconify-pressed.gif
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/icons/ocean/iconify.gif
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/icons/ocean/info.png
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/icons/ocean/maximize-pressed.gif
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/icons/ocean/maximize.gif
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/icons/ocean/menu.gif
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/icons/ocean/minimize-pressed.gif
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/icons/ocean/minimize.gif
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/icons/ocean/newFolder.gif
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/icons/ocean/paletteClose-pressed.gif
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/icons/ocean/paletteClose.gif
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/icons/ocean/question.png
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/icons/ocean/upFolder.gif
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/icons/ocean/warning.png
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/icons/sortDown.png
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/icons/sortUp.png
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/sounds/FrameClose.wav
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/sounds/FrameMaximize.wav
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/sounds/FrameMinimize.wav
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/sounds/FrameRestoreDown.wav
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/sounds/FrameRestoreUp.wav
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/sounds/MenuItemCommand.wav
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/sounds/OptionPaneError.wav
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/sounds/OptionPaneInformation.wav
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/sounds/OptionPaneQuestion.wav
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/sounds/OptionPaneWarning.wav
-Copying jdk/modules/java.desktop/javax/swing/plaf/metal/sounds/PopupMenuPopup.wav
-Copying jdk/modules/java.desktop/javax/swing/text/html/default.css
-Copying jdk/modules/java.desktop/javax/swing/text/rtf/charsets/NeXT.txt
-Copying jdk/modules/java.desktop/javax/swing/text/rtf/charsets/ansi.txt
-Copying jdk/modules/java.desktop/javax/swing/text/rtf/charsets/cpg437.txt
-Copying jdk/modules/java.desktop/javax/swing/text/rtf/charsets/cpg850.txt
-Copying jdk/modules/java.desktop/javax/swing/text/rtf/charsets/mac.txt
-Copying jdk/modules/java.desktop/sun/awt/resources/cursors/CopyDrop32x32.gif
-Copying jdk/modules/java.desktop/sun/awt/resources/cursors/LinkDrop32x32.gif
-Copying jdk/modules/java.desktop/sun/awt/resources/cursors/MoveDrop32x32.gif
-Copying jdk/modules/java.desktop/sun/awt/resources/cursors/invalid32x32.gif
-Copying jdk/modules/java.desktop/sun/java2d/cmm/profiles/CIEXYZ.pf
-Copying jdk/modules/java.desktop/sun/java2d/cmm/profiles/GRAY.pf
-Copying jdk/modules/java.desktop/sun/java2d/cmm/profiles/LINEAR_RGB.pf
-Copying jdk/modules/java.desktop/sun/java2d/cmm/profiles/PYCC.pf
-Copying jdk/modules/java.desktop/sun/java2d/cmm/profiles/sRGB.pf
-Copying jdk/modules/java.desktop/sun/print/resources/duplex.png
-Copying jdk/modules/java.desktop/sun/print/resources/oneside.png
-Copying jdk/modules/java.desktop/sun/print/resources/orientLandscape.png
-Copying jdk/modules/java.desktop/sun/print/resources/orientPortrait.png
-Copying jdk/modules/java.desktop/sun/print/resources/orientRevLandscape.png
-Copying jdk/modules/java.desktop/sun/print/resources/orientRevPortrait.png
-Copying jdk/modules/java.desktop/sun/print/resources/tumble.png
-Cleaning jdk/modules/java.desktop/com/sun/imageio/plugins/common/iio-plugin.properties
-Cleaning jdk/modules/java.desktop/sun/awt/resources/cursors/cursors.properties
-Compiling 2783 files for java.desktop
+Compiling 2788 files for java.desktop
 Compiling 10 files for java.instrument
 Compiling 11 properties into resource bundles for java.logging
 Compiling 34 files for java.logging
 Compiling 330 files for java.management
 Compiling 30 files for java.security.sasl
-Cleaning jdk/modules/java.naming/com/sun/jndi/ldap/jndiprovider.properties
 Compiling 193 files for java.naming
-Cleaning jdk/modules/java.rmi/sun/rmi/registry/resources/rmiregistry_ko.properties
-Cleaning jdk/modules/java.rmi/sun/rmi/registry/resources/rmiregistry_zh_CN.properties
-Cleaning jdk/modules/java.rmi/sun/rmi/registry/resources/rmiregistry_de.properties
-Cleaning jdk/modules/java.rmi/sun/rmi/registry/resources/rmiregistry.properties
-Cleaning jdk/modules/java.rmi/sun/rmi/registry/resources/rmiregistry_pt_BR.properties
-Cleaning jdk/modules/java.rmi/sun/rmi/registry/resources/rmiregistry_fr.properties
-Cleaning jdk/modules/java.rmi/sun/rmi/registry/resources/rmiregistry_ja.properties
-Cleaning jdk/modules/java.rmi/sun/rmi/registry/resources/rmiregistry_zh_TW.properties
-Cleaning jdk/modules/java.rmi/sun/rmi/registry/resources/rmiregistry_sv.properties
-Cleaning jdk/modules/java.rmi/sun/rmi/registry/resources/rmiregistry_it.properties
-Cleaning jdk/modules/java.rmi/sun/rmi/registry/resources/rmiregistry_es.properties
-Cleaning jdk/modules/java.rmi/sun/rmi/server/resources/rmid_it.properties
-Cleaning jdk/modules/java.rmi/sun/rmi/server/resources/rmid_es.properties
-Cleaning jdk/modules/java.rmi/sun/rmi/server/resources/rmid_ko.properties
-Cleaning jdk/modules/java.rmi/sun/rmi/server/resources/rmid_zh_CN.properties
-Cleaning jdk/modules/java.rmi/sun/rmi/server/resources/rmid_zh_TW.properties
-Cleaning jdk/modules/java.rmi/sun/rmi/server/resources/rmid_de.properties
-Cleaning jdk/modules/java.rmi/sun/rmi/server/resources/rmid_pt_BR.properties
-Cleaning jdk/modules/java.rmi/sun/rmi/server/resources/rmid.properties
-Cleaning jdk/modules/java.rmi/sun/rmi/server/resources/rmid_fr.properties
-Cleaning jdk/modules/java.rmi/sun/rmi/server/resources/rmid_ja.properties
-Cleaning jdk/modules/java.rmi/sun/rmi/server/resources/rmid_sv.properties
 Compiling 123 files for java.rmi
 Compiling 14 files for java.management.rmi
 Compiling 140 files for java.net.http
-Copying jdk/modules/java.scripting/com/sun/tools/script/shell/init.js
-Cleaning jdk/modules/java.scripting/com/sun/tools/script/shell/messages.properties
 Compiling 15 files for java.scripting
 Compiling 216 files for java.security.jgss
 Compiling 5 files for java.transaction.xa
 Compiling 75 files for java.sql
-Cleaning jdk/modules/java.sql.rowset/com/sun/rowset/RowSetResourceBundle_sv.properties
-Cleaning jdk/modules/java.sql.rowset/com/sun/rowset/RowSetResourceBundle_it.properties
-Cleaning jdk/modules/java.sql.rowset/com/sun/rowset/RowSetResourceBundle_es.properties
-Cleaning jdk/modules/java.sql.rowset/com/sun/rowset/RowSetResourceBundle_pt_BR.properties
-Cleaning jdk/modules/java.sql.rowset/com/sun/rowset/RowSetResourceBundle_ko.properties
-Cleaning jdk/modules/java.sql.rowset/com/sun/rowset/RowSetResourceBundle_zh_CN.properties
-Cleaning jdk/modules/java.sql.rowset/com/sun/rowset/RowSetResourceBundle_zh_TW.properties
-Cleaning jdk/modules/java.sql.rowset/com/sun/rowset/RowSetResourceBundle.properties
-Cleaning jdk/modules/java.sql.rowset/com/sun/rowset/RowSetResourceBundle_fr.properties
-Cleaning jdk/modules/java.sql.rowset/com/sun/rowset/RowSetResourceBundle_ja.properties
-Cleaning jdk/modules/java.sql.rowset/com/sun/rowset/RowSetResourceBundle_de.properties
-Cleaning jdk/modules/java.sql.rowset/javax/sql/rowset/rowset.properties
 Compiling 53 files for java.sql.rowset
-Copying jdk/modules/java.xml.crypto/com/sun/org/apache/xml/internal/security/resource/config.dtd
-Copying jdk/modules/java.xml.crypto/com/sun/org/apache/xml/internal/security/resource/config.xml
-Cleaning jdk/modules/java.xml.crypto/com/sun/org/apache/xml/internal/security/resource/xmlsecurity_de.properties
-Cleaning jdk/modules/java.xml.crypto/com/sun/org/apache/xml/internal/security/resource/xmlsecurity_en.properties
 Compiling 269 files for java.xml.crypto
 Compiling 1 files for java.se
 Compiling 21 files for java.smartcardio
 Compiling 18 files for jdk.accessibility
-Copying jdk/modules/jdk.internal.jvmstat/sun/jvmstat/perfdata/resources/aliasmap
 Compiling 61 files for jdk.internal.jvmstat
 Compiling 15 files for jdk.attach
 Generating jdk.charsets extcs
 Generating jdk.charsets hkscs
 Generating jdk.charsets euctw
 Generating support/gensrc/jdk.charsets/sun/nio/cs/ext/sjis0213.dat
-Copying jdk/modules/jdk.charsets/sun/nio/cs/ext/sjis0213.dat
 Compiling 119 files for jdk.charsets
-Copying jdk/modules/jdk.compiler/META-INF/services/com.sun.tools.javac.platform.PlatformProvider
-Cleaning jdk/modules/jdk.compiler/sun/tools/serialver/resources/serialver.properties
-Cleaning jdk/modules/jdk.compiler/sun/tools/serialver/resources/serialver_zh_CN.properties
-Cleaning jdk/modules/jdk.compiler/sun/tools/serialver/resources/serialver_ja.properties
 Compiling 399 files for jdk.compiler
 Compiling 15 files for jdk.crypto.ec
-Compiling 70 files for jdk.crypto.cryptoki
-Cleaning jdk/modules/jdk.dynalink/jdk/dynalink/support/messages.properties
+Compiling 67 files for jdk.crypto.cryptoki
 Compiling 68 files for jdk.dynalink
 Compiling 3 files for jdk.internal.ed
-Copying jdk/modules/jdk.editpad/jdk/editpad/resources/l10n.properties
 Compiling 3 files for jdk.editpad
-Copying jdk/modules/jdk.hotspot.agent/META-INF/services/com.sun.jdi.connect.Connector
-Copying jdk/modules/jdk.hotspot.agent/sa.properties
-Copying jdk/modules/jdk.hotspot.agent/images/toolbarButtonGraphics/general/Save16.gif
-Copying jdk/modules/jdk.hotspot.agent/sun/jvm/hotspot/ui/resources/arrow.png
-Copying jdk/modules/jdk.hotspot.agent/sun/jvm/hotspot/ui/resources/breakpoint.png
-Copying jdk/modules/jdk.hotspot.agent/sun/jvm/hotspot/ui/resources/triangle.png
-Copying jdk/modules/jdk.hotspot.agent/sun/jvm/hotspot/utilities/soql/sa.js
-Copying jdk/modules/jdk.hotspot.agent/toolbarButtonGraphics/development/Server16.gif
-Copying jdk/modules/jdk.hotspot.agent/toolbarButtonGraphics/development/Server24.gif
-Copying jdk/modules/jdk.hotspot.agent/toolbarButtonGraphics/general/About16.gif
-Copying jdk/modules/jdk.hotspot.agent/toolbarButtonGraphics/general/About24.gif
-Copying jdk/modules/jdk.hotspot.agent/toolbarButtonGraphics/general/Delete16.gif
-Copying jdk/modules/jdk.hotspot.agent/toolbarButtonGraphics/general/Delete24.gif
-Copying jdk/modules/jdk.hotspot.agent/toolbarButtonGraphics/general/Find16.gif
-Copying jdk/modules/jdk.hotspot.agent/toolbarButtonGraphics/general/Help16.gif
-Copying jdk/modules/jdk.hotspot.agent/toolbarButtonGraphics/general/Help24.gif
-Copying jdk/modules/jdk.hotspot.agent/toolbarButtonGraphics/general/History16.gif
-Copying jdk/modules/jdk.hotspot.agent/toolbarButtonGraphics/general/History24.gif
-Copying jdk/modules/jdk.hotspot.agent/toolbarButtonGraphics/general/Information16.gif
-Copying jdk/modules/jdk.hotspot.agent/toolbarButtonGraphics/general/Information24.gif
-Copying jdk/modules/jdk.hotspot.agent/toolbarButtonGraphics/general/New16.gif
-Copying jdk/modules/jdk.hotspot.agent/toolbarButtonGraphics/general/New24.gif
-Copying jdk/modules/jdk.hotspot.agent/toolbarButtonGraphics/general/Open16.gif
-Copying jdk/modules/jdk.hotspot.agent/toolbarButtonGraphics/general/Open24.gif
-Copying jdk/modules/jdk.hotspot.agent/toolbarButtonGraphics/general/Save24.gif
-Copying jdk/modules/jdk.hotspot.agent/toolbarButtonGraphics/general/SaveAs16.gif
-Copying jdk/modules/jdk.hotspot.agent/toolbarButtonGraphics/general/SaveAs24.gif
-Copying jdk/modules/jdk.hotspot.agent/toolbarButtonGraphics/general/Zoom16.gif
-Copying jdk/modules/jdk.hotspot.agent/toolbarButtonGraphics/general/ZoomIn16.gif
-Copying jdk/modules/jdk.hotspot.agent/toolbarButtonGraphics/general/ZoomIn24.gif
-Copying jdk/modules/jdk.hotspot.agent/toolbarButtonGraphics/navigation/Down16.gif
-Copying jdk/modules/jdk.hotspot.agent/toolbarButtonGraphics/navigation/Up16.gif
-Copying jdk/modules/jdk.hotspot.agent/toolbarButtonGraphics/text/AlignCenter16.gif
-Copying jdk/modules/jdk.hotspot.agent/toolbarButtonGraphics/text/AlignCenter24.gif
-Copying jdk/modules/jdk.hotspot.agent/toolbarButtonGraphics/text/AlignLeft16.gif
-Copying jdk/modules/jdk.hotspot.agent/toolbarButtonGraphics/text/AlignLeft24.gif
-Copying jdk/modules/jdk.hotspot.agent/toolbarButtonGraphics/text/AlignRight16.gif
-Copying jdk/modules/jdk.hotspot.agent/toolbarButtonGraphics/text/AlignRight24.gif
 Compiling 997 files for jdk.hotspot.agent
 Note: Some input files use or override a deprecated API.
 Note: Recompile with -Xlint:deprecation for details.
 Note: Some input files use unchecked or unsafe operations.
 Note: Recompile with -Xlint:unchecked for details.
 Compiling 44 files for jdk.httpserver
-Copying jdk/modules/jdk.internal.le/jdk/internal/jline/console/completer/CandidateListCompletionHandler.properties
 Compiling 55 files for jdk.internal.le
-Copying jdk/modules/jdk.internal.opt/jdk/internal/joptsimple/ExceptionMessages.properties
-Copying jdk/modules/jdk.internal.opt/jdk/internal/joptsimple/HelpFormatterMessages.properties
 Compiling 51 files for jdk.internal.opt
 Compiling 11 properties into resource bundles for jdk.jartool
 Compiling 33 files for jdk.jartool
-Copying jdk/modules/jdk.javadoc/jdk/javadoc/internal/doclets/formats/html/resources/glass.png
-Copying jdk/modules/jdk.javadoc/jdk/javadoc/internal/doclets/formats/html/resources/jquery/external/jquery/jquery.js
-Copying jdk/modules/jdk.javadoc/jdk/javadoc/internal/doclets/formats/html/resources/jquery/images/ui-bg_flat_0_aaaaaa_40x100.png
-Copying jdk/modules/jdk.javadoc/jdk/javadoc/internal/doclets/formats/html/resources/jquery/images/ui-bg_flat_75_ffffff_40x100.png
-Copying jdk/modules/jdk.javadoc/jdk/javadoc/internal/doclets/formats/html/resources/jquery/images/ui-bg_glass_55_fbf9ee_1x400.png
-Copying jdk/modules/jdk.javadoc/jdk/javadoc/internal/doclets/formats/html/resources/jquery/images/ui-bg_glass_65_ffffff_1x400.png
-Copying jdk/modules/jdk.javadoc/jdk/javadoc/internal/doclets/formats/html/resources/jquery/images/ui-bg_glass_75_dadada_1x400.png
-Copying jdk/modules/jdk.javadoc/jdk/javadoc/internal/doclets/formats/html/resources/jquery/images/ui-bg_glass_75_e6e6e6_1x400.png
-Copying jdk/modules/jdk.javadoc/jdk/javadoc/internal/doclets/formats/html/resources/jquery/images/ui-bg_glass_95_fef1ec_1x400.png
-Copying jdk/modules/jdk.javadoc/jdk/javadoc/internal/doclets/formats/html/resources/jquery/images/ui-bg_highlight-soft_75_cccccc_1x100.png
-Copying jdk/modules/jdk.javadoc/jdk/javadoc/internal/doclets/formats/html/resources/jquery/images/ui-icons_222222_256x240.png
-Copying jdk/modules/jdk.javadoc/jdk/javadoc/internal/doclets/formats/html/resources/jquery/images/ui-icons_2e83ff_256x240.png
-Copying jdk/modules/jdk.javadoc/jdk/javadoc/internal/doclets/formats/html/resources/jquery/images/ui-icons_454545_256x240.png
-Copying jdk/modules/jdk.javadoc/jdk/javadoc/internal/doclets/formats/html/resources/jquery/images/ui-icons_888888_256x240.png
-Copying jdk/modules/jdk.javadoc/jdk/javadoc/internal/doclets/formats/html/resources/jquery/images/ui-icons_cd0a0a_256x240.png
-Copying jdk/modules/jdk.javadoc/jdk/javadoc/internal/doclets/formats/html/resources/jquery/jquery-3.3.1.js
-Copying jdk/modules/jdk.javadoc/jdk/javadoc/internal/doclets/formats/html/resources/jquery/jquery-migrate-3.0.1.js
-Copying jdk/modules/jdk.javadoc/jdk/javadoc/internal/doclets/formats/html/resources/jquery/jquery-ui.css
-Copying jdk/modules/jdk.javadoc/jdk/javadoc/internal/doclets/formats/html/resources/jquery/jquery-ui.js
-Copying jdk/modules/jdk.javadoc/jdk/javadoc/internal/doclets/formats/html/resources/jquery/jquery-ui.min.css
-Copying jdk/modules/jdk.javadoc/jdk/javadoc/internal/doclets/formats/html/resources/jquery/jquery-ui.min.js
-Copying jdk/modules/jdk.javadoc/jdk/javadoc/internal/doclets/formats/html/resources/jquery/jquery-ui.structure.css
-Copying jdk/modules/jdk.javadoc/jdk/javadoc/internal/doclets/formats/html/resources/jquery/jquery-ui.structure.min.css
-Copying jdk/modules/jdk.javadoc/jdk/javadoc/internal/doclets/formats/html/resources/jquery/jszip-utils/dist/jszip-utils-ie.js
-Copying jdk/modules/jdk.javadoc/jdk/javadoc/internal/doclets/formats/html/resources/jquery/jszip-utils/dist/jszip-utils-ie.min.js
-Copying jdk/modules/jdk.javadoc/jdk/javadoc/internal/doclets/formats/html/resources/jquery/jszip-utils/dist/jszip-utils.js
-Copying jdk/modules/jdk.javadoc/jdk/javadoc/internal/doclets/formats/html/resources/jquery/jszip-utils/dist/jszip-utils.min.js
-Copying jdk/modules/jdk.javadoc/jdk/javadoc/internal/doclets/formats/html/resources/jquery/jszip/dist/jszip.js
-Copying jdk/modules/jdk.javadoc/jdk/javadoc/internal/doclets/formats/html/resources/jquery/jszip/dist/jszip.min.js
-Copying jdk/modules/jdk.javadoc/jdk/javadoc/internal/doclets/formats/html/resources/search.js
-Copying jdk/modules/jdk.javadoc/jdk/javadoc/internal/doclets/formats/html/resources/x.png
-Copying jdk/modules/jdk.javadoc/jdk/javadoc/internal/doclets/toolkit/resources/script.js
-Copying jdk/modules/jdk.javadoc/jdk/javadoc/internal/doclets/toolkit/resources/stylesheet.css
 Compiling 304 files for jdk.javadoc
-Copying jdk/modules/jdk.jcmd/sun/tools/jstat/resources/jstat_options
-Copying jdk/modules/jdk.jcmd/sun/tools/jstat/resources/jstat_unsupported_options
 Compiling 38 files for jdk.jcmd
 Compiling 24 files for jdk.management
 Compiling 11 properties into resource bundles for jdk.management.agent
 Compiling 31 files for jdk.management.agent
-Copying jdk/modules/jdk.jconsole/sun/tools/jconsole/resources/brandlogo.png
-Copying jdk/modules/jdk.jconsole/sun/tools/jconsole/resources/collapse-winlf.png
-Copying jdk/modules/jdk.jconsole/sun/tools/jconsole/resources/connected16.png
-Copying jdk/modules/jdk.jconsole/sun/tools/jconsole/resources/connected24.png
-Copying jdk/modules/jdk.jconsole/sun/tools/jconsole/resources/disconnected16.png
-Copying jdk/modules/jdk.jconsole/sun/tools/jconsole/resources/disconnected24.png
-Copying jdk/modules/jdk.jconsole/sun/tools/jconsole/resources/expand-winlf.png
-Copying jdk/modules/jdk.jconsole/sun/tools/jconsole/resources/masthead-left.png
-Copying jdk/modules/jdk.jconsole/sun/tools/jconsole/resources/masthead-right.png
-Copying jdk/modules/jdk.jconsole/sun/tools/jconsole/resources/mbean.gif
-Copying jdk/modules/jdk.jconsole/sun/tools/jconsole/resources/mbeanserverdelegate.gif
-Copying jdk/modules/jdk.jconsole/sun/tools/jconsole/resources/xobject.gif
-Cleaning jdk/modules/jdk.jconsole/sun/tools/jconsole/resources/messages_ja.properties
-Cleaning jdk/modules/jdk.jconsole/sun/tools/jconsole/resources/messages.properties
-Cleaning jdk/modules/jdk.jconsole/sun/tools/jconsole/resources/messages_zh_CN.properties
 Compiling 64 files for jdk.jconsole
 Compiling 12 properties into resource bundles for jdk.jdeps
-Copying jdk/modules/jdk.jdeps/com/sun/tools/jdeps/resources/jdk8_internals.txt
-Cleaning jdk/modules/jdk.jdeps/com/sun/tools/jdeps/resources/jdeps.properties
-Cleaning jdk/modules/jdk.jdeps/com/sun/tools/jdeps/resources/jdeps_zh_CN.properties
-Cleaning jdk/modules/jdk.jdeps/com/sun/tools/jdeps/resources/jdeps_ja.properties
-Cleaning jdk/modules/jdk.jdeps/com/sun/tools/jdeps/resources/jdkinternals.properties
-Cleaning jdk/modules/jdk.jdeps/com/sun/tools/javap/resources/javap.properties
-Cleaning jdk/modules/jdk.jdeps/com/sun/tools/javap/resources/javap_zh_CN.properties
-Cleaning jdk/modules/jdk.jdeps/com/sun/tools/javap/resources/javap_ja.properties
 Compiling 133 files for jdk.jdeps
 Creating JDWP.java and JDWPCommands.h from jdwp.spec
 Creating jdwp-protocol.html from jdwp.spec
 Compiling 3 properties into resource bundles for jdk.jdi
 Compiling 1 files for jdk.jdwp.agent
 Compiling 251 files for jdk.jdi
-Copying jdk/modules/jdk.jfr/jdk/jfr/internal/jfc/jfc.xsd
 Compiling 163 files for jdk.jfr
 Compiling 4 properties into resource bundles for jdk.jlink
 Compiling 3 properties into resource bundles for jdk.jlink
 Compiling 1 properties into resource bundles for jdk.jlink
 Compiling 75 files for jdk.jlink
 Compiling 7 properties into resource bundles for jdk.jshell
-Copying jdk/modules/jdk.jshell/jdk/internal/jshell/tool/resources/version.properties
-Copying jdk/modules/jdk.jshell/jdk/internal/jshell/tool/resources/l10n.properties
-Copying jdk/modules/jdk.jshell/jdk/internal/jshell/tool/resources/l10n_ja.properties
-Copying jdk/modules/jdk.jshell/jdk/internal/jshell/tool/resources/l10n_zh_CN.properties
-Copying jdk/modules/jdk.jshell/jdk/jshell/resources/l10n.properties
-Copying jdk/modules/jdk.jshell/jdk/jshell/resources/l10n_ja.properties
-Copying jdk/modules/jdk.jshell/jdk/jshell/resources/l10n_zh_CN.properties
-Copying jdk/modules/jdk.jshell/jdk/jshell/tool/resources/DEFAULT.jsh
-Copying jdk/modules/jdk.jshell/jdk/jshell/tool/resources/PRINTING.jsh
 Compiling 94 files for jdk.jshell
 Compiling 5 files for jdk.jsobject
 Compiling 11 files for jdk.jstatd
 Creating sun/util/resources/provider/NonBaseLocaleDataMetaInfo.java from 417 found resources
 Compiling 224 properties into resource bundles for jdk.localedata
-Copying jdk/modules/jdk.localedata/sun/text/resources/ext/thai_dict
 Compiling 1703 files for jdk.localedata
 Compiling 14 files for jdk.management.jfr
 Compiling 16 files for jdk.naming.dns
 Compiling 7 files for jdk.naming.rmi
 Compiling 9 files for jdk.net
 Compiling 1 files for jdk.pack
-Cleaning jdk/modules/jdk.rmic/sun/rmi/rmic/resources/rmic.properties
-Cleaning jdk/modules/jdk.rmic/sun/rmi/rmic/resources/rmic_ja.properties
-Cleaning jdk/modules/jdk.rmic/sun/rmi/rmic/resources/rmic_zh_CN.properties
-Cleaning jdk/modules/jdk.rmic/sun/tools/javac/resources/javac.properties
-Cleaning jdk/modules/jdk.rmic/sun/tools/javac/resources/javac_ja.properties
-Cleaning jdk/modules/jdk.rmic/sun/tools/javac/resources/javac_zh_CN.properties
 Compiling 188 files for jdk.rmic
 Note: Some input files use or override a deprecated API.
 Note: Recompile with -Xlint:deprecation for details.
 Processing version.properties
-Copying jdk/modules/jdk.scripting.nashorn/jdk/nashorn/internal/runtime/resources/version.properties
-Copying jdk/modules/jdk.scripting.nashorn/jdk/nashorn/api/scripting/resources/Messages.properties
-Copying jdk/modules/jdk.scripting.nashorn/jdk/nashorn/internal/codegen/anchor.properties
-Copying jdk/modules/jdk.scripting.nashorn/jdk/nashorn/internal/runtime/resources/Functions.properties
-Copying jdk/modules/jdk.scripting.nashorn/jdk/nashorn/internal/runtime/resources/Messages.properties
-Copying jdk/modules/jdk.scripting.nashorn/jdk/nashorn/internal/runtime/resources/Options.properties
-Copying jdk/modules/jdk.scripting.nashorn/jdk/nashorn/internal/runtime/resources/fx/base.js
-Copying jdk/modules/jdk.scripting.nashorn/jdk/nashorn/internal/runtime/resources/fx/bootstrap.js
-Copying jdk/modules/jdk.scripting.nashorn/jdk/nashorn/internal/runtime/resources/fx/controls.js
-Copying jdk/modules/jdk.scripting.nashorn/jdk/nashorn/internal/runtime/resources/fx/fxml.js
-Copying jdk/modules/jdk.scripting.nashorn/jdk/nashorn/internal/runtime/resources/fx/graphics.js
-Copying jdk/modules/jdk.scripting.nashorn/jdk/nashorn/internal/runtime/resources/fx/media.js
-Copying jdk/modules/jdk.scripting.nashorn/jdk/nashorn/internal/runtime/resources/fx/swing.js
-Copying jdk/modules/jdk.scripting.nashorn/jdk/nashorn/internal/runtime/resources/fx/web.js
-Copying jdk/modules/jdk.scripting.nashorn/jdk/nashorn/internal/runtime/resources/mozilla_compat.js
-Copying jdk/modules/jdk.scripting.nashorn/jdk/nashorn/internal/runtime/resources/parser.js
-Copying jdk/modules/jdk.scripting.nashorn/jdk/nashorn/tools/resources/Shell.properties
 Compiling 593 files for jdk.scripting.nashorn
 Note: Some input files use or override a deprecated API that is marked for removal.
 Note: Recompile with -Xlint:removal for details.
-Copying buildtools/nasgen_classes/META-INF/MANIFEST.MF
 Compiling 131 files for BUILD_NASGEN
 Running nasgen
-Copying jdk/modules/jdk.scripting.nashorn.shell/jdk/nashorn/tools/jjs/resources/jjs.js
 Compiling 11 files for jdk.scripting.nashorn.shell
 Note: Some input files use or override a deprecated API that is marked for removal.
 Note: Recompile with -Xlint:removal for details.
@@ -2030,7 +1403,7 @@ Compiling 16 files for jdk.security.jgss
 Compiling 9 files for jdk.unsupported
 Compiling 8 files for jdk.unsupported.desktop
 Compiling 94 files for jdk.xml.dom
-Compiling 15 files for jdk.zipfs
+Compiling 14 files for jdk.zipfs
 Copying support/modules_include/java.desktop/jawt.h
 Copying support/modules_include/java.desktop/linux/jawt_md.h
 Copying support/modules_legal/java.desktop/xwindows.md
@@ -2544,12 +1917,6 @@ Linking libmanagement.so
 Copying jdk/lib/libmanagement.so
 Creating symlink jdk/lib/libmanagement.debuginfo
 Generating module-info.java for jdk.rmic.interim
-Copying buildtools/interim_rmic_modules/jdk.rmic.interim/sun/rmi/rmic/resources/rmic.properties
-Copying buildtools/interim_rmic_modules/jdk.rmic.interim/sun/rmi/rmic/resources/rmic_ja.properties
-Copying buildtools/interim_rmic_modules/jdk.rmic.interim/sun/rmi/rmic/resources/rmic_zh_CN.properties
-Copying buildtools/interim_rmic_modules/jdk.rmic.interim/sun/tools/javac/resources/javac.properties
-Copying buildtools/interim_rmic_modules/jdk.rmic.interim/sun/tools/javac/resources/javac_ja.properties
-Copying buildtools/interim_rmic_modules/jdk.rmic.interim/sun/tools/javac/resources/javac_zh_CN.properties
 Compiling 188 files for BUILD_jdk.rmic.interim
 Note: Some input files use or override a deprecated API.
 Note: Recompile with -Xlint:deprecation for details.
@@ -2893,8 +2260,6 @@ Compiling Unix.c (for libjaas.so)
 Linking libjaas.so
 Copying jdk/lib/libjaas.so
 Creating symlink jdk/lib/libjaas.debuginfo
-Copying buildtools/tools_jigsaw_classes/build/tools/jigsaw/javadoc-graphs.properties
-Copying buildtools/tools_jigsaw_classes/build/tools/jigsaw/technology-summary.html
 Compiling 4 files for BUILD_JIGSAW_TOOLS
 Optimizing the exploded image
 Creating support/interim-jmods/java.base.jmod
@@ -2976,13 +2341,6 @@ Creating images/jmods/jdk.xml.dom.jmod
 Creating images/jmods/jdk.zipfs.jmod
 Creating images/jmods/java.base.jmod
 Updating support/src.zip
-Copying support/demos/classes/jfc/CodePointIM/README.html
-Copying support/demos/classes/jfc/CodePointIM/README_ja.html
-Copying support/demos/classes/jfc/CodePointIM/README_zh_CN.html
-Copying support/demos/classes/jfc/CodePointIM/java.awt.im.spi.InputMethodDescriptor
-Copying support/demos/classes/jfc/CodePointIM/resources/codepoint.properties
-Copying support/demos/classes/jfc/CodePointIM/resources/codepoint_ja.properties
-Copying support/demos/classes/jfc/CodePointIM/resources/codepoint_zh_CN.properties
 Compiling 3 files for BUILD_DEMO_CodePointIM
 Processing java-main-manifest.mf
 Creating support/demos/image/jfc/CodePointIM/CodePointIM.jar
@@ -2990,9 +2348,6 @@ Updating support/demos/image/jfc/CodePointIM/src.zip
 Copying support/demos/image/jfc/CodePointIM/README.html
 Copying support/demos/image/jfc/CodePointIM/README_ja.html
 Copying support/demos/image/jfc/CodePointIM/README_zh_CN.html
-Copying support/demos/classes/jfc/FileChooserDemo/README.txt
-Copying support/demos/classes/jfc/FileChooserDemo/resources/images/gifIcon.gif
-Copying support/demos/classes/jfc/FileChooserDemo/resources/images/jpgIcon.jpg
 Compiling 3 files for BUILD_DEMO_FileChooserDemo
 Note: /home/server/jdk/src/demo/share/jfc/FileChooserDemo/FileChooserDemo.java uses or overrides a deprecated API.
 Note: Recompile with -Xlint:deprecation for details.
@@ -3001,224 +2356,6 @@ Note: Recompile with -Xlint:unchecked for details.
 Creating support/demos/image/jfc/FileChooserDemo/FileChooserDemo.jar
 Updating support/demos/image/jfc/FileChooserDemo/src.zip
 Copying support/demos/image/jfc/FileChooserDemo/README.txt
-Copying support/demos/classes/jfc/SwingSet2/AquaTheme.java
-Copying support/demos/classes/jfc/SwingSet2/BezierAnimationPanel.java
-Copying support/demos/classes/jfc/SwingSet2/ButtonDemo.java
-Copying support/demos/classes/jfc/SwingSet2/CharcoalTheme.java
-Copying support/demos/classes/jfc/SwingSet2/ColorChooserDemo.java
-Copying support/demos/classes/jfc/SwingSet2/ComboBoxDemo.java
-Copying support/demos/classes/jfc/SwingSet2/ContrastTheme.java
-Copying support/demos/classes/jfc/SwingSet2/DemoModule.java
-Copying support/demos/classes/jfc/SwingSet2/DirectionPanel.java
-Copying support/demos/classes/jfc/SwingSet2/EmeraldTheme.java
-Copying support/demos/classes/jfc/SwingSet2/ExampleFileView.java
-Copying support/demos/classes/jfc/SwingSet2/FileChooserDemo.java
-Copying support/demos/classes/jfc/SwingSet2/HtmlDemo.java
-Copying support/demos/classes/jfc/SwingSet2/InternalFrameDemo.java
-Copying support/demos/classes/jfc/SwingSet2/LayoutControlPanel.java
-Copying support/demos/classes/jfc/SwingSet2/ListDemo.java
-Copying support/demos/classes/jfc/SwingSet2/OptionPaneDemo.java
-Copying support/demos/classes/jfc/SwingSet2/Permuter.java
-Copying support/demos/classes/jfc/SwingSet2/ProgressBarDemo.java
-Copying support/demos/classes/jfc/SwingSet2/README.txt
-Copying support/demos/classes/jfc/SwingSet2/RubyTheme.java
-Copying support/demos/classes/jfc/SwingSet2/ScrollPaneDemo.java
-Copying support/demos/classes/jfc/SwingSet2/SliderDemo.java
-Copying support/demos/classes/jfc/SwingSet2/SplitPaneDemo.java
-Copying support/demos/classes/jfc/SwingSet2/SwingSet2.html
-Copying support/demos/classes/jfc/SwingSet2/SwingSet2.java
-Copying support/demos/classes/jfc/SwingSet2/SwingSet2Applet.java
-Copying support/demos/classes/jfc/SwingSet2/TabbedPaneDemo.java
-Copying support/demos/classes/jfc/SwingSet2/TableDemo.java
-Copying support/demos/classes/jfc/SwingSet2/TextAndMnemonicUtils.java
-Copying support/demos/classes/jfc/SwingSet2/ToolTipDemo.java
-Copying support/demos/classes/jfc/SwingSet2/TreeDemo.java
-Copying support/demos/classes/jfc/SwingSet2/resources/ant.html
-Copying support/demos/classes/jfc/SwingSet2/resources/bug.html
-Copying support/demos/classes/jfc/SwingSet2/resources/images/About.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/Octavo/ant.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/Octavo/book.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/Octavo/bug.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/Octavo/bug2.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/Octavo/crest.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/Octavo/king.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/Octavo/micro.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/Octavo/seaweed.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/b1.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/b1d.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/b1p.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/b1r.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/b2.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/b2d.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/b2p.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/b2r.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/b3.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/b3d.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/b3p.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/b3r.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/bl.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/bldn.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/bm.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/bmdn.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/br.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/brdn.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/c.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/cb.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/cbr.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/cbrs.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/cbs.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/cdn.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/ml.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/mldn.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/mr.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/mrdn.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/rb.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/rbp.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/rbr.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/rbrs.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/rbs.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/tl.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/tldn.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/tm.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/tmdn.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/toggle.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/toggledn.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/tr.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/buttons/trdn.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/brenteyes.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/brenthair.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/brentmouth.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/georgeseyes.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/georgeshair.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/georgesmouth.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/hanseyes.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/hanshair.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/hansmouth.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/howardeyes.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/howardhair.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/howardmouth.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/jameseyes.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/jameshair.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/jamesmouth.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/jeffeyes.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/jeffhair.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/jeffmouth.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/joneyes.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/jonhair.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/jonmouth.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/laraeyes.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/larahair.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/laramouth.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/larryeyes.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/larryhair.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/larrymouth.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/lisaeyes.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/lisahair.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/lisamouth.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/michaeleyes.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/michaelhair.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/michaelmouth.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/philipeyes.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/philiphair.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/philipmouth.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/scotteyes.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/scotthair.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/combobox/scottmouth.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/filechooser/find.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/filechooser/gifIcon.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/filechooser/help.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/filechooser/jpgIcon.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/food/apple.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/food/asparagus.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/food/banana.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/food/broccoli.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/food/cantaloupe.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/food/carrot.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/food/corn.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/food/grapefruit.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/food/grapes.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/food/kiwi.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/food/onion.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/food/peach.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/food/pear.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/food/pepper.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/food/pickle.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/food/pineapple.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/food/raspberry.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/food/strawberry.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/food/tomato.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/food/watermelon.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/htmldemo/back.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/htmldemo/forward.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/htmldemo/header.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/list/blue.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/list/cyan.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/list/gray.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/list/green.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/list/magenta.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/list/red.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/list/yellow.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/misc/cab.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/misc/cab_small.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/misc/duchess.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/misc/duchess_small.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/misc/duke.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/misc/duke_small.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/misc/toast.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/misc/toast_small.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/optionpane/bottle.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/optionpane/ibd.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/optionpane/ibu.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/scrollpane/COPYRIGHT
-Copying support/demos/classes/jfc/SwingSet2/resources/images/scrollpane/colheader.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/scrollpane/crayons.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/scrollpane/lowerleft.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/scrollpane/rowheader.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/scrollpane/upperleft.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/scrollpane/upperright.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/splash.png
-Copying support/demos/classes/jfc/SwingSet2/resources/images/splitpane/README
-Copying support/demos/classes/jfc/SwingSet2/resources/images/splitpane/earth.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/splitpane/moon.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/tabbedpane/blake.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/tabbedpane/brooke.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/tabbedpane/david.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/tabbedpane/ewan.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/tabbedpane/ewan.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/tabbedpane/hania.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/tabbedpane/laine.jpg
-Copying support/demos/classes/jfc/SwingSet2/resources/images/tabbedpane/matthew.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/tabbedpane/stephen.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/toolbar/JButton.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/toolbar/JColorChooser.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/toolbar/JComboBox.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/toolbar/JDesktop.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/toolbar/JDialog.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/toolbar/JEditorPane.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/toolbar/JFileChooser.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/toolbar/JList.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/toolbar/JMenu.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/toolbar/JOptionPane.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/toolbar/JProgressBar.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/toolbar/JRadioButton.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/toolbar/JScrollBar.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/toolbar/JScrollPane.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/toolbar/JSlider.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/toolbar/JSplitPane.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/toolbar/JTabbedPane.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/toolbar/JTable.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/toolbar/JTree.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/toolbar/ToolTip.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/images/tooltip/cow.gif
-Copying support/demos/classes/jfc/SwingSet2/resources/index.html
-Copying support/demos/classes/jfc/SwingSet2/resources/king.html
-Copying support/demos/classes/jfc/SwingSet2/resources/preface.html
-Copying support/demos/classes/jfc/SwingSet2/resources/seaweed.html
-Copying support/demos/classes/jfc/SwingSet2/resources/swingset.properties
-Copying support/demos/classes/jfc/SwingSet2/resources/swingset_ja.properties
-Copying support/demos/classes/jfc/SwingSet2/resources/swingset_zh_CN.properties
-Copying support/demos/classes/jfc/SwingSet2/resources/title.html
-Copying support/demos/classes/jfc/SwingSet2/resources/tree.txt
 Compiling 30 files for BUILD_DEMO_SwingSet2
 Note: Some input files use or override a deprecated API.
 Note: Recompile with -Xlint:deprecation for details.
@@ -3228,8 +2365,6 @@ Creating support/demos/image/jfc/SwingSet2/SwingSet2.jar
 Updating support/demos/image/jfc/SwingSet2/src.zip
 Copying support/demos/image/jfc/SwingSet2/README.txt
 Copying support/demos/image/jfc/SwingSet2/SwingSet2.html
-Copying support/demos/classes/jfc/Font2DTest/Font2DTest.html
-Copying support/demos/classes/jfc/Font2DTest/README.txt
 Compiling 4 files for BUILD_DEMO_Font2DTest
 Note: Some input files use or override a deprecated API.
 Note: Recompile with -Xlint:deprecation for details.
@@ -3239,74 +2374,6 @@ Creating support/demos/image/jfc/Font2DTest/Font2DTest.jar
 Updating support/demos/image/jfc/Font2DTest/src.zip
 Copying support/demos/image/jfc/Font2DTest/Font2DTest.html
 Copying support/demos/image/jfc/Font2DTest/README.txt
-Copying support/demos/classes/jfc/J2Ddemo/README.txt
-Copying support/demos/classes/jfc/J2Ddemo/fonts/A.ttf
-Copying support/demos/classes/jfc/J2Ddemo/images/bld.jpg
-Copying support/demos/classes/jfc/J2Ddemo/images/bld@2x.jpg
-Copying support/demos/classes/jfc/J2Ddemo/images/boat.png
-Copying support/demos/classes/jfc/J2Ddemo/images/boat@2x.png
-Copying support/demos/classes/jfc/J2Ddemo/images/box.gif
-Copying support/demos/classes/jfc/J2Ddemo/images/box.png
-Copying support/demos/classes/jfc/J2Ddemo/images/box@2x.png
-Copying support/demos/classes/jfc/J2Ddemo/images/boxwave.gif
-Copying support/demos/classes/jfc/J2Ddemo/images/boxwave.png
-Copying support/demos/classes/jfc/J2Ddemo/images/boxwave@2x.png
-Copying support/demos/classes/jfc/J2Ddemo/images/clone.gif
-Copying support/demos/classes/jfc/J2Ddemo/images/clone@2x.gif
-Copying support/demos/classes/jfc/J2Ddemo/images/clouds.jpg
-Copying support/demos/classes/jfc/J2Ddemo/images/clouds@2x.jpg
-Copying support/demos/classes/jfc/J2Ddemo/images/duke.gif
-Copying support/demos/classes/jfc/J2Ddemo/images/duke.png
-Copying support/demos/classes/jfc/J2Ddemo/images/duke.running.gif
-Copying support/demos/classes/jfc/J2Ddemo/images/duke@2x.gif
-Copying support/demos/classes/jfc/J2Ddemo/images/duke@2x.png
-Copying support/demos/classes/jfc/J2Ddemo/images/dukeplug.gif
-Copying support/demos/classes/jfc/J2Ddemo/images/dukeplug.png
-Copying support/demos/classes/jfc/J2Ddemo/images/dukeplug@2x.png
-Copying support/demos/classes/jfc/J2Ddemo/images/fight.gif
-Copying support/demos/classes/jfc/J2Ddemo/images/fight.png
-Copying support/demos/classes/jfc/J2Ddemo/images/fight@2x.png
-Copying support/demos/classes/jfc/J2Ddemo/images/globe.gif
-Copying support/demos/classes/jfc/J2Ddemo/images/globe.png
-Copying support/demos/classes/jfc/J2Ddemo/images/globe@2x.png
-Copying support/demos/classes/jfc/J2Ddemo/images/jumptojavastrip.png
-Copying support/demos/classes/jfc/J2Ddemo/images/loop.gif
-Copying support/demos/classes/jfc/J2Ddemo/images/loop@2x.gif
-Copying support/demos/classes/jfc/J2Ddemo/images/looping.gif
-Copying support/demos/classes/jfc/J2Ddemo/images/looping@2x.gif
-Copying support/demos/classes/jfc/J2Ddemo/images/magnify.gif
-Copying support/demos/classes/jfc/J2Ddemo/images/magnify.png
-Copying support/demos/classes/jfc/J2Ddemo/images/magnify@2x.png
-Copying support/demos/classes/jfc/J2Ddemo/images/painting.gif
-Copying support/demos/classes/jfc/J2Ddemo/images/painting.png
-Copying support/demos/classes/jfc/J2Ddemo/images/painting@2x.png
-Copying support/demos/classes/jfc/J2Ddemo/images/print.gif
-Copying support/demos/classes/jfc/J2Ddemo/images/print@2x.gif
-Copying support/demos/classes/jfc/J2Ddemo/images/remove.gif
-Copying support/demos/classes/jfc/J2Ddemo/images/remove@2x.gif
-Copying support/demos/classes/jfc/J2Ddemo/images/snooze.gif
-Copying support/demos/classes/jfc/J2Ddemo/images/snooze.png
-Copying support/demos/classes/jfc/J2Ddemo/images/snooze@2x.png
-Copying support/demos/classes/jfc/J2Ddemo/images/star7.gif
-Copying support/demos/classes/jfc/J2Ddemo/images/star7.png
-Copying support/demos/classes/jfc/J2Ddemo/images/star7@2x.png
-Copying support/demos/classes/jfc/J2Ddemo/images/start.gif
-Copying support/demos/classes/jfc/J2Ddemo/images/start2.gif
-Copying support/demos/classes/jfc/J2Ddemo/images/start2@2x.gif
-Copying support/demos/classes/jfc/J2Ddemo/images/start@2x.gif
-Copying support/demos/classes/jfc/J2Ddemo/images/stop.gif
-Copying support/demos/classes/jfc/J2Ddemo/images/stop2.gif
-Copying support/demos/classes/jfc/J2Ddemo/images/stop2@2x.gif
-Copying support/demos/classes/jfc/J2Ddemo/images/stop@2x.gif
-Copying support/demos/classes/jfc/J2Ddemo/images/surfing.gif
-Copying support/demos/classes/jfc/J2Ddemo/images/surfing.png
-Copying support/demos/classes/jfc/J2Ddemo/images/surfing@2x.png
-Copying support/demos/classes/jfc/J2Ddemo/images/thumbsup.gif
-Copying support/demos/classes/jfc/J2Ddemo/images/thumbsup.png
-Copying support/demos/classes/jfc/J2Ddemo/images/thumbsup@2x.png
-Copying support/demos/classes/jfc/J2Ddemo/images/tip.gif
-Copying support/demos/classes/jfc/J2Ddemo/images/tip.png
-Copying support/demos/classes/jfc/J2Ddemo/images/tip@2x.png
 Compiling 64 files for BUILD_DEMO_J2Ddemo
 Note: Some input files use or override a deprecated API.
 Note: Recompile with -Xlint:deprecation for details.
@@ -3315,79 +2382,26 @@ Note: Recompile with -Xlint:unchecked for details.
 Creating support/demos/image/jfc/J2Ddemo/J2Ddemo.jar
 Updating support/demos/image/jfc/J2Ddemo/src.zip
 Copying support/demos/image/jfc/J2Ddemo/README.txt
-Copying support/demos/classes/jfc/Metalworks/README.txt
-Copying support/demos/classes/jfc/Metalworks/resources/HelpFiles/back.gif
-Copying support/demos/classes/jfc/Metalworks/resources/HelpFiles/credits.html
-Copying support/demos/classes/jfc/Metalworks/resources/HelpFiles/duke.gif
-Copying support/demos/classes/jfc/Metalworks/resources/HelpFiles/javalogo.gif
-Copying support/demos/classes/jfc/Metalworks/resources/HelpFiles/metal.html
-Copying support/demos/classes/jfc/Metalworks/resources/HelpFiles/metalworks.html
-Copying support/demos/classes/jfc/Metalworks/resources/HelpFiles/swing.html
-Copying support/demos/classes/jfc/Metalworks/resources/HelpFiles/toc.html
-Copying support/demos/classes/jfc/Metalworks/resources/MyTheme.theme
 Compiling 15 files for BUILD_DEMO_Metalworks
 Note: /home/server/jdk/src/demo/share/jfc/Metalworks/MetalworksPrefs.java uses unchecked or unsafe operations.
 Note: Recompile with -Xlint:unchecked for details.
 Creating support/demos/image/jfc/Metalworks/Metalworks.jar
 Updating support/demos/image/jfc/Metalworks/src.zip
 Copying support/demos/image/jfc/Metalworks/README.txt
-Copying support/demos/classes/jfc/Notepad/README.txt
-Copying support/demos/classes/jfc/Notepad/resources/Notepad.properties
-Copying support/demos/classes/jfc/Notepad/resources/NotepadSystem.properties
-Copying support/demos/classes/jfc/Notepad/resources/Notepad_ja.properties
-Copying support/demos/classes/jfc/Notepad/resources/Notepad_zh_CN.properties
-Copying support/demos/classes/jfc/Notepad/resources/copy.gif
-Copying support/demos/classes/jfc/Notepad/resources/cut.gif
-Copying support/demos/classes/jfc/Notepad/resources/new.gif
-Copying support/demos/classes/jfc/Notepad/resources/open.gif
-Copying support/demos/classes/jfc/Notepad/resources/paste.gif
-Copying support/demos/classes/jfc/Notepad/resources/save.gif
 Compiling 2 files for BUILD_DEMO_Notepad
 Creating support/demos/image/jfc/Notepad/Notepad.jar
 Updating support/demos/image/jfc/Notepad/src.zip
 Copying support/demos/image/jfc/Notepad/README.txt
-Copying support/demos/classes/jfc/Stylepad/README.txt
-Copying support/demos/classes/jfc/Stylepad/resources/Stylepad.properties
-Copying support/demos/classes/jfc/Stylepad/resources/StylepadSystem.properties
-Copying support/demos/classes/jfc/Stylepad/resources/Stylepad_ja.properties
-Copying support/demos/classes/jfc/Stylepad/resources/Stylepad_zh_CN.properties
-Copying support/demos/classes/jfc/Stylepad/resources/alice.gif
-Copying support/demos/classes/jfc/Stylepad/resources/bold.gif
-Copying support/demos/classes/jfc/Stylepad/resources/bullets.gif
-Copying support/demos/classes/jfc/Stylepad/resources/caterpillar.gif
-Copying support/demos/classes/jfc/Stylepad/resources/center.gif
-Copying support/demos/classes/jfc/Stylepad/resources/fg.gif
-Copying support/demos/classes/jfc/Stylepad/resources/hatter.gif
-Copying support/demos/classes/jfc/Stylepad/resources/italic.gif
-Copying support/demos/classes/jfc/Stylepad/resources/left.gif
-Copying support/demos/classes/jfc/Stylepad/resources/rabbit.gif
-Copying support/demos/classes/jfc/Stylepad/resources/rabbit2.gif
-Copying support/demos/classes/jfc/Stylepad/resources/right.gif
-Copying support/demos/classes/jfc/Stylepad/resources/underline.gif
-Copying support/demos/classes/jfc/Stylepad/resources/Notepad.properties
-Copying support/demos/classes/jfc/Stylepad/resources/NotepadSystem.properties
-Copying support/demos/classes/jfc/Stylepad/resources/Notepad_ja.properties
-Copying support/demos/classes/jfc/Stylepad/resources/Notepad_zh_CN.properties
-Copying support/demos/classes/jfc/Stylepad/resources/copy.gif
-Copying support/demos/classes/jfc/Stylepad/resources/cut.gif
-Copying support/demos/classes/jfc/Stylepad/resources/new.gif
-Copying support/demos/classes/jfc/Stylepad/resources/open.gif
-Copying support/demos/classes/jfc/Stylepad/resources/paste.gif
-Copying support/demos/classes/jfc/Stylepad/resources/save.gif
 Compiling 5 files for BUILD_DEMO_Stylepad
 Note: /home/server/jdk/src/demo/share/jfc/Stylepad/Stylepad.java uses unchecked or unsafe operations.
 Note: Recompile with -Xlint:unchecked for details.
 Creating support/demos/image/jfc/Stylepad/Stylepad.jar
 Updating support/demos/image/jfc/Stylepad/src.zip
 Copying support/demos/image/jfc/Stylepad/README.txt
-Copying support/demos/classes/jfc/SampleTree/README.txt
-Copying support/demos/classes/jfc/SampleTree/resources/images/collapsed.gif
-Copying support/demos/classes/jfc/SampleTree/resources/images/expanded.gif
 Compiling 5 files for BUILD_DEMO_SampleTree
 Creating support/demos/image/jfc/SampleTree/SampleTree.jar
 Updating support/demos/image/jfc/SampleTree/src.zip
 Copying support/demos/image/jfc/SampleTree/README.txt
-Copying support/demos/classes/jfc/TableExample/README.txt
 Compiling 8 files for BUILD_DEMO_TableExample
 Note: Some input files use or override a deprecated API.
 Note: Recompile with -Xlint:deprecation for details.
@@ -3396,39 +2410,12 @@ Note: Recompile with -Xlint:unchecked for details.
 Creating support/demos/image/jfc/TableExample/TableExample.jar
 Updating support/demos/image/jfc/TableExample/src.zip
 Copying support/demos/image/jfc/TableExample/README.txt
-Copying support/demos/classes/jfc/TransparentRuler/README.txt
 Compiling 1 files for BUILD_DEMO_TransparentRuler
 Creating support/demos/image/jfc/TransparentRuler/TransparentRuler.jar
 Updating support/demos/image/jfc/TransparentRuler/src.zip
 Copying support/demos/image/jfc/TransparentRuler/README.txt
 Generating jdk/release
 Creating jdk image
-Creating CDS archive for jdk image
-Allocated shared space: 268435456 bytes at 0x80000000
-Loading classes to share ...
-Loading classes to share: done.
-Rewriting and linking classes ...
-Rewriting and linking classes: done
-Number of classes 1249
-    instance classes   =  1188
-    obj array classes  =    53
-    type array classes =     8
-Updating ConstMethods ... done. 
-Removing unshareable information ... done. 
-Scanning all metaspace objects ... 
-Allocating RW objects ... 
-Allocating RO objects ... 
-Relocating embedded pointers ... 
-Relocating external roots ... 
-Dumping symbol table ...
-Relocating SystemDictionary::_well_known_klasses[] ... 
-Removing java_mirror ... done. 
-mc  space:      3044 [  0.0% of total] out of      4096 bytes [ 74.3% used] at 0x80000000
-rw  space:   2249560 [ 15.3% of total] out of   2252800 bytes [ 99.9% used] at 0x80001000
-ro  space:   5908600 [ 40.2% of total] out of   5910528 bytes [100.0% used] at 0x80227000
-md  space:      1280 [  0.0% of total] out of      4096 bytes [ 31.2% used] at 0x807ca000
-od  space:   6513668 [ 44.3% of total] out of   6516736 bytes [100.0% used] at 0x807cb000
-total    :  14676152 [100.0% of total] out of  14688256 bytes [ 99.9% used]
 Copying images/jdk/man/man1/java.1
 Copying images/jdk/man/man1/jjs.1
 Copying images/jdk/man/man1/keytool.1
@@ -3602,12 +2589,12 @@ Copying images/jdk/demo/README
 Copying images/jdk/lib/libverify.debuginfo
 Copying images/jdk/lib/libnet.debuginfo
 Copying images/jdk/lib/libjava.debuginfo
-Copying images/jdk/lib/libjli.debuginfo
 Copying images/jdk/lib/libzip.debuginfo
 Copying images/jdk/lib/libjsig.debuginfo
 Copying images/jdk/lib/libnio.debuginfo
 Copying images/jdk/lib/jexec.debuginfo
 Copying images/jdk/lib/libjimage.debuginfo
+Copying images/jdk/lib/jli/libjli.debuginfo
 Copying images/jdk/lib/server/libjvm.debuginfo
 Copying images/jdk/lib/libawt.debuginfo
 Copying images/jdk/lib/libsplashscreen.debuginfo
@@ -3639,4 +2626,4 @@ Copying images/jdk/lib/libsctp.debuginfo
 Copying images/jdk/lib/libjaas.debuginfo
 Updating images/sec-bin.zip
 Stopping sjavac server
-Finished building target 'images' in configuration '/home/server/work/jdkbuild/build'
+Finished building target 'images' in configuration '/home/server/tmp/jdkbuild/build'

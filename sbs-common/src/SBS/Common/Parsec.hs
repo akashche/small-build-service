@@ -35,7 +35,7 @@ module SBS.Common.Parsec
     -- helpers
     , errToText
     -- combinators
-    , floatAsInt, integer, lineContains, skipLines, skipLinesPrefix, skipLinesTill, skipManyTill, skipOne, whitespace
+    , floatAsInt, integer, lineContains, linePrefix, skipLines, skipLinesPrefix, skipLinesTill, skipManyTill, skipOne, whitespace
     -- strict text
     , parseText
     -- file
@@ -120,6 +120,14 @@ lineContains needle = do
     if Text.isInfixOf needle line
     then return line
     else lineContains needle
+
+linePrefix :: Text -> Parser Text
+linePrefix prefix = do
+    lineSt <- manyTill (noneOf ['\n']) (char '\n')
+    let line = (pack lineSt)
+    if Text.isPrefixOf prefix (Text.stripStart line)
+    then whitespace >> return line
+    else linePrefix prefix
 
 skipOne :: Parser a -> Parser ()
 skipOne acomb = do

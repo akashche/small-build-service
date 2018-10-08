@@ -28,6 +28,7 @@ import Prelude ()
 
 import SBS.Common.Prelude
 import SBS.Common.Parsec
+import SBS.Common.Utils
 
 import Data
 
@@ -42,15 +43,20 @@ parseConfOutput path = do
     res <- parseFile configureDetails path
     return res
 
-makeDetails :: Parser MakeDetails
-makeDetails = do
-    skipLinesTill "Creating jdk image"
+copyingLine :: Parser Text
+copyingLine = do
     skipOne (string "Copying")
     whitespace
     imagesDir <- many1 alphaNum
     skipOne (char '/')
     jdkDir <- many1 alphaNum
-    let dir = (pack imagesDir) <> "/" <> (pack jdkDir) <> "/"
+    return ((pack imagesDir) <> "/" <> (pack jdkDir) <> "/")
+
+makeDetails :: Parser MakeDetails
+makeDetails = do
+    skipLinesTill "Creating jdk image"
+    line <- linePrefix "Copying"
+    let dir = parseText copyingLine (debug line line)
     return (MakeDetails dir)
 
 parseMakeOutput :: Text -> IO MakeDetails
