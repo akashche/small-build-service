@@ -27,7 +27,6 @@ import qualified Data.Vector as Vector
 import SBS.Common.Prelude
 import SBS.Common.Data
 import SBS.Common.JDKBuild
-import SBS.Common.Parsec
 import SBS.Common.Queries
 import SBS.Common.Wilton
 import SBS.Common.Utils
@@ -51,9 +50,9 @@ run (JDKBuildInput ctx cf _eim) = do
             rev <- readRepoRevision paths
             dbWithSyncTransaction db (updateJobRepo db qrs jid repo rev)
             spawnConfigureAndWait cf paths
-            cfres <- parseFile configureDetailsParser (confOutPath (paths :: Paths))
+            cfres <- parseConfOutput (confOutPath (paths :: Paths))
             spawnMakeAndWait cf paths
-            mres <- parseFile makeDetailsParser (makeOutPath (paths :: Paths))
+            mres <- parseMakeOutput (makeOutPath (paths :: Paths))
             let _imageDir = (confDirectory cfres) <> (imageDirRelative mres)
             -- TODO
 --             when (eim /= imageDir) ((error . unpack)(
@@ -93,9 +92,9 @@ runMock (JDKBuildInput ctx cf _) = do
     rev <- readRepoRevision paths
     dbWithSyncTransaction db (updateJobRepo db qrs jid repo rev)
     copyFile (unpack (md <> "conf.log")) (unpack confOut)
-    _cfres <- parseFile configureDetailsParser confOut
+    _cfres <- parseConfOutput confOut
     copyFile (unpack (md <> "make.log")) (unpack makeOut)
-    _mres <- parseFile makeDetailsParser makeOut
+    _mres <- parseMakeOutput makeOut
     dbWithSyncTransaction db (finalizeJob db qrs jid StateSuccess)
     return ()
     where
@@ -141,6 +140,22 @@ spawnMake arguments = do
     spawnMakeAndWait mockConfig paths
     return ()
 
+parseConf :: Vector Text -> IO ()
+parseConf arguments = do
+    when (1 /= Vector.length arguments)
+        ((error . unpack) "Path to configure output must be specified as a first and only argument")
+    cd <- parseConfOutput (arguments ! 0)
+    putStrLn (showText cd)
+    return ()
+
+parseMake :: Vector Text -> IO ()
+parseMake arguments = do
+    when (1 /= Vector.length arguments)
+        ((error . unpack) "Path to make output must be specified as a first and only argument")
+    md <- parseMakeOutput (arguments ! 0)
+    putStrLn (showText md)
+    return ()
+
 foreign export ccall wilton_module_init :: IO CString
 wilton_module_init :: IO CString
 wilton_module_init = do
@@ -165,6 +180,12 @@ wilton_module_init = do
     ; else do { errMake <- registerWiltonCall "jdkbuild_spawn_make" spawnMake
     ; if isJust errMake then createWiltonError errMake
 
+    ; else do { errParseConf <- registerWiltonCall "jdkbuild_parse_conf" parseConf
+    ; if isJust errParseConf then createWiltonError errParseConf
+
+    ; else do { errParseMake <- registerWiltonCall "jdkbuild_parse_make" parseMake
+    ; if isJust errParseMake then createWiltonError errParseMake
+
       else createWiltonError Nothing
-    }}}}}}}
+    }}}}}}}}}
 

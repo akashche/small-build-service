@@ -23,8 +23,6 @@ import Prelude ()
 
 import SBS.Common.Prelude
 import SBS.Common.JDKBuild
-import SBS.Common.Parsec
--- import SBS.Common.Utils
 
 import Data
 import Lib
@@ -33,9 +31,9 @@ import Parser
 main :: IO ()
 main = do
     -- parser
-    cd <- parseFile configureDetailsParser "test/conf.log"
+    cd <- parseConfOutput "test/conf.log"
     unless ("/home/server/tmp/jdkbuild/build/" == confDirectory cd) (error "Conf parse fail")
-    md <- parseFile makeDetailsParser "test/make.log"
+    md <- parseMakeOutput "test/make.log"
     unless ("images/jdk/" == imageDirRelative md) (error "Make parse fail")
 
     -- paths

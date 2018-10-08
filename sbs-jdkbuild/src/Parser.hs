@@ -20,8 +20,8 @@
 {-# LANGUAGE Strict #-}
 
 module Parser
-    ( configureDetailsParser
-    , makeDetailsParser
+    ( parseConfOutput
+    , parseMakeOutput
     ) where
 
 import Prelude ()
@@ -31,14 +31,19 @@ import SBS.Common.Parsec
 
 import Data
 
-configureDetailsParser :: Parser ConfigureDetails
-configureDetailsParser = do
+configureDetails :: Parser ConfigureDetails
+configureDetails = do
     skipLinesTill "A new configuration has been successfully created in"
     dir <- manyTill (noneOf ['\n']) (char '\n')
     return (ConfigureDetails ((pack dir) <> "/"))
 
-makeDetailsParser :: Parser MakeDetails
-makeDetailsParser = do
+parseConfOutput :: Text -> IO ConfigureDetails
+parseConfOutput path = do
+    res <- parseFile configureDetails path
+    return res
+
+makeDetails :: Parser MakeDetails
+makeDetails = do
     skipLinesTill "Creating jdk image"
     skipOne (string "Copying")
     whitespace
@@ -47,3 +52,8 @@ makeDetailsParser = do
     jdkDir <- many1 alphaNum
     let dir = (pack imagesDir) <> "/" <> (pack jdkDir) <> "/"
     return (MakeDetails dir)
+
+parseMakeOutput :: Text -> IO MakeDetails
+parseMakeOutput path = do
+    res <- parseFile makeDetails path
+    return res
