@@ -28,7 +28,6 @@ import Prelude ()
 
 import SBS.Common.Prelude
 import SBS.Common.Parsec
-import SBS.Common.Utils
 
 import Data
 
@@ -56,7 +55,7 @@ makeDetails :: Parser MakeDetails
 makeDetails = do
     skipLinesTill "Creating jdk image"
     line <- linePrefix "Copying"
-    let dir = parseText copyingLine (debug line line)
+    let dir = parseText copyingLine line
     return (MakeDetails dir)
 
 parseMakeOutput :: Text -> IO MakeDetails
