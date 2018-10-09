@@ -44,17 +44,17 @@ import Parser
 resolvePaths :: TaskContext -> Tier1Config -> Paths
 resolvePaths ctx cf = Paths
     { workDir = wd
-    , buildDir = prependIfRelative appd (buildDir (cf :: Tier1Config))
-    , execPath = prependIfRelative appd (makePath cf)
-    , mockOutputPath = prependIfRelative appd (mockOutputPath (cf :: Tier1Config))
-    , outputPath = wd <> outputFile (cf :: Tier1Config)
-    , summaryPath = wd <> summaryFile (cf :: Tier1Config)
-    , queriesPath = (prependIfRelative appd qdir) <> "queries-tier1.sql"
+    , buildDir = pathPrepend appd (buildDir (cf :: Tier1Config))
+    , execPath = pathPrepend appd (makePath cf)
+    , mockOutputPath = pathPrepend appd (mockOutputPath (cf :: Tier1Config))
+    , outputPath = pathConcat wd (outputFile (cf :: Tier1Config))
+    , summaryPath = pathConcat wd (summaryFile (cf :: Tier1Config))
+    , queriesPath = pathConcat (pathPrepend appd qdir) "queries-tier1.sql"
     }
     where
         appd = appDir (ctx :: TaskContext)
         qdir = queriesDir (ctx :: TaskContext)
-        wd = prependIfRelative appd (workDir (cf :: Tier1Config))
+        wd = pathPrepend appd (workDir (cf :: Tier1Config))
 
 mockPaths :: Paths
 mockPaths = Paths

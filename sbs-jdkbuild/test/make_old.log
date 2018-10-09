@@ -1252,7 +1252,7 @@ Compiling SocketChannelImpl.c (for libnio.so)
 Compiling SocketDispatcher.c (for libnio.so)
 Compiling UnixAsynchronousServerSocketChannelImpl.c (for libnio.so)
 Compiling UnixAsynchronousSocketChannelImpl.c (for libnio.so)
-Compiling UnixCopyFile.c (for libnio.so)
+Compiling UnixcopyFile.c (for libnio.so)
 Compiling UnixNativeDispatcher.c (for libnio.so)
 Compiling nio_util.c (for libnio.so)
 Linking libnio.so

@@ -73,14 +73,18 @@ diff req = do
 
 results :: SpecJVMInput -> IO ()
 results (SpecJVMInput ctx cf) = do
-    let destd = based <> "specjvm/"
+    let destd = pathConcat based "specjvm"
     createDirectory (unpack destd)
-    copyFile (unpack (outputPath paths)) (unpack (destd <> (outputFile (cf :: SpecJVMConfig))))
-    copyFile (unpack (summaryPath paths)) (unpack (destd <> (summaryFile cf)))
+    copyFile (unpack outsrc) (unpack (outdest destd))
+    copyFile (unpack sumsrc) (unpack (sumdest destd))
     return ()
     where
         paths = resolvePaths ctx cf
         based = destDir ctx
+        outsrc = outputPath paths
+        outdest dir = pathConcat dir (outputFile (cf :: SpecJVMConfig))
+        sumsrc = summaryPath paths
+        sumdest dir = pathConcat dir (summaryFile cf)
 
 -- test calls
 

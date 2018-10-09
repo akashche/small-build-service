@@ -70,14 +70,18 @@ diff req = do
 
 results :: Tier1Input -> IO ()
 results (Tier1Input ctx cf) = do
-    let destd = based <> "tier1/"
+    let destd = pathConcat based "tier1"
     createDirectory (unpack destd)
-    copyFile (unpack (outputPath paths)) (unpack (destd <> (outputFile (cf :: Tier1Config))))
-    copyFile (unpack (summaryPath paths)) (unpack (destd <> (summaryFile cf)))
+    copyFile (unpack outsrc) (unpack (outdest destd))
+    copyFile (unpack sumsrc) (unpack (sumdest destd))
     return ()
     where
         paths = resolvePaths ctx cf
         based = destDir ctx
+        outsrc = outputPath paths
+        outdest dir = pathConcat dir (outputFile (cf :: Tier1Config))
+        sumsrc = summaryPath paths
+        sumdest dir = pathConcat dir (summaryFile cf)
 
 -- test calls
 

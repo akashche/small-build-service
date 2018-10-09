@@ -88,7 +88,8 @@ diff arguments = do
 results :: Vector Text -> IO ()
 results arguments = do
     (ctxjdk, cf, based) <- initResults arguments
-    createDirectory (unpack based)
+    direx <- doesDirectoryExist (unpack based)
+    unless (direx) (createDirectory (unpack based))
     destd <- wiltoncall "jdkbuild_results" (JDKBuildInput ctxjdk (jdkbuild cf) "") :: IO Text
     let ctx = ctxjdk {destDir = destd}
     wiltoncall "tier1_results" (Tier1Input ctx (tier1 cf)) :: IO ()

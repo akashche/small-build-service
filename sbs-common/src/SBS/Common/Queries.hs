@@ -65,7 +65,7 @@ loadQueries path = do
 
 resolveQueriesPath :: DiffRequest -> Text -> Text
 resolveQueriesPath req postfix =
-    (prependIfRelative appd qdir) <> "queries-" <> postfix <> ".sql"
+    pathConcat (pathPrepend appd qdir) ("queries-" <> postfix <> ".sql")
     where
         appd = appDir (req :: DiffRequest)
         qdir = queriesDir (req :: DiffRequest)

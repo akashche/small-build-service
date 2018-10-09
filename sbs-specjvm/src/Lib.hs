@@ -43,21 +43,21 @@ import Data
 resolvePaths :: TaskContext -> SpecJVMConfig -> Paths
 resolvePaths ctx cf = Paths
     { workDir = wd
-    , execPath = (prependIfRelative appd (jdkDir cf)) <> "bin/java"
-    , specjvmJarPath = prependIfRelative appd (specjvmJarPath (cf :: SpecJVMConfig))
-    , outputPath = wd <> outputFile (cf :: SpecJVMConfig)
-    , summaryPath = wd <> summaryFile (cf :: SpecJVMConfig)
-    , mockOutputPath = prependIfRelative appd (mockOutput (cf :: SpecJVMConfig))
-    , queriesPath = (prependIfRelative appd qdir) <> "queries-specjvm.sql"
+    , execPath = pathConcat (pathPrepend appd (jdkDir cf)) "bin/java"
+    , specjvmJarPath = pathPrepend appd (specjvmJarPath (cf :: SpecJVMConfig))
+    , outputPath = pathConcat wd (outputFile (cf :: SpecJVMConfig))
+    , summaryPath = pathConcat wd (summaryFile (cf :: SpecJVMConfig))
+    , mockOutputPath = pathPrepend appd (mockOutput (cf :: SpecJVMConfig))
+    , queriesPath = pathConcat (pathPrepend appd qdir) "queries-specjvm.sql"
     }
     where
         appd = appDir (ctx :: TaskContext)
         qdir = queriesDir (ctx :: TaskContext)
-        wd = prependIfRelative appd (workDir (cf :: SpecJVMConfig))
+        wd = pathPrepend appd (workDir (cf :: SpecJVMConfig))
 
 mockPaths :: Paths
 mockPaths = Paths
-    { workDir = "./"
+    { workDir = "."
     , execPath = "jdk/bin/java"
     , specjvmJarPath = "jmh-specjvm2016.jar"
     , outputPath = "specjvm.log"
@@ -69,7 +69,7 @@ mockPaths = Paths
 mockConfig :: SpecJVMConfig
 mockConfig = SpecJVMConfig
     { enabled = True
-    , workDir = "./"
+    , workDir = "."
     , mockOutput = ""
     , outputFile = "specjvm.log"
     , summaryFile = "specjvm-summary.txt"
@@ -108,9 +108,9 @@ diffResults baseline res =
 copyNcNote :: SpecJVMConfig -> Text -> IO ()
 copyNcNote cf appd = copyFile (unpack from) (unpack to)
     where
-        from = prependIfRelative appd (ncNotePath cf)
-        wd = prependIfRelative appd (workDir (cf :: SpecJVMConfig))
-        to = wd <> "nc_note.txt"
+        from = pathPrepend appd (ncNotePath cf)
+        wd = pathPrepend appd (workDir (cf :: SpecJVMConfig))
+        to = pathConcat wd "nc_note.txt"
 
 formatPercent :: Int -> Text
 formatPercent num =

@@ -74,7 +74,7 @@ errMsgToBuilder msg =
 
 errToText :: ParseError -> Text
 errToText err =
-    TextLazy.toStrict (toLazyText
+    toStrict (toLazyText
         (   fromText "ParseError:"
         <>  fromText " file: [" <> fromString (sourceName pos) <> fromText "],"
         <>  fromText " line: [" <> fromText (showText (sourceLine pos)) <> fromText "],"

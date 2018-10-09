@@ -32,8 +32,6 @@ module SBS.Common.Utils
     , decodeJsonText
     , encodeJsonText
     , jsonGet
-    -- debug
-    , debug
     -- map
     , get
     -- datetime
@@ -41,7 +39,11 @@ module SBS.Common.Utils
     , formatISO8601
     , parseISO8601
     -- paths
-    , prependIfRelative
+    , pathIsAbsolute
+    , pathConcat
+    , pathPrepend
+    -- FS
+    , copyDirectory
     ) where
 
 import Prelude ()
@@ -123,18 +125,13 @@ decodeJsonFile path =
 
 jsonGet :: forall a . (FromJSON a) => Object -> Text -> a
 jsonGet obj fieldName =
-    case AesonTypes.parseEither (.: fieldName) obj :: Either String a of
+    case AesonTypes.parseEither (AesonTypes..: fieldName) obj :: Either String a of
         Left err -> (error . unpack) (
                 "Error accessing field,"
              <> " name: [" <> fieldName <> "],"
              <> " object: [" <> (encodeJsonText obj) <> "]"
              <> " message: [" <> (pack err) <> "]")
         Right a -> a
-
--- trace
-
-debug :: a -> Text -> a
-debug val msg = trace (unpack msg) val
 
 -- map
 
@@ -165,10 +162,48 @@ parseISO8601 tx =
         iso = "%Y-%m-%d %H:%M:%S"
 
 -- paths
-prependIfRelative :: Text -> Text -> Text
-prependIfRelative prefix path =
-    if isabs path then path else prefix <> path
-    where
-        isabs pa = ((Text.length pa) > 0 && '/' == Text.index pa 0)
-            || (Text.length pa) > 1 && (Char.isAlphaNum (Text.index pa 0)) && ':' == (Text.index pa 1)
+pathIsAbsolute :: Text -> Bool
+pathIsAbsolute path
+    | 0 == Text.length path = False
+    | '/' == Text.head path = True
+    | 1 == Text.length path = False
+    | Char.isAlphaNum (Text.head path) && ':' == (Text.index path 1) = True
+    | otherwise = False
 
+pathConcat :: Text -> Text -> Text
+pathConcat prefix postfix
+    | pathIsAbsolute postfix = (error . unpack)
+           "Invalid path concatenation with abs postfix,"
+        <> " prefix: [" <> prefix <>"]"
+        <> " postfix: [" <> postfix <>"]"
+    | 0 == Text.length prefix = postfix
+    | 0 == Text.length postfix = prefix
+    | '/' == Text.last prefix = prefix <> postfix
+    | otherwise = prefix <> "/" <> postfix
+
+pathPrepend :: Text -> Text -> Text
+pathPrepend prefix path =
+    if pathIsAbsolute path then path else pathConcat prefix path
+
+-- FS
+
+copyDirectory :: Text -> Text -> IO ()
+copyDirectory src dest = do
+    srcex <- doesDirectoryExist (unpack src)
+    unless (srcex) (
+        (error . unpack) ("Source directory does not exist, src: [" <> src <> "]"))
+    destex <- doesDirectoryExist (unpack dest)
+    when (destex) (
+        (error . unpack) ("Dest directory already exists, dest: [" <> dest <> "]"))
+    createDirectory (unpack dest)
+    children <- listDirectory (unpack src)
+    mapM_ mapper children
+    where
+        mapper childst = do
+            let child = pack childst
+            let srcpath = pathConcat src child
+            let destpath = pathConcat dest child
+            isdir <- doesDirectoryExist (unpack srcpath)
+            if isdir
+            then copyDirectory srcpath destpath
+            else copyFile (unpack srcpath) (unpack destpath)

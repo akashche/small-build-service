@@ -73,14 +73,18 @@ diff req = do
 
 results :: JCStressInput -> IO ()
 results (JCStressInput ctx cf) = do
-    let destd = based <> "jcstress/"
+    let destd = pathConcat based "jcstress"
     createDirectory (unpack destd)
-    copyFile (unpack (outputPath paths)) (unpack (destd <> (outputFile (cf :: JCStressConfig))))
-    copyFile (unpack (summaryPath paths)) (unpack (destd <> (summaryFile cf)))
+    copyDirectory ressrc (resdest destd)
+    copyFile (unpack sumsrc) (unpack (sumdest destd))
     return ()
     where
         paths = resolvePaths ctx cf
         based = destDir ctx
+        ressrc = pathConcat (workDir (paths :: Paths)) "results"
+        resdest dir = pathConcat dir "results"
+        sumsrc = summaryPath paths
+        sumdest dir = pathConcat dir (summaryFile cf)
 
 -- test calls
 

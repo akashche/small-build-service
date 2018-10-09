@@ -50,7 +50,7 @@ modules =
 
 resolveQueriesDir :: Config -> Text
 resolveQueriesDir cf =
-    prependIfRelative appd qdir
+    pathPrepend appd qdir
     where
         appd = appDir (sbs cf :: SBSConfig)
         qdir = queriesDir ((database (sbs cf)) :: DBConfig)
@@ -62,7 +62,7 @@ initApp arguments = do
     dyloadModules modules
     cf <- decodeJsonFile (arguments ! 0) :: IO Config
     db <- openDbConnection cf
-    qrs <- loadQueries ((resolveQueriesDir cf) <> "queries-main.sql")
+    qrs <- loadQueries (pathConcat (resolveQueriesDir cf) "queries-main.sql")
     return (cf, db, qrs)
 
 initTask :: Config -> DBConnection -> Queries -> IO TaskContext
@@ -81,7 +81,7 @@ initResults arguments = do
     cf <- decodeJsonFile (arguments ! 0) :: IO Config
     curdate <- getCurrentTime
     let postfix = formatDate "%Y_%m_%d" curdate
-    let basedir = (arguments ! 1) <> "/" <> postfix <> "/"
+    let basedir = pathConcat (arguments ! 1) postfix
     let ctx = TaskContext
             { taskId = 0
             , dbConnection = DBConnection 0 0

@@ -39,7 +39,6 @@ module SBS.Common.Wilton
     ) where
 
 import Prelude ()
-import qualified Prelude
 import qualified Data.Char as Char
 import qualified Data.Text as Text
 import qualified Data.Vector as Vector
@@ -66,7 +65,7 @@ wiltoncall callName callData = do
 
 dyloadModules :: [Text] -> IO ()
 dyloadModules mods = do
-    Prelude.mapM_ load mods
+    mapM_ load mods
     where
         load mod = wiltoncall "dyload_shared_library" (args mod) :: IO ()
         args name = object ["name" .= name]
@@ -202,16 +201,13 @@ data SpawnedProcessArgs = SpawnedProcessArgs
 
 spawnProcess :: SpawnedProcessArgs -> IO Int
 spawnProcess (SpawnedProcessArgs wd exec args outFile await) = do
-    cwd <- getCurrentDirectory
-    setCurrentDirectory (unpack wd)
-    code <- wiltoncall "process_spawn" (object
+    code <- withCurrentDirectory (unpack wd) (
+        wiltoncall "process_spawn" (object
         [ "executable" .= exec
         , "args" .= args
         , "outputFile" .= outFile
         , "awaitExit" .= await
-        ]) :: IO Int
-    -- restored on process fail, but not on spawn fail
-    setCurrentDirectory cwd
+        ]) :: IO Int)
     return code
 
 checkSpawnSuccess :: Text -> Int -> Text -> IO ()

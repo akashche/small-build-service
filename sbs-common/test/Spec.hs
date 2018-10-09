@@ -49,10 +49,18 @@ main = do
     unless ("2018-09-09 19:15:11" == formatISO8601 (parseISO8601 "2018-09-09 19:15:11")) (error "ISO8601 fail")
 
     -- paths
-    unless ("foobar" == prependIfRelative "foo" "bar") (error "prepend fail")
-    unless ("/bar" == prependIfRelative "foo" "/bar") (error "prepend fail")
-    unless ("c:\\bar" == prependIfRelative "foo" "c:\\bar") (error "prepend fail")
-    unless ("c:/bar" == prependIfRelative "foo" "c:/bar") (error "prepend fail")
+
+    -- prepend
+    unless ("foo/bar" == pathPrepend "foo" "bar") (error "prepend fail 1")
+    unless ("foo/bar" == pathPrepend "foo/" "bar") (error "prepend fail 2")
+    unless ("/bar" == pathPrepend "foo" "/bar") (error "prepend fail 3")
+    unless ("c:\\bar" == pathPrepend "foo" "c:\\bar") (error "prepend fail 4")
+    unless ("c:/bar" == pathPrepend "foo" "c:/bar") (error "prepend fail 5")
+    -- concat
+    unless ("foo/bar" == pathConcat "foo" "bar") (error "concat fail 1")
+    unless ("foo/bar" == pathConcat "foo/" "bar") (error "concat fail 2")
+    unless ("foo" == pathConcat "foo" "") (error "concat fail 3")
+    unless ("foo" == pathConcat "" "foo") (error "concat fail 4")
 
     -- queries
     qrs <- loadQueries "../resources/queries-main.sql"

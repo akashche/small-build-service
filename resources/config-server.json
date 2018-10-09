@@ -1,10 +1,10 @@
 {
     "sbs" : {
-        "appDir": "/home/server/",
+        "appDir": "/home/server",
 
         "database": {
             "dbFilePath": "sbs.db",
-            "queriesDir": "sbs/resources/",
+            "queriesDir": "sbs/resources",
             "reCreateDb": false
         },
 
@@ -15,14 +15,14 @@
 
     "jdkbuild": {
         "enabled": true,
-        "workDir": "work/jdkbuild/",
+        "workDir": "work/jdkbuild",
         "mockOutputDir": "UNSPECIFIED",
         "confOutputFile": "conf.log",
         "makeOutputFile": "make.log",
-        "sourceDir": "jdk/",
-        "buildDir": "work/jdkbuild/build/",
-        "bootJdkDir": "apps/bootjdk/",
-        "jtregDir": "apps/jtreg/",
+        "sourceDir": "jdk",
+        "buildDir": "work/jdkbuild/build",
+        "bootJdkDir": "apps/bootjdk",
+        "jtregDir": "apps/jtreg",
         "bashPath": "/bin/bash",
         "hgPath": "/usr/bin/hg",
         "makePath": "/usr/bin/make",
@@ -35,8 +35,8 @@
 
     "tier1": {
         "enabled": true,
-        "workDir": "work/tier1/",
-        "buildDir": "work/jdkbuild/build/",
+        "workDir": "work/tier1",
+        "buildDir": "work/jdkbuild/build",
         "mockOutputPath": "UNSPECIFIED",
         "outputFile": "tier1.log",
         "summaryFile": "tier1-summary.txt",
@@ -46,11 +46,11 @@
 
     "jcstress": {
         "enabled": true,
-        "workDir": "work/jcstress/",
+        "workDir": "work/jcstress",
         "mockOutput": "UNSPECIFIED",
         "outputFile": "jcstress.log",
         "summaryFile": "jcstress-summary.txt",
-        "jdkDir": "work/jdkbuild/build/images/jdk/",
+        "jdkDir": "work/jdkbuild/build/images/jdk",
         "jcstressJarPath": "apps/jcstress/jcstress.jar",
         "xmxMemoryLimitMB": 1024,
         "mode": "quick"
@@ -58,11 +58,11 @@
 
     "specjvm": {
         "enabled": true,
-        "workDir": "work/specjvm/",
+        "workDir": "work/specjvm",
         "mockOutput": "UNSPECIFIED",
         "outputFile": "specjvm.log",
         "summaryFile": "specjvm-summary.txt",
-        "jdkDir": "work/jdkbuild/build/images/jdk/",
+        "jdkDir": "work/jdkbuild/build/images/jdk",
         "specjvmJarPath": "apps/specjvm/jmh-specjvm2016.jar",
         "ncNotePath": "sbs/resources/nc_note.txt",
         "xmxMemoryLimitMB": 1024,

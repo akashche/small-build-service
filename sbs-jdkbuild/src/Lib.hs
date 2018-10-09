@@ -41,30 +41,30 @@ import Data
 resolvePaths :: TaskContext -> JDKBuildConfig -> Paths
 resolvePaths ctx cf = Paths
     { workDir = wd
-    , sourceDir = prependIfRelative appd (sourceDir (cf :: JDKBuildConfig))
-    , bootJdkDir = prependIfRelative appd (bootJdkDir (cf :: JDKBuildConfig))
-    , jtregDir = prependIfRelative appd (jtregDir (cf :: JDKBuildConfig))
-    , buildDir = prependIfRelative appd (buildDir (cf :: JDKBuildConfig))
-    , hgPath = prependIfRelative appd (hgPath (cf :: JDKBuildConfig))
-    , bashPath = prependIfRelative appd (bashPath (cf :: JDKBuildConfig))
-    , makePath = prependIfRelative appd (makePath (cf :: JDKBuildConfig))
-    , confOutPath = wd <> confOutputFile (cf :: JDKBuildConfig)
-    , makeOutPath = wd <> makeOutputFile (cf :: JDKBuildConfig)
-    , repoUrlOutPath = wd <> "repourl.log"
-    , repoRevOutPath = wd <> "revision.log"
-    , mockOutputDir = prependIfRelative appd (mockOutputDir (cf :: JDKBuildConfig))
-    , queriesPath = prependIfRelative appd (queriesDir (ctx :: TaskContext)) <> "queries-jdkbuild.sql"
+    , sourceDir = pathPrepend appd (sourceDir (cf :: JDKBuildConfig))
+    , bootJdkDir = pathPrepend appd (bootJdkDir (cf :: JDKBuildConfig))
+    , jtregDir = pathPrepend appd (jtregDir (cf :: JDKBuildConfig))
+    , buildDir = pathPrepend appd (buildDir (cf :: JDKBuildConfig))
+    , hgPath = pathPrepend appd (hgPath (cf :: JDKBuildConfig))
+    , bashPath = pathPrepend appd (bashPath (cf :: JDKBuildConfig))
+    , makePath = pathPrepend appd (makePath (cf :: JDKBuildConfig))
+    , confOutPath = pathConcat wd (confOutputFile (cf :: JDKBuildConfig))
+    , makeOutPath = pathConcat wd (makeOutputFile (cf :: JDKBuildConfig))
+    , repoUrlOutPath = pathConcat wd "repourl.log"
+    , repoRevOutPath = pathConcat wd "revision.log"
+    , mockOutputDir = pathPrepend appd (mockOutputDir (cf :: JDKBuildConfig))
+    , queriesPath = pathConcat (pathPrepend appd (queriesDir (ctx :: TaskContext))) "queries-jdkbuild.sql"
     }
     where
         appd = appDir (ctx :: TaskContext)
-        wd = prependIfRelative appd (workDir (cf :: JDKBuildConfig))
+        wd = pathPrepend appd (workDir (cf :: JDKBuildConfig))
 
 mockCtx :: Text -> TaskContext
 mockCtx appd = TaskContext
     { taskId = 42
     , dbConnection = DBConnection 43 44
     , appDir = appd
-    , queriesDir = "queries/"
+    , queriesDir = "queries"
     , destBaseDir = ""
     , destDir = ""
     }
@@ -73,13 +73,13 @@ mockConfig :: JDKBuildConfig
 mockConfig = JDKBuildConfig
     { enabled = True
     , workDir = ""
-    , mockOutputDir = "mock/"
+    , mockOutputDir = "mock"
     , confOutputFile = "conf.log"
     , makeOutputFile = "make.log"
-    , sourceDir = "jdk/"
-    , buildDir = "jdk/"
-    , bootJdkDir = "bootjdk/"
-    , jtregDir = "jtreg/"
+    , sourceDir = "jdk"
+    , buildDir = "jdk"
+    , bootJdkDir = "bootjdk"
+    , jtregDir = "jtreg"
     , bashPath = "/bin/bash"
     , hgPath = "/usr/bin/hg"
     , makePath = "/usr/bin/make"
@@ -89,7 +89,7 @@ mockConfig = JDKBuildConfig
     }
 
 mockPaths :: Text -> Paths
-mockPaths appd = resolvePaths (mockCtx (appd <> "/")) mockConfig
+mockPaths appd = resolvePaths (mockCtx appd) mockConfig
 
 -- note: deliberately errors on invalid input
 resolveDestDir :: Paths -> Text -> IO Text
@@ -98,7 +98,8 @@ resolveDestDir paths base = do
     let url = Text.strip urlfull
     revfull <- readFile (unpack (repoRevOutPath paths))
     let rev = Text.strip revfull
-    return (base <> (dest url rev) <> "/")
+    let res = pathConcat base (dest url rev)
+    return res
     where
         filfun el = Text.length el > 0
         nonempty parts = List.filter filfun parts

@@ -28,6 +28,7 @@ import Prelude ()
 
 import SBS.Common.Prelude
 import SBS.Common.Parsec
+import SBS.Common.Utils
 
 import Data
 
@@ -35,7 +36,7 @@ configureDetails :: Parser ConfigureDetails
 configureDetails = do
     skipLinesTill "A new configuration has been successfully created in"
     dir <- manyTill (noneOf ['\n']) (char '\n')
-    return (ConfigureDetails ((pack dir) <> "/"))
+    return (ConfigureDetails (pack dir))
 
 parseConfOutput :: Text -> IO ConfigureDetails
 parseConfOutput path = do
@@ -49,7 +50,8 @@ copyingLine = do
     imagesDir <- many1 alphaNum
     skipOne (char '/')
     jdkDir <- many1 alphaNum
-    return ((pack imagesDir) <> "/" <> (pack jdkDir) <> "/")
+    let res = pathConcat (pack imagesDir) (pack jdkDir)
+    return res
 
 makeDetails :: Parser MakeDetails
 makeDetails = do

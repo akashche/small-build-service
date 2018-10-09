@@ -42,21 +42,21 @@ import Data
 resolvePaths :: TaskContext -> JCStressConfig -> Paths
 resolvePaths ctx cf = Paths
     { workDir = wd
-    , execPath = (prependIfRelative appd (jdkDir cf)) <> "bin/java"
-    , jcstressJarPath = prependIfRelative appd (jcstressJarPath (cf :: JCStressConfig))
-    , outputPath = wd <> outputFile (cf :: JCStressConfig)
-    , summaryPath = wd <> summaryFile (cf :: JCStressConfig)
-    , mockOutputPath = prependIfRelative appd (mockOutput (cf :: JCStressConfig))
-    , queriesPath = (prependIfRelative appd qdir) <> "queries-jcstress.sql"
+    , execPath = pathConcat (pathPrepend appd (jdkDir cf)) "bin/java"
+    , jcstressJarPath = pathPrepend appd (jcstressJarPath (cf :: JCStressConfig))
+    , outputPath = pathConcat wd (outputFile (cf :: JCStressConfig))
+    , summaryPath = pathConcat wd (summaryFile (cf :: JCStressConfig))
+    , mockOutputPath = pathPrepend appd (mockOutput (cf :: JCStressConfig))
+    , queriesPath = pathConcat (pathPrepend appd qdir) "queries-jcstress.sql"
     }
     where
         appd = appDir (ctx :: TaskContext)
         qdir = queriesDir (ctx :: TaskContext)
-        wd = prependIfRelative appd (workDir (cf :: JCStressConfig))
+        wd = pathPrepend appd (workDir (cf :: JCStressConfig))
 
 mockPaths :: Paths
 mockPaths = Paths
-    { workDir = "./"
+    { workDir = "."
     , execPath = "jdk/bin/java"
     , jcstressJarPath = "jcstress.jar"
     , outputPath = "jcstress.log"

@@ -32,6 +32,7 @@ import qualified Data.Vector as Vector
 
 import SBS.Common.Prelude
 import SBS.Common.JDKBuild
+import SBS.Common.Utils
 import SBS.Common.Wilton
 
 import Data
@@ -80,7 +81,7 @@ spawnConfigureAndWait cf paths = do
     where
         log = confOutPath (paths :: Paths)
         args = Vector.concat [fromList
-            [ sourceDir (paths :: Paths) <> "configure"
+            [ pathConcat (sourceDir (paths :: Paths)) "configure"
             , "--with-boot-jdk=" <> (bootJdkDir (paths :: Paths))
             , "--with-jtreg=" <> (jtregDir (paths :: Paths))
             , "--with-log=" <> (logLevel cf)

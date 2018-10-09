@@ -53,7 +53,7 @@ run (JDKBuildInput ctx cf _eim) = do
             cfres <- parseConfOutput (confOutPath (paths :: Paths))
             spawnMakeAndWait cf paths
             mres <- parseMakeOutput (makeOutPath (paths :: Paths))
-            let _imageDir = (confDirectory cfres) <> (imageDirRelative mres)
+            let _imageDir = pathConcat (confDirectory cfres) (imageDirRelative mres)
             -- TODO
 --             when (eim /= imageDir) ((error . unpack)(
 --                    "Invalid image directory,"
@@ -71,11 +71,11 @@ run (JDKBuildInput ctx cf _eim) = do
 results :: JDKBuildInput -> IO Text
 results (JDKBuildInput ctx cf _eim) = do
     destd <- resolveDestDir paths based
-    let jdkd = destd <> "jdkbuild/"
+    let jdkd = pathConcat destd "jdkbuild"
     createDirectory (unpack destd)
     createDirectory (unpack jdkd)
-    copyFile (unpack (confOutPath paths)) (unpack (jdkd <> (confOutputFile cf)))
-    copyFile (unpack (makeOutPath paths)) (unpack (jdkd <> (makeOutputFile cf)))
+    copyFile (unpack (confOutPath paths)) (unpack (pathConcat jdkd (confOutputFile cf)))
+    copyFile (unpack (makeOutPath paths)) (unpack (pathConcat jdkd (makeOutputFile cf)))
     return destd
     where
         paths = resolvePaths ctx cf
@@ -91,9 +91,9 @@ runMock (JDKBuildInput ctx cf _) = do
     repo <- readRepoUrl paths
     rev <- readRepoRevision paths
     dbWithSyncTransaction db (updateJobRepo db qrs jid repo rev)
-    copyFile (unpack (md <> "conf.log")) (unpack confOut)
+    copyFile (unpack (pathConcat md "conf.log")) (unpack confOut)
     _cfres <- parseConfOutput confOut
-    copyFile (unpack (md <> "make.log")) (unpack makeOut)
+    copyFile (unpack (pathConcat md "make.log")) (unpack makeOut)
     _mres <- parseMakeOutput makeOut
     dbWithSyncTransaction db (finalizeJob db qrs jid StateSuccess)
     return ()

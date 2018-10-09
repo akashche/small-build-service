@@ -12896,7 +12896,7 @@ Passed: jdk/javadoc/doclet/testCompletionFailure/TestCompletionFailure.java
 Passed: jdk/javadoc/doclet/testConstantValuesPage/TestConstantValuesPage.java
 Passed: jdk/javadoc/doclet/testConstructorIndent/TestConstructorIndent.java
 Passed: jdk/javadoc/doclet/testConstructors/TestConstructors.java
-Passed: jdk/javadoc/doclet/testCopyFiles/TestCopyFiles.java
+Passed: jdk/javadoc/doclet/testcopyFiles/TestcopyFiles.java
 Passed: jdk/javadoc/doclet/testCRLineSeparator/TestCRLineSeparator.java
 Passed: jdk/javadoc/doclet/testDeprecatedDocs/TestDeprecatedDocs.java
 Passed: jdk/javadoc/doclet/testDocEncoding/TestDocEncoding.java
