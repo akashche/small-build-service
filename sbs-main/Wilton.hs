@@ -66,8 +66,8 @@ diff arguments = do
     when (3 /= Vector.length arguments)
         (error "Invalid arguments specified, expected: [path/to/config.json, taskId1, taskId2]")
     (cf, db, _) <- initApp arguments
-    let tid1 = readText (arguments ! 1) :: Int64
-    let tid2 = readText (arguments ! 2) :: Int64
+    let tid1 = (read . unpack) (arguments ! 1) :: Int64
+    let tid2 = (read . unpack) (arguments ! 2) :: Int64
     let appd = appDir (sbs (cf :: Config) :: SBSConfig)
     let qdir = queriesDir (database (sbs (cf :: Config) :: SBSConfig) :: DBConfig)
     let req = DiffRequest tid1 tid2 db appd qdir

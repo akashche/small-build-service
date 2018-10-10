@@ -20,9 +20,10 @@
 {-# LANGUAGE Strict #-}
 
 module SBS.Common.Prelude
-    ( Bool(True, False), Either(Left, Right), Int, IO, Maybe(Just, Nothing), Read, Show, String
-    , (+), (-), (*), (/), (>), (<), (==), (/=), (.), (>>), (>>=), (&&), (||)
-    , div, error, flip, fmap, fromIntegral, id, mapM_, not, otherwise, read, return, show, undefined
+    ( Bool(True, False), Either(Left, Right), Eq, Int, IO, Maybe(Just, Nothing), Read, Show, String
+    , (+), (-), (*), (/), (>), (>=), (<), (<=), (==), (/=), (.), (>>), (>>=), (&&), (||)
+    , abs, div, error, flip, fmap, fromIntegral, id, mapM, mapM_, mod, not, otherwise
+    , pure , read, return, seq, sequence, sequence_, show, undefined
     -- Control.Exception
     , SomeException
     , catch, throw
@@ -81,9 +82,10 @@ module SBS.Common.Prelude
     ) where
 
 import Prelude
-    ( Bool(True, False), Either(Left, Right), Int, IO, Maybe(Just, Nothing), Read, Show, String
-    , (+), (-), (*), (/), (>), (<), (==), (/=), (.), (>>), (>>=), (&&), (&&), (||)
-    , div, error, flip, fmap, fromIntegral, id, mapM_, not, otherwise, read, return, show, undefined
+    ( Bool(True, False), Either(Left, Right), Eq, Int, IO, Maybe(Just, Nothing), Read, Show, String
+    , (+), (-), (*), (/), (>), (>=), (<), (<=), (==), (/=), (.), (>>), (>>=), (&&), (&&), (||)
+    , abs, div, error, flip, fmap, fromIntegral, id, mapM, mapM_, mod, not, otherwise
+    , pure, read, return, seq, sequence, sequence_, show, undefined
     )
 import Control.Exception (SomeException, catch, throw)
 import Control.Monad (unless, when)

@@ -1,6 +1,6 @@
 {
     "sbs" : {
-        "appDir": "/home/server",
+        "appDir": "/host",
 
         "database": {
             "dbFilePath": "sbs.db",

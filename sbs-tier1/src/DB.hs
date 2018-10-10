@@ -28,7 +28,6 @@ module DB
     ) where
 
 import Prelude ()
-import qualified Data.Vector as Vector
 
 import SBS.Common.Prelude
 import SBS.Common.Data
@@ -70,7 +69,7 @@ finalizeJob db qrs jid st np = do
 
 saveResults :: DBConnection -> Queries -> Int64 -> Results -> IO ()
 saveResults db qrs jid results = do
-    Vector.mapM_ insert results
+    mapM_ insert results
     return ()
     where
         insert res = do

@@ -23,7 +23,6 @@ module SBS.Common.Utils
     (
     -- prelude text
       showText
-    , readText
     -- file IO
     , withFileBytes
     , withFileText
@@ -73,9 +72,6 @@ showText val
         castedText = cast val :: Maybe Text
         castedString = cast val :: Maybe String
         castedBytes = cast val :: Maybe ByteString
-
-readText :: (Read a) => Text -> a
-readText = read . unpack
 
 -- file IO
 

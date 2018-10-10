@@ -71,7 +71,7 @@ finalizeJob db qrs jid st tt = do
 
 saveResults :: DBConnection -> Queries -> Int64 -> Results -> IO ()
 saveResults db qrs jid res =
-    Vector.mapM_ fun (benchmarks (res :: Results))
+    mapM_ fun (benchmarks (res :: Results))
     where
         fun bench = do
             dbExecute db (get qrs "updateResultsSeq") Empty

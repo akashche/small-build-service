@@ -67,7 +67,7 @@ dyloadModules :: [Text] -> IO ()
 dyloadModules mods = do
     mapM_ load mods
     where
-        load mod = wiltoncall "dyload_shared_library" (args mod) :: IO ()
+        load md = wiltoncall "dyload_shared_library" (args md) :: IO ()
         args name = object ["name" .= name]
 
 -- DB access
@@ -105,7 +105,7 @@ dbExecute db sqlQuery pars = do
 dbExecuteFile :: DBConnection -> Text -> IO ()
 dbExecuteFile db path = do
     qrs <- parseFile parser path
-    Vector.mapM_ exec qrs
+    mapM_ exec qrs
     return ()
     where
         liner tx = fromList (Text.splitOn "\n" tx)
