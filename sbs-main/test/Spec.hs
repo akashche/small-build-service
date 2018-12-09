@@ -20,8 +20,7 @@
 {-# LANGUAGE Strict #-}
 
 import Prelude ()
-
-import SBS.Common.Prelude
+import VtUtils.Prelude
 
 main :: IO ()
 main = do

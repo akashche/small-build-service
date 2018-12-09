@@ -29,14 +29,14 @@ module Lib
     ) where
 
 import Prelude ()
+import VtUtils.Prelude
 import qualified Data.HashMap.Strict as HashMap
 import qualified Data.Text as Text
 import qualified Data.Vector as Vector
+import qualified System.Directory as Directory
 
-import SBS.Common.Prelude
 import SBS.Common.Data
 import SBS.Common.SpecJVM
-import SBS.Common.Utils
 
 import Data
 
@@ -106,7 +106,7 @@ diffResults baseline res =
         benches = fromList (Vector.foldr' folder [] bsBase)
 
 copyNcNote :: SpecJVMConfig -> Text -> IO ()
-copyNcNote cf appd = copyFile (unpack from) (unpack to)
+copyNcNote cf appd = Directory.copyFile (unpack from) (unpack to)
     where
         from = pathPrepend appd (ncNotePath cf)
         wd = pathPrepend appd (workDir (cf :: SpecJVMConfig))
@@ -118,7 +118,7 @@ formatPercent num =
         then "0." <> ntx
         else (Text.take fract ntx) <> "." <> (Text.drop fract ntx)
     where
-        ntx = showText num
+        ntx = textShow num
         fract = (Text.length ntx) - 2
 
 formatResultsDiff :: ResultsDiff -> Text

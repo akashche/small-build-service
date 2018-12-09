@@ -22,13 +22,14 @@
 module Wilton ( ) where
 
 import Prelude ()
+import VtUtils.Prelude
+import VtUtils.Queries
 import qualified Data.Vector as Vector
+import qualified System.Directory as Directory
 
-import SBS.Common.Prelude
 import SBS.Common.Data
 import SBS.Common.Queries
 import SBS.Common.SpecJVM
-import SBS.Common.Utils
 import SBS.Common.Wilton
 
 import Data
@@ -39,10 +40,10 @@ import Spawn
 
 run :: SpecJVMInput -> IO ()
 run (SpecJVMInput ctx cf) = do
-    createDirectory (unpack (workDir (paths :: Paths)))
-    qrs <- loadQueries (queriesPath paths)
+    Directory.createDirectory (unpack (workDir (paths :: Paths)))
+    qrs <- queriesLoad (queriesPath paths)
     jid <- dbWithSyncTransaction db (createJob db qrs (taskId ctx))
-    catch
+    resEither <- try
         (do
             dbWithSyncTransaction db (updateJobState db qrs jid StateRunning)
             spawnSpecAndWait cf paths
@@ -51,10 +52,11 @@ run (SpecJVMInput ctx cf) = do
             summ <- parseSummary out
             writeFile (unpack (summaryPath paths)) summ
             dbWithSyncTransaction db (finalizeJob db qrs jid StateSuccess (totalTimeSeconds res)))
-        (\(e :: SomeException) -> do
+    case resEither of
+        Left (e :: SomeException) -> do
             dbWithSyncTransaction db (finalizeJob db qrs jid StateError 0)
-            (error . unpack) (showText e))
-    return ()
+            (error . unpack) (textShow e)
+        Right _ -> return ()
     where
         db = dbConnection (ctx :: TaskContext)
         paths = resolvePaths ctx cf
@@ -62,7 +64,7 @@ run (SpecJVMInput ctx cf) = do
 
 diff :: DiffRequest -> IO Text
 diff req = do
-    qrs <- loadQueries (resolveQueriesPath req "specjvm")
+    qrs <- queriesLoad (resolveQueriesPath req "specjvm")
     res1 <- loadResults db qrs (taskId1 req)
     res2 <- loadResults db qrs (taskId2 req)
     let rd = diffResults (Results 1 res1) (Results 1 res2)
@@ -74,9 +76,9 @@ diff req = do
 results :: SpecJVMInput -> IO ()
 results (SpecJVMInput ctx cf) = do
     let destd = pathConcat based "specjvm"
-    createDirectory (unpack destd)
-    copyFile (unpack outsrc) (unpack (outdest destd))
-    copyFile (unpack sumsrc) (unpack (sumdest destd))
+    Directory.createDirectory (unpack destd)
+    Directory.copyFile (unpack outsrc) (unpack (outdest destd))
+    Directory.copyFile (unpack sumsrc) (unpack (sumdest destd))
     return ()
     where
         paths = resolvePaths ctx cf
@@ -90,10 +92,10 @@ results (SpecJVMInput ctx cf) = do
 
 runMock :: SpecJVMInput -> IO ()
 runMock (SpecJVMInput ctx cf) = do
-    qrs <- loadQueries (queriesPath paths)
+    qrs <- queriesLoad (queriesPath paths)
     jid <- dbWithSyncTransaction db (createJob db qrs (taskId ctx))
     dbWithSyncTransaction db (updateJobState db qrs jid StateRunning)
-    copyFile (unpack (mockOutputPath (paths :: Paths))) (unpack (outputPath (paths :: Paths)))
+    Directory.copyFile (unpack (mockOutputPath (paths :: Paths))) (unpack (outputPath (paths :: Paths)))
     res <- parseResults (outputPath (paths :: Paths))
     saveResults db qrs jid res
     summ <- parseSummary out
@@ -114,7 +116,7 @@ parse arguments = do
     when (1 /= Vector.length arguments)
         ((error . unpack) "Path to specjvm output must be specified as a first and only argument")
     parsed <- parseResults (arguments ! 0)
-    putStrLn (showText parsed)
+    putStrLn (textShow parsed)
     return ()
 
 summary :: Vector Text -> IO ()

@@ -25,8 +25,8 @@ module SBS.Common.JCStress
     ) where
 
 import Prelude ()
+import VtUtils.Prelude
 
-import SBS.Common.Prelude
 import SBS.Common.Data
 
 data JCStressConfig = JCStressConfig

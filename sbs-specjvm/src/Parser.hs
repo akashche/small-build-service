@@ -25,92 +25,111 @@ module Parser
     ) where
 
 import Prelude ()
+import VtUtils.Prelude
 
-import SBS.Common.Prelude
 import SBS.Common.Parsec
 import Data
+
+floatAsInt :: Parser Int
+floatAsInt = do
+    headString <- many1 digit
+    let head = read headString :: Int
+    tail <- option
+        0
+        (do
+            _ <- char '.'
+            tailString <- many1 digit
+            let tail = read tailString :: Int
+            return tail)
+    let res = head * 1000 + tail
+    parsecWhitespace
+    return res
 
 benchMode :: Parser BenchMode
 benchMode = do
     res <-
-        (   (try (string "all") >> return All )
-        <|> (try (string "avgt") >> return AverageTime )
-        <|> (try (string "sample") >> return SampleTime )
-        <|> (try (string "ss") >> return SingleShotTime )
-        <|> (try (string "thrpt") >> return Throughput )
+        (   (parsecTry (string "all") >> return All )
+        <|> (parsecTry (string "avgt") >> return AverageTime )
+        <|> (parsecTry (string "sample") >> return SampleTime )
+        <|> (parsecTry (string "ss") >> return SingleShotTime )
+        <|> (parsecTry (string "thrpt") >> return Throughput )
         <?> "BenchMode"
         )
-    whitespace
+    parsecWhitespace
     return res
 
 benchUnit :: Parser BenchUnit
 benchUnit = do
-    skipOne (string "ops/")
+    _ <- string "ops/"
     res <-
         (   (string "min" >> return OpsMin)
         <|> (string "s" >> return OpsSec)
         <|> (string "ms" >> return OpsMs)
         <?> "BenchUnit"
         )
-    whitespace
+    parsecWhitespace
     return res
 
 benchResult :: Parser BenchResult
 benchResult = do
     bname <- many1 (choice [alphaNum, (char '.')])
-    whitespace
+    parsecWhitespace
     bmode <- benchMode
     countString <- many1 digit
     let cnt = read countString :: Int
-    whitespace
+    parsecWhitespace
     scor <- floatAsInt
-    skipOne (char '±')
+    _ <- char '±'
+    parsecWhitespace
     err <- floatAsInt
-    whitespace
+    parsecWhitespace
     bunits <- benchUnit
     let res = BenchResult (pack bname) bmode cnt scor err bunits
-    whitespace
+    parsecWhitespace
     return res
 
 totalTimeSecsFromLine :: Parser Int
 totalTimeSecsFromLine = do
-    skipOne (string "# Run complete. Total time:")
+    _ <- string "# Run complete. Total time:"
+    parsecWhitespace
     hoursString <- many1 digit
     let hours = read hoursString :: Int
-    skipOne (char ':')
+    _ <- char ':'
     minutesString <- many1 digit
     let minutes = read minutesString :: Int
-    skipOne (char ':')
+    _ <- char ':'
     secondsString <- many1 digit
     let seconds = read secondsString :: Int
     return ((hours * 3600) + (minutes * 60) + seconds)
 
 totalTimeSecs :: Parser Int
 totalTimeSecs = do
-    line <- lineContains "# Run complete. Total time:"
-    let res = parseText totalTimeSecsFromLine line
+    line <- parsecLineContains "# Run complete. Total time:"
+    parsecWhitespace
+    let res = parsecParseText totalTimeSecsFromLine line
     return res
 
 results :: Parser Results
 results = do
     time <- totalTimeSecs
-    skipOne (manyTill anyChar newline)
+    _ <- manyTill anyChar newline
     benchRes <- many1 benchResult
     let res = Results time (fromList benchRes)
     return res
 
 summary :: Parser Text
 summary = do
-    headline <- lineContains "# Run complete. Total time:"
+    headline <- parsecLineContains "# Run complete. Total time:"
+    parsecWhitespace
     st <- many1 anyChar
     return (headline <> "\n\n" <> (pack st))
 
 parseResults :: Text -> IO Results
 parseResults path = do
-    res <- parseFile results path
+    res <- parsecParseFile results path
     return res
 
 parseSummary :: Text -> IO Text
 parseSummary path = do
-    res <- parseFile summary path
+    res <- parsecParseFile summary path
     return res

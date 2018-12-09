@@ -27,8 +27,7 @@ module Data
     ) where
 
 import Prelude ()
-
-import SBS.Common.Prelude
+import VtUtils.Prelude
 
 data Paths = Paths
     { workDir :: Text

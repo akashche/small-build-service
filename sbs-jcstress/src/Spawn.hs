@@ -24,10 +24,9 @@ module Spawn
     ) where
 
 import Prelude ()
+import VtUtils.Prelude
 
-import SBS.Common.Prelude
 import SBS.Common.JCStress
-import SBS.Common.Utils
 import SBS.Common.Wilton
 
 import Data
@@ -38,7 +37,7 @@ spawnJCStressAndWait cf paths = do
         { workDir = workDir (paths :: Paths)
         , executable = execPath (paths :: Paths)
         , execArgs = fromList
-            [  ("-Xmx" <> (showText (xmxMemoryLimitMB cf)) <> "M")
+            [  ("-Xmx" <> (textShow (xmxMemoryLimitMB cf)) <> "M")
             , "-jar", jcstressJarPath (paths :: Paths)
             , "-m", mode cf
             ]

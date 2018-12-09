@@ -26,6 +26,7 @@ dependencies:
 - time
 - unordered-containers
 - vector
+- vt-utils
 - wilton-ffi
 
 library:

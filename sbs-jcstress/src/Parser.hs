@@ -24,37 +24,44 @@ module Parser
     ) where
 
 import Prelude ()
+import VtUtils.Prelude
 import qualified Data.List as List
 
-import SBS.Common.Prelude
 import SBS.Common.Parsec
-import SBS.Common.Utils
 
 import Data
 
 oneTest :: Text -> Parser Text
 oneTest prefix = do
-    skipOne (try (string (unpack prefix)))
+    _ <- (parsecTry (string (unpack prefix)))
+    parsecWhitespace
     res <- manyTill (alphaNum <|> char '.') (char '\n')
-    skipManyTill "\n\n"
-    optional (skipOne (try (string "Messages:")) >> skipManyTill "\n\n")
+    parsecSkipManyTill "\n\n"
+    parsecWhitespace
+    optional $ do
+        _ <- parsecTry (string "Messages:")
+        parsecSkipManyTill "\n\n"
+        parsecWhitespace
     return (pack res)
 
 listOfTests :: Text -> Text -> Parser (Vector Text)
 listOfTests header prefix = do
-    skipLinesTill header
-    skipLines 1
+    _ <- parsecLinePrefix header
+    parsecWhitespace
+    parsecSkipLines 1
+    parsecWhitespace
     lenStr <- many1 digit
     let len = read lenStr :: Int
-    skipManyTill "\n"
+    parsecSkipManyTill "\n"
+    parsecWhitespace
     list <- scan
     let lenList = List.length list
     when (lenList /= len) ((error . unpack)
         (  "Wrong number of tests parsed,"
-        <> " expected: [" <> (showText len) <> "]"
-        <> " actual: [" <> (showText lenList) <> "]"
+        <> " expected: [" <> (textShow len) <> "]"
+        <> " actual: [" <> (textShow lenList) <> "]"
         ))
-    whitespace
+    parsecWhitespace
     return (fromList list)
     where
         scan = recur <|> (return [])
@@ -65,8 +72,10 @@ listOfTests header prefix = do
 
 passedTestsCount :: Parser Int
 passedTestsCount = do
-    skipLinesTill "*** All remaining tests"
-    skipLines 1
+    _ <- parsecLinePrefix "*** All remaining tests"
+    parsecWhitespace
+    parsecSkipLines 1
+    parsecWhitespace
     numStr <- many1 digit
     return (read numStr :: Int)
 
@@ -80,5 +89,5 @@ results = do
 
 parseResults :: Text -> IO Results
 parseResults path = do
-    res <- parseFile results path
+    res <- parsecParseFile results path
     return res

@@ -29,9 +29,7 @@ module SBS.Common.Data
     ) where
 
 import Prelude ()
-import qualified Data.Aeson as Aeson
-
-import SBS.Common.Prelude
+import VtUtils.Prelude
 
 data Empty = Empty
     deriving (Generic, Show)

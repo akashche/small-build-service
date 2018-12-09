@@ -22,14 +22,14 @@
 module Wilton ( ) where
 
 import Prelude ()
+import VtUtils.Prelude
+import VtUtils.Queries
 import qualified Data.Vector as Vector
+import qualified System.Directory as Directory
 
-import SBS.Common.Prelude
 import SBS.Common.Data
 import SBS.Common.JDKBuild
-import SBS.Common.Queries
 import SBS.Common.Wilton
-import SBS.Common.Utils
 
 import Data
 import DB
@@ -39,11 +39,11 @@ import Spawn
 
 run :: JDKBuildInput -> IO ()
 run (JDKBuildInput ctx cf _eim) = do
-    createDirectory (unpack (workDir (paths :: Paths)))
-    createDirectory (unpack (buildDir (paths :: Paths)))
-    qrs <- loadQueries (queriesPath paths)
+    Directory.createDirectory (unpack (workDir (paths :: Paths)))
+    Directory.createDirectory (unpack (buildDir (paths :: Paths)))
+    qrs <- queriesLoad (queriesPath paths)
     jid <- dbWithSyncTransaction db (createJob db qrs (taskId ctx))
-    catch
+    resEither <-  try
         (do
             dbWithSyncTransaction db (updateJobState db qrs jid StateRunning)
             repo <- readRepoUrl paths
@@ -60,10 +60,11 @@ run (JDKBuildInput ctx cf _eim) = do
 --                 <> " expected: [" <> eim <> "]"
 --                 <> " actual: [" <> imageDir <> "]"))
             dbWithSyncTransaction db (finalizeJob db qrs jid StateSuccess))
-        (\(e :: SomeException) -> do
+    case resEither of
+        Left (e :: SomeException) -> do
             dbWithSyncTransaction db (finalizeJob db qrs jid StateError)
-            (error . unpack) (showText e))
-    return ()
+            (error . unpack) (textShow e)
+        Right _ -> return ()
     where
         db = dbConnection (ctx :: TaskContext)
         paths = resolvePaths ctx cf
@@ -72,10 +73,10 @@ results :: JDKBuildInput -> IO Text
 results (JDKBuildInput ctx cf _eim) = do
     destd <- resolveDestDir paths based
     let jdkd = pathConcat destd "jdkbuild"
-    createDirectory (unpack destd)
-    createDirectory (unpack jdkd)
-    copyFile (unpack (confOutPath paths)) (unpack (pathConcat jdkd (confOutputFile cf)))
-    copyFile (unpack (makeOutPath paths)) (unpack (pathConcat jdkd (makeOutputFile cf)))
+    Directory.createDirectory (unpack destd)
+    Directory.createDirectory (unpack jdkd)
+    Directory.copyFile (unpack (confOutPath paths)) (unpack (pathConcat jdkd (confOutputFile cf)))
+    Directory.copyFile (unpack (makeOutPath paths)) (unpack (pathConcat jdkd (makeOutputFile cf)))
     return destd
     where
         paths = resolvePaths ctx cf
@@ -85,15 +86,15 @@ results (JDKBuildInput ctx cf _eim) = do
 
 runMock :: JDKBuildInput -> IO ()
 runMock (JDKBuildInput ctx cf _) = do
-    qrs <- loadQueries (queriesPath paths)
+    qrs <- queriesLoad (queriesPath paths)
     jid <- dbWithSyncTransaction db (createJob db qrs (taskId ctx))
     dbWithSyncTransaction db (updateJobState db qrs jid StateRunning)
     repo <- readRepoUrl paths
     rev <- readRepoRevision paths
     dbWithSyncTransaction db (updateJobRepo db qrs jid repo rev)
-    copyFile (unpack (pathConcat md "conf.log")) (unpack confOut)
+    Directory.copyFile (unpack (pathConcat md "conf.log")) (unpack confOut)
     _cfres <- parseConfOutput confOut
-    copyFile (unpack (pathConcat md "make.log")) (unpack makeOut)
+    Directory.copyFile (unpack (pathConcat md "make.log")) (unpack makeOut)
     _mres <- parseMakeOutput makeOut
     dbWithSyncTransaction db (finalizeJob db qrs jid StateSuccess)
     return ()
@@ -145,7 +146,7 @@ parseConf arguments = do
     when (1 /= Vector.length arguments)
         ((error . unpack) "Path to configure output must be specified as a first and only argument")
     cd <- parseConfOutput (arguments ! 0)
-    putStrLn (showText cd)
+    putStrLn (textShow cd)
     return ()
 
 parseMake :: Vector Text -> IO ()
@@ -153,7 +154,7 @@ parseMake arguments = do
     when (1 /= Vector.length arguments)
         ((error . unpack) "Path to make output must be specified as a first and only argument")
     md <- parseMakeOutput (arguments ! 0)
-    putStrLn (showText md)
+    putStrLn (textShow md)
     return ()
 
 foreign export ccall wilton_module_init :: IO CString

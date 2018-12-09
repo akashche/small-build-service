@@ -25,8 +25,8 @@ module SBS.Common.Tier1
     ) where
 
 import Prelude ()
+import VtUtils.Prelude
 
-import SBS.Common.Prelude
 import SBS.Common.Data
 
 data Tier1Config = Tier1Config

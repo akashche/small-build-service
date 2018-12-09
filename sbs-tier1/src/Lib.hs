@@ -30,13 +30,12 @@ module Lib
     ) where
 
 import Prelude ()
+import VtUtils.Prelude
 import qualified Data.HashMap.Strict as HashMap
 import qualified Data.Vector as Vector
 
-import SBS.Common.Prelude
 import SBS.Common.Data
 import SBS.Common.Tier1
-import SBS.Common.Utils
 
 import Data
 import Parser
@@ -91,7 +90,7 @@ formatResultsDiff rd =
     Vector.ifoldl' folder "" rd
     where
         showDiff el = case (notPassedDiff (el :: TestSuiteDiff)) of
-            Just num -> showText num
+            Just num -> textShow num
             Nothing -> "N/A"
         folder ac idx el =
                ac

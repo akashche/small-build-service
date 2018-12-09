@@ -26,8 +26,7 @@ module Data
     ) where
 
 import Prelude ()
-
-import SBS.Common.Prelude
+import VtUtils.Prelude
 
 data ConfigureDetails = ConfigureDetails
     { confDirectory :: Text

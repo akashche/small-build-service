@@ -25,42 +25,43 @@ module Parser
     ) where
 
 import Prelude ()
+import VtUtils.Prelude
 
-import SBS.Common.Prelude
 import SBS.Common.Parsec
-import SBS.Common.Utils
 
 import Data
 
 configureDetails :: Parser ConfigureDetails
 configureDetails = do
-    skipLinesTill "A new configuration has been successfully created in"
+    _ <- parsecLinePrefix "A new configuration has been successfully created in"
+    parsecWhitespace
     dir <- manyTill (noneOf ['\n']) (char '\n')
     return (ConfigureDetails (pack dir))
 
 parseConfOutput :: Text -> IO ConfigureDetails
 parseConfOutput path = do
-    res <- parseFile configureDetails path
+    res <- parsecParseFile configureDetails path
     return res
 
 copyingLine :: Parser Text
 copyingLine = do
-    skipOne (string "Copying")
-    whitespace
+    _ <- string "Copying"
+    parsecWhitespace
     imagesDir <- many1 alphaNum
-    skipOne (char '/')
+    _ <- char '/'
     jdkDir <- many1 alphaNum
     let res = pathConcat (pack imagesDir) (pack jdkDir)
     return res
 
 makeDetails :: Parser MakeDetails
 makeDetails = do
-    skipLinesTill "Creating jdk image"
-    line <- linePrefix "Copying"
-    let dir = parseText copyingLine line
+    _ <- parsecLinePrefix "Creating jdk image"
+    parsecWhitespace
+    line <- parsecLinePrefix "Copying"
+    let dir = parsecParseText copyingLine line
     return (MakeDetails dir)
 
 parseMakeOutput :: Text -> IO MakeDetails
 parseMakeOutput path = do
-    res <- parseFile makeDetails path
+    res <- parsecParseFile makeDetails path
     return res

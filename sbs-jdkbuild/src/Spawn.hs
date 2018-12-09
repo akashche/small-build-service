@@ -27,12 +27,11 @@ module Spawn
     ) where
 
 import Prelude ()
+import VtUtils.Prelude
 import qualified Data.Text as Text
 import qualified Data.Vector as Vector
 
-import SBS.Common.Prelude
 import SBS.Common.JDKBuild
-import SBS.Common.Utils
 import SBS.Common.Wilton
 
 import Data

@@ -25,8 +25,8 @@ module SBS.Common.JDKBuild
     ) where
 
 import Prelude ()
+import VtUtils.Prelude
 
-import SBS.Common.Prelude
 import SBS.Common.Data
 
 data JDKBuildConfig = JDKBuildConfig

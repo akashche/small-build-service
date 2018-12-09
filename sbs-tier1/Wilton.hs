@@ -22,13 +22,14 @@
 module Wilton ( ) where
 
 import Prelude ()
+import VtUtils.Prelude
+import VtUtils.Queries
 import qualified Data.Vector as Vector
+import qualified System.Directory as Directory
 
-import SBS.Common.Prelude
 import SBS.Common.Data
 import SBS.Common.Queries
 import SBS.Common.Tier1
-import SBS.Common.Utils
 import SBS.Common.Wilton
 
 import DB
@@ -38,10 +39,10 @@ import Spawn
 
 run :: Tier1Input -> IO ()
 run (Tier1Input ctx cf) = do
-    createDirectory (unpack (workDir (paths :: Paths)))
-    qrs <- loadQueries (queriesPath paths)
+    Directory.createDirectory (unpack (workDir (paths :: Paths)))
+    qrs <- queriesLoad (queriesPath paths)
     jid <- dbWithSyncTransaction db (createJob db qrs (taskId ctx))
-    catch
+    resEither <- try
         (do
             dbWithSyncTransaction db (updateJobState db qrs jid StateRunning)
             spawnTestsAndWait paths (fromList [target cf])
@@ -49,17 +50,18 @@ run (Tier1Input ctx cf) = do
             saveResults db qrs jid res
             extractSummary (outputPath (paths :: Paths)) (summaryPath paths)
             dbWithSyncTransaction db (finalizeJob db qrs jid StateSuccess (totalNotPassed res)))
-        (\(e :: SomeException) -> do
+    case resEither of
+        Left (e :: SomeException) -> do
             dbWithSyncTransaction db (finalizeJob db qrs jid StateError 0)
-            (error . unpack) (showText e))
-    return ()
+            (error . unpack) (textShow e)
+        Right _ -> return ()
     where
         db = dbConnection (ctx :: TaskContext)
         paths = resolvePaths ctx cf
 
 diff :: DiffRequest -> IO Text
 diff req = do
-    qrs <- loadQueries (resolveQueriesPath req "tier1")
+    qrs <- queriesLoad (resolveQueriesPath req "tier1")
     res1 <- loadResults db qrs (taskId1 req)
     res2 <- loadResults db qrs (taskId2 req)
     let rd = diffTwoResults res1 res2
@@ -71,9 +73,9 @@ diff req = do
 results :: Tier1Input -> IO ()
 results (Tier1Input ctx cf) = do
     let destd = pathConcat based "tier1"
-    createDirectory (unpack destd)
-    copyFile (unpack outsrc) (unpack (outdest destd))
-    copyFile (unpack sumsrc) (unpack (sumdest destd))
+    Directory.createDirectory (unpack destd)
+    Directory.copyFile (unpack outsrc) (unpack (outdest destd))
+    Directory.copyFile (unpack sumsrc) (unpack (sumdest destd))
     return ()
     where
         paths = resolvePaths ctx cf
@@ -87,10 +89,10 @@ results (Tier1Input ctx cf) = do
 
 runMock :: Tier1Input -> IO ()
 runMock (Tier1Input ctx cf) = do
-    qrs <- loadQueries (queriesPath paths)
+    qrs <- queriesLoad (queriesPath paths)
     jid <- dbWithSyncTransaction db (createJob db qrs (taskId ctx))
     dbWithSyncTransaction db (updateJobState db qrs jid StateRunning)
-    copyFile (unpack (mockOutputPath (paths :: Paths))) (unpack (outputPath (paths :: Paths)))
+    Directory.copyFile (unpack (mockOutputPath (paths :: Paths))) (unpack (outputPath (paths :: Paths)))
     res <- parseResults (outputPath (paths :: Paths))
     saveResults db qrs jid res
     extractSummary (outputPath (paths :: Paths)) (summaryPath paths)
@@ -109,7 +111,7 @@ parse arguments = do
     when (1 /= Vector.length arguments)
         ((error . unpack) "Path to tier1 tests output must be specified as a first and only argument")
     parsed <- parseResults (arguments ! 0)
-    putStrLn (showText parsed)
+    putStrLn (textShow parsed)
     return ()
 
 summary :: Vector Text -> IO ()
@@ -117,7 +119,7 @@ summary arguments = do
     when (1 /= Vector.length arguments)
         ((error . unpack) "Path to tier1 tests output must be specified as a first and only argument")
     parsed <- parseSummary (arguments ! 0)
-    putStrLn (showText parsed)
+    putStrLn (textShow parsed)
     return ()
 
 foreign export ccall wilton_module_init :: IO CString

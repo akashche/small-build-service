@@ -20,8 +20,8 @@
 {-# LANGUAGE Strict #-}
 
 import Prelude ()
+import VtUtils.Prelude
 
-import SBS.Common.Prelude
 import SBS.Common.JDKBuild
 
 import Data
@@ -40,19 +40,19 @@ main = do
 
     -- paths
     let cf = mockConfig { workDir = "work" } :: JDKBuildConfig
-    let paths = resolvePaths (mockCtx "appdir") cf
-    unless ("appdir/work" == workDir (paths :: Paths)) (error "Paths workDir fail")
-    unless ("appdir/jdk" == sourceDir (paths :: Paths)) (error "Paths sourceDir fail")
-    unless ("appdir/jdk" == buildDir (paths :: Paths)) (error "Paths buildDir fail")
-    unless ("appdir/bootjdk" == bootJdkDir (paths :: Paths)) (error "Paths bootJdkDir fail")
-    unless ("appdir/jtreg" == jtregDir (paths :: Paths)) (error "Paths jtregDir fail")
+    let paths = resolvePaths (mockCtx "/appdir") cf
+    unless ("/appdir/work" == workDir (paths :: Paths)) (error "Paths workDir fail")
+    unless ("/appdir/jdk" == sourceDir (paths :: Paths)) (error "Paths sourceDir fail")
+    unless ("/appdir/jdk" == buildDir (paths :: Paths)) (error "Paths buildDir fail")
+    unless ("/appdir/bootjdk" == bootJdkDir (paths :: Paths)) (error "Paths bootJdkDir fail")
+    unless ("/appdir/jtreg" == jtregDir (paths :: Paths)) (error "Paths jtregDir fail")
     unless ("/usr/bin/hg" == hgPath (paths :: Paths)) (error "Paths hgPath fail")
     unless ("/bin/bash" == bashPath (paths :: Paths)) (error "Paths bashPath fail")
     unless ("/usr/bin/make" == makePath (paths :: Paths)) (error "Paths makePath fail")
-    unless ("appdir/work/conf.log" == confOutPath (paths :: Paths)) (error "Paths confOutPath fail")
-    unless ("appdir/work/make.log" == makeOutPath (paths :: Paths)) (error "Paths makeOutPath fail")
-    unless ("appdir/mock" == mockOutputDir (paths :: Paths)) (error "Paths mockOutputDir fail")
-    unless ("appdir/queries/queries-jdkbuild.sql" == queriesPath (paths :: Paths)) (error "Paths queriesPath fail")
+    unless ("/appdir/work/conf.log" == confOutPath (paths :: Paths)) (error "Paths confOutPath fail")
+    unless ("/appdir/work/make.log" == makeOutPath (paths :: Paths)) (error "Paths makeOutPath fail")
+    unless ("/appdir/mock" == mockOutputDir (paths :: Paths)) (error "Paths mockOutputDir fail")
+    unless ("/appdir/queries/queries-jdkbuild.sql" == queriesPath (paths :: Paths)) (error "Paths queriesPath fail")
 
     putStrLn "Tests Passed."
     return ()

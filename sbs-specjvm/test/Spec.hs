@@ -20,12 +20,11 @@
 {-# LANGUAGE Strict #-}
 
 import Prelude ()
+import VtUtils.Prelude
 import qualified Data.Vector as Vector
 
-import SBS.Common.Prelude
 import SBS.Common.Data
 import SBS.Common.SpecJVM
--- import SBS.Common.Utils
 
 import Data
 import Lib

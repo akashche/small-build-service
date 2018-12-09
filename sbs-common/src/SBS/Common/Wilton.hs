@@ -36,17 +36,24 @@ module SBS.Common.Wilton
     , SpawnedProcessArgs(..)
     , spawnProcess
     , checkSpawnSuccess
+    -- re-export
+    , createWiltonError
+    , registerWiltonCall
     ) where
 
 import Prelude ()
+import VtUtils.Prelude
 import qualified Data.Char as Char
 import qualified Data.Text as Text
 import qualified Data.Vector as Vector
+import qualified Foreign.Wilton.FFI as WiltonFFI
+import qualified System.Directory as Directory
+import qualified Text.Parsec as Parsec
 
-import SBS.Common.Parsec
-import SBS.Common.Prelude
+-- re-export
+import Foreign.Wilton.FFI (createWiltonError, registerWiltonCall)
+
 import SBS.Common.Data
-import SBS.Common.Utils
 
 -- wilton access with stack unwinding
 
@@ -54,7 +61,7 @@ wiltoncall ::
     forall a b . (ToJSON a, FromJSON b) =>
     Text -> a -> IO b
 wiltoncall callName callData = do
-    err <- invokeWiltonCall (encodeUtf8 callName) callData :: IO (Either ByteString b)
+    err <- WiltonFFI.invokeWiltonCall (encodeUtf8 callName) callData :: IO (Either ByteString b)
     case err of
         Left msg -> (error . unpack) ("WiltonCall error,"
             <> " name: [" <> callName <> "],"
@@ -74,12 +81,12 @@ dyloadModules mods = do
 
 dbOpen :: Text -> IO DBConnection
 dbOpen url = do
-    connObj <- wiltoncall "db_connection_open" url :: IO Object
+    connObj <- wiltoncall "db_connection_open" url :: IO Value
     let connHandle = jsonGet connObj "connectionHandle" :: Int64
     chanObj <- wiltoncall "channel_create" (object
         [ "name" .= url
         , "size" .= (1 :: Int)
-        ]) :: IO Object
+        ]) :: IO Value
     let chanHandle = jsonGet chanObj "channelHandle" :: Int64
     return (DBConnection connHandle chanHandle)
 
@@ -104,7 +111,7 @@ dbExecute db sqlQuery pars = do
 
 dbExecuteFile :: DBConnection -> Text -> IO ()
 dbExecuteFile db path = do
-    qrs <- parseFile parser path
+    qrs <- parsecParseFile parser path
     mapM_ exec qrs
     return ()
     where
@@ -116,7 +123,7 @@ dbExecuteFile db path = do
         validBucket buck = Vector.length buck > 0
         concatBucket buck = Text.intercalate "\n" (toList buck)
         parser = do
-            li <- sepBy1 (many1 (noneOf [';'])) (char ';') :: Parser [String]
+            li <- Parsec.sepBy1 (Parsec.many1 (Parsec.noneOf [';'])) (Parsec.char ';') :: Parser [String]
             let vec = fromList li
             let buckets = Vector.map (filterLines . liner . pack) vec
             let filtered = Vector.filter validBucket buckets
@@ -147,23 +154,22 @@ dbQueryObject db sqlQuery pars = do
     let len = Vector.length vec
     when (1 /= len) ((error . unpack) (
                "Invalid number of records returned, expected 1 record,"
-            <> " query: [" <> sqlQuery <> "], params: [" <> encodeJsonText(pars) <> "],"
-            <> " number of records: [" <> (showText len) <>  "]"))
+            <> " query: [" <> sqlQuery <> "], params: [" <> jsonEncodeText(pars) <> "],"
+            <> " number of records: [" <> (textShow len) <>  "]"))
     return (vec ! 0)
 
 dbWithTransaction :: forall a . DBConnection -> IO a -> IO a
 dbWithTransaction db cb = do
     th <- wiltoncall "db_transaction_start" (object
         [ "connectionHandle" .= connectionHandle (db :: DBConnection)
-        ]) :: IO Object
-    resEither <- catch
+        ]) :: IO Value
+    resEither <- try
         ( do
             res <- cb
             wiltoncall "db_transaction_commit" th :: IO ()
-            return (Right res))
-        (\(e :: SomeException) -> return (Left e))
+            return res)
     case resEither of
-        Left e -> do
+        Left (e :: SomeException) -> do
             wiltoncall "db_transaction_rollback" th :: IO ()
             throw e
         Right res -> return res
@@ -175,18 +181,17 @@ dbWithSyncTransaction db cb = do
         [ "channelHandle" .= channelHandle (db :: DBConnection)
         , "message" .= ("[]" :: Text)
         , "timeoutMillis" .= (0 :: Int)
-        ]) :: IO Object
-    resEither <- catch
+        ]) :: IO Value
+    resEither <- try
         ( do
             res <- dbWithTransaction db cb
-            return (Right res))
-        (\(e :: SomeException) -> return (Left e))
+            return res)
     _ <- wiltoncall "channel_receive" (object
         [ "channelHandle" .= channelHandle (db :: DBConnection)
         , "timeoutMillis" .= (0 :: Int)
         ]) :: IO Empty
     case resEither of
-        Left e -> throw e
+        Left (e :: SomeException) -> throw e
         Right res -> return res
 
 data SpawnedProcessArgs = SpawnedProcessArgs
@@ -201,7 +206,7 @@ data SpawnedProcessArgs = SpawnedProcessArgs
 
 spawnProcess :: SpawnedProcessArgs -> IO Int
 spawnProcess (SpawnedProcessArgs wd exec args outFile await) = do
-    code <- withCurrentDirectory (unpack wd) (
+    code <- Directory.withCurrentDirectory (unpack wd) (
         wiltoncall "process_spawn" (object
         [ "executable" .= exec
         , "args" .= args
@@ -214,9 +219,9 @@ checkSpawnSuccess :: Text -> Int -> Text -> IO ()
 checkSpawnSuccess label code logFile =
     when (0 /= code) (do
         let logStr = unpack logFile
-        outex <- doesFileExist logStr
+        outex <- Directory.doesFileExist logStr
         out <- if outex then readFile logStr else return ""
         (error . unpack) ("Process spawn error,"
             <> " process: [" <> label <> "],"
-            <> " code: [" <> (showText code) <>"],"
+            <> " code: [" <> (textShow code) <>"],"
             <> " output: [" <> (Text.take 1024 (Text.strip out)) <> "]"))

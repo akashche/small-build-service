@@ -28,52 +28,51 @@ module DB
     ) where
 
 import Prelude ()
+import VtUtils.Prelude
+import VtUtils.Queries
 import qualified Data.Vector as Vector
 
-import SBS.Common.Prelude
 import SBS.Common.Data
-import SBS.Common.Queries
-import SBS.Common.Utils
 import SBS.Common.Wilton
 
 import Data
 
 createJob :: DBConnection -> Queries -> Int64 -> IO Int64
 createJob db qrs tid = do
-    dbExecute db (get qrs "updateJobsSeq") Empty
-    (IncrementedSeq idx) <- dbQueryObject db (get qrs "selectNewJobId") Empty
+    dbExecute db (mapGet qrs "updateJobsSeq") Empty
+    (IncrementedSeq idx) <- dbQueryObject db (mapGet qrs "selectNewJobId") Empty
     curdate <- getCurrentTime
-    dbExecute db (get qrs "insertJob") (object
+    dbExecute db (mapGet qrs "insertJob") (object
         [ "id" .= idx
-        , "startDate" .= formatISO8601 curdate
-        , "state" .= showText StateCreated
+        , "startDate" .= dateFormatISO8601 curdate
+        , "state" .= textShow StateCreated
         , "taskId" .= tid
         ])
     return idx
 
 updateJobState :: DBConnection -> Queries -> Int64 -> State -> IO ()
 updateJobState db qrs jid st =
-    dbExecute db (get qrs "updateJobState") (object
+    dbExecute db (mapGet qrs "updateJobState") (object
         [ "id" .= jid
-        , "state" .= showText st
+        , "state" .= textShow st
         ])
 
 finalizeJob :: DBConnection -> Queries -> Int64 -> State -> Int -> IO ()
 finalizeJob db qrs jid st tfoe = do
     curdate <- getCurrentTime
-    dbExecute db (get qrs "updateJobFinish") (object
+    dbExecute db (mapGet qrs "updateJobFinish") (object
         [ "id" .= jid
-        , "state" .= showText st
-        , "finishDate" .= formatISO8601 curdate
+        , "state" .= textShow st
+        , "finishDate" .= dateFormatISO8601 curdate
         , "totalFailOrError" .= tfoe
         ])
     return ()
 
 saveResults :: DBConnection -> Queries -> Int64 -> Results -> IO ()
 saveResults db qrs jid res = do
-    dbExecute db (get qrs "updateResultsSeq") Empty
-    (IncrementedSeq idx) <- dbQueryObject db (get qrs "selectNewResultId") Empty
-    dbExecute db (get qrs "insertResult") (object
+    dbExecute db (mapGet qrs "updateResultsSeq") Empty
+    (IncrementedSeq idx) <- dbQueryObject db (mapGet qrs "selectNewResultId") Empty
+    dbExecute db (mapGet qrs "insertResult") (object
         [ "id" .= idx
         , "passed" .= passedCount (res :: Results)
         , "interesting" .= Vector.length (interesting res)
@@ -84,6 +83,6 @@ saveResults db qrs jid res = do
 
 loadResults :: DBConnection -> Queries -> Int64 -> IO (Vector ResultsCount)
 loadResults db qrs tid =
-    dbQueryList db (get qrs "selectResultsByTaskId") (object
+    dbQueryList db (mapGet qrs "selectResultsByTaskId") (object
         [ "taskId" .= tid
         ])

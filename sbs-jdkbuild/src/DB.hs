@@ -27,29 +27,28 @@ module DB
     ) where
 
 import Prelude ()
+import VtUtils.Prelude
+import VtUtils.Queries
 
-import SBS.Common.Prelude
 import SBS.Common.Data
-import SBS.Common.Queries
-import SBS.Common.Utils
 import SBS.Common.Wilton
 
 createJob :: DBConnection -> Queries -> Int64 -> IO Int64
 createJob db qrs tid = do
-    dbExecute db (get qrs "updateJobsSeq") Empty
-    (IncrementedSeq idx) <- dbQueryObject db (get qrs "selectNewJobId") Empty
+    dbExecute db (mapGet qrs "updateJobsSeq") Empty
+    (IncrementedSeq idx) <- dbQueryObject db (mapGet qrs "selectNewJobId") Empty
     curdate <- getCurrentTime
-    dbExecute db (get qrs "insertJob") (object
+    dbExecute db (mapGet qrs "insertJob") (object
         [ "id" .= idx
-        , "startDate" .= formatISO8601 curdate
-        , "state" .= showText StateCreated
+        , "startDate" .= dateFormatISO8601 curdate
+        , "state" .= textShow StateCreated
         , "taskId" .= tid
         ])
     return idx
 
 updateJobRepo :: DBConnection -> Queries -> Int64 -> Text -> Text -> IO ()
 updateJobRepo db qrs jid repo rev = do
-    dbExecute db (get qrs "updateJobRepo") (object
+    dbExecute db (mapGet qrs "updateJobRepo") (object
         [ "id" .= jid
         , "repository" .= repo
         , "revision" .= rev
@@ -57,16 +56,16 @@ updateJobRepo db qrs jid repo rev = do
 
 updateJobState :: DBConnection -> Queries -> Int64 -> State -> IO ()
 updateJobState db qrs jid st = do
-    dbExecute db (get qrs "updateJobState") (object
+    dbExecute db (mapGet qrs "updateJobState") (object
         [ "id" .= jid
-        , "state" .= showText st
+        , "state" .= textShow st
         ])
 
 finalizeJob :: DBConnection -> Queries -> Int64 -> State -> IO ()
 finalizeJob db qrs jid st = do
     curdate <- getCurrentTime
-    dbExecute db (get qrs "updateJobFinish") (object
+    dbExecute db (mapGet qrs "updateJobFinish") (object
         [ "id" .= jid
-        , "finishDate" .= formatISO8601 curdate
-        , "state" .= showText st
+        , "finishDate" .= dateFormatISO8601 curdate
+        , "state" .= textShow st
         ])

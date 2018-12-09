@@ -25,10 +25,9 @@ module Parser
     ) where
 
 import Prelude ()
+import VtUtils.Prelude
 
-import SBS.Common.Prelude
 import SBS.Common.Parsec
-import SBS.Common.Utils
 
 import Data
 
@@ -38,33 +37,41 @@ summaryHeader = "TEST                                              TOTAL  PASS  
 summaryFooter :: Text
 summaryFooter = "=============================="
 
+integer :: Parser Int
+integer = do
+    valStr <- many1 digit
+    let val = read valStr :: Int
+    parsecWhitespace
+    return val
+
 testSuite :: Parser TestSuite
 testSuite = do
     optional (string ">>")
-    whitespace
-    skipOne (string "jtreg:test/")
+    parsecWhitespace
+    _ <- string "jtreg:test/"
     nameStr <- many1 alphaNum
     let nameText = pack nameStr
-    skipManyTill ":"
-    skipOne (string ":tier1")
-    whitespace
+    parsecSkipManyTill ":"
+    _ <- string ":tier1"
+    parsecWhitespace
     totalNum <- integer
     passNum <- integer
     failNum <- integer
     errorNum <- integer
     when (totalNum /= passNum + failNum + errorNum) ((error . unpack)
         (  "Wrong number of tests parsed,"
-        <> " expected: [" <> (showText totalNum) <> "]"
-        <> " actual: [" <> (showText (passNum + failNum + errorNum)) <> "]"
+        <> " expected: [" <> (textShow totalNum) <> "]"
+        <> " actual: [" <> (textShow (passNum + failNum + errorNum)) <> "]"
         ))
-    whitespace
+    parsecWhitespace
     optional (string "<<")
-    whitespace
+    parsecWhitespace
     return (TestSuite nameText passNum failNum errorNum)
 
 results :: Parser Results
 results = do
-    skipLinesTill summaryHeader
+    _ <- parsecLinePrefix summaryHeader
+    parsecWhitespace
     list <- scan
     return (fromList list)
     where
@@ -76,17 +83,18 @@ results = do
 
 summary :: Parser Text
 summary = do
-    skipLinesTill summaryHeader
+    _ <- parsecLinePrefix summaryHeader
+    parsecWhitespace
     st <- manyTill anyChar (string (unpack summaryFooter))
     let head = "   " <> summaryHeader <> "\n"
     return (head <> (pack st))
 
 parseResults :: Text -> IO Results
 parseResults path = do
-    res <- parseFile results path
+    res <- parsecParseFile results path
     return res
 
 parseSummary :: Text -> IO Text
 parseSummary path = do
-    res <- parseFile summary path
+    res <- parsecParseFile summary path
     return res

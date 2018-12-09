@@ -28,13 +28,12 @@ module Lib
     ) where
 
 import Prelude ()
+import VtUtils.Prelude
 import qualified Data.List as List
 import qualified Data.Text as Text
 
-import SBS.Common.Prelude
 import SBS.Common.Data
 import SBS.Common.JDKBuild
-import SBS.Common.Utils
 
 import Data
 

@@ -26,12 +26,11 @@ module Lib
     ) where
 
 import Prelude ()
+import VtUtils.Prelude
+import VtUtils.Queries
 import qualified Data.Vector as Vector
 
-import SBS.Common.Prelude
 import SBS.Common.Data
-import SBS.Common.Queries
-import SBS.Common.Utils
 import SBS.Common.Wilton
 
 import Data
@@ -60,9 +59,9 @@ initApp arguments = do
     when (Vector.length arguments < 1)
         (error "Path to the JSON configuration file must be specified as a first argument")
     dyloadModules modules
-    cf <- decodeJsonFile (arguments ! 0) :: IO Config
+    cf <- jsonDecodeFile (arguments ! 0) :: IO Config
     db <- openDbConnection cf
-    qrs <- loadQueries (pathConcat (resolveQueriesDir cf) "queries-main.sql")
+    qrs <- queriesLoad (pathConcat (resolveQueriesDir cf) "queries-main.sql")
     return (cf, db, qrs)
 
 initTask :: Config -> DBConnection -> Queries -> IO TaskContext
@@ -78,9 +77,9 @@ initResults arguments = do
     when (2 /= Vector.length arguments)
         (error "Invalid arguments specified, expected: [path/to/config.json, dest_dir]")
     dyloadModules modules
-    cf <- decodeJsonFile (arguments ! 0) :: IO Config
+    cf <- jsonDecodeFile (arguments ! 0) :: IO Config
     curdate <- getCurrentTime
-    let postfix = formatDate "%Y_%m_%d" curdate
+    let postfix = dateFormat "%Y_%m_%d" curdate
     let basedir = pathConcat (arguments ! 1) postfix
     let ctx = TaskContext
             { taskId = 0

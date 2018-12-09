@@ -20,48 +20,13 @@
 {-# LANGUAGE Strict #-}
 
 module SBS.Common.Queries
-    ( Queries
-    , loadQueries
-    , resolveQueriesPath
+    ( resolveQueriesPath
     ) where
 
 import Prelude ()
-import qualified Data.HashMap.Strict as HashMap
-import qualified Data.Text as Text
+import VtUtils.Prelude
 
-import SBS.Common.Prelude
 import SBS.Common.Data
-import SBS.Common.Parsec
-import SBS.Common.Utils
-
-type Queries = HashMap Text Text
-
-singleQuery :: Parser (Text, Text)
-singleQuery = do
-    skipOne (string "/**")
-    name <- many1 alphaNum
-    whitespace
-    skipOne (string "*/")
-    value <- manyTill anyChar
-        (   (try (lookAhead (string "/**")) >> return ())
-        <|> eof
-        )
-    return ((convert name), (convert value))
-    where
-        convert st = Text.dropWhileEnd isEol (pack st)
-        isEol ch = '\n' == ch
-
-queries :: Parser Queries
-queries = do
-    skipLinesPrefix "--"
-    skipManyTill "/**"
-    li <- many1 singleQuery
-    return (HashMap.fromList li)
-
-loadQueries :: Text -> IO Queries
-loadQueries path = do
-    qrs <- parseFile queries path
-    return qrs
 
 resolveQueriesPath :: DiffRequest -> Text -> Text
 resolveQueriesPath req postfix =

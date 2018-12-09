@@ -30,12 +30,11 @@ module Lib
     ) where
 
 import Prelude ()
+import VtUtils.Prelude
 import qualified Data.Vector as Vector
 
-import SBS.Common.Prelude
 import SBS.Common.Data
 import SBS.Common.JCStress
-import SBS.Common.Utils
 
 import Data
 
@@ -90,17 +89,17 @@ diffResultsCount res1 res2 =
 
 formatSummary :: Results -> Text
 formatSummary res =
-       "passed: " <> (showText (passedCount (res :: Results))) <> "\n"
-    <> "interesting: " <> (showText (Vector.length (interesting res))) <> "\n"
-    <> "failed: " <> (showText (Vector.length (failed res))) <> "\n"
-    <> "error: " <> (showText (Vector.length (errored res)))
+       "passed: " <> (textShow (passedCount (res :: Results))) <> "\n"
+    <> "interesting: " <> (textShow (Vector.length (interesting res))) <> "\n"
+    <> "failed: " <> (textShow (Vector.length (failed res))) <> "\n"
+    <> "error: " <> (textShow (Vector.length (errored res)))
 
 formatResultsDiff :: ResultsDiff -> Text
 formatResultsDiff rd =
-       "passed: " <> (showText (passedDiff rd)) <> ";"
-    <> " interesting: " <> (showText (interestingDiff rd)) <> ";"
-    <> " failed: " <> (showText (failedDiff rd)) <> ";"
-    <> " error: " <> (showText (errorDiff rd))
+       "passed: " <> (textShow (passedDiff rd)) <> ";"
+    <> " interesting: " <> (textShow (interestingDiff rd)) <> ";"
+    <> " failed: " <> (textShow (failedDiff rd)) <> ";"
+    <> " error: " <> (textShow (errorDiff rd))
 
 totalFailOrError :: Results -> Int
 totalFailOrError res =

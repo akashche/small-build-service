@@ -20,10 +20,10 @@
 {-# LANGUAGE Strict #-}
 
 import Prelude ()
+import VtUtils.Prelude
 import qualified Data.Vector as Vector
 import qualified Data.Vector.Mutable as MVector
 
-import SBS.Common.Prelude
 import SBS.Common.Data
 import SBS.Common.Tier1
 

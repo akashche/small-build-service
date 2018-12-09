@@ -27,11 +27,11 @@ module DB
     ) where
 
 import Prelude ()
+import VtUtils.Prelude
+import VtUtils.Queries
+import qualified System.Directory as Directory
 
-import SBS.Common.Prelude
 import SBS.Common.Data
-import SBS.Common.Queries
-import SBS.Common.Utils
 import SBS.Common.Wilton
 
 import Data
@@ -57,36 +57,36 @@ openDbConnection cf =
         dbPathStr = unpack dbPath
         open = dbOpen ("sqlite://" <> dbPath)
         drop = do
-            exists <- doesFileExist dbPathStr
-            when (exists) (removeFile dbPathStr)
+            exists <- Directory.doesFileExist dbPathStr
+            when (exists) (Directory.removeFile dbPathStr)
         create db = dbExecuteFile db ddlPath
 
 createTask :: DBConnection -> Queries -> IO Int64
 createTask db qrs = do
-    dbExecute db (get qrs "updateTasksSeq") Empty
-    (IncrementedSeq idx) <- dbQueryObject db (get qrs "selectNewTaskId") Empty
+    dbExecute db (mapGet qrs "updateTasksSeq") Empty
+    (IncrementedSeq idx) <- dbQueryObject db (mapGet qrs "selectNewTaskId") Empty
     curdate <- getCurrentTime
-    dbExecute db (get qrs "insertTask") (object
+    dbExecute db (mapGet qrs "insertTask") (object
         [ "id" .= idx
-        , "startDate" .= formatISO8601 curdate
-        , "state" .= showText StateCreated
+        , "startDate" .= dateFormatISO8601 curdate
+        , "state" .= textShow StateCreated
         , "comment" .= ("" :: Text)
         ])
     return idx
 
 updateTaskState :: DBConnection -> Queries -> Int64 -> State -> IO ()
 updateTaskState db qrs tid st = do
-    dbExecute db (get qrs "updateTaskState") (object
+    dbExecute db (mapGet qrs "updateTaskState") (object
         [ "id" .= tid
-        , "state" .= showText st
+        , "state" .= textShow st
         ])
 
 finalizeTask :: DBConnection -> Queries -> Int64 -> State -> IO ()
 finalizeTask db qrs tid st = do
     curdate <- getCurrentTime
-    dbExecute db (get qrs "updateTaskFinish") (object
+    dbExecute db (mapGet qrs "updateTaskFinish") (object
         [ "id" .= tid
-        , "state" .= showText st
-        , "finishDate" .= formatISO8601 curdate
+        , "state" .= textShow st
+        , "finishDate" .= dateFormatISO8601 curdate
         ])
 

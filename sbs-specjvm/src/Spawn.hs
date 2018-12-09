@@ -24,12 +24,11 @@ module Spawn
     ) where
 
 import Prelude ()
+import VtUtils.Prelude
 import qualified Data.Text as Text
 import qualified Data.Vector as Vector
 
-import SBS.Common.Prelude
 import SBS.Common.SpecJVM
-import SBS.Common.Utils
 import SBS.Common.Wilton
 
 import Data
@@ -40,9 +39,9 @@ spawnSpecAndWait cf paths = do
         { workDir = workDir (paths :: Paths)
         , executable = execPath (paths :: Paths)
         , execArgs = fromList
-            [  ("-Xmx" <> (showText (xmxMemoryLimitMB cf)) <> "M")
+            [  ("-Xmx" <> (textShow (xmxMemoryLimitMB cf)) <> "M")
             , "-jar", specjvmJarPath (paths :: Paths)
-            , "-t", showText (threadsCount cf)
+            , "-t", textShow (threadsCount cf)
             , "-e", exreg (excludedBenchmarks cf)
             ]
         , outputFile = log

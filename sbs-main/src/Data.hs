@@ -27,8 +27,8 @@ module Data
     ) where
 
 import Prelude ()
+import VtUtils.Prelude
 
-import SBS.Common.Prelude
 import SBS.Common.JCStress
 import SBS.Common.JDKBuild
 import SBS.Common.SpecJVM

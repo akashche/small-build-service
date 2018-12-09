@@ -22,15 +22,15 @@
 module Wilton ( ) where
 
 import Prelude ()
+import VtUtils.Prelude
 import qualified Data.Vector as Vector
+import qualified System.Directory as Directory
 
-import SBS.Common.Prelude
 import SBS.Common.Data
 import SBS.Common.JCStress
 import SBS.Common.JDKBuild
 import SBS.Common.SpecJVM
 import SBS.Common.Tier1
-import SBS.Common.Utils
 import SBS.Common.Wilton
 
 import Data
@@ -41,7 +41,7 @@ run :: Vector Text -> IO ()
 run arguments = do
     (cf, db, qrs) <- initApp arguments
     ctx <- dbWithTransaction db (initTask cf db qrs)
-    catch
+    resEither <- try
         (do
             dbWithSyncTransaction db (updateTaskState db qrs (taskId ctx) StateRunning)
             when (enabled (jdkbuild cf :: JDKBuildConfig))
@@ -53,9 +53,11 @@ run arguments = do
             when (enabled (specjvm cf :: SpecJVMConfig))
                 (wiltoncall "specjvm_run" (SpecJVMInput ctx (specjvm cf)))
             dbWithTransaction db (finalizeTask db qrs (taskId ctx) StateSuccess))
-        (\(e :: SomeException) -> do
+    case resEither of
+        Left (e :: SomeException) -> do
             dbWithSyncTransaction db (finalizeTask db qrs (taskId ctx) StateError)
-            (error . unpack) (showText e))
+            (error . unpack) (textShow e)
+        Right _ -> return ()
     putStrLn "Run finished"
     return ()
     where
@@ -88,8 +90,8 @@ diff arguments = do
 results :: Vector Text -> IO ()
 results arguments = do
     (ctxjdk, cf, based) <- initResults arguments
-    direx <- doesDirectoryExist (unpack based)
-    unless (direx) (createDirectory (unpack based))
+    direx <- Directory.doesDirectoryExist (unpack based)
+    unless (direx) (Directory.createDirectory (unpack based))
     destd <- wiltoncall "jdkbuild_results" (JDKBuildInput ctxjdk (jdkbuild cf) "") :: IO Text
     let ctx = ctxjdk {destDir = destd}
     wiltoncall "tier1_results" (Tier1Input ctx (tier1 cf)) :: IO ()
