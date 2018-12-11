@@ -19,22 +19,36 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE Strict #-}
 
-module SBS.Common.Queries
-    ( resolveQueriesPath
-      -- re-export
-    , Queries
-    , queriesLoad
-    ) where
+module QueriesTest (queriesTest) where
 
+import Test.HUnit
 import Prelude ()
 import VtUtils.Prelude
-import VtUtils.Queries
+import qualified Data.HashMap.Strict as HashMap
 
 import SBS.Common.Data
+import SBS.Common.Queries
 
-resolveQueriesPath :: DiffRequest -> Text -> Text
-resolveQueriesPath req postfix =
-    pathConcat (pathPrepend appd qdir) ("queries-" <> postfix <> ".sql")
-    where
-        appd = appDir (req :: DiffRequest)
-        qdir = queriesDir (req :: DiffRequest)
+testLoad :: Test
+testLoad = TestLabel "testLoad" $ TestCase $ do
+    qrs <- queriesLoad "../resources/queries-main.sql"
+    assertEqual "five" 5 $ HashMap.size qrs
+    return ()
+
+testResolvePath :: Test
+testResolvePath = TestLabel "testResolvePath" $ TestCase $ do
+    let req = DiffRequest
+            { taskId1 = 42
+            , taskId2 = 42
+            , dbConnection = DBConnection 42 42
+            , appDir = "/appdir"
+            , queriesDir = "qdir"
+            }
+    assertEqual "path" "/appdir/qdir/queries-foo.sql" $ resolveQueriesPath req "foo"
+    return ()
+
+queriesTest :: Test
+queriesTest = TestLabel "QueriesTest" (TestList
+    [ testLoad
+    , testResolvePath
+    ])

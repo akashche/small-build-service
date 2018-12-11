@@ -28,9 +28,9 @@ module DB
 
 import Prelude ()
 import VtUtils.Prelude
-import VtUtils.Queries
 
 import SBS.Common.Data
+import SBS.Common.Queries
 import SBS.Common.Wilton
 
 createJob :: DBConnection -> Queries -> Int64 -> IO Int64

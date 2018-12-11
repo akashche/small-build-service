@@ -29,10 +29,10 @@ module DB
 
 import Prelude ()
 import VtUtils.Prelude
-import VtUtils.Queries
 import qualified Data.Vector as Vector
 
 import SBS.Common.Data
+import SBS.Common.Queries
 import SBS.Common.Wilton
 
 import Data

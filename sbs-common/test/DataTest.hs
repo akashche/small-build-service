@@ -19,15 +19,20 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE Strict #-}
 
+module DataTest (dataTest) where
+
+import Test.HUnit
 import Prelude ()
 import VtUtils.Prelude
-import VtUtils.HUnit
 
-import DataTest
-import QueriesTest
+import SBS.Common.Data
 
-main :: IO ()
-main = hunitMain (fromList
-    [ dataTest
-    , queriesTest
+testEmpty :: Test
+testEmpty = TestLabel "testEmpty" $ TestCase $ do
+    assertEqual "empty" "{}" $ jsonEncodeText Empty
+    return ()
+
+dataTest :: Test
+dataTest = TestLabel "DataTest" (TestList
+    [ testEmpty
     ])

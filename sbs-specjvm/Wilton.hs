@@ -23,7 +23,6 @@ module Wilton ( ) where
 
 import Prelude ()
 import VtUtils.Prelude
-import VtUtils.Queries
 import qualified Data.Vector as Vector
 import qualified System.Directory as Directory
 

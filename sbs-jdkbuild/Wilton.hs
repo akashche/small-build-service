@@ -23,12 +23,12 @@ module Wilton ( ) where
 
 import Prelude ()
 import VtUtils.Prelude
-import VtUtils.Queries
 import qualified Data.Vector as Vector
 import qualified System.Directory as Directory
 
 import SBS.Common.Data
 import SBS.Common.JDKBuild
+import SBS.Common.Queries
 import SBS.Common.Wilton
 
 import Data
