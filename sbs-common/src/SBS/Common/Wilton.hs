@@ -47,12 +47,12 @@ import qualified Data.Char as Char
 import qualified Data.Text as Text
 import qualified Foreign.Wilton.FFI as WiltonFFI
 import qualified System.Directory as Directory
-import qualified Text.Parsec as Parsec
 
 -- re-export
 import Foreign.Wilton.FFI (createWiltonError, registerWiltonCall)
 
 import SBS.Common.Data
+import SBS.Common.Parsec
 
 -- wilton access with stack unwinding
 
@@ -71,10 +71,10 @@ wiltoncall callName callData = do
 
 dyloadModules :: [Text] -> IO ()
 dyloadModules mods = do
-    mapM_ load mods
-    where
-        load md = wiltoncall "dyload_shared_library" (args md) :: IO ()
-        args name = object ["name" .= name]
+    forM_ mods $ \md -> do
+        wiltoncall "dyload_shared_library" (object
+            ["name" .= md
+            ]) :: IO ()
 
 -- DB access
 
@@ -111,28 +111,22 @@ dbExecute db sqlQuery pars = do
 dbExecuteFile :: DBConnection -> Text -> IO ()
 dbExecuteFile db path = do
     qrs <- parsecParseFile parser path
-    mapM_ exec qrs
-    return ()
+    forM_ qrs $ \qr -> do
+        dbExecute db qr Empty
     where
+        comb = sepBy1 (many1 (noneOf [';'])) (char ';') :: Parser [String]
         liner tx = fromList (Text.splitOn "\n" tx)
         nonBlank tx = Text.length (Text.strip tx) > 0
         nonComment tx = not (Text.isPrefixOf "--" (Text.dropWhile Char.isSpace tx))
         validLine tx = (nonBlank tx) && (nonComment tx)
-        filterLines lines = mfilter validLine lines
         validBucket buck = length buck > 0
         concatBucket buck = Text.intercalate "\n" (toList buck)
         parser = do
-            li <- Parsec.sepBy1 (Parsec.many1 (Parsec.noneOf [';'])) (Parsec.char ';') :: Parser [String]
-            let vec = fromList li
-            let buckets = (filterLines . liner . pack) <$> vec
+            vec <- (fmap pack) <$> fromList <$> comb
+            let lines = liner <$> vec
+            let buckets = (mfilter validLine) <$> lines
             let filtered = mfilter validBucket buckets
-            let queries = concatBucket <$> filtered
-            return queries
-        exec qr = dbExecute db qr Empty
---         load contents =
---             case parse parser (unpack path) contents of
---                 Left err -> (error . unpack) (errToText err)
---                 Right res -> return res
+            return $ concatBucket <$> filtered
 
 dbQueryList ::
     forall a b . (ToJSON a, FromJSON b) =>
@@ -151,10 +145,10 @@ dbQueryObject ::
 dbQueryObject db sqlQuery pars = do
     vec <- dbQueryList db sqlQuery pars
     let len = length vec
-    when (1 /= len) ((error . unpack) (
-               "Invalid number of records returned, expected 1 record,"
+    when (1 /= len) $
+        (error . unpack) $ "Invalid number of records returned, expected 1 record,"
             <> " query: [" <> sqlQuery <> "], params: [" <> jsonEncodeText(pars) <> "],"
-            <> " number of records: [" <> (textShow len) <>  "]"))
+            <> " number of records: [" <> (textShow len) <>  "]"
     return (vec ! 0)
 
 dbWithTransaction :: forall a . DBConnection -> IO a -> IO a
@@ -162,11 +156,10 @@ dbWithTransaction db cb = do
     th <- wiltoncall "db_transaction_start" (object
         [ "connectionHandle" .= connectionHandle (db :: DBConnection)
         ]) :: IO Value
-    resEither <- try
-        ( do
-            res <- cb
-            wiltoncall "db_transaction_commit" th :: IO ()
-            return res)
+    resEither <- try $ do
+        res <- cb
+        wiltoncall "db_transaction_commit" th :: IO ()
+        return res
     case resEither of
         Left (e :: SomeException) -> do
             wiltoncall "db_transaction_rollback" th :: IO ()
@@ -181,10 +174,9 @@ dbWithSyncTransaction db cb = do
         , "message" .= ("[]" :: Text)
         , "timeoutMillis" .= (0 :: Int)
         ]) :: IO Value
-    resEither <- try
-        ( do
-            res <- dbWithTransaction db cb
-            return res)
+    resEither <- try $ do
+        res <- dbWithTransaction db cb
+        return res
     _ <- wiltoncall "channel_receive" (object
         [ "channelHandle" .= channelHandle (db :: DBConnection)
         , "timeoutMillis" .= (0 :: Int)
@@ -205,22 +197,25 @@ data SpawnedProcessArgs = SpawnedProcessArgs
 
 spawnProcess :: SpawnedProcessArgs -> IO Int
 spawnProcess (SpawnedProcessArgs wd exec args outFile await) = do
-    code <- Directory.withCurrentDirectory (unpack wd) (
+    code <- Directory.withCurrentDirectory (unpack wd) $
         wiltoncall "process_spawn" (object
-        [ "executable" .= exec
-        , "args" .= args
-        , "outputFile" .= outFile
-        , "awaitExit" .= await
-        ]) :: IO Int)
+            [ "executable" .= exec
+            , "args" .= args
+            , "outputFile" .= outFile
+            , "awaitExit" .= await
+            ]) :: IO Int
     return code
 
 checkSpawnSuccess :: Text -> Int -> Text -> IO ()
 checkSpawnSuccess label code logFile =
-    when (0 /= code) (do
+    when (0 /= code) $ do
         let logStr = unpack logFile
         outex <- Directory.doesFileExist logStr
-        out <- if outex then readFile logStr else return ""
-        (error . unpack) ("Process spawn error,"
+        out <- if outex then
+            readFile logStr
+        else
+            return ""
+        (error . unpack) $ "Process spawn error,"
             <> " process: [" <> label <> "],"
             <> " code: [" <> (textShow code) <>"],"
-            <> " output: [" <> (Text.take 1024 (Text.strip out)) <> "]"))
+            <> " output: [" <> (Text.take 1024 (Text.strip out)) <> "]"

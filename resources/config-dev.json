@@ -5,7 +5,7 @@
         "database": {
             "dbFilePath": "work/sbs.db",
             "queriesDir": "resources",
-            "reCreateDb": false
+            "reCreateDb": true
         },
 
         "logging": {
