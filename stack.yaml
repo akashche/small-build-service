@@ -25,7 +25,9 @@ packages:
 
 extra-deps:
 - wilton-ffi-0.3.0.3
-- vt-utils-1.0.1.0
+#- vt-utils-1.0.1.0
+- github: akashche/vt-utils
+  commit: master
 
 ghc-options:
   "$locals": -O2 -Wall -Werror

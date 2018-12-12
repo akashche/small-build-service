@@ -27,7 +27,6 @@ module Lib
 
 import Prelude ()
 import VtUtils.Prelude
-import qualified Data.Vector as Vector
 
 import SBS.Common.Data
 import SBS.Common.Queries
@@ -56,7 +55,7 @@ resolveQueriesDir cf =
 
 initApp :: Vector Text -> IO (Config, DBConnection, Queries)
 initApp arguments = do
-    when (Vector.length arguments < 1)
+    when (length arguments < 1)
         (error "Path to the JSON configuration file must be specified as a first argument")
     dyloadModules modules
     cf <- jsonDecodeFile (arguments ! 0) :: IO Config
@@ -74,7 +73,7 @@ initTask cf db qrs = do
 
 initResults :: Vector Text -> IO (TaskContext, Config, Text)
 initResults arguments = do
-    when (2 /= Vector.length arguments)
+    when (2 /= length arguments)
         (error "Invalid arguments specified, expected: [path/to/config.json, dest_dir]")
     dyloadModules modules
     cf <- jsonDecodeFile (arguments ! 0) :: IO Config

@@ -31,7 +31,6 @@ module Lib
 
 import Prelude ()
 import VtUtils.Prelude
-import qualified Data.Vector as Vector
 
 import SBS.Common.Data
 import SBS.Common.JCStress
@@ -90,9 +89,9 @@ diffResultsCount res1 res2 =
 formatSummary :: Results -> Text
 formatSummary res =
        "passed: " <> (textShow (passedCount (res :: Results))) <> "\n"
-    <> "interesting: " <> (textShow (Vector.length (interesting res))) <> "\n"
-    <> "failed: " <> (textShow (Vector.length (failed res))) <> "\n"
-    <> "error: " <> (textShow (Vector.length (errored res)))
+    <> "interesting: " <> (textShow (length (interesting res))) <> "\n"
+    <> "failed: " <> (textShow (length (failed res))) <> "\n"
+    <> "error: " <> (textShow (length (errored res)))
 
 formatResultsDiff :: ResultsDiff -> Text
 formatResultsDiff rd =
@@ -103,4 +102,4 @@ formatResultsDiff rd =
 
 totalFailOrError :: Results -> Int
 totalFailOrError res =
-    Vector.length (failed res) + Vector.length (errored res)
+    length (failed res) + length (errored res)

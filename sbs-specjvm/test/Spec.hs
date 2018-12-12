@@ -21,7 +21,6 @@
 
 import Prelude ()
 import VtUtils.Prelude
-import qualified Data.Vector as Vector
 
 import SBS.Common.Data
 import SBS.Common.SpecJVM
@@ -41,7 +40,7 @@ main = do
     res1 <- parseResults "test/specjvm_alt.log"
     let diff = diffResults res res1
     unless (100 == relativeTotalTime diff) (error "Diff time fail")
-    unless (13 == Vector.length (benchmarks (diff :: ResultsDiff))) (error "Diff benches fail")
+    unless (13 == length (benchmarks (diff :: ResultsDiff))) (error "Diff benches fail")
 
     -- diff format
     let _fd = formatResultsDiff diff

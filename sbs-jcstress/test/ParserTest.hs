@@ -19,16 +19,25 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE Strict #-}
 
+module ParserTest (parserTest) where
+
+import Test.HUnit
 import Prelude ()
 import VtUtils.Prelude
-import VtUtils.HUnit
 
-import LibTest
-import ParserTest
+import Data
+import Parser
 
-main :: IO ()
-main = hunitMain (fromList
-    [ libTest
-    , parserTest
+testParseResults :: Test
+testParseResults = TestLabel "testParseResults" $ TestCase $ do
+    res <- parseResults "test/jcstress_abridged.log"
+    assertEqual "passed" 4875 $ passedCount (res :: Results)
+    assertEqual "interesting" 5 $ length (interesting res)
+    assertEqual "failed" 0 $ length (failed res)
+    assertEqual "errored" 0 $ length (errored res)
+    return ()
+
+parserTest :: Test
+parserTest = TestLabel "ParserTest" (TestList
+    [ testParseResults
     ])
-

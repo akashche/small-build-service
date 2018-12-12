@@ -23,7 +23,6 @@ module Wilton ( ) where
 
 import Prelude ()
 import VtUtils.Prelude
-import qualified Data.Vector as Vector
 import qualified System.Directory as Directory
 
 import SBS.Common.Data
@@ -65,7 +64,7 @@ run arguments = do
 
 diff :: Vector Text -> IO ()
 diff arguments = do
-    when (3 /= Vector.length arguments)
+    when (3 /= length arguments)
         (error "Invalid arguments specified, expected: [path/to/config.json, taskId1, taskId2]")
     (cf, db, _) <- initApp arguments
     let tid1 = (read . unpack) (arguments ! 1) :: Int64

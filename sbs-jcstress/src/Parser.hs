@@ -25,7 +25,6 @@ module Parser
 
 import Prelude ()
 import VtUtils.Prelude
-import qualified Data.List as List
 
 import SBS.Common.Parsec
 
@@ -55,7 +54,7 @@ listOfTests header prefix = do
     parsecSkipManyTill "\n"
     parsecWhitespace
     list <- scan
-    let lenList = List.length list
+    let lenList = length list
     when (lenList /= len) ((error . unpack)
         (  "Wrong number of tests parsed,"
         <> " expected: [" <> (textShow len) <> "]"

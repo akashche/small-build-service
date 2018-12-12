@@ -29,7 +29,6 @@ module DB
 
 import Prelude ()
 import VtUtils.Prelude
-import qualified Data.Vector as Vector
 
 import SBS.Common.Data
 import SBS.Common.Queries
@@ -75,9 +74,9 @@ saveResults db qrs jid res = do
     dbExecute db (mapGet qrs "insertResult") (object
         [ "id" .= idx
         , "passed" .= passedCount (res :: Results)
-        , "interesting" .= Vector.length (interesting res)
-        , "failed" .= Vector.length (failed res)
-        , "error" .= Vector.length (errored res)
+        , "interesting" .= length (interesting res)
+        , "failed" .= length (failed res)
+        , "error" .= length (errored res)
         , "jobId" .= jid
         ])
 

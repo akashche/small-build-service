@@ -101,8 +101,8 @@ resolveDestDir paths base = do
     return res
     where
         filfun el = Text.length el > 0
-        nonempty parts = List.filter filfun parts
-        tail parts = List.drop ((List.length parts) - 2) parts
+        nonempty parts = mfilter filfun parts
+        tail parts = List.drop ((length parts) - 2) parts
         conc parts = (List.head parts) <> "_" <> (List.last parts)
         dest url rev = (conc (tail (nonempty (Text.splitOn "/" url)))) <> "_" <> rev
 

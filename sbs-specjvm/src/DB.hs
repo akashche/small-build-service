@@ -29,7 +29,6 @@ module DB
 
 import Prelude ()
 import VtUtils.Prelude
-import qualified Data.Vector as Vector
 
 import SBS.Common.Data
 import SBS.Common.Queries
@@ -91,7 +90,7 @@ loadResults db qrs tid = do
     vec <- dbQueryList db (mapGet qrs "selectResultsByTaskId") (object
         [ "taskId" .= tid
         ]) :: IO (Vector Value)
-    return (Vector.map mapper vec)
+    return (mapper <$> vec)
     where
         mapper val = BenchResult
             { name = jsonGet val "name" :: Text

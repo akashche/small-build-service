@@ -23,7 +23,6 @@ module Wilton ( ) where
 
 import Prelude ()
 import VtUtils.Prelude
-import qualified Data.Vector as Vector
 import qualified System.Directory as Directory
 
 import SBS.Common.Data
@@ -64,7 +63,7 @@ diff req = do
     qrs <- queriesLoad (resolveQueriesPath req "jcstress")
     res1 <- loadResults db qrs (taskId1 req)
     res2 <- loadResults db qrs (taskId2 req)
-    when (1 /= Vector.length res1 || 1 /= Vector.length res2)
+    when (1 /= length res1 || 1 /= length res2)
         ((error . unpack) "Invalid task")
     let rd = diffResultsCount (res1 ! 0) (res2 ! 0)
     let tx = formatResultsDiff rd
@@ -110,7 +109,7 @@ spawn _ = do
 
 parse :: Vector Text -> IO ()
 parse arguments = do
-    when (1 /= Vector.length arguments)
+    when (1 /= length arguments)
         ((error . unpack) "Path to jcstress output must be specified as a first and only argument")
     parsed <- parseResults (arguments ! 0)
     putStrLn (textShow parsed)
@@ -118,7 +117,7 @@ parse arguments = do
 
 summary :: Vector Text -> IO ()
 summary arguments = do
-    when (1 /= Vector.length arguments)
+    when (1 /= length arguments)
         ((error . unpack) "Path to jcstress output must be specified as a first and only argument")
     res <- parseResults (arguments ! 0)
     let sm = formatSummary res

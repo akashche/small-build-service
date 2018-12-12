@@ -29,7 +29,6 @@ module Spawn
 import Prelude ()
 import VtUtils.Prelude
 import qualified Data.Text as Text
-import qualified Data.Vector as Vector
 
 import SBS.Common.JDKBuild
 import SBS.Common.Wilton
@@ -79,7 +78,7 @@ spawnConfigureAndWait cf paths = do
     return ()
     where
         log = confOutPath (paths :: Paths)
-        args = Vector.concat [fromList
+        args = mconcat [fromList
             [ pathConcat (sourceDir (paths :: Paths)) "configure"
             , "--with-boot-jdk=" <> (bootJdkDir (paths :: Paths))
             , "--with-jtreg=" <> (jtregDir (paths :: Paths))
@@ -87,7 +86,7 @@ spawnConfigureAndWait cf paths = do
             ], additionalConfigureArguments cf]
         folder ac el = ac <> " " <> el
         -- https://help.appveyor.com/discussions/problems/4150-0-bad-file-descriptor-error-running-configure
-        argsstr = "cat /dev/null | bash " <> (Vector.foldl1' folder args)
+        argsstr = "cat /dev/null | bash " <> (foldl' folder "" args)
 
 spawnMakeAndWait :: JDKBuildConfig -> Paths -> IO ()
 spawnMakeAndWait cf paths = do

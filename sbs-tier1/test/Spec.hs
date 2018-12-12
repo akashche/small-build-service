@@ -36,7 +36,7 @@ main = do
 
     -- parse results
     res <- parseResults "test/tier1.log"
-    when (5 /= Vector.length res) (error "Parse length fail")
+    when (5 /= length res) (error "Parse length fail")
     when ("hotspot" /= name ((res ! 0) :: TestSuite)) (error "Parse fail")
     when (3934 /= pass ((res ! 2) :: TestSuite)) (error "Parse fail")
     when (12 /= fail ((res ! 1) :: TestSuite)) (error "Parse fail")
@@ -47,14 +47,14 @@ main = do
 
     -- diff
     let resNew = runST (do
-            let short = Vector.take ((Vector.length res) - 1) res
+            let short = Vector.take ((length res) - 1) res
             let modifier el = el { fail = (fail el) + 42 }
             mv <- Vector.thaw short
             MVector.modify mv modifier 0
             frozen <- Vector.freeze mv
             return frozen )
     let diff = diffTwoResults res resNew
-    when (5 /= Vector.length diff) (error "Diff length fail")
+    when (5 /= length diff) (error "Diff length fail")
     when ((-42) /= fromJust (notPassedDiff (diff ! 0))) (error "Diff fail")
     when (isJust (notPassedDiff (diff ! 4))) (error "Diff fail")
 

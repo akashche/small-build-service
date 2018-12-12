@@ -26,7 +26,6 @@ module Spawn
 import Prelude ()
 import VtUtils.Prelude
 import qualified Data.Text as Text
-import qualified Data.Vector as Vector
 
 import SBS.Common.SpecJVM
 import SBS.Common.Wilton
@@ -53,5 +52,5 @@ spawnSpecAndWait cf paths = do
         log = outputPath (paths :: Paths)
         sepNonEmpty st = if Text.length st > 0 then st <> "|" else st
         folder ac el = (sepNonEmpty ac) <> (Text.replace "." "\\." el)
-        exreg vec = Vector.foldl' folder "" vec
+        exreg vec = foldl' folder "" vec
 

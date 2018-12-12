@@ -23,7 +23,6 @@ module Wilton ( ) where
 
 import Prelude ()
 import VtUtils.Prelude
-import qualified Data.Vector as Vector
 import qualified System.Directory as Directory
 
 import SBS.Common.Data
@@ -107,7 +106,7 @@ runMock (JDKBuildInput ctx cf _) = do
 
 pathsFromArgs :: Vector Text -> Paths
 pathsFromArgs arguments =
-    if (1 /= Vector.length arguments)
+    if (1 /= length arguments)
     then ((error . unpack) "Path to application directory must be specified as a first and only argument")
     else mockPaths (arguments ! 0)
 
@@ -143,7 +142,7 @@ spawnMake arguments = do
 
 parseConf :: Vector Text -> IO ()
 parseConf arguments = do
-    when (1 /= Vector.length arguments)
+    when (1 /= length arguments)
         ((error . unpack) "Path to configure output must be specified as a first and only argument")
     cd <- parseConfOutput (arguments ! 0)
     putStrLn (textShow cd)
@@ -151,7 +150,7 @@ parseConf arguments = do
 
 parseMake :: Vector Text -> IO ()
 parseMake arguments = do
-    when (1 /= Vector.length arguments)
+    when (1 /= length arguments)
         ((error . unpack) "Path to make output must be specified as a first and only argument")
     md <- parseMakeOutput (arguments ! 0)
     putStrLn (textShow md)

@@ -45,7 +45,6 @@ import Prelude ()
 import VtUtils.Prelude
 import qualified Data.Char as Char
 import qualified Data.Text as Text
-import qualified Data.Vector as Vector
 import qualified Foreign.Wilton.FFI as WiltonFFI
 import qualified System.Directory as Directory
 import qualified Text.Parsec as Parsec
@@ -119,15 +118,15 @@ dbExecuteFile db path = do
         nonBlank tx = Text.length (Text.strip tx) > 0
         nonComment tx = not (Text.isPrefixOf "--" (Text.dropWhile Char.isSpace tx))
         validLine tx = (nonBlank tx) && (nonComment tx)
-        filterLines lines = Vector.filter validLine lines
-        validBucket buck = Vector.length buck > 0
+        filterLines lines = mfilter validLine lines
+        validBucket buck = length buck > 0
         concatBucket buck = Text.intercalate "\n" (toList buck)
         parser = do
             li <- Parsec.sepBy1 (Parsec.many1 (Parsec.noneOf [';'])) (Parsec.char ';') :: Parser [String]
             let vec = fromList li
-            let buckets = Vector.map (filterLines . liner . pack) vec
-            let filtered = Vector.filter validBucket buckets
-            let queries = Vector.map concatBucket filtered
+            let buckets = (filterLines . liner . pack) <$> vec
+            let filtered = mfilter validBucket buckets
+            let queries = concatBucket <$> filtered
             return queries
         exec qr = dbExecute db qr Empty
 --         load contents =
@@ -151,7 +150,7 @@ dbQueryObject ::
     DBConnection -> Text -> a -> IO b
 dbQueryObject db sqlQuery pars = do
     vec <- dbQueryList db sqlQuery pars
-    let len = Vector.length vec
+    let len = length vec
     when (1 /= len) ((error . unpack) (
                "Invalid number of records returned, expected 1 record,"
             <> " query: [" <> sqlQuery <> "], params: [" <> jsonEncodeText(pars) <> "],"

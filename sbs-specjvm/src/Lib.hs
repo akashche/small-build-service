@@ -32,7 +32,6 @@ import Prelude ()
 import VtUtils.Prelude
 import qualified Data.HashMap.Strict as HashMap
 import qualified Data.Text as Text
-import qualified Data.Vector as Vector
 import qualified System.Directory as Directory
 
 import SBS.Common.Data
@@ -98,12 +97,12 @@ diffResults baseline res =
         bsBase = benchmarks (baseline :: Results)
         bsRes = benchmarks (res :: Results )
         pairFolder el li = ((nm el, el) : li)
-        pairs = Vector.foldr' pairFolder [] bsRes
+        pairs = foldr' pairFolder [] bsRes
         hmap = HashMap.fromList pairs
         diffScore el1 el2 = div ((score el1) * 100) (score el2)
         diff el = fmap (diffScore el) (HashMap.lookup (nm el) hmap)
         folder el li = (BenchDiff (nm el) (diff el)  : li)
-        benches = fromList (Vector.foldr' folder [] bsBase)
+        benches = fromList (foldr' folder [] bsBase)
 
 copyNcNote :: SpecJVMConfig -> Text -> IO ()
 copyNcNote cf appd = Directory.copyFile (unpack from) (unpack to)
@@ -123,7 +122,7 @@ formatPercent num =
 
 formatResultsDiff :: ResultsDiff -> Text
 formatResultsDiff rd =
-    Vector.ifoldl' folder "" benches
+    ifoldl' folder "" benches
     where
         benches = benchmarks (rd :: ResultsDiff)
         showDiff el = case (relativeScore (el :: BenchDiff)) of

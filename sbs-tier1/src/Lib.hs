@@ -32,7 +32,6 @@ module Lib
 import Prelude ()
 import VtUtils.Prelude
 import qualified Data.HashMap.Strict as HashMap
-import qualified Data.Vector as Vector
 
 import SBS.Common.Data
 import SBS.Common.Tier1
@@ -74,11 +73,11 @@ extractSummary outp destp = do
 
 diffTwoResults :: Results -> Results -> ResultsDiff
 diffTwoResults res1 res2 =
-    fromList (Vector.foldr' folder [] res1)
+    fromList (foldr' folder [] res1)
     where
         nm el = name (el :: TestSuite)
         pairFolder el li = ((nm el, el) : li)
-        pairs = Vector.foldr' pairFolder [] res2
+        pairs = foldr' pairFolder [] res2
         hmap = HashMap.fromList pairs
         nonPassed el = (fail el) + (errored el)
         diffNonPassed el1 el2 = (nonPassed el1) - (nonPassed el2)
@@ -87,7 +86,7 @@ diffTwoResults res1 res2 =
 
 formatResultsDiff :: ResultsDiff -> Text
 formatResultsDiff rd =
-    Vector.ifoldl' folder "" rd
+    ifoldl' folder "" rd
     where
         showDiff el = case (notPassedDiff (el :: TestSuiteDiff)) of
             Just num -> textShow num
@@ -101,6 +100,6 @@ formatResultsDiff rd =
 
 totalNotPassed :: Results -> Int
 totalNotPassed res =
-    Vector.foldl' folder 0 res
+    foldl' folder 0 res
     where
         folder np el = np + (fail el) + (errored el)

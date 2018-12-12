@@ -23,7 +23,6 @@ module Wilton ( ) where
 
 import Prelude ()
 import VtUtils.Prelude
-import qualified Data.Vector as Vector
 import qualified System.Directory as Directory
 
 import SBS.Common.Data
@@ -107,7 +106,7 @@ spawn _ = do
 
 parse :: Vector Text -> IO ()
 parse arguments = do
-    when (1 /= Vector.length arguments)
+    when (1 /= length arguments)
         ((error . unpack) "Path to tier1 tests output must be specified as a first and only argument")
     parsed <- parseResults (arguments ! 0)
     putStrLn (textShow parsed)
@@ -115,7 +114,7 @@ parse arguments = do
 
 summary :: Vector Text -> IO ()
 summary arguments = do
-    when (1 /= Vector.length arguments)
+    when (1 /= length arguments)
         ((error . unpack) "Path to tier1 tests output must be specified as a first and only argument")
     parsed <- parseSummary (arguments ! 0)
     putStrLn (textShow parsed)
