@@ -52,4 +52,5 @@ tests:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
+    - HUnit
     - sbs-jdkbuild

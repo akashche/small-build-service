@@ -21,39 +21,13 @@
 
 import Prelude ()
 import VtUtils.Prelude
+import VtUtils.HUnit
 
-import SBS.Common.JDKBuild
-
-import Data
-import Lib
-import Parser
+import LibTest
+import ParserTest
 
 main :: IO ()
-main = do
-    -- parser
-    cd <- parseConfOutput "test/conf.log"
-    unless ("/home/server/tmp/jdkbuild/build" == confDirectory cd) (error "Conf parse fail")
-    md <- parseMakeOutput "test/make.log"
-    unless ("images/jdk" == imageDirRelative md) (error "Make parse fail")
-    mdOld <- parseMakeOutput "test/make_old.log"
-    unless ("images/jdk" == imageDirRelative mdOld) (error "Make parse fail")
-
-    -- paths
-    let cf = mockConfig { workDir = "work" } :: JDKBuildConfig
-    let paths = resolvePaths (mockCtx "/appdir") cf
-    unless ("/appdir/work" == workDir (paths :: Paths)) (error "Paths workDir fail")
-    unless ("/appdir/jdk" == sourceDir (paths :: Paths)) (error "Paths sourceDir fail")
-    unless ("/appdir/jdk" == buildDir (paths :: Paths)) (error "Paths buildDir fail")
-    unless ("/appdir/bootjdk" == bootJdkDir (paths :: Paths)) (error "Paths bootJdkDir fail")
-    unless ("/appdir/jtreg" == jtregDir (paths :: Paths)) (error "Paths jtregDir fail")
-    unless ("/usr/bin/hg" == hgPath (paths :: Paths)) (error "Paths hgPath fail")
-    unless ("/bin/bash" == bashPath (paths :: Paths)) (error "Paths bashPath fail")
-    unless ("/usr/bin/make" == makePath (paths :: Paths)) (error "Paths makePath fail")
-    unless ("/appdir/work/conf.log" == confOutPath (paths :: Paths)) (error "Paths confOutPath fail")
-    unless ("/appdir/work/make.log" == makeOutPath (paths :: Paths)) (error "Paths makeOutPath fail")
-    unless ("/appdir/mock" == mockOutputDir (paths :: Paths)) (error "Paths mockOutputDir fail")
-    unless ("/appdir/queries/queries-jdkbuild.sql" == queriesPath (paths :: Paths)) (error "Paths queriesPath fail")
-
-    putStrLn "Tests Passed."
-    return ()
-
+main = hunitMain (fromList
+    [ libTest
+    , parserTest
+    ])

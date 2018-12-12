@@ -19,15 +19,32 @@
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE Strict #-}
 
+module ParserTest (parserTest) where
+
+import Test.HUnit
 import Prelude ()
 import VtUtils.Prelude
-import VtUtils.HUnit
 
-import LibTest
-import ParserTest
+import Data
+import Parser
 
-main :: IO ()
-main = hunitMain (fromList
-    [ libTest
-    , parserTest
+testParseConfOutput :: Test
+testParseConfOutput = TestLabel "testParseConfOutput" $ TestCase $ do
+    cd <- parseConfOutput "test/conf.log"
+    assertEqual "conf dir" "/home/server/tmp/jdkbuild/build" $
+        confDirectory cd
+    return ()
+
+testParseMakeOutput :: Test
+testParseMakeOutput = TestLabel "testParseMakeOutput" $ TestCase $ do
+    md <- parseMakeOutput "test/make.log"
+    assertEqual "make dir" "images/jdk" $ imageDirRelative md
+    mdOld <- parseMakeOutput "test/make_old.log"
+    assertEqual "make dir old" "images/jdk" $ imageDirRelative mdOld
+    return ()
+
+parserTest :: Test
+parserTest = TestLabel "ParserTest" (TestList
+    [ testParseConfOutput
+    , testParseMakeOutput
     ])
